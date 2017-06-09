@@ -95,15 +95,8 @@ class PembelianController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $detail = DetailPembelian::where('id_bahan', $id)->get();
-        foreach ($detail as $value) {
-            $pembelian = Pembelian::find($value->id_pembelian);
-            $pembelian->total = $pembelian->total - $value->subtotal;
-            $pembelian->save();
-        }
 
-        DetailPembelian::where('id_bahan', $id)->delete();
-        $data = Bahan::where('id', $id)->delete();
+        $data = Pembelian::where('id', $id)->delete();
 
         $notification = array(
             'message' => 'Data berhasil dihapus',

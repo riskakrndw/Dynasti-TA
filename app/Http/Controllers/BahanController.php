@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Bahan;
+use App\Pembelian;
+use App\DetailPembelian;
 
 class BahanController extends Controller
 {
@@ -108,6 +110,15 @@ class BahanController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        
+        $detail = DetailPembelian::where('id_bahan', $id)->get();
+        foreach ($detail as $value) {
+            $pembelian = Pembelian::find($value->id_pembelian);
+            $pembelian->total = $pembelian->total - $value->subtotal;
+            $pembelian->save();
+        }
+
+        DetailPembelian::where('id_bahan', $id)->delete();
         $data = Bahan::where('id', $id)->delete();
 
         $notification = array(
@@ -115,5 +126,6 @@ class BahanController extends Controller
             'alert-type' => 'error'
         );
         return redirect()->back()->with($notification);
+
     }
 }
