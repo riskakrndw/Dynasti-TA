@@ -48,19 +48,11 @@
               </ul>
 
               <!-- Form tambah es -->
-                <form role="form" action="" method="">
+                <form role="form" action="" method="post">
                   {{csrf_field()}}
                   <div class="box-body">
-                    <div class="col-md-12">
-                      <label>Nama Ice Cream</label>
-                      <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                        <input class="form-control" placeholder="Nama Ice Cream" name="nama" id="nama" value="{{ $data->nama }}">
-                      </div>
-                      @if($errors->has('nama'))
-                        <span class="help-block">{{$errors->first('nama')}}</span>
-                      @endif
-                    </div>
+                    <input class="form-control" type="hidden" name="ides" id="ides" value="{{ $data->id }}">
+                    <input class="form-control" type="hidden" name="nama" id="nama" value="{{ $data->nama }}">
                     <div class="col-md-6">
                       <div class="form-group">
                         <br>
@@ -142,6 +134,9 @@
                 <div class="col-xs-4">
                   <input type="hidden" class="form-control" id="namaBahan" placeholder="Nama Bahan">
                 </div>
+                <div class="col-xs-3">
+                  <input type="text" class="form-control" id="satuanBahan" placeholder="Satuan" disabled>
+                </div>
                 <input class="form-control" type="hidden" name="idBahan" id="idBahan" value="">
                 <div class="col-xs-3">
                   <input type="text" class="form-control" id="jumlahBahan" placeholder="Jumlah yang dibutuhkan" onKeyPress="return goodchars(event,'0123456789',this)">
@@ -160,6 +155,7 @@
                         <th style="width:50px">No</th>
                         <th style="width: 325px">Nama Bahan</th>
                         <th style="width: 175px">Jumlah</th>
+                        <th style="width: 200px">Satuan</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
@@ -174,6 +170,7 @@
                             <td>{{ $no++ }}</td>
                             <td>{{ $detailBahan->bahan->nama }}</td>
                             <td id="{{ $nama }}">{{ $detailBahan->takaran }}</td>
+                            <td>{{ $detailBahan->bahan->satuan }}</td>
                             <td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td>
                           </tr>
                       @endforeach
@@ -276,6 +273,7 @@
           $.get('/dynasti/public/api/namaBahan/'+$('#namaBahan').val(),
             function(hasil){
               var nama = hasil;
+              var satuan = $('#satuanBahan').val();
               var jumlah = $('#jumlahBahan').val();
               var Subtotal = parseInt(harga) * parseInt(jumlah);
               var namadb  = "#" + nama.replace(/\s/g,'');
@@ -286,10 +284,11 @@
               }
               else{
                 nomorBaris = nomorBaris + 1;
-                $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td>'+satuan+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
               }
               $('#namaBahan').val('');
               $('#jumlahBahan').val('');
+              $('#satuanBahan').val('');
             }
           )
         }
@@ -316,6 +315,7 @@
         $.get('/dynasti/public/api/bahan/'+$('#namaBahan').val(),
           function(hasil){
             $('#idBahan').val(hasil.id);
+            $('#satuanBahan').val(hasil.satuan);
           }
         ) //ngambil value nama
 
@@ -324,6 +324,7 @@
       //save multi record to db
       $('#submit').on('click', function(){
         var nama = $('#nama').val();
+        var ides = $('#ides').val();
         var listJenis = $('#listJenis').val();
         var harga = $('#harga').val();
         var listRasa = $('#listRasa').val();
@@ -340,33 +341,35 @@
           var col0_value = currentRow.find("td:eq(0)").text();
           var col1_value = currentRow.find("td:eq(1)").text();
           var col2_value = currentRow.find("td:eq(2)").text();
+          var col3_value = currentRow.find("td:eq(3)").text();
 
           var obj={};
           obj.no = col0_value;
           obj.nama_bahan = col1_value;
           obj.jumlah = col2_value;
+          obj.satuan = col3_value;
 
           arrData.push(obj);
         });
   
-        var ideskrim = {{ $data->id }};
+        var ides = {{ $data->id }};
  
         function a(){
           for (var i=0; i<arrData.length; i++){
             $.ajax({
-              type: "GET",
-              url: "/dynasti/public/icecream/simpan1/"+ideskrim+"/"+arrData[i]['nama_bahan']+"/"+arrData[i]['jumlah'],
+              type: "POST",
+              url: "http://localhost:8081/dynasti/public/icecream/ubah1",
+              data:'ides=' + ides + '& nama_bahan=' + arrData[i]['nama_bahan'] + '& jumlah =' + arrData[i]['jumlah'] + '& satuan =' + arrData[i]['satuan'] +'& _token='+"{{csrf_token()}}",
               success: function(result) {
-                console.log('berhasil');
               }
             });
           }
         };
 
-        
           $.ajax({
-              type: "GET",
-              url: "/dynasti/public/icecream/ubah/"+ideskrim+"/"+nama+"/"+harga+"/"+stok+"/"+jumlahProduksi+"/"+listJenis+"/"+listRasa,
+              type: "POST",
+              url: "http://localhost:8081/dynasti/public/icecream/ubah",
+              data:'ides=' + ides + '& nama=' + nama + '& harga = ' + harga + '& stok = ' + stok + '& jumlahProduksi = ' + jumlahProduksi + '& listRasa = ' + listRasa + '& listJenis = ' + listJenis+'& _token='+"{{csrf_token()}}",
               success: function(result) {
 
               }
@@ -374,16 +377,18 @@
         
 
         $.ajax({
-              type: "GET",
-              url: "/dynasti/public/icecream/hapusDetailBahan/"+ideskrim,
+              type: "POST",
+              url: "http://localhost:8081/dynasti/public/icecream/hapusDetailBahan",
+              data: 'ides=' + ides +'& _token='+"{{csrf_token()}}",
               success: function(result) {
                console.log(result);
               }
           }).done(a);
-
+/*
         $(document).ajaxComplete(function(){
           window.location="{{URL::to('icecream')}}";
-        });
+        });*/
+
       });
     });
   </script>

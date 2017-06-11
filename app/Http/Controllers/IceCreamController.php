@@ -31,7 +31,7 @@ class IceCreamController extends Controller
         return view('admin.ice_cream_tambah')->with('dataJenis', $dataJenis)->with('dataRasa', $dataRasa);
     }
 
-    public function store($nama, $harga, $stok, $jumlah_produksi, $listJenis, $listRasa)
+    public function store(Request $request)
     {
         /*$this->validate($request, [
             'nama' => 'required|min:2|max:50',
@@ -40,21 +40,24 @@ class IceCreamController extends Controller
             'total' => 'required',
             'jumlahProduksi' => 'required|max:10',
         ]);*/
-
+        $rasa=Rasa::find($request->listRasa_);
+        $jenis=Jenis::find($request->listJenis_);
+        $nama='Ice Cream '.$jenis->nama.' '.$rasa->nama;
+       
         $data = new IceCream;
         $data->nama = $nama;
-        $data->harga = $harga;
-        $data->stok = $stok;
-        $data->jumlah_produksi = $jumlah_produksi;
-        $data->id_jenis = $listJenis;
-        $data->id_rasa = $listRasa;
+        $data->harga = $request->harga_;
+        $data->stok = $request->stok_;
+        $data->jumlah_produksi = $request->jumlahProduksi_;
+        $data->id_jenis = $request->listJenis_;
+        $data->id_rasa = $request->listRasa_;
         $data->save();
 
         return $data->id;
 
     }
 
-    public function store1($id_es, $namabahan, $takaran)
+    public function store1(Request $request)
     {
         /*$this->validate($request, [
             'nama' => 'required|min:2|max:50',
@@ -63,12 +66,14 @@ class IceCreamController extends Controller
             'total' => 'required',
             'jumlahProduksi' => 'required|max:10',
         ]);*/   
-        
-        $idbahan = Bahan::where('nama', '=', $namabahan)->first()->id;
+        $ides= IceCream::max('id');
+
+        $idbahan = Bahan::where('nama', '=', $request->nama_bahan)->first();
         $datadetail = new DetailBahan;
-        $datadetail->id_es = $id_es;
-        $datadetail->id_bahan = $idbahan;
-        $datadetail->takaran = $takaran;
+        $datadetail->id_es = $ides;
+        $datadetail->id_bahan = $idbahan['id'];
+        $datadetail->takaran = $request->jumlah_;
+        $datadetail->satuan = $request->satuan_;
         $datadetail->save();
 
     }
@@ -78,7 +83,7 @@ class IceCreamController extends Controller
         $data = IceCream::find($id);
     }
 
-    public function ubah($id_eskrim, $nama, $harga, $stok, $jumlah_produksi, $listJenis, $listRasa)
+    public function ubah(Request $request)
     {
         /*$this->validate($request, [
             'nama' => 'required|min:2|max:50',
@@ -87,21 +92,26 @@ class IceCreamController extends Controller
             'total' => 'required',
             'jumlahProduksi' => 'required|max:10',
         ]);*/
+        $rasa=Rasa::find($request->listRasa_);
+        $jenis=Jenis::find($request->listJenis_);
+        $nama='Ice Cream '.$jenis->nama.' '.$rasa->nama;
+        
+        $ides= IceCream::max('id');
 
-        $data = IceCream::find($id_eskrim);
+        $data = IceCream::find($ides);
         $data->nama = $nama;
-        $data->harga = $harga;
-        $data->stok = $stok;
-        $data->jumlah_produksi = $jumlah_produksi;
-        $data->id_jenis = $listJenis;
-        $data->id_rasa = $listRasa;
+        $data->harga = $request->harga_;
+        $data->stok = $request->stok_;
+        $data->jumlah_produksi = $request->jumlahProduksi_;
+        $data->id_jenis = $request->listJenis_;
+        $data->id_rasa = $request->listRasa_;
         $data->save();
 
         return $data->id;
 
     }
 
-    public function ubah1($id_es, $id_detailbahan, $namabahan, $takaran)
+    public function ubah1(Request $request)
     {
         /*$this->validate($request, [
             'nama' => 'required|min:2|max:50',
@@ -111,12 +121,14 @@ class IceCreamController extends Controller
             'jumlahProduksi' => 'required|max:10',
         ]);*/   
         
-        $idbahan = Bahan::where('nama', '=', $namabahan)->first()->id;
-        $datadetail = DetailBahan::find($id_detailbahan);
-        $datadetail->id_es = $id_es;
-        $datadetail->id = $id_detailbahan;
-        $datadetail->id_bahan = $idbahan;
-        $datadetail->takaran = $takaran;
+        $ides = $request->ides;
+
+        $idbahan = Bahan::where('nama', '=', $request->nama_bahan)->first();
+        $datadetail = new DetailBahan;
+        $datadetail->id_es = $ides;
+        $datadetail->id_bahan = $idbahan['id'];
+        $datadetail->takaran = $request->jumlah_;
+        $datadetail->satuan = $request->satuan_;
         $datadetail->save();
 
     }
@@ -137,9 +149,10 @@ class IceCreamController extends Controller
         return view('admin.ice_cream_detail')->with('data', $data)->with(compact('dataJenis', $dataJenis, 'dataRasa', $dataRasa));
     }
 
-    public function hapusDetailBahan($id)
+    public function hapusDetailBahan(Request $request)
     {
-        $data = DetailBahan::where('id_es', '=', $id)->delete();
+        $data = DetailBahan::where('id_es', '=', $request->id);
+        $data->delete();
         return "berhasil";
     }
 

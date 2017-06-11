@@ -53,16 +53,17 @@ Route::get('/api/namaIceCream/{id}', 'IceCreamApiController@reqNamaIceCream')->n
 	/*menampilkan form tambah*/
 		Route::get('/icecream/tambah', 'IceCreamController@tambah')->name('tambahEs');
 	/*melakukan create*/
-		Route::get('/icecream/simpan/{nama}/{harga}/{stok}/{jumlah_produksi}/{id_jenis}/{id_rasa}', 'IceCreamController@store');
-		Route::get('/icecream/simpan1/{id_es}/{namabahan}/{takaran}', 'IceCreamController@store1');
+		Route::post('/icecream/simpan', 'IceCreamController@store');
+		Route::post('/icecream/simpan1', 'IceCreamController@store1');
 	/*melakukan delete*/
 		Route::get('/icecream/hapus/{id}', 'IceCreamController@destroy')->name('hapusIceCream');
 	/*melakukan lihat detail*/
 		Route::get('/icecream/lihat/{id}', 'IceCreamController@show');
 	/*melakukan ubah*/
-		Route::get('/icecream/hapusDetailBahan/{id}', 'IceCreamController@hapusDetailBahan')->name('hapusDetailBahan');
+		Route::post('/icecream/hapusDetailBahan', 'IceCreamController@hapusDetailBahan')->name('hapusDetailBahan');
 		Route::get('/icecream/edit/{id}', 'IceCreamController@showEdit');
-		Route::get('/icecream/ubah/{id_eskrim}/{nama}/{harga}/{stok}/{jumlah_produksi}/{id_jenis}/{id_rasa}', 'IceCreamController@ubah');
+		Route::post('/icecream/ubah', 'IceCreamController@ubah');
+		Route::post('/icecream/ubah1', 'IceCreamController@ubah1');
 
 //pembelian
 	/*menampilkan halaman pembelian*/

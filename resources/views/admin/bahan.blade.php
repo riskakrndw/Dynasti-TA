@@ -44,23 +44,36 @@
                 <form role="form" action="{{url('bahan/simpan')}}" method="POST" id="formID">
                   {{csrf_field()}}
                   <div class="box-body">
-                    <div class="col-md-12">
-                      <label>Nama Bahan</label>
-                      <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                        <input class="form-control" placeholder="Nama Bahan" name="nama">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Nama Bahan</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <input class="form-control" placeholder="Nama Bahan" name="nama">
+                        </div>
+                        @if($errors->has('nama'))
+                          <span class="help-block">Nama bahan minimal 2 karakter</span>
+                        @endif
                       </div>
-                      @if($errors->has('nama'))
-                        <span class="help-block">Nama bahan minimal 2 karakter</span>
-                      @endif
-                      <br>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Harga</label>
+                        <label>Satuan</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-balance-scale"></i></span>
+                          <input class="form-control" placeholder="Satuan" name="satuan">
+                        </div>
+                        @if($errors->has('satuan'))
+                          <span class="help-block">Satuan harus diisi</span>
+                        @endif
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Harga Satuan</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i><b>$</b></i></span>
-                          <input class="form-control" placeholder="Harga" name="harga" type="text" onKeyPress="return goodchars(event,'0123456789',this)">
+                          <input class="form-control" placeholder="Harga Satuan" name="harga" type="text" onKeyPress="return goodchars(event,'0123456789',this)">
                         </div>
                         @if($errors->has('harga'))
                           <span class="help-block">Harus diisi</span>
@@ -107,9 +120,10 @@
                 <table id="example1" class="table table-bordered table-hover">
                   <thead>
                     <tr>
-                      <th style="width: 50px">No</th>
-                      <th style="width: 400px">Nama Bahan</th>
-                      <th style="width: 200px">Harga</th>
+                      <th style="width: 30px">No</th>
+                      <th style="width: 250px">Nama Bahan</th>
+                      <th style="width: 110px">Satuan</th>
+                      <th style="width: 180px">Harga Satuan</th>
                       <th style="width: 100px">Stok</th>
                       <th>Aksi</th>
                     </tr>
@@ -120,10 +134,11 @@
                     <tr>
                       <td>{{ $no++ }}</td>
                       <td>{{ $data->nama }}</td>
+                      <td>{{ $data->satuan }}</td>
                       <td>{{ $data->harga }}</td>
                       <td>{{ $data->stok }}</td>
                       <td>
-                        <button type="button" class="btn btn-sm btn-default btnEditBahan" data-toggle="modal" data-target="" data-id="{{$data->id}}" data-nama="{{$data->nama}}" data-harga="{{$data->harga}}" data-stok="{{$data->stok}}"<i class="fa fa-edit"></i> Ubah</button>
+                        <button type="button" class="btn btn-sm btn-default btnEditBahan" data-toggle="modal" data-target="" data-id="{{$data->id}}" data-nama="{{$data->nama}}" data-satuan="{{$data->satuan}}" data-harga="{{$data->harga}}" data-stok="{{$data->stok}}"<i class="fa fa-edit"></i> Ubah</button>
                         <a type="button" href="{{route('hapusBahan', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button>
                       </td>
                     </tr>
@@ -151,10 +166,19 @@
                     <span class="help-block">Nama bahan minimal 2 karakter</span>
                   @endif
                   <br>
+                  <label>Satuan</label>
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-balance-scale"></i></span>
+                    <input class="form-control" placeholder="Satuan" id="satuanBahan" name="satuan" value="">
+                  </div>
+                  @if($errors->has('stok'))
+                    <span class="help-block">Harus diisi</span>
+                  @endif
+                  <br>
                   <label>Harga</label>
                   <div class="input-group">
                     <span class="input-group-addon"><i><b>$</b></i></span>
-                    <input class="form-control" placeholder="Harga" id="hargaBahan" name="harga" type="text" onKeyPress="return goodchars(event,'0123456789',this)">
+                    <input class="form-control" placeholder="Harga Satuan" id="hargaBahan" name="harga" type="text" onKeyPress="return goodchars(event,'0123456789',this)">
                   </div>
                   @if($errors->has('harga'))
                     <span class="help-block">Harus diisi</span>
@@ -201,6 +225,7 @@
     $(document).ready(function(){
       $(".btnEditBahan").click(function(){
         $('#namaBahan').val($(this).data('nama'));
+        $('#satuanBahan').val($(this).data('satuan'));
         $('#hargaBahan').val($(this).data('harga'));
         $('#stokBahan').val($(this).data('stok'));
         $('#idBahan').val($(this).data('id'));

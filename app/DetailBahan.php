@@ -9,7 +9,7 @@ class DetailBahan extends Model
     protected $table = "detail_bahan";
 
     protected $fillable = [
-    	'id_bahan', 'id_es', 'takaran',
+    	'id_bahan', 'id_es', 'takaran', 'satuan',
     ];
 
     public function ice_cream(){

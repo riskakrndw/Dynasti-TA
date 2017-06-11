@@ -125,6 +125,7 @@
                         <th style="width:50px">No</th>
                         <th style="width: 325px">Nama Bahan</th>
                         <th style="width: 175px">Jumlah</th>
+                        <th style="width: 200px">Satuan</th>
                       </tr>
                     </thead>
                     <tbody id="type_container">
@@ -135,6 +136,7 @@
                           <td>{{ $no++ }}</td>
                           <td>{{ $detailBahan->bahan->nama }}</td>
                           <td id="{{ $detailBahan->bahan->nama }}">{{ $detailBahan->takaran }}</td>
+                          <td>{{ $detailBahan->bahan->satuan }}</td>
                         </tr>
                       @endforeach
                     </tbody>

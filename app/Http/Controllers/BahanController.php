@@ -42,6 +42,7 @@ class BahanController extends Controller
             'nama' => 'required|min:2|max:50',
             'harga' => 'required|max:10',
             'stok' => 'required|max:20',
+            'satuan' => 'required|max:30',
 
         ]);
 
@@ -49,6 +50,7 @@ class BahanController extends Controller
         $data->nama = $request->nama;
         $data->harga = $request->harga;
         $data->stok = $request->stok;
+        $data->satuan = $request->satuan;
         $data->save();
 
         $notification = array(
@@ -93,6 +95,7 @@ class BahanController extends Controller
         $data->nama = $request->nama;
         $data->harga = $request->harga;
         $data->stok = $request->stok;
+        $data->satuan = $request->satuan;
         $data->save();
 
         $notification = array(

@@ -9,7 +9,7 @@ class Bahan extends Model
     protected $table = "bahan_baku";
 
     protected $fillable = [
-    	'id', 'nama', 'harga', 'stok'
+    	'id', 'nama', 'harga', 'stok', 'satuan'
     ];
 
     public function detail_bahan(){
