@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pengadaan;
 
 use Illuminate\Http\Request;
-use App\Rasa;
+use App\Http\Controllers\Controller;
 
-class RasaController extends Controller
+use App\Bahan;
+use App\Pembelian;
+use App\DetailPembelian;
+
+class BahanController extends Controller
 {
-
-    public function __construct(){
-        $this->middleware('levelManager');
-    }
-    
     /**
      * Display a listing of the resource.
      *
@@ -19,8 +18,8 @@ class RasaController extends Controller
      */
     public function index()
     {
-        $data = Rasa::all();
-        return view('admin.rasa', ['data'=>$data]);
+        $data = Bahan::all();
+        return view('admin.bahan', ['data'=>$data]);
     }
 
     /**
@@ -30,7 +29,7 @@ class RasaController extends Controller
      */
     public function create()
     {
-        return view('admin.rasa');
+        return view('admin.bahan');
     }
 
     /**
@@ -43,10 +42,17 @@ class RasaController extends Controller
     {
         $this->validate($request, [
             'nama' => 'required|min:2|max:50',
+            'harga' => 'required|max:10',
+            'stok' => 'required|max:20',
+            'satuan' => 'required|max:30',
+
         ]);
 
-        $data = new Rasa;
+        $data = new Bahan;
         $data->nama = $request->nama;
+        $data->harga = $request->harga;
+        $data->stok = $request->stok;
+        $data->satuan = $request->satuan;
         $data->save();
 
         $notification = array(
@@ -75,7 +81,7 @@ class RasaController extends Controller
      */
     public function edit($id)
     {
-        $data = Rasa::find($id);
+        $data = Bahan::find($id);
     }
 
     /**
@@ -87,8 +93,11 @@ class RasaController extends Controller
      */
     public function update(Request $request)
     {
-        $data = Rasa::find($request->id);
+        $data = Bahan::find($request->id);
         $data->nama = $request->nama;
+        $data->harga = $request->harga;
+        $data->stok = $request->stok;
+        $data->satuan = $request->satuan;
         $data->save();
 
         $notification = array(
@@ -106,12 +115,22 @@ class RasaController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $data = Rasa::where('id', $id)->delete();
+        
+        $detail = DetailPembelian::where('id_bahan', $id)->get();
+        foreach ($detail as $value) {
+            $pembelian = Pembelian::find($value->id_pembelian);
+            $pembelian->total = $pembelian->total - $value->subtotal;
+            $pembelian->save();
+        }
+
+        DetailPembelian::where('id_bahan', $id)->delete();
+        $data = Bahan::where('id', $id)->delete();
 
         $notification = array(
             'message' => 'Data berhasil dihapus',
             'alert-type' => 'error'
         );
         return redirect()->back()->with($notification);
+
     }
 }

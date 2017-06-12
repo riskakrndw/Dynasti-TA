@@ -7,6 +7,11 @@ use App\DetailBahan;
 
 class DetailBahanController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('levelManager');
+    }
+    
     /**
      * Display a listing of the resource.
      *

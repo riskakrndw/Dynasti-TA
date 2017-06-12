@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Keuangan;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 use App\Pembelian;
 use App\DetailPembelian;
@@ -12,10 +13,9 @@ class PembelianController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('levelManager');
+        $this->middleware('levelKeuangan');
     }
 
-    
     public function index()
     {
         $data = Pembelian::all();

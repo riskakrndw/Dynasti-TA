@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pengadaan;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class DetailPembelianController extends Controller
+use App\DetailBahan;
+
+class DetailBahanController extends Controller
 {
-
-    public function __construct(){
-        $this->middleware('levelManager');
-    }
-    
     /**
      * Display a listing of the resource.
      *
@@ -26,9 +24,16 @@ class DetailPembelianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+
+    public function create($id_bahan, $id_es, $takaran)
     {
-        //
+        $data = new DetailBahan;
+        $data->id_bahan = $id_bahan;
+        $data->id_es = $id_es;
+        $data->takaran = $takaran;
+        $data->save();
+
+        return $data;
     }
 
     /**

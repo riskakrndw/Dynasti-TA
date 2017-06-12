@@ -12,6 +12,10 @@ use App\Bahan;
 class IceCreamController extends Controller
 {
 
+    public function __construct(){
+        $this->middleware('levelManager');
+    }
+
     public function index()
     {
         $data = IceCream::all();
@@ -151,9 +155,10 @@ class IceCreamController extends Controller
 
     public function hapusDetailBahan(Request $request)
     {
-        $data = DetailBahan::where('id_es', '=', $request->id);
+        $data = DetailBahan::where('id_es', '=', $request->ides);
         $data->delete();
-        return "berhasil";
+        
+        return $request->ides;
     }
 
 

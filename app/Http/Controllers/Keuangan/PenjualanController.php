@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Keuangan;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 use App\Penjualan;
 use App\DetailPenjualan;
@@ -12,7 +13,7 @@ class PenjualanController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('levelManager');
+        $this->middleware('levelKeuangan');
     }
     
     public function index()

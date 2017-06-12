@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 06 Jun 2017 pada 01.31
+-- Generation Time: 11 Jun 2017 pada 20.08
 -- Versi Server: 10.1.19-MariaDB
 -- PHP Version: 5.6.24
 
@@ -31,6 +31,7 @@ CREATE TABLE `bahan_baku` (
   `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `harga` int(10) NOT NULL,
   `stok` int(10) NOT NULL,
+  `satuan` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -39,8 +40,9 @@ CREATE TABLE `bahan_baku` (
 -- Dumping data untuk tabel `bahan_baku`
 --
 
-INSERT INTO `bahan_baku` (`id`, `nama`, `harga`, `stok`, `created_at`, `updated_at`) VALUES
-(24, 'vanilla', 8000, 75, '2017-06-05 14:48:32', '2017-06-05 14:48:32');
+INSERT INTO `bahan_baku` (`id`, `nama`, `harga`, `stok`, `satuan`, `created_at`, `updated_at`) VALUES
+(28, 'es batuda', 8000, 90, 'unita', '2017-06-09 08:12:26', '2017-06-09 08:15:38'),
+(29, 'adaad', 555, 5, 'ada', '2017-06-09 21:37:19', '2017-06-09 21:37:19');
 
 --
 -- Trigger `bahan_baku`
@@ -62,9 +64,17 @@ CREATE TABLE `detail_bahan` (
   `id_bahan` int(5) NOT NULL,
   `id_es` int(5) NOT NULL,
   `takaran` double NOT NULL,
+  `satuan` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `detail_bahan`
+--
+
+INSERT INTO `detail_bahan` (`id`, `id_bahan`, `id_es`, `takaran`, `satuan`, `created_at`, `updated_at`) VALUES
+(10, 28, 158, 4, 'unita', '2017-06-11 07:59:27', '2017-06-11 07:59:27');
 
 -- --------------------------------------------------------
 
@@ -81,13 +91,6 @@ CREATE TABLE `detail_pembelian` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data untuk tabel `detail_pembelian`
---
-
-INSERT INTO `detail_pembelian` (`id`, `id_pembelian`, `id_bahan`, `jumlah`, `subtotal`, `created_at`, `updated_at`) VALUES
-(59, 18, 24, 5, 40000, '2017-06-05 14:54:36', '2017-06-05 14:54:36');
 
 --
 -- Trigger `detail_pembelian`
@@ -194,7 +197,7 @@ CREATE TABLE `ice_cream` (
 --
 
 INSERT INTO `ice_cream` (`id`, `id_jenis`, `id_rasa`, `nama`, `harga`, `stok`, `jumlah_produksi`, `created_at`, `updated_at`) VALUES
-(92, 38, 17, 'es fafafa', 4000, 86, 50, '2017-06-04 09:27:55', '2017-06-04 09:27:55');
+(158, 38, 17, 'Ice Cream stik cokelat', 9000, 60, 4, '2017-06-11 07:59:27', '2017-06-11 07:59:27');
 
 -- --------------------------------------------------------
 
@@ -280,7 +283,7 @@ CREATE TABLE `pembelian` (
 --
 
 INSERT INTO `pembelian` (`id`, `kode_pembelian`, `total`, `tgl`, `created_at`, `updated_at`) VALUES
-(18, 'sada', 75000, '2017-06-14', '2017-06-05 14:54:36', '2017-06-05 14:54:36');
+(20, 'rrrr', 0, '2017-06-14', '2017-06-06 11:08:10', '2017-06-09 07:30:25');
 
 --
 -- Trigger `pembelian`
@@ -383,6 +386,7 @@ INSERT INTO `rasa` (`id`, `nama`, `created_at`, `updated_at`) VALUES
 CREATE TABLE `users` (
   `id` int(3) UNSIGNED NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `level` enum('manager','produksi','keuangan','pengadaan') COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -394,8 +398,10 @@ CREATE TABLE `users` (
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(2, 'riska', 'riska@gmail.com', '$2y$10$dGd3oAbgIvbOFY6kLaogz.YBG/KbiWx8U4pBOn44fCq8nNKLXZKNa', 'DzxAW7eHPPOIaTWX4OCBOp8iDEmu3XXkj5f9NJPGJ1vgIfh0tJT8GO6E4ERV', '2017-05-14 22:27:46', '2017-05-14 22:27:46');
+INSERT INTO `users` (`id`, `name`, `level`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(2, 'riska', 'manager', 'riska@gmail.com', '$2y$10$dGd3oAbgIvbOFY6kLaogz.YBG/KbiWx8U4pBOn44fCq8nNKLXZKNa', 'X136ijp1IheNb98khFVjkHCt4OdS3QiWftM8NC6auH5h7GMJ5F5SRx7Ob92f', '2017-05-14 22:27:46', '2017-05-14 22:27:46'),
+(3, 'sania', 'keuangan', 'sania@gmail.com', '$2y$10$Cc0Fe925NnKZQozBBwID5.PGLJYdS3hZjzx4gdgaA3UPbHEnnxJsm', 'X2hOR5umf7HJdTFF9cA0sFLwslVVPsLWd5mDfw5L3XEH4tYXzCZAcGSmdHjq', '2017-06-11 00:39:31', '2017-06-11 00:39:31'),
+(4, 'meilida', 'pengadaan', 'meilida@gmail.com', '$2y$10$FB75z.6dgI.Yc1bDw3YVZ.kgrhgSbCkNCegR6T6tp6xwK5rbqNJdy', 'MNWBiBNybw2VH8YLM5qbcdJOurziI5UJjXcjZiBOYZey4Xq7jmdppIpDpjeC', '2017-06-11 00:53:22', '2017-06-11 00:53:22');
 
 --
 -- Indexes for dumped tables
@@ -508,17 +514,17 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bahan_baku`
 --
 ALTER TABLE `bahan_baku`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `detail_bahan`
 --
 ALTER TABLE `detail_bahan`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `detail_pembelian`
 --
 ALTER TABLE `detail_pembelian`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `detail_pemesanan`
 --
@@ -538,7 +544,7 @@ ALTER TABLE `detail_produksi`
 -- AUTO_INCREMENT for table `ice_cream`
 --
 ALTER TABLE `ice_cream`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 --
 -- AUTO_INCREMENT for table `jenis`
 --
@@ -553,7 +559,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `penjualan`
 --
@@ -573,7 +579,7 @@ ALTER TABLE `rasa`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --

@@ -36,4 +36,20 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    protected function redirectTo()
+    {
+        if(auth()->user()->level=="manager"){
+            return "/beranda";
+        }
+        elseif(auth()->user()->level=="keuangan"){
+            return "/keuangan/beranda";
+        }
+        elseif(auth()->user()->level=="produksi"){
+            return "/produksi/beranda";
+        }
+        elseif (auth()->user()->level=="pengadaan") {
+            return "/pengadaan/beranda";
+        }
+    }
 }

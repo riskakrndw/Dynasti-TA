@@ -10,6 +10,10 @@ use App\IceCream;
 
 class ProduksiController extends Controller
 {
+
+	public function __construct(){
+        $this->middleware('levelManager');
+    }
     
     public function index()
     {

@@ -384,10 +384,10 @@
                console.log(result);
               }
           }).done(a);
-/*
+
         $(document).ajaxComplete(function(){
           window.location="{{URL::to('icecream')}}";
-        });*/
+        });
 
       });
     });

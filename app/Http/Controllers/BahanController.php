@@ -9,6 +9,11 @@ use App\DetailPembelian;
 
 class BahanController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('levelManager');
+    }
+
     /**
      * Display a listing of the resource.
      *

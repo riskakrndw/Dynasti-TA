@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pengadaan;
 
 use Illuminate\Http\Request;
-use App\Rasa;
+use App\Http\Controllers\Controller;
+use App\Jenis;
 
-class RasaController extends Controller
+class JenisController extends Controller
 {
-
-    public function __construct(){
-        $this->middleware('levelManager');
-    }
-    
     /**
      * Display a listing of the resource.
      *
@@ -19,8 +15,8 @@ class RasaController extends Controller
      */
     public function index()
     {
-        $data = Rasa::all();
-        return view('admin.rasa', ['data'=>$data]);
+        $data = Jenis::all();
+        return view('admin.jenis', ['data'=>$data]);
     }
 
     /**
@@ -30,7 +26,7 @@ class RasaController extends Controller
      */
     public function create()
     {
-        return view('admin.rasa');
+        return view('admin.jenis');
     }
 
     /**
@@ -45,7 +41,7 @@ class RasaController extends Controller
             'nama' => 'required|min:2|max:50',
         ]);
 
-        $data = new Rasa;
+        $data = new Jenis;
         $data->nama = $request->nama;
         $data->save();
 
@@ -75,7 +71,7 @@ class RasaController extends Controller
      */
     public function edit($id)
     {
-        $data = Rasa::find($id);
+        $data = Jenis::find($id);
     }
 
     /**
@@ -87,7 +83,12 @@ class RasaController extends Controller
      */
     public function update(Request $request)
     {
-        $data = Rasa::find($request->id);
+
+        $this->validate($request, [
+            'nama' => 'required|min:2|max:50',
+        ]);
+        
+        $data = Jenis::find($request->id);
         $data->nama = $request->nama;
         $data->save();
 
@@ -106,7 +107,7 @@ class RasaController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $data = Rasa::where('id', $id)->delete();
+        $data = Jenis::where('id', $id)->delete();
 
         $notification = array(
             'message' => 'Data berhasil dihapus',

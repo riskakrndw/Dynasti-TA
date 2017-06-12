@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pengadaan;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Rasa;
 
 class RasaController extends Controller
 {
-
-    public function __construct(){
-        $this->middleware('levelManager');
-    }
-    
     /**
      * Display a listing of the resource.
      *
