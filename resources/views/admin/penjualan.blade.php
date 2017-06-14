@@ -54,7 +54,7 @@
                     <tr>
                       <th style="width: 10px">No</th>
                       <th style="width: 200px">Kode Penjualan</th>
-                      <th style="width: 250px">Tanggal</th>
+                      <th style="width: 200px">Tanggal</th>
                       <th style="width: 200px">Total</th>
                       <th>Aksi</th>
                     </tr>
@@ -70,7 +70,7 @@
                       <td>
                         <a href="{{ url('penjualan/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                         <a href="{{ url('penjualan/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
-                        <a type="button" href="{{route('hapusPenjualan', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button>
+                        <!-- <a type="button" href="{{route('hapusPenjualan', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
                       </td>
                     </tr>
                     @endforeach

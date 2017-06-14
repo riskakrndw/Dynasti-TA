@@ -87,6 +87,7 @@
                       <tr>
                         <th style="width:50px">No</th>
                         <th style="width: 325px">Nama Bahan</th>
+                        <th style="width: 100px">Satuan</th>
                         <th style="width: 200px">Harga</th>
                         <th style="width: 175px">Jumlah</th>
                         <th style="width: 250px">Subtotal</th>
@@ -99,6 +100,7 @@
                         <tr id="tr{{$id}}">
                           <td>{{ $no++ }}</td>
                           <td>{{ $detail_beli->bahan->nama }}</td>
+                          <td>{{ $detail_beli->bahan->satuan }}</td>
                           <td>{{ $detail_beli->bahan->harga }}</td>
                           <td id="{{ $detail_beli->bahan->nama }}">{{ $detail_beli->jumlah }}</td>
                           <td class="subTotal">{{ $detail_beli->subtotal }}</td>

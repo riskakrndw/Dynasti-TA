@@ -132,7 +132,7 @@
                           <td>{{ $detail_jual->ice_cream->rasa->nama }}</td>
                           <td>{{ $detail_jual->ice_cream->jenis->nama }}</td>
                           <td id="{{ $nama }}">{{ $detail_jual->jumlah }}</td>
-                          <td id="{{ $nama }}subTotal">{{ $detail_jual->subtotal }}</td>
+                          <td id="{{ $nama }}subTotal" class="subTotal">{{ $detail_jual->subtotal }}</td>
                           <td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td>
                         </tr>
                       @endforeach
