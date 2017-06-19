@@ -39,7 +39,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <!-- Form tambah pengguna -->
-                      <form role="form" action="{{url('pengguna/simpan')}}" method="POST">
+                      <form role="form" action="{{route('tambahPengguna')}}" method="POST">
                         {{csrf_field()}}
                         <div class="form-group">
                           <label>Nama</label>
@@ -52,12 +52,11 @@
                           @endif
                           <br>
                           <label>Pilih Level</label>
-                          <select class="form-control select2" style="width: 100%;" name="listLevel" id="listLevel">
+                          <select class="form-control select2" style="width: 100%;" name="level" id="level">
                             <option disabled="disabled" selected="selected" value="0">Pilih Level</option>
-                            
-                            <option value="">Pengadaan</option>
-                            <option value="">Keuangan</option>
-                            <option value="">Produksi</option>
+                            <option value="pengadaan">Bagian Pengadaan</option>
+                            <option value="keuangan">Bagian Keuangan</option>
+                            <option value="produksi">Bagian Produksi</option>
                             
                           </select>
                           <br>
@@ -73,7 +72,7 @@
                           <label>Password</label>
                           <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                            <input class="form-control" placeholder="Password" name="password">
+                            <input type="password" class="form-control" placeholder="Password" name="password">
                           </div>
                           @if($errors->has('password'))
                             <span class="help-block">Nama jenis minimal 2 karakter</span>
@@ -112,56 +111,70 @@
                       <tr>
                         <th style="width: 50px">No</th>
                         <th style="width: 250px">Nama</th>
-                        <th style="width: 250px">Email</th>
+                        <th style="width: 100px">Email</th>
                         <th style="width: 150px">Level</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php $no=1; ?>
+                      @foreach($data as $data)
                       <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $data->name }}</td>
+                        <td>{{ $data->email }}</td>
+                        <td>{{ $data->level }}</td>
                         <td>
-                          <button type="button" class="btn btn-sm btn-default btnEditPengguna" data-toggle="modal" data-target="" data-id="" data-nama="" <i class="fa fa-edit"></i> Ubah</button>
-                          <a type="button" href="" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button>
+                          <div class="input-group-btn">
+                            <button style="margin:10px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Ubah
+                              <span class="fa fa-caret-down"></span></button>
+                            <ul class="dropdown-menu">
+                              <li><a class="btnEditPengguna" data-toggle="modal" data-target="" data-id="{{$data->id}}" data-name="{{$data->name}}" data-email="{{$data->email}}" data-level="{{$data->level}}">Ubah Data Diri</a></li>
+                              <li class="divider"></li>
+                              <li><a href="#">Ubah Kata Sandi</a></li>
+                            </ul>
+                            <a type="button" href="{{route('hapusPengguna', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</a>
+                          </div>
+                          
                         </td>
                       </tr>
+                      @endforeach
                     </tbody>
                   </table>
                 </div>
-              <!-- /.tabel jenis -->
+              <!-- /.tabel pengguna -->
 
-              <!-- Modal edit jenis -->
-                <div id="editJenis" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
+              <!-- Modal edit pengguna -->
+                <div id="editPengguna" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Ubah Data Jenis</h4>
+                    <h4 class="modal-title">Ubah Data Pengguna</h4>
                   </div>
                   <div class="modal-body modal-primary">
-                    <form role="form" action="{{url('jenis/edit')}}" method="POST">
+                    <form role="form" action="{{url('pengguna/edit')}}" method="POST">
                       {{csrf_field()}}
                       <label>Nama</label>
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                        <input class="form-control" placeholder="Nama" name="nama">
+                        <input class="form-control" id="namaPengguna" placeholder="Nama" name="name">
                       </div>
-                      @if($errors->has('nama'))
+                      @if($errors->has('name'))
                         <span class="help-block">Nama jenis minimal 2 karakter</span>
                       @endif
                       <br>
                       <label>Pilih Level</label>
-                      <select class="form-control select2" style="width: 100%;" name="listLevel" id="listLevel">
-                        <option disabled="disabled" selected="selected" value="0">Pilih Level</option>          
-                        <option value=""></option>      
+                      <input class="form-control" id="levelManager" disabled>
+                      <select class="form-control select2" style="width: 100%;" name="level" id="levelPengguna">
+                        <option disabled="disabled" selected="selected" value="0">Pilih Level</option>
+                        <option value="pengadaan">Bagian Pengadaan</option>
+                        <option value="keuangan">Bagian Keuangan</option>
+                        <option value="produksi">Bagian Produksi</option>      
                       </select>
                       <br>
                       <label>Email</label>
                       <div class="input-group">
                         <span class="input-group-addon">@</span>
-                        <input class="form-control" placeholder="Email" name="email">
+                        <input class="form-control" id="emailPengguna" placeholder="Email" name="email">
                       </div>
                       @if($errors->has('email'))
                         <span class="help-block">Nama jenis minimal 2 karakter</span>
@@ -170,12 +183,12 @@
                       <label>Password</label>
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                        <input class="form-control" placeholder="Password" name="password">
+                        <input class="form-control" id="passwordPengguna" placeholder="Password" name="password">
                       </div>
                       @if($errors->has('password'))
                         <span class="help-block">Nama jenis minimal 2 karakter</span>
                       @endif
-                      <input class="form-control" type="hidden" name="id" id="idJenis" value="">
+                      <input class="form-control" type="hidden" name="id" id="idPengguna" value="">
                     </div>
                     <div class="modal-footer">
                       <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
@@ -204,10 +217,21 @@
 
   <script type="text/javascript">
     $(document).ready(function(){
-      $(".btnEditJenis").click(function(){
-        $('#namaJenis').val($(this).data('nama'));
-        $('#idJenis').val($(this).data('id'));
-        $('#editJenis').modal('show');
+      $(".btnEditPengguna").click(function(){
+        $('#namaPengguna').val($(this).data('name'));
+        if($(this).data('level')=="manager"){
+          $('#levelManager').val($(this).data('level'));
+          $('#levelManager').show();
+          $('#levelPengguna').hide();
+        }
+        else{
+        $('#levelPengguna').val($(this).data('level'));
+        $('#levelPengguna').show();
+        $('#levelManager').hide();
+        }
+        $('#emailPengguna').val($(this).data('email'));
+        $('#idPengguna').val($(this).data('id'));
+        $('#editPengguna').modal('show');
       });
     });
 

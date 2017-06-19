@@ -41,9 +41,9 @@ Route::get('/pengadaan/beranda', 'HomeController@index')->name('berandapeng');
 
 //pengguna
 Route::get('/manager/pengguna', 'PenggunaController@index')->name('pengguna');
-// Route::post('/manager/pengguna/simpan', 'JenisController@store');
-// Route::get('/manager/pengguna/hapus/{id}', 'JenisController@destroy')->name('hapusPengguna');
-// Route::post('/manager/pengguna/edit', 'JenisController@update');
+Route::post('/manager/pengguna/simpan', 'PenggunaController@store')->name('tambahPengguna');
+Route::get('/manager/pengguna/hapus/{id}', 'PenggunaController@destroy')->name('hapusPengguna');
+Route::post('/manager/pengguna/edit', 'PenggunaController@update');
 
 //jenis
 Route::get('/jenis', 'JenisController@index')->name('jenis');
