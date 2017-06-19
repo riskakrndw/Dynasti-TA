@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Pembelian;
 use App\DetailPembelian;
 use App\Bahan;
+use App\User;
 
 class PembelianController extends Controller
 {
@@ -29,10 +30,11 @@ class PembelianController extends Controller
         return view('admin.pembelian_tambah');
     }
 
-    public function store($kode, $datepicker, $total)
+    public function store($kode, $pengguna, $datepicker, $total)
     {
         $data = new Pembelian;
         $data->kode_pembelian = $kode;
+        $data->id_users = $pengguna;
         $data->tgl = $datepicker;
         $data->total = $total;
         $data->save();

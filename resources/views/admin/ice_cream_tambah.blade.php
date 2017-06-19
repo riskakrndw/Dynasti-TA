@@ -321,7 +321,7 @@
           arrData.push(obj);
         });
         
-       /* function a(){
+        function a(){
           for (var i=0; i<arrData.length; i++){
             $.ajax({
               type: "POST",
@@ -341,32 +341,10 @@
               }
           }).done(a);
 
-        $(document).ajaxComplete(function(){
+        $(document).ajaxStop(function(){
           window.location="{{URL::to('icecream')}}";
-        });*/
-
-         $.ajax({
-              type: "POST",
-              url: "http://localhost:8081/dynasti/public/icecream/simpan",
-              data: 'nama =' + nama + '& harga = ' + harga + '& stok = ' + stok + '& jumlahProduksi = ' + jumlahProduksi + '& listRasa = ' + listRasa + '& listJenis = ' + listJenis+'& _token='+"{{csrf_token()}}",
-              success: function(result) {
-              }
-          });
-
-
-         for (var i=0; i<arrData.length; i++){
-            $.ajax({
-              type: "POST",
-              url: "http://localhost:8081/dynasti/public/icecream/simpan1",
-              data:'nama_bahan=' + arrData[i]['nama_bahan'] + '& jumlah =' + arrData[i]['jumlah'] + '& satuan =' + arrData[i]['satuan'] +'& _token='+"{{csrf_token()}}",
-              success: function(result) {
-              }
-            });
-          }
-
-          location.href="{{URL::to('icecream')}}";
-          
-
+        });
+        
       });
     });
   </script>

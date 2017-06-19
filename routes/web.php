@@ -87,7 +87,7 @@ Route::post('/bahan/edit', 'BahanController@update');
 	/*menampilkan form tambah*/
 		Route::get('/pembelian/tambah', 'PembelianController@tambah')->name('tambahBeli');
 	/*melakukan create*/
-		Route::get('/pembelian/simpan/{kode}/{datepicker}/{total}', 'PembelianController@store');
+		Route::get('/pembelian/simpan/{kode}/{pengguna}/{datepicker}/{total}', 'PembelianController@store');
 		Route::get('/pembelian/simpan1/{idbeli}/{namabahan}/{jumlah}/{subtotal}', 'PembelianController@store1');
 	/*melakukan delete*/
 		Route::get('/pembelian/hapus/{id}', 'PembelianController@destroy')->name('hapusPembelian');

@@ -19,4 +19,8 @@ class Pembelian extends Model
     public function bahan(){
     	return $this->belongsToMany('App\Bahan');
     }
+
+    public function users(){
+        return $this->belongsTo('App\User', 'id_users');
+    }
 }

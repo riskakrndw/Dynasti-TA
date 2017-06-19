@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Data Pembelian")
+@section("title", "Data Pengadaan")
 
 @section("beli", "active")
 
@@ -16,12 +16,12 @@
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Data Pembelian
+        Data Pengadaan
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#"> Transaksi</a></li>
-        <li class="active">Data Pembelian</li>
+        <li class="active">Data Pengadaan</li>
       </ol>
     </section>
 
@@ -31,7 +31,7 @@
 
         <!-- Tambah es -->
           <div class="col-md-12">
-            <a href="{{route('tambahBeli')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Pembelian </button></a>
+            <a href="{{route('tambahBeli')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Pengadaan </button></a>
           </div>
         <!-- /Tambah es -->        
 
@@ -42,7 +42,7 @@
             <!-- header -->
               <div class="box-header">
                 <ul class="nav nav-tabs-custom">
-                  <li class="pull-left box-header"><h3 class="box-title">Daftar Pembelian</h3></li>
+                  <li class="pull-left box-header"><h3 class="box-title">Daftar Pengadaan</h3></li>
                 </ul>
               </div>
             <!-- /header -->
@@ -53,7 +53,7 @@
                   <thead>
                     <tr>
                       <th style="width: 10px">No</th>
-                      <th style="width: 200px">Kode Pembelian</th>
+                      <th style="width: 200px">Kode Pengadaan</th>
                       <th style="width: 200px">Tanggal</th>
                       <th style="width: 200px">Total</th>
                       <th>Aksi</th>

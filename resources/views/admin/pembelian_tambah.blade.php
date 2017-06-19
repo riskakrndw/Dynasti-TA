@@ -51,6 +51,7 @@
                 <form role="form" action="" method="">
                   {{csrf_field()}}
                   <div class="box-body">
+                    <input class="form-control" type="hidden" name="idPengguna" id="idPengguna" value="{{Auth::User()->id}}">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Kode Pembelian</label>
@@ -236,6 +237,7 @@
       //save multi record to db
       $('#submit').on('click', function(){
         var kode = $('#kode').val();
+        var pengguna = $('#idPengguna').val();
         var datepicker = $('#datepicker').val();
         var bulan = new Date(datepicker).getMonth()+1;
         var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
@@ -273,7 +275,7 @@
               type: "GET",
               url: "/dynasti/public/pembelian/simpan1/"+idbeli+"/"+arrData[i]['nama_bahan']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
               success: function(result) {
-                /*console.log('berhasil');*/
+                console.log('berhasil');
               }
             });
           }
@@ -281,14 +283,14 @@
 
         $.ajax({
             type: "GET",
-            url: "/dynasti/public/pembelian/simpan/"+kode+"/"+datepicker+"/"+total,
+            url: "/dynasti/public/pembelian/simpan/"+kode+"/"+pengguna+"/"+datepicker+"/"+total,
             success: function(result) {
               idbeli = result;
               console.log(idbeli)
             }
         }).done(a);
 
-        $(document).ajaxComplete(function(){
+        $(document).ajaxStop(function(){
           window.location="{{URL::to('pembelian')}}";
         });
         
