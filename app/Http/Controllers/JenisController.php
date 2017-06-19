@@ -18,11 +18,6 @@ class JenisController extends Controller
         return view('admin.jenis', ['data'=>$data]);
     }
 
-    public function create()
-    {
-        return view('admin.jenis');
-    }
-
     public function store(Request $request)
     {
         $this->validate($request, [

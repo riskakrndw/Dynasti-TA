@@ -2,7 +2,7 @@
 
 @section("title", "Pengguna")
 
-@section("pengguna", "active")
+@section("user", "active")
 
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
@@ -42,12 +42,40 @@
                       <form role="form" action="{{url('pengguna/simpan')}}" method="POST">
                         {{csrf_field()}}
                         <div class="form-group">
-                          <label>Nama Jenis</label>
+                          <label>Nama</label>
                           <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                            <input class="form-control" placeholder="Nama Jenis" name="nama">
+                            <input class="form-control" placeholder="Nama" name="name">
                           </div>
-                          @if($errors->has('nama'))
+                          @if($errors->has('name'))
+                            <span class="help-block">Nama jenis minimal 2 karakter</span>
+                          @endif
+                          <br>
+                          <label>Pilih Level</label>
+                          <select class="form-control select2" style="width: 100%;" name="listLevel" id="listLevel">
+                            <option disabled="disabled" selected="selected" value="0">Pilih Level</option>
+                            
+                            <option value="">Pengadaan</option>
+                            <option value="">Keuangan</option>
+                            <option value="">Produksi</option>
+                            
+                          </select>
+                          <br>
+                          <label>Email</label>
+                          <div class="input-group">
+                            <span class="input-group-addon">@</span>
+                            <input class="form-control" placeholder="Email" name="email">
+                          </div>
+                          @if($errors->has('email'))
+                            <span class="help-block">Nama jenis minimal 2 karakter</span>
+                          @endif
+                          <br>
+                          <label>Password</label>
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                            <input class="form-control" placeholder="Password" name="password">
+                          </div>
+                          @if($errors->has('password'))
                             <span class="help-block">Nama jenis minimal 2 karakter</span>
                           @endif
                         </div>
@@ -72,7 +100,7 @@
               <!-- header -->
                 <div class="box-header">
                   <ul class="nav nav-tabs-custom">
-                    <li class="pull-left box-header"><h3 class="box-title">Daftar Jenis</h3></li>
+                    <li class="pull-left box-header"><h3 class="box-title">Daftar Pengguna</h3></li>
                   </ul>
                 </div>
               <!-- /header -->
@@ -83,22 +111,24 @@
                     <thead>
                       <tr>
                         <th style="width: 50px">No</th>
-                        <th style="width: 700px">Nama Jenis</th>
+                        <th style="width: 250px">Nama</th>
+                        <th style="width: 250px">Email</th>
+                        <th style="width: 150px">Level</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php $no=1; ?>
-                      @foreach($data as $data)
                       <tr>
-                        <td>{{ $no++ }}</td>
-                        <td>{{ $data->nama }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td>
-                          <button type="button" class="btn btn-sm btn-default btnEditJenis" data-toggle="modal" data-target="" data-id="{{$data->id}}" data-nama="{{$data->nama}}" <i class="fa fa-edit"></i> Ubah</button>
-                          <a type="button" href="{{route('hapusJenis', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button>
+                          <button type="button" class="btn btn-sm btn-default btnEditPengguna" data-toggle="modal" data-target="" data-id="" data-nama="" <i class="fa fa-edit"></i> Ubah</button>
+                          <a type="button" href="" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button>
                         </td>
                       </tr>
-                      @endforeach
                     </tbody>
                   </table>
                 </div>
@@ -112,27 +142,49 @@
                   </div>
                   <div class="modal-body modal-primary">
                     <form role="form" action="{{url('jenis/edit')}}" method="POST">
-                    {{csrf_field()}}
-                    <label>Nama Jenis</label>
-                    <div class="input-group">
-                      <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                      <input class="form-control" id="namaJenis" name="nama" placeholder="Nama Jenis" value="">
+                      {{csrf_field()}}
+                      <label>Nama</label>
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                        <input class="form-control" placeholder="Nama" name="nama">
+                      </div>
+                      @if($errors->has('nama'))
+                        <span class="help-block">Nama jenis minimal 2 karakter</span>
+                      @endif
+                      <br>
+                      <label>Pilih Level</label>
+                      <select class="form-control select2" style="width: 100%;" name="listLevel" id="listLevel">
+                        <option disabled="disabled" selected="selected" value="0">Pilih Level</option>          
+                        <option value=""></option>      
+                      </select>
+                      <br>
+                      <label>Email</label>
+                      <div class="input-group">
+                        <span class="input-group-addon">@</span>
+                        <input class="form-control" placeholder="Email" name="email">
+                      </div>
+                      @if($errors->has('email'))
+                        <span class="help-block">Nama jenis minimal 2 karakter</span>
+                      @endif
+                      <br>
+                      <label>Password</label>
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                        <input class="form-control" placeholder="Password" name="password">
+                      </div>
+                      @if($errors->has('password'))
+                        <span class="help-block">Nama jenis minimal 2 karakter</span>
+                      @endif
+                      <input class="form-control" type="hidden" name="id" id="idJenis" value="">
                     </div>
-                    @if($errors->has('nama'))
-                            <span class="help-block">Nama jenis minimal 2 karakter</span>
-                          @endif
-                    <input class="form-control" type="hidden" name="id" id="idJenis" value="">
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-
-                  </div>
-                </form>
+                    <div class="modal-footer">
+                      <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                  </form>
                 </div>
               </div>
-              <!-- /Modal edit jenis -->
-
+            <!-- /Modal edit jenis -->
             </div>
           </div>
         <!-- /Data jenis -->
