@@ -51,6 +51,7 @@
                 <form role="form" action="" method="">
                   {{csrf_field()}}
                   <div class="box-body">
+                    <input class="form-control" type="hidden" name="idPengguna" id="idPengguna" value="{{Auth::User()->id}}">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Kode Penjualan</label>
@@ -173,7 +174,9 @@
       var doc = $(document);
       jQuery('.btnTambahEs').die('click').live('click', function(e) {
         e.preventDefault();
-        if($('#jumlahEs').val() > $('#stokEs').val()){
+        console.log($('#stokEs').val())
+        console.log($('#jumlahEs').val())
+        if(parseInt($('#jumlahEs').val()) > parseInt($('#stokEs').val())){
           alert("stok tidak mencukupi");
         }
         else{
@@ -213,6 +216,7 @@
                 var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
                 var totalHargaBaru = totalHargaLama + Subtotal;
                 document.getElementById('totalHarga').value = totalHargaBaru;
+
               }
             )
           }
@@ -244,7 +248,12 @@
         $.get('/dynasti/public/api/icecream/'+$('#namaEs').val(),
           function(hasil){
             $('#idEs').val(hasil[0]);
+            if($('#'+hasil[2].replace(/\s/g,'')).length){
+              $('#stokEs').val(hasil[1]-$('#'+hasil[2].replace(/\s/g,'')).text());  
+            }
+            else{
             $('#stokEs').val(hasil[1]);
+            }
             $('#namaEs').val(hasil[2]);
             $('#hargaEs').val(hasil[3]);
             $('#jenisEs').val(hasil[4]);
@@ -257,6 +266,7 @@
       //save multi record to db
       $('#submit').on('click', function(){
         var kode = $('#kode').val();
+        var pengguna = $('#idPengguna').val();
         var datepicker = $('#datepicker').val();
         var bulan = new Date(datepicker).getMonth()+1;
         var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
@@ -306,14 +316,14 @@
 
         $.ajax({
             type: "GET",
-            url: "/dynasti/public/penjualan/simpan/"+kode+"/"+datepicker+"/"+total,
+            url: "/dynasti/public/penjualan/simpan/"+kode+"/"+pengguna+"/"+datepicker+"/"+total,
             success: function(result) {
               idjual = result;
               /*console.log(idjual)*/
             }
         }).done(a);
 
-        $(document).ajaxComplete(function(){
+        $(document).ajaxStop(function(){
           window.location="{{URL::to('penjualan')}}";
         });
         

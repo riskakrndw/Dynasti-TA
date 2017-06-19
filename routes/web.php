@@ -104,7 +104,7 @@ Route::post('/bahan/edit', 'BahanController@update');
 	/*menampilkan form tambah*/
 		Route::get('/penjualan/tambah', 'PenjualanController@tambah')->name('tambahJual');
 	/*melakukan create*/
-		Route::get('/penjualan/simpan/{kode}/{datepicker}/{total}', 'PenjualanController@store');
+		Route::get('/penjualan/simpan/{kode}/{pengguna}/{datepicker}/{total}', 'PenjualanController@store');
 		Route::get('/penjualan/simpan1/{idjual}/{namaes}/{jumlah}/{subtotal}', 'PenjualanController@store1');
 	/*melakukan delete*/
 		Route::get('/penjualan/hapus/{id}', 'PenjualanController@destroy')->name('hapusPenjualan');

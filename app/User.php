@@ -27,7 +27,13 @@ class User extends Authenticatable
         $this->attributes['password']=bcrypt($value);
     }
 
-    public function pembelian(){
+    public function pembelian()
+    {
         return $this->hasMany('App\Pembelian', 'id_users');
+    }
+
+    public function penjualan()
+    {
+        return $this->hasMany('App\Penjualan', 'id_users');
     }
 }

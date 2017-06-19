@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Penjualan;
 use App\DetailPenjualan;
 use App\IceCream;
+use App\User;
 
 class PenjualanController extends Controller
 {
@@ -27,10 +28,11 @@ class PenjualanController extends Controller
     	return view('admin.penjualan_tambah');
     }
 
-    public function store($kode, $datepicker, $total)
+    public function store($kode, $pengguna, $datepicker, $total)
     {
         $data = new Penjualan;
         $data->kode_penjualan = $kode;
+        $data->id_users = $pengguna;
         $data->tgl = $datepicker;
         $data->total = $total;
         $data->save();

@@ -19,4 +19,8 @@ class Penjualan extends Model
 	public function ice_cream(){
 		return $this->belongsToMany('App\IceCream');
 	}
+
+	public function users(){
+        return $this->belongsTo('App\User', 'id_users');
+    }
 }
