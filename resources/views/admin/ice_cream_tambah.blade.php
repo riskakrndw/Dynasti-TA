@@ -345,9 +345,6 @@
           window.location="{{URL::to('icecream')}}";
         });*/
 
-        
-          
-
          $.ajax({
               type: "POST",
               url: "http://localhost:8081/dynasti/public/icecream/simpan",
