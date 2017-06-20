@@ -50,20 +50,22 @@ class PenggunaController extends Controller
         $data = User::find($id);
     }
 
-    public function update(Request $request)
+    public function updateData(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'level' => 'required',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
+        // $this->validate($request, [
+        //     'name' => 'required|string|max:255',
+        //     'level' => 'required',
+        //     'email' => 'required|string|email|max:255|unique:users',
+        // ]);
 
         $data = User::find($request->id);
         $data->name = $request->name;
-        $data->level = $request->level;
+        if($data->level != "manager"){
+            $data->level = $request->level;    
+        }
+        
+        // dd($request->email);
         $data->email = $request->email;
-        $data->password = $request->password;
         $data->save();
 
         $notification = array(
@@ -72,6 +74,7 @@ class PenggunaController extends Controller
         );
         return redirect()->back()->with($notification);
     }
+
 
     public function destroy(Request $request, $id)
     {

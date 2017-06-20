@@ -43,7 +43,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat fa fa-user">  Profil</a>
+                  <a href="{{route('profilman')}}" class="btn btn-default btn-flat fa fa-user">  Profil</a>
                 </div>
                 <div class="pull-right">
                   <a href="{{ route('logout') }}" class="btn btn-default btn-flat fa fa-power-off" onclick="event.preventDefault();

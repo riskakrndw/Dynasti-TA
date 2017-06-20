@@ -50,18 +50,16 @@
                 <table id="example1" class="table table-bordered table-hover">
                   <thead>
                     <tr>
-                      <th style="width: 50px">No</th>
-                      <th style="width: 200px">Tanggal</th>
-                      <th style="width: 150px">Rasa</th>
-                      <th style="width: 150px">Jenis</th>
-                      <th style="width: 100px">Jumlah</th>
+                      <th style="width: 30px">No</th>
+                      <th style="width: 150px">Tanggal</th>
+                      <th style="width: 350px">Nama Ice Cream</th>
+                      <th style="width: 150px">Jumlah</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
                     
                     <tr>
-                      <td></td>
                       <td></td>
                       <td></td>
                       <td></td>

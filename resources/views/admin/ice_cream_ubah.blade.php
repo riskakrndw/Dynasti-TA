@@ -166,12 +166,12 @@
                           $id = $no+1;
                           $nama = str_replace(' ', '', $detailBahan->bahan->nama);
                         ?>
-                          <tr id="tr{{$id}}">
+                          <tr id="tr{{$id}}" no="{{$no}}">
                             <td>{{ $no++ }}</td>
                             <td>{{ $detailBahan->bahan->nama }}</td>
                             <td id="{{ $nama }}">{{ $detailBahan->takaran }}</td>
                             <td>{{ $detailBahan->bahan->satuan }}</td>
-                            <td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td>
+                            <td class="col-md-3 control-label"><a class="remove-type pull-right" data-nama="{{ $nama }}" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td>
                           </tr>
                       @endforeach
                     </tbody>
@@ -262,7 +262,7 @@
 
 
   <script>
-    var nomorBaris = 0;
+    var nomorBaris = {{$no - 1}};
     jQuery(document).ready(function() {
       var doc = $(document);
       jQuery('.btnTambahBahan').die('click').live('click', function(e) {
@@ -284,7 +284,7 @@
               }
               else{
                 nomorBaris = nomorBaris + 1;
-                $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td>'+satuan+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                $('#type_container').append('<tr id="'+type_div+'" no="'+nomorBaris+'"><td id="no'+nomorBaris+'">'+nomorBaris+'</td><td>'+nama+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td>'+satuan+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-nama="'+nama.replace(/\s/g,'')+'" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
               }
               $('#namaBahan').val('');
               $('#jumlahBahan').val('');
@@ -300,6 +300,17 @@
             var id = jQuery(this).attr('data-id');
             //if (id == 0) {
                 //var trID = jQuery(this).parents("tr").attr('id');
+                
+                var jmltr = $('#type_container').children().length;
+                console.log(jmltr);
+                console.log($(this).closest('tr').attr('no'));
+                for(var i = parseInt($(this).closest('tr').attr('no'))+1; i<=jmltr; i++){
+                  
+                  $('#no'+i).text($('#no'+i).text() - 1);
+                  $('#no'+i).attr('id', $('#no'+i).text() - 1);
+
+
+                }
                 jQuery('#' + id).remove();
                 nomorBaris = nomorBaris - 1;
                 

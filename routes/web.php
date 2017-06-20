@@ -39,12 +39,19 @@ Route::get('/keuangan/beranda', 'HomeController@index')->name('berandakeu');
 Route::get('/produksi/beranda', 'HomeController@index')->name('berandapro');
 Route::get('/pengadaan/beranda', 'HomeController@index')->name('berandapeng');
 
+//profil
+Route::get('/manager/profil', 'ProfilController@index')->name('profilman');
+Route::post('/manager/profil/simpan', 'ProfilController@store');
+Route::get('/manager/profil/hapus/{id}', 'ProfilController@destroy')->name('hapusProfilman');
+Route::post('/manager/profil/edit', 'ProfilController@update');
+
+
 //pengguna
 Route::get('/manager/pengguna', 'PenggunaController@index')->name('pengguna');
 Route::post('/manager/pengguna/simpan', 'PenggunaController@store')->name('tambahPengguna');
 Route::get('/manager/pengguna/hapus/{id}', 'PenggunaController@destroy')->name('hapusPengguna');
-Route::post('/manager/pengguna/edit', 'PenggunaController@update');
-
+Route::post('/manager/pengguna/ubah', 'PenggunaController@updateData');
+Route::post('ubahprofil', 'PenggunaController@updateData');
 //jenis
 Route::get('/jenis', 'JenisController@index')->name('jenis');
 Route::post('/jenis/simpan', 'JenisController@store');

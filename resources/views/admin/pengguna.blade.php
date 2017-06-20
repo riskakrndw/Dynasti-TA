@@ -92,7 +92,7 @@
           </div>
         <!-- /Tambah pengguna -->
 
-        <!-- Data jenis -->
+        <!-- Data pengguna -->
           <div class="col-xs-12">
             <div class="box box-success">
 
@@ -104,7 +104,7 @@
                 </div>
               <!-- /header -->
 
-              <!-- tabel jenis -->
+              <!-- tabel pengguna -->
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-hover">
                     <thead>
@@ -151,7 +151,7 @@
                     <h4 class="modal-title">Ubah Data Pengguna</h4>
                   </div>
                   <div class="modal-body modal-primary">
-                    <form role="form" action="{{url('pengguna/edit')}}" method="POST">
+                    <form role="form" action="{{url('ubahprofil')}}" method="POST">
                       {{csrf_field()}}
                       <label>Nama</label>
                       <div class="input-group">
@@ -163,7 +163,7 @@
                       @endif
                       <br>
                       <label>Pilih Level</label>
-                      <input class="form-control" id="levelManager" disabled>
+                      <input class="form-control" id="levelManager" name="level" disabled>
                       <select class="form-control select2" style="width: 100%;" name="level" id="levelPengguna">
                         <option disabled="disabled" selected="selected" value="0">Pilih Level</option>
                         <option value="pengadaan">Bagian Pengadaan</option>
@@ -179,15 +179,6 @@
                       @if($errors->has('email'))
                         <span class="help-block">Nama jenis minimal 2 karakter</span>
                       @endif
-                      <br>
-                      <label>Password</label>
-                      <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                        <input class="form-control" id="passwordPengguna" placeholder="Password" name="password">
-                      </div>
-                      @if($errors->has('password'))
-                        <span class="help-block">Nama jenis minimal 2 karakter</span>
-                      @endif
                       <input class="form-control" type="hidden" name="id" id="idPengguna" value="">
                     </div>
                     <div class="modal-footer">
@@ -196,11 +187,11 @@
                     </div>
                   </form>
                 </div>
-              </div>
-            <!-- /Modal edit jenis -->
+              <!-- </div> -->
+            <!-- /Modal edit pengguna -->
             </div>
           </div>
-        <!-- /Data jenis -->
+        <!-- /Data pengguna -->
 
       </div>
     </section>

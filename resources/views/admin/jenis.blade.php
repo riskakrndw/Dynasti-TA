@@ -121,9 +121,6 @@
                       <span class="input-group-addon"><i class="fa fa-font"></i></span>
                       <input class="form-control" id="namaJenis" name="nama" placeholder="Nama Jenis" value="">
                     </div>
-                    @if($errors->has('nama'))
-                            <span class="help-block">Nama jenis minimal 2 karakter</span>
-                          @endif
                     <input class="form-control" type="hidden" name="id" id="idJenis" value="">
                   </div>
                   <div class="modal-footer">
@@ -133,7 +130,6 @@
                   </div>
                 </form>
                 </div>
-              </div>
               <!-- /Modal edit jenis -->
 
             </div>
