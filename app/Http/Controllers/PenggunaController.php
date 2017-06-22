@@ -27,14 +27,14 @@ class PenggunaController extends Controller
     	$this->validate($request, [
             'name' => 'required|string|max:255',
             'level' => 'required',
-            'email' => 'required|string|email|max:255|unique:users',
+            'username' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:3',
         ]);
 
         $data = new User;
         $data->name = $request->name;
         $data->level = $request->level;
-        $data->email = $request->email;
+        $data->username = $request->username;
         $data->password = $request->password;
         $data->save();
 
@@ -55,7 +55,7 @@ class PenggunaController extends Controller
         // $this->validate($request, [
         //     'name' => 'required|string|max:255',
         //     'level' => 'required',
-        //     'email' => 'required|string|email|max:255|unique:users',
+        //     'username' => 'required|string|username|max:255|unique:users',
         // ]);
 
         $data = User::find($request->id);
@@ -64,8 +64,8 @@ class PenggunaController extends Controller
             $data->level = $request->level;    
         }
         
-        // dd($request->email);
-        $data->email = $request->email;
+        // dd($request->username);
+        $data->username = $request->username;
         $data->save();
 
         $notification = array(
@@ -73,6 +73,18 @@ class PenggunaController extends Controller
             'alert-type' => 'info'
         );
         return redirect()->back()->with($notification);
+    }
+
+    public function updateSandi(Request $request)
+    {
+        $data = User::find($request->id);
+        
+        if(!empty($request->password)){
+            $data->password = bcrypt($request->password);
+            $data->save();
+        }
+
+        return redirect()->back();
     }
 
 

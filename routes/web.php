@@ -50,8 +50,10 @@ Route::post('/manager/profil/edit', 'ProfilController@update');
 Route::get('/manager/pengguna', 'PenggunaController@index')->name('pengguna');
 Route::post('/manager/pengguna/simpan', 'PenggunaController@store')->name('tambahPengguna');
 Route::get('/manager/pengguna/hapus/{id}', 'PenggunaController@destroy')->name('hapusPengguna');
-Route::post('/manager/pengguna/ubah', 'PenggunaController@updateData');
-Route::post('ubahprofil', 'PenggunaController@updateData');
+Route::post('/manager/pengguna/edit', 'PenggunaController@updateData');
+Route::post('/manager/pengguna/editSandi', 'PenggunaController@updateSandi');
+// Route::post('ubahprofil', 'PenggunaController@updateData');
+
 //jenis
 Route::get('/jenis', 'JenisController@index')->name('jenis');
 Route::post('/jenis/simpan', 'JenisController@store');

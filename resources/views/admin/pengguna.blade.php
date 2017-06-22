@@ -42,6 +42,15 @@
                       <form role="form" action="{{route('tambahPengguna')}}" method="POST">
                         {{csrf_field()}}
                         <div class="form-group">
+                          <label>Username</label>
+                          <div class="input-group">
+                            <span class="input-group-addon">@</span>
+                            <input class="form-control" placeholder="Username" name="username">
+                          </div>
+                          @if($errors->has('username'))
+                            <span class="help-block">Nama jenis minimal 2 karakter</span>
+                          @endif
+                          <br>
                           <label>Nama</label>
                           <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-font"></i></span>
@@ -59,15 +68,6 @@
                             <option value="produksi">Bagian Produksi</option>
                             
                           </select>
-                          <br>
-                          <label>Email</label>
-                          <div class="input-group">
-                            <span class="input-group-addon">@</span>
-                            <input class="form-control" placeholder="Email" name="email">
-                          </div>
-                          @if($errors->has('email'))
-                            <span class="help-block">Nama jenis minimal 2 karakter</span>
-                          @endif
                           <br>
                           <label>Password</label>
                           <div class="input-group">
@@ -111,7 +111,7 @@
                       <tr>
                         <th style="width: 50px">No</th>
                         <th style="width: 250px">Nama</th>
-                        <th style="width: 100px">Email</th>
+                        <th style="width: 100px">Username</th>
                         <th style="width: 150px">Level</th>
                         <th>Aksi</th>
                       </tr>
@@ -122,19 +122,40 @@
                       <tr>
                         <td>{{ $no++ }}</td>
                         <td>{{ $data->name }}</td>
-                        <td>{{ $data->email }}</td>
-                        <td>{{ $data->level }}</td>
+                        <td>{{ $data->username }}</td>
+                        @if($data->level == 'manager')
+                          <td>Manager</td>
+                        @elseif($data->level == 'produksi')
+                          <td>Bagian Produksi</td>
+                        @elseif($data->level == 'keuangan')
+                          <td>Bagian Keuangan</td>
+                        @elseif($data->level == 'pengadaan')
+                          <td>Bagian Pengadaan</td>
+                        @endif
+
                         <td>
-                          <div class="input-group-btn">
-                            <button style="margin:10px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Ubah
-                              <span class="fa fa-caret-down"></span></button>
-                            <ul class="dropdown-menu">
-                              <li><a class="btnEditPengguna" data-toggle="modal" data-target="" data-id="{{$data->id}}" data-name="{{$data->name}}" data-email="{{$data->email}}" data-level="{{$data->level}}">Ubah Data Diri</a></li>
-                              <li class="divider"></li>
-                              <li><a href="#">Ubah Kata Sandi</a></li>
-                            </ul>
-                            <a type="button" href="{{route('hapusPengguna', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</a>
-                          </div>
+                          @if( $data->level == 'manager')
+                            <div class="input-group-btn">
+                              <button style="margin:10px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Ubah
+                                <span class="fa fa-caret-down"></span></button>
+                              <ul class="dropdown-menu">
+                                <li><a class="btnEditPengguna" data-toggle="modal" data-target="" data-id="{{$data->id}}" data-name="{{$data->name}}" data-username="{{$data->username}}" data-level="{{$data->level}}">Ubah Data Diri</a></li>
+                                <li class="divider"></li>
+                                <li><a class="btnEditSandi" data-toggle="modal" data-target="" data-password="{{$data->password}}">Ubah Kata Sandi</a></li>
+                              </ul>
+                            </div>
+                          @else  
+                            <div class="input-group-btn">
+                              <button style="margin:10px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Ubah
+                                <span class="fa fa-caret-down"></span></button>
+                              <ul class="dropdown-menu">
+                                <li><a class="btnEditPengguna" data-toggle="modal" data-target="" data-id="{{$data->id}}" data-name="{{$data->name}}" data-username="{{$data->username}}" data-level="{{$data->level}}">Ubah Data Diri</a></li>
+                                <li class="divider"></li>
+                                <li><a class="btnEditSandi" data-toggle="modal" data-target="" data-password="{{$data->password}}">Ubah Kata Sandi</a></li>
+                              </ul>
+                              <a type="button" href="{{route('hapusPengguna', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</a>
+                            </div>
+                          @endif
                           
                         </td>
                       </tr>
@@ -151,7 +172,7 @@
                     <h4 class="modal-title">Ubah Data Pengguna</h4>
                   </div>
                   <div class="modal-body modal-primary">
-                    <form role="form" action="{{url('ubahprofil')}}" method="POST">
+                    <form role="form" action="{{url('manager/pengguna/edit')}}" method="POST">
                       {{csrf_field()}}
                       <label>Nama</label>
                       <div class="input-group">
@@ -171,12 +192,12 @@
                         <option value="produksi">Bagian Produksi</option>      
                       </select>
                       <br>
-                      <label>Email</label>
+                      <label>Username</label>
                       <div class="input-group">
                         <span class="input-group-addon">@</span>
-                        <input class="form-control" id="emailPengguna" placeholder="Email" name="email">
+                        <input class="form-control" id="usernamePengguna" placeholder="Username" name="username">
                       </div>
-                      @if($errors->has('email'))
+                      @if($errors->has('username'))
                         <span class="help-block">Nama jenis minimal 2 karakter</span>
                       @endif
                       <input class="form-control" type="hidden" name="id" id="idPengguna" value="">
@@ -189,6 +210,44 @@
                 </div>
               <!-- </div> -->
             <!-- /Modal edit pengguna -->
+
+            <!-- Modal edit kata sandi -->
+                <div id="editSandi" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Ubah Kata Sandi</h4>
+                  </div>
+                  <div class="modal-body modal-primary">
+                    <form role="form" action="{{url('manager/pengguna/editSandi')}}" method="POST">
+                      {{csrf_field()}}
+                      <label>Kata Sandi Baru</label>
+                      <div class="input-group">
+                        <span class="input-group-addon">@</span>
+                        <input class="form-control" id="sandiBaru" type="password" placeholder="Kata Sandi Baru" name="sandiBaru">
+                      </div>
+                      @if($errors->has('username'))
+                        <span class="help-block">Nama jenis minimal 2 karakter</span>
+                      @endif
+                      <br>
+                      <label>Ulangi Kata Sandi Baru</label>
+                      <div class="input-group">
+                        <span class="input-group-addon">@</span>
+                        <input class="form-control" type="password" id="ulangSandiBaru" placeholder="Email" name="ulangSandiBaru">
+                      </div>
+                      @if($errors->has('username'))
+                        <span class="help-block">Nama jenis minimal 2 karakter</span>
+                      @endif
+                      <input class="form-control" type="hidden" name="id" id="idPengguna" value="">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                  </form>
+                </div>
+              <!-- </div> -->
+            <!-- /Modal edit kata sandi -->
+
             </div>
           </div>
         <!-- /Data pengguna -->
@@ -197,6 +256,7 @@
     </section>
     <!-- /. main content -->
   </div>
+
 @endsection
 
 @section("morescript")
@@ -220,9 +280,16 @@
         $('#levelPengguna').show();
         $('#levelManager').hide();
         }
-        $('#emailPengguna').val($(this).data('email'));
+        $('#usernamePengguna').val($(this).data('username'));
         $('#idPengguna').val($(this).data('id'));
         $('#editPengguna').modal('show');
+      });
+    });
+
+    $(document).ready(function(){
+      $(".btnEditSandi").click(function(){
+        
+        $('#editSandi').modal('show');
       });
     });
 
