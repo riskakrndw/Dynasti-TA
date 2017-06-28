@@ -151,7 +151,7 @@
                               <ul class="dropdown-menu">
                                 <li><a class="btnEditPengguna" data-toggle="modal" data-target="" data-id="{{$data->id}}" data-name="{{$data->name}}" data-username="{{$data->username}}" data-level="{{$data->level}}">Ubah Data Diri</a></li>
                                 <li class="divider"></li>
-                                <li><a class="btnEditSandi" data-toggle="modal" data-target="" data-password="{{$data->password}}">Ubah Kata Sandi</a></li>
+                                <li><a class="btnEditSandi" data-toggle="modal" data-target="" data-id="{{$data->id}}">Ubah Kata Sandi</a></li>
                               </ul>
                               <a type="button" href="{{route('hapusPengguna', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</a>
                             </div>
@@ -223,7 +223,7 @@
                       <label>Kata Sandi Baru</label>
                       <div class="input-group">
                         <span class="input-group-addon">@</span>
-                        <input class="form-control" id="sandiBaru" type="password" placeholder="Kata Sandi Baru" name="sandiBaru">
+                        <input class="form-control" id="sandiBaru" type="password" placeholder="Kata Sandi Baru" name="password">
                       </div>
                       @if($errors->has('username'))
                         <span class="help-block">Nama jenis minimal 2 karakter</span>
@@ -232,12 +232,12 @@
                       <label>Ulangi Kata Sandi Baru</label>
                       <div class="input-group">
                         <span class="input-group-addon">@</span>
-                        <input class="form-control" type="password" id="ulangSandiBaru" placeholder="Email" name="ulangSandiBaru">
+                        <input class="form-control" type="password" id="ulangSandiBaru" placeholder="Email" name="password_confirmation">
                       </div>
                       @if($errors->has('username'))
                         <span class="help-block">Nama jenis minimal 2 karakter</span>
                       @endif
-                      <input class="form-control" type="hidden" name="id" id="idPengguna" value="">
+                      <input class="form-control" type="hidden" name="id" id="idPengguna1" value="">
                     </div>
                     <div class="modal-footer">
                       <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
@@ -288,7 +288,7 @@
 
     $(document).ready(function(){
       $(".btnEditSandi").click(function(){
-        
+        $('#idPengguna1').val($(this).data('id'));
         $('#editSandi').modal('show');
       });
     });

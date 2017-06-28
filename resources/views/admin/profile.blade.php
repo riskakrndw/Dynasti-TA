@@ -35,9 +35,10 @@
                     <span class="fa fa-gear"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                   </li>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a data-toggle="modal" data-target="#btnEditData" href="">Ubah Data</a></li>
-                    <li><a data-toggle="modal" data-target="#editPass" href="">Ubah Kata Sandi</a></li>
+                  <ul class="dropdown-menu">
+                    <li><a class="btnEditPengguna" data-toggle="modal" data-id="{{Auth::user()->id}}" data-name="{{Auth::user()->name}}" data-username="{{Auth::user()->username}}">Ubah Data Diri</a></li>
+                    <li class="divider"></li>
+                    <li><a class="btnEditSandi" data-toggle="modal" data-target="" >Ubah Kata Sandi</a></li>
                   </ul>
                 </div>
               </ul>
@@ -56,31 +57,31 @@
                       <span class="input-group-addon"><i class="fa fa-user"></i></span>
                       <input class="form-control"
                       @if(Auth::user()->level == "manager")
-                        placeholder="Bagian Manager"
+                        placeholder="Manager"
                       @endif
                       " disabled>
                     </div>
                     <br>
-                    <label>Email</label>
+                    <label>Username</label>
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                      <input class="form-control" placeholder="{{Auth::user()->email}}" disabled>
+                      <input class="form-control" placeholder="{{Auth::user()->username}}" disabled>
                     </div>
                     <br>
                   </div>
                 </form>
               <!-- /Form data pribadi -->
 
-              <!-- Modal edit rasa -->
-              <div id="btnEditData" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Ubah Data Rasa</h4>
-                </div>
-                <div class="modal-body">
-                  <form role="form" action="{{url('rasa/edit')}}" method="POST">
-                  {{csrf_field()}}
-                  <label>Nama</label>
+              <!-- Modal edit pengguna -->
+                <div id="editPengguna" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Ubah Data Pengguna</h4>
+                  </div>
+                  <div class="modal-body modal-primary">
+                    <form role="form" action="{{url('manager/profil/edit')}}" method="POST">
+                      {{csrf_field()}}
+                      <label>Nama</label>
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-font"></i></span>
                         <input class="form-control" id="namaPengguna" placeholder="Nama" name="name">
@@ -89,24 +90,70 @@
                         <span class="help-block">Nama jenis minimal 2 karakter</span>
                       @endif
                       <br>
-                      <label>Email</label>
+                      <label>Username</label>
                       <div class="input-group">
                         <span class="input-group-addon">@</span>
-                        <input class="form-control" id="emailPengguna" placeholder="Email" name="email">
+                        <input class="form-control" id="usernamePengguna" placeholder="Username" name="username">
                       </div>
-                      @if($errors->has('email'))
+                      @if($errors->has('username'))
                         <span class="help-block">Nama jenis minimal 2 karakter</span>
                       @endif
-                  <input class="form-control" type="hidden" name="id" id="idRasa" value="">
+                      <input class="form-control" type="hidden" name="id" id="idPengguna" value="">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                  </form>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
-                  <button type="submit" class="btn btn-primary">Simpan</button>
+              <!-- </div> -->
+            <!-- /Modal edit pengguna -->
 
+            <!-- Modal edit kata sandi -->
+                <div id="editSandi" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Ubah Kata Sandi</h4>
+                  </div>
+                  <div class="modal-body modal-primary">
+                    <form role="form" action="{{url('manager/profil/editSandi')}}" method="POST">
+                      {{csrf_field()}}
+                      <label>Kata Sandi Lama</label>
+                      <div class="input-group">
+                        <span class="input-group-addon">@</span>
+                        <input class="form-control" id="sandiLama" type="password" placeholder="Kata Sandi Lama" name="sandiLama">
+                      </div>
+                      @if($errors->has('username'))
+                        <span class="help-block">Nama jenis minimal 2 karakter</span>
+                      @endif
+                      <br>
+                      <label>Kata Sandi Baru</label>
+                      <div class="input-group">
+                        <span class="input-group-addon">@</span>
+                        <input class="form-control" id="sandiBaru" type="password" placeholder="Kata Sandi Baru" name="sandiBaru">
+                      </div>
+                      @if($errors->has('username'))
+                        <span class="help-block">Nama jenis minimal 2 karakter</span>
+                      @endif
+                      <br>
+                      <label>Ulangi Kata Sandi Baru</label>
+                      <div class="input-group">
+                        <span class="input-group-addon">@</span>
+                        <input class="form-control" type="password" id="ulangSandiBaru" placeholder="Ulangi Kata Sandi Baru" name="ulangSandiBaru">
+                      </div>
+                      @if($errors->has('username'))
+                        <span class="help-block">Nama jenis minimal 2 karakter</span>
+                      @endif
+                      <input class="form-control" type="hidden" name="id" id="idPengguna1" value="">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                  </form>
                 </div>
-              </form>
-              </div>
-            <!-- /Modal edit rasa -->
+              <!-- </div> -->
+            <!-- /Modal edit kata sandi -->
 
             </div>
 
@@ -128,11 +175,18 @@
 
   <script type="text/javascript">
     $(document).ready(function(){
-      $(".btnEditData").click(function(){
+      $(".btnEditPengguna").click(function(){
         $('#namaPengguna').val($(this).data('name'));
-        $('#emailPengguna').val($(this).data('email'));
+        $('#usernamePengguna').val($(this).data('username'));
         $('#idPengguna').val($(this).data('id'));
-        $('#btnEditData').modal('show');
+        $('#editPengguna').modal('show');
+      });
+    });
+
+    $(document).ready(function(){
+      $(".btnEditSandi").click(function(){
+        $('#idPengguna1').val($(this).data('id'));
+        $('#editSandi').modal('show');
       });
     });
 

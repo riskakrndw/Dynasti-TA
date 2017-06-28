@@ -51,6 +51,7 @@
                 <form role="form" action="" method="">
                   {{csrf_field()}}
                   <div class="box-body">
+                    <input class="form-control" type="hidden" name="idPengguna" id="idPengguna" value="{{Auth::User()->id}}">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Kode Pembelian</label>
@@ -172,7 +173,7 @@
         format: "yyyy-mm-dd"
       });
 
-    var nomorBaris = 0;
+    var nomorBaris = {{$no - 1}};
     jQuery(document).ready(function() {
       var doc = $(document);
       jQuery('.btnTambahBahan').die('click').live('click', function(e) {
@@ -200,7 +201,7 @@
               }
               else{
                 nomorBaris = nomorBaris + 1;
-                $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                $('#type_container').append('<tr id="'+type_div+'" no="'+nomorBaris+'"><td id="no'+nomorBaris+'">'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
               }
               $('#namaBahan').val('');
               $('#hargaBahan').val('');
@@ -220,12 +221,19 @@
             var id = jQuery(this).attr('data-id');
             //if (id == 0) {
                 //var trID = jQuery(this).parents("tr").attr('id');
-                jQuery('#' + id).remove();
                 nomorBaris = nomorBaris - 1;
                 var deletedSubTotal = $(this).closest("tr").find(".subTotal").text();
                 var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
                 var totalHargaBaru = totalHargaLama - deletedSubTotal;
                 document.getElementById('totalHarga').value = totalHargaBaru;
+
+                var jmltr = $('#type_container').children().length;
+                for(var i=parseInt($(this).closest('tr').attr('no'))+1; i<=jmltr; i++){
+                  $('#no'+i).text($('#no'+i).text() - 1);
+                  $('#no'+i).attr('id', $('#no'+i).text() - 1);
+                }
+                jQuery('#' + id).remove();
+                nomorBaris = nomorBaris - 1;
                 
            // }
             return true;
@@ -248,6 +256,7 @@
       //save multi record to db
       $('#submit').on('click', function(){
         var kode = $('#kode').val();
+        var pengguna = $('#idPengguna').val();
         var datepicker = $('#datepicker').val();
         var bulan = new Date(datepicker).getMonth()+1;
         var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
@@ -294,7 +303,7 @@
         
           $.ajax({
               type: "GET",
-              url: "/dynasti/public/pembelian/ubah/"+idbeli+"/"+kode+"/"+datepicker+"/"+total,
+              url: "/dynasti/public/pembelian/ubah/"+idbeli+"/"+kode+"/"+pengguna+"/"+datepicker+"/"+total,
               success: function(result) {
 
               }
@@ -309,7 +318,7 @@
               }
           }).done(a);
 
-        $(document).ajaxComplete(function(){
+        $(document).ajaxStop(function(){
           window.location="{{URL::to('pembelian')}}";
         });
       });

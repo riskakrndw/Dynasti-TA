@@ -111,16 +111,6 @@
                           @endif
                       </div>
                     </div>
-                    <div class="col-md-12">
-                      <label>Jumlah yang dihasilkan</label>
-                      <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                        <input class="form-control" placeholder="Jumlah yang dihasilkan" name="jumlahProduksi" id="jumlahProduksi" value="{{ $data->jumlah_produksi }}">
-                      </div>
-                      @if($errors->has('jumlahProduksi'))
-                        <span class="help-block">{{$errors->first('jumlahProduksi')}}</span>
-                      @endif
-                    </div>
                   </div>
                 
               <!-- /Form tambah es -->
@@ -196,7 +186,7 @@
               <h4 class="modal-title">Tambah Data Jenis</h4>
             </div>
             <div class="modal-body">
-              <form role="form" action="{{url('jenis/simpan')}}" method="POST">
+              <form role="form" action="{{url('manager/jenis/simpan')}}" method="POST">
                 {{csrf_field()}}
                 <label>Nama Jenis</label>
                 <div class="input-group">
@@ -222,7 +212,7 @@
               <h4 class="modal-title">Tambah Data Rasa</h4>
             </div>
             <div class="modal-body">
-              <form role="form" action="{{url('rasa/simpan')}}" method="POST">
+              <form role="form" action="{{url('manager/rasa/simpan')}}" method="POST">
                 {{csrf_field()}}
               <label>Nama Rasa</label>
               <div class="input-group">
@@ -302,13 +292,12 @@
                 //var trID = jQuery(this).parents("tr").attr('id');
                 
                 var jmltr = $('#type_container').children().length;
-                console.log(jmltr);
-                console.log($(this).closest('tr').attr('no'));
+                // console.log(jmltr);
+                // console.log($(this).closest('tr').attr('no'));
                 for(var i = parseInt($(this).closest('tr').attr('no'))+1; i<=jmltr; i++){
                   
                   $('#no'+i).text($('#no'+i).text() - 1);
                   $('#no'+i).attr('id', $('#no'+i).text() - 1);
-
 
                 }
                 jQuery('#' + id).remove();
@@ -340,7 +329,6 @@
         var harga = $('#harga').val();
         var listRasa = $('#listRasa').val();
         var stok = $('#stok').val();
-        var jumlahProduksi = $('#jumlahProduksi').val();
         var total = $('#totalHarga').val();
 
         var arrData=[];
@@ -380,7 +368,7 @@
           $.ajax({
               type: "POST",
               url: "http://localhost:8081/dynasti/public/icecream/ubah",
-              data:'ides=' + ides + '& nama=' + nama + '& harga = ' + harga + '& stok = ' + stok + '& jumlahProduksi = ' + jumlahProduksi + '& listRasa = ' + listRasa + '& listJenis = ' + listJenis+'& _token='+"{{csrf_token()}}",
+              data:'ides=' + ides + '& nama=' + nama + '& harga = ' + harga + '& stok = ' + stok + '& listRasa = ' + listRasa + '& listJenis = ' + listJenis+'& _token='+"{{csrf_token()}}",
               success: function(result) {
 
               }
@@ -396,7 +384,7 @@
               }
           }).done(a);
 
-        $(document).ajaxComplete(function(){
+        $(document).ajaxStop(function(){
           window.location="{{URL::to('icecream')}}";
         });
 

@@ -59,10 +59,11 @@ class PembelianController extends Controller
 
     }
 
-    public function ubah($id_beli, $kode, $datepicker, $total)
+    public function ubah($id_beli, $kode, $pengguna, $datepicker, $total)
     {
         $data = Pembelian::find($id_beli);
         $data->kode_pembelian = $kode;
+        $data->id_users = $pengguna;
         $data->tgl = $datepicker;
         $data->total = $total;
         $data->save();

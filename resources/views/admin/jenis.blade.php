@@ -42,7 +42,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <!-- Form tambah jenis -->
-                      <form role="form" action="{{url('jenis/simpan')}}" method="POST">
+                      <form role="form" action="{{url('manager/jenis/simpan')}}" method="POST">
                         {{csrf_field()}}
                         <div class="form-group">
                           <label>Nama Jenis</label>
@@ -114,7 +114,7 @@
                     <h4 class="modal-title">Ubah Data Jenis</h4>
                   </div>
                   <div class="modal-body modal-primary">
-                    <form role="form" action="{{url('jenis/edit')}}" method="POST">
+                    <form role="form" action="{{url('manager/jenis/edit')}}" method="POST">
                     {{csrf_field()}}
                     <label>Nama Jenis</label>
                     <div class="input-group">

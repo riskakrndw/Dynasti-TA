@@ -52,7 +52,6 @@ class IceCreamController extends Controller
         $data->nama = $nama;
         $data->harga = $request->harga_;
         $data->stok = $request->stok_;
-        $data->jumlah_produksi = $request->jumlahProduksi_;
         $data->id_jenis = $request->listJenis_;
         $data->id_rasa = $request->listRasa_;
         $data->save();
@@ -106,7 +105,6 @@ class IceCreamController extends Controller
         $data->nama = $nama;
         $data->harga = $request->harga_;
         $data->stok = $request->stok_;
-        $data->jumlah_produksi = $request->jumlahProduksi_;
         $data->id_jenis = $request->listJenis_;
         $data->id_rasa = $request->listRasa_;
         $data->save();

@@ -41,7 +41,7 @@
                 </div>
               </div>
               <!-- Form tambah jenis -->
-                <form role="form" action="{{url('bahan/simpan')}}" method="POST" id="formID">
+                <form role="form" action="{{url('manager/bahan/simpan')}}" method="POST" id="formID">
                   {{csrf_field()}}
                   <div class="box-body">
                     <div class="col-md-6">
@@ -155,7 +155,7 @@
                   <h4 class="modal-title">Ubah Data Bahan</h4>
                 </div>
                 <div class="modal-body">
-                  <form role="form" action="{{url('bahan/edit')}}" method="POST">
+                  <form role="form" action="{{url('manager/bahan/edit')}}" method="POST">
                   {{csrf_field()}}
                   <label>Nama Bahan</label>
                   <div class="input-group">

@@ -95,16 +95,6 @@
                           @endif
                       </div>
                     </div>
-                    <div class="col-md-12">
-                      <label>Jumlah yang dihasilkan</label>
-                      <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                        <input class="form-control" placeholder="Jumlah yang dihasilkan" name="jumlahProduksi" id="jumlahProduksi">
-                      </div>
-                      @if($errors->has('jumlahProduksi'))
-                        <span class="help-block">{{$errors->first('jumlahProduksi')}}</span>
-                      @endif
-                    </div>
                   </div>
                 
               <!-- /Form tambah es -->
@@ -167,7 +157,7 @@
               <h4 class="modal-title">Tambah Data Jenis</h4>
             </div>
             <div class="modal-body">
-              <form role="form" action="{{url('jenis/simpan')}}" method="POST">
+              <form role="form" action="{{url('manager/jenis/simpan')}}" method="POST">
                 {{csrf_field()}}
                 <label>Nama Jenis</label>
                 <div class="input-group">
@@ -193,7 +183,7 @@
               <h4 class="modal-title">Tambah Data Rasa</h4>
             </div>
             <div class="modal-body">
-              <form role="form" action="{{url('rasa/simpan')}}" method="POST">
+              <form role="form" action="{{url('manager/rasa/simpan')}}" method="POST">
                 {{csrf_field()}}
               <label>Nama Rasa</label>
               <div class="input-group">
@@ -298,7 +288,6 @@
         var harga = $('#harga').val();
         var listRasa = $('#listRasa').val();
         var stok = $('#stok').val();
-        var jumlahProduksi = $('#jumlahProduksi').val();
         var total = $('#totalHarga').val();
 
         var arrData=[];
@@ -336,7 +325,7 @@
          $.ajax({
               type: "POST",
               url: "http://localhost:8081/dynasti/public/icecream/simpan",
-              data: 'nama =' + nama + '& harga = ' + harga + '& stok = ' + stok + '& jumlahProduksi = ' + jumlahProduksi + '& listRasa = ' + listRasa + '& listJenis = ' + listJenis+'& _token='+"{{csrf_token()}}",
+              data: 'nama =' + nama + '& harga = ' + harga + '& stok = ' + stok + '& listRasa = ' + listRasa + '& listJenis = ' + listJenis+'& _token='+"{{csrf_token()}}",
               success: function(result) {
               }
           }).done(a);

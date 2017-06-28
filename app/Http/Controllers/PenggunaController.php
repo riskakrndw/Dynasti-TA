@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
 
 class PenggunaController extends Controller
 {
-    use RegistersUsers;
 
     public function __construct(){
         $this->middleware('levelManager');
@@ -45,10 +42,6 @@ class PenggunaController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    public function edit($id)
-    {
-        $data = User::find($id);
-    }
 
     public function updateData(Request $request)
     {
@@ -77,14 +70,25 @@ class PenggunaController extends Controller
 
     public function updateSandi(Request $request)
     {
+        $this->validate($request, [
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        // return $request->all();
         $data = User::find($request->id);
+        // dd($request->id);
         
         if(!empty($request->password)){
             $data->password = bcrypt($request->password);
+            // dd($request->password);
             $data->save();
         }
 
-        return redirect()->back();
+        $notification = array(
+            'message' => 'Data berhasil diubah',
+            'alert-type' => 'info'
+        );
+        return redirect()->back()->with($notification);
     }
 
 

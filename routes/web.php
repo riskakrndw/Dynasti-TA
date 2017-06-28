@@ -34,16 +34,16 @@ Route::get('/api/icecream/{id}', 'IceCreamApiController@show')->name('apiicecrea
 Route::get('/api/namaIceCream/{id}', 'IceCreamApiController@reqNamaIceCream')->name('apinamaicecream');
 
 //beranda
-Route::get('/beranda', 'HomeController@index')->name('beranda');
+Route::get('/manager/beranda', 'HomeController@index')->name('beranda');
 Route::get('/keuangan/beranda', 'HomeController@index')->name('berandakeu');
 Route::get('/produksi/beranda', 'HomeController@index')->name('berandapro');
 Route::get('/pengadaan/beranda', 'HomeController@index')->name('berandapeng');
 
 //profil
 Route::get('/manager/profil', 'ProfilController@index')->name('profilman');
-Route::post('/manager/profil/simpan', 'ProfilController@store');
-Route::get('/manager/profil/hapus/{id}', 'ProfilController@destroy')->name('hapusProfilman');
-Route::post('/manager/profil/edit', 'ProfilController@update');
+Route::post('/manager/profil/edit', 'ProfilController@updateData');
+
+Route::post('/manager/profil/editSandi', 'ProfilController@updateSandi');
 
 
 //pengguna
@@ -55,22 +55,22 @@ Route::post('/manager/pengguna/editSandi', 'PenggunaController@updateSandi');
 // Route::post('ubahprofil', 'PenggunaController@updateData');
 
 //jenis
-Route::get('/jenis', 'JenisController@index')->name('jenis');
-Route::post('/jenis/simpan', 'JenisController@store');
-Route::get('/jenis/hapus/{id}', 'JenisController@destroy')->name('hapusJenis');
-Route::post('/jenis/edit', 'JenisController@update');
+Route::get('/manager/jenis', 'JenisController@index')->name('jenis');
+Route::post('/manager/jenis/simpan', 'JenisController@store');
+Route::get('/manager/jenis/hapus/{id}', 'JenisController@destroy')->name('hapusJenis');
+Route::post('/manager/jenis/edit', 'JenisController@update');
 
 //rasa
-Route::get('/rasa', 'RasaController@index')->name('rasa');
-Route::post('/rasa/simpan', 'RasaController@store');
-Route::get('/rasa/hapus/{id}', 'RasaController@destroy')->name('hapusRasa');
-Route::post('/rasa/edit', 'RasaController@update');
+Route::get('/manager/rasa', 'RasaController@index')->name('rasa');
+Route::post('/manager/rasa/simpan', 'RasaController@store');
+Route::get('/manager/rasa/hapus/{id}', 'RasaController@destroy')->name('hapusRasa');
+Route::post('/manager/rasa/edit', 'RasaController@update');
 
 //bahan
-Route::get('/bahan', 'BahanController@index')->name('bahan');
-Route::post('/bahan/simpan', 'BahanController@store');
-Route::get('/bahan/hapus/{id}', 'BahanController@destroy')->name('hapusBahan');
-Route::post('/bahan/edit', 'BahanController@update');
+Route::get('/manager/bahan', 'BahanController@index')->name('bahan');
+Route::post('/manager/bahan/simpan', 'BahanController@store');
+Route::get('/manager/bahan/hapus/{id}', 'BahanController@destroy')->name('hapusBahan');
+Route::post('/manager/bahan/edit', 'BahanController@update');
 
 //icecream
 	/*menampilkan halaman es*/
@@ -105,7 +105,7 @@ Route::post('/bahan/edit', 'BahanController@update');
 	/*melakukan ubah*/
 		Route::get('/pembelian/hapusDetailPembelian/{id}', 'PembelianController@hapusDetailPembelian')->name('hapusDetailPembelian');
 		Route::get('/pembelian/edit/{id}', 'PembelianController@showEdit');
-		Route::get('/pembelian/ubah/{id_beli}/{kode}/{datepicker}/{total}', 'PembelianController@ubah');
+		Route::get('/pembelian/ubah/{id_beli}/{kode}/{pengguna}/{datepicker}/{total}', 'PembelianController@ubah');
 
 //penjualan
 	/*menampilkan halaman penjualan*/
@@ -122,7 +122,7 @@ Route::post('/bahan/edit', 'BahanController@update');
 	/*melakukan ubah*/
 		Route::get('/penjualan/hapusDetailPenjualan/{id}', 'PenjualanController@hapusDetailPenjualan')->name('hapusDetailPenjualan');
 		Route::get('/penjualan/edit/{id}', 'PenjualanController@showEdit');
-		Route::get('/penjualan/ubah/{id_jual}/{kode}/{datepicker}/{total}', 'PenjualanController@ubah');
+		Route::get('/penjualan/ubah/{id_jual}/{kode}/{pengguna}/{datepicker}/{total}', 'PenjualanController@ubah');
 
 //produksi
 	/*menampilkan halaman produksi*/

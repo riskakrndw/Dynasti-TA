@@ -101,13 +101,6 @@
                           </div>
                       </div>
                     </div>
-                    <div class="col-md-12">
-                      <label>Jumlah yang dihasilkan</label>
-                      <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                        <input class="form-control" placeholder="Jumlah yang dihasilkan" name="jumlahProduksi" id="jumlahProduksi" value="{{ $data->jumlah_produksi }}" disabled>
-                      </div>
-                    </div>
                   </div>
                 
               <!-- /Form tambah es -->

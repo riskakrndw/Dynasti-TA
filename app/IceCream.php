@@ -9,7 +9,7 @@ class IceCream extends Model
     protected $table = "ice_cream";
 
     protected $fillable = [
-    	'id_jenis', 'id_rasa', 'nama', 'harga', 'stok', 'jumlah_produksi',
+    	'id_jenis', 'id_rasa', 'nama', 'harga', 'stok',
     ];
 
     public function jenis(){

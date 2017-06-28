@@ -82,24 +82,18 @@
               </ul>
 
               <!-- Data bahan -->
-                <div class="col-xs-2">
+                <div class="col-xs-3">
                   <input type="hidden" class="form-control" id="namaEs" placeholder="Nama Ice Cream">
                 </div>
                 <input class="form-control" type="hidden" name="idEs" id="idEs" value="">
                 <input class="form-control" type="hidden" name="stokEs" id="stokEs" value="">
-                <div class="col-xs-2">
+                <div class="col-xs-3">
                   <input type="text" class="form-control" id="hargaEs" placeholder="Harga" disabled>
                 </div>
-                <div class="col-xs-2">
-                  <input type="text" class="form-control" id="rasaEs" placeholder="Rasa" disabled>
-                </div>
-                <div class="col-xs-2">
-                  <input type="text" class="form-control" id="jenisEs" placeholder="Jenis" disabled>
-                </div>
-                <div class="col-xs-2">
+                <div class="col-xs-3">
                   <input type="text" class="form-control" id="jumlahEs" placeholder="Jumlah yang terjual" onKeyPress="return goodchars(event,'0123456789',this)">
                 </div>
-                <div class="col-xs-2">
+                <div class="col-xs-3">
                   <a href="javascript: void(0)"><button type="button" class="btn btn-sm btn-default btnTambahEs"><i class="fa  fa-plus "></i> Tambah Ice Cream </button></a>
                 </div>
               <!-- ./Data bahan -->
@@ -113,8 +107,6 @@
                         <th style="width:50px">No</th>
                         <th style="width: 200px">Nama Ice Cream</th>
                         <th style="width: 175px">Harga</th>
-                        <th style="width: 100px">Rasa</th>
-                        <th style="width: 100px">Jenis</th>
                         <th style="width: 100px">Jumlah</th>
                         <th style="width: 250px">Subtotal</th>
                         <th>Aksi</th>
@@ -174,8 +166,6 @@
       var doc = $(document);
       jQuery('.btnTambahEs').die('click').live('click', function(e) {
         e.preventDefault();
-        console.log($('#stokEs').val())
-        console.log($('#jumlahEs').val())
         if(parseInt($('#jumlahEs').val()) > parseInt($('#stokEs').val())){
           alert("stok tidak mencukupi");
         }
@@ -187,8 +177,6 @@
               function(hasil){
                 var nama = hasil;
                 var harga = $('#hargaEs').val();
-                var rasa = $('#rasaEs').val();
-                var jenis = $('#jenisEs').val();
                 var jumlah = $('#jumlahEs').val();
                 var total = $('#totalHarga').val();
                 var Subtotal = parseInt(harga) * parseInt(jumlah);
@@ -205,12 +193,10 @@
                 }
                 else{
                   nomorBaris = nomorBaris + 1;
-                $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td>'+rasa+'</td><td>'+jenis+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
                 }
                 $('#namaEs').val('');
                 $('#hargaEs').val('');
-                $('#rasaEs').val('');
-                $('#jenisEs').val('');
                 $('#jumlahEs').val('');
 
                 var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
@@ -256,8 +242,6 @@
             }
             $('#namaEs').val(hasil[2]);
             $('#hargaEs').val(hasil[3]);
-            $('#jenisEs').val(hasil[4]);
-            $('#rasaEs').val(hasil[5]);
           }
         ) //ngambil value nama
 
@@ -285,17 +269,13 @@
           var col3_value = currentRow.find("td:eq(3)").text();
           var col4_value = currentRow.find("td:eq(4)").text();
           var col5_value = currentRow.find("td:eq(5)").text();
-          var col6_value = currentRow.find("td:eq(6)").text();
-          var col7_value = currentRow.find("td:eq(7)").text();
 
           var obj={};
           obj.no = col0_value;
           obj.nama_es = col1_value;
           obj.harga = col2_value;
-          obj.rasa = col3_value;
-          obj.jenis = col4_value;
-          obj.jumlah = col5_value;
-          obj.subtotal = col6_value;
+          obj.jumlah = col3_value;
+          obj.subtotal = col4_value;
 
           arrData.push(obj);
         });

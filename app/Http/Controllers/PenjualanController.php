@@ -56,10 +56,11 @@ class PenjualanController extends Controller
     	$data = Penjualan::find($id);
     }
 
-    public function ubah($id_jual, $kode, $datepicker, $total)
+    public function ubah($id_jual, $kode, $pengguna, $datepicker, $total)
     {
     	$data = Penjualan::find($id_jual);
     	$data->kode_penjualan = $kode;
+        $data->id_users = $pengguna;
     	$data->tgl = $datepicker;
     	$data->total = $total;
     	$data->save();
