@@ -9,7 +9,7 @@ class Pembelian extends Model
     protected $table = "pembelian";
 
     protected $fillable = [
-    	'id', 'kode_pembelian', 'total', 'tgl',
+    	'id', 'kode_pembelian', 'total', 'tgl', 'status'
     ];
 
     public function detail_beli(){

@@ -96,7 +96,7 @@ Route::post('/manager/bahan/edit', 'BahanController@update');
 	/*menampilkan form tambah*/
 		Route::get('/pembelian/tambah', 'PembelianController@tambah')->name('tambahBeli');
 	/*melakukan create*/
-		Route::get('/pembelian/simpan/{kode}/{pengguna}/{datepicker}/{total}', 'PembelianController@store');
+		Route::get('/pembelian/simpan/{kode}/{pengguna}/{datepicker}/{total}/{status}', 'PembelianController@store');
 		Route::get('/pembelian/simpan1/{idbeli}/{namabahan}/{jumlah}/{subtotal}', 'PembelianController@store1');
 	/*melakukan delete*/
 		Route::get('/pembelian/hapus/{id}', 'PembelianController@destroy')->name('hapusPembelian');
@@ -105,7 +105,7 @@ Route::post('/manager/bahan/edit', 'BahanController@update');
 	/*melakukan ubah*/
 		Route::get('/pembelian/hapusDetailPembelian/{id}', 'PembelianController@hapusDetailPembelian')->name('hapusDetailPembelian');
 		Route::get('/pembelian/edit/{id}', 'PembelianController@showEdit');
-		Route::get('/pembelian/ubah/{id_beli}/{kode}/{pengguna}/{datepicker}/{total}', 'PembelianController@ubah');
+		Route::get('/pembelian/ubah/{id_beli}/{kode}/{pengguna}/{datepicker}/{total}/{status}', 'PembelianController@ubah');
 
 //penjualan
 	/*menampilkan halaman penjualan*/

@@ -52,6 +52,7 @@
                   {{csrf_field()}}
                   <div class="box-body">
                     <input class="form-control" type="hidden" name="idPengguna" id="idPengguna" value="{{Auth::User()->id}}">
+                    <input class="form-control" type="hidden" name="status" id="status" value="">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Kode Pembelian</label>
@@ -287,6 +288,7 @@
         });
   
         var idbeli = {{ $data->id }};
+        var status;
  
         function a(){
           for (var i=0; i<arrData.length; i++){
@@ -303,7 +305,7 @@
         
           $.ajax({
               type: "GET",
-              url: "/dynasti/public/pembelian/ubah/"+idbeli+"/"+kode+"/"+pengguna+"/"+datepicker+"/"+total,
+              url: "/dynasti/public/pembelian/ubah/"+idbeli+"/"+kode+"/"+pengguna+"/"+datepicker+"/"+total+"/"+status,
               success: function(result) {
 
               }

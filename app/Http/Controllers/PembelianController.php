@@ -30,13 +30,14 @@ class PembelianController extends Controller
         return view('admin.pembelian_tambah');
     }
 
-    public function store($kode, $pengguna, $datepicker, $total)
+    public function store($kode, $pengguna, $datepicker, $total, $status)
     {
         $data = new Pembelian;
         $data->kode_pembelian = $kode;
         $data->id_users = $pengguna;
         $data->tgl = $datepicker;
         $data->total = $total;
+        $data->status = "berhasil";
         $data->save();
 
         return $data->id;
@@ -59,13 +60,14 @@ class PembelianController extends Controller
 
     }
 
-    public function ubah($id_beli, $kode, $pengguna, $datepicker, $total)
+    public function ubah($id_beli, $kode, $pengguna, $datepicker, $total, $status)
     {
         $data = Pembelian::find($id_beli);
         $data->kode_pembelian = $kode;
         $data->id_users = $pengguna;
         $data->tgl = $datepicker;
         $data->total = $total;
+        $data->status = "berhasil";
         $data->save();
 
         return $data->id;
