@@ -33,7 +33,7 @@
 
         
         <div class="col-md-12">
-          <a href="{{route('penjualan')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data penjualan </button></a>
+          <a href="{{route('produksi')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data penjualan </button></a>
         </div>   
 
         <!-- Tambah penjualan -->

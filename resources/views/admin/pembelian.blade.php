@@ -33,57 +33,149 @@
           <div class="col-md-12">
             <a href="{{route('tambahBeli')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Pengadaan </button></a>
           </div>
+
         <!-- /Tambah es -->        
-
-        <!-- Data es -->
-        <div class="col-xs-12">
+        <div class="col-md-12">
           <br>
-          <div class="box box-success">
-            <!-- header -->
-              <div class="box-header">
-                <ul class="nav nav-tabs-custom">
-                  <li class="pull-left box-header"><h3 class="box-title">Daftar Pengadaan</h3></li>
-                </ul>
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#semua" data-toggle="tab">Semua</a></li>
+              <li><a href="#menunggu" data-toggle="tab">Menunggu</a></li>
+              <li><a href="#berhasil" data-toggle="tab">Berhasil</a></li>
+              <li><a href="#gagal" data-toggle="tab">Gagal</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="active tab-pane" id="semua">
+                <div class="box-body">
+                  <table id="example1" class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th style="width: 10px">No</th>
+                        <th style="width: 200px">Kode Pengadaan</th>
+                        <th style="width: 200px">Tanggal</th>
+                        <th style="width: 200px">Total</th>
+                        <th>Aksi</th>
+                    </thead>
+                    <tbody>
+                      <?php $no=1; ?>
+                      @foreach($data as $data)
+                        <tr>
+                          <td>{{ $no++ }}</td>
+                          <td>{{ $data->kode_pembelian }}</td>
+                          <td>{{ $data->tgl }}</td>
+                          <td>{{ $data->total }}</td>
+                          <td>
+                           <a href="{{ url('manager/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('manager/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                           <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
+                         </td>
+                        </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            <!-- /header -->
 
-            <!-- tabel es -->
-              <div class="box-body">
-                <table id="example1" class="table table-bordered table-hover">
-                  <thead>
-                    <tr>
-                      <th style="width: 10px">No</th>
-                      <th style="width: 200px">Kode Pengadaan</th>
-                      <th style="width: 200px">Tanggal</th>
-                      <th style="width: 200px">Total</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $no=1; ?>
-                    @foreach($data as $data)
-                    <tr>
-                      <td>{{ $no++ }}</td>
-                      <td>{{ $data->kode_pembelian }}</td>
-                      <td>{{ $data->tgl }}</td>
-                      <td>{{ $data->total }}</td>
-                      <td>
-                        <a href="{{ url('manager/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                        <a href="{{ url('manager/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
-                        <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
-                      </td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="menunggu">
+                <div class="box-body">
+                  <table id="example12" class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th style="width: 10px">No</th>
+                        <th style="width: 200px">Kode Pengadaan</th>
+                        <th style="width: 200px">Tanggal</th>
+                        <th style="width: 200px">Total</th>
+                        <th>Aksi</th>
+                    </thead>
+                    <tbody>
+                      <?php $no=1; ?>
+                      @foreach($datamenunggu as $data)
+                        <tr>
+                          <td>{{ $no++ }}</td>
+                          <td>{{ $data->kode_pembelian }}</td>
+                          <td>{{ $data->tgl }}</td>
+                          <td>{{ $data->total }}</td>
+                          <td>
+                           <a href="{{ url('manager/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('manager/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                           <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
+                         </td>
+                        </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            <!-- /.tabel es -->
+              <!-- /.tab-pane -->
 
+              <div class="tab-pane" id="berhasil">
+                <div class="box-body">
+                  <table id="example13" class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th style="width: 10px">No</th>
+                        <th style="width: 200px">Kode Pengadaan</th>
+                        <th style="width: 200px">Tanggal</th>
+                        <th style="width: 200px">Total</th>
+                        <th>Aksi</th>
+                    </thead>
+                    <tbody>
+                      <?php $no=1; ?>
+                      @foreach($databerhasil as $data)
+                        <tr>
+                          <td>{{ $no++ }}</td>
+                          <td>{{ $data->kode_pembelian }}</td>
+                          <td>{{ $data->tgl }}</td>
+                          <td>{{ $data->total }}</td>
+                          <td>
+                           <a href="{{ url('manager/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('manager/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                           <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
+                         </td>
+                        </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- /.tab-pane -->
+
+              <div class="tab-pane" id="gagal">
+                <div class="box-body">
+                  <table id="example15" class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th style="width: 10px">No</th>
+                        <th style="width: 200px">Kode Pengadaan</th>
+                        <th style="width: 200px">Tanggal</th>
+                        <th style="width: 200px">Total</th>
+                        <th>Aksi</th>
+                    </thead>
+                    <tbody>
+                      <?php $no=1; ?>
+                      @foreach($datagagal as $data)
+                        <tr>
+                          <td>{{ $no++ }}</td>
+                          <td>{{ $data->kode_pembelian }}</td>
+                          <td>{{ $data->tgl }}</td>
+                          <td>{{ $data->total }}</td>
+                          <td>
+                           <a href="{{ url('manager/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('manager/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                           <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
+                         </td>
+                        </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- /.tab-content -->
           </div>
+          <!-- /.nav-tabs-custom -->
         </div>
-        <!-- /Data es -->
-
-
 
       </div>
     </section>

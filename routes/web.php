@@ -129,6 +129,23 @@ Route::group(['middleware' => 'levelManager'], function(){
 			Route::get('/manager/penjualan/hapusDetailPenjualan/{id}', 'PenjualanController@hapusDetailPenjualan')->name('hapusDetailPenjualan');
 			Route::get('/manager/penjualan/edit/{id}', 'PenjualanController@showEdit');
 			Route::get('/manager/penjualan/ubah/{id_jual}/{kode}/{pengguna}/{datepicker}/{total}', 'PenjualanController@ubah');
+
+	//PRODUKSI
+		/*menampilkan halaman produksi*/
+			Route::get('/manager/produksi', 'ProduksiController@index')->name('produksi');
+		/*menampilkan form tambah*/
+			Route::get('/manager/produksi/tambah', 'ProduksiController@tambah')->name('tambahProduksi');
+		/*melakukan create*/
+			Route::get('/manager/produksi/simpan/{kode}/{pengguna}/{datepicker}/{total}', 'ProduksiController@store');
+			Route::get('/manager/produksi/simpan1/{idjual}/{namaes}/{jumlah}/{subtotal}', 'ProduksiController@store1');
+		/*melakukan delete*/
+			Route::get('/manager/produksi/hapus/{id}', 'ProduksiController@destroy')->name('hapusProduksi');
+		/*melakukan lihat detail*/
+			Route::get('/manager/produksi/lihat/{id}', 'ProduksiController@show');
+		/*melakukan ubah*/
+			Route::get('/manager/produksi/hapusDetailPenjualan/{id}', 'ProduksiController@hapusDetailProduksi')->name('hapusDetailProduksi');
+			Route::get('/manager/produksi/edit/{id}', 'ProduksiController@showEdit');
+			Route::get('/manager/produksi/ubah/{id_jual}/{kode}/{pengguna}/{datepicker}/{total}', 'ProduksiController@ubah');
 });
 	
 

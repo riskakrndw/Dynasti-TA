@@ -20,6 +20,10 @@
 <script>
   $(function () {
     $("#example1").DataTable();
+    $("#example12").DataTable();
+    $("#example13").DataTable();
+    $("#example14").DataTable();
+    $("#example15").DataTable();
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,

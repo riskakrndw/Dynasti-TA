@@ -19,10 +19,8 @@ class PenjualanController extends Controller
             $data = Penjualan::all();
             return view('admin.penjualan')->with('data', $data);
         } elseif (Auth::user()->level == "keuangan"){
-            $data = Penjualan::all();
+            $data = Penjualan::where('id_users', Auth::user()->id)->get();
             return view('keuangan.penjualan')->with('data', $data);
-        } elseif (Auth::user()->level == "pengadaan"){
-            
         }
 
     	
@@ -36,10 +34,7 @@ class PenjualanController extends Controller
         } elseif (Auth::user()->level == "keuangan"){
             $dataIceCream = DetailPenjualan::get();
             return view('keuangan.penjualan_tambah');
-        } elseif (Auth::user()->level == "pengadaan"){
-            
-        }
-
+        } 
     	
     }
 
@@ -102,10 +97,7 @@ class PenjualanController extends Controller
         } elseif (Auth::user()->level == "keuangan"){
             $data = Penjualan::where('id', $id)->first();
             return view('keuangan.penjualan_ubah')->with('data', $data);
-        } elseif (Auth::user()->level == "pengadaan"){
-            
         }
-
     	
     }
 
@@ -117,11 +109,8 @@ class PenjualanController extends Controller
         } elseif (Auth::user()->level == "keuangan"){
             $data = Penjualan::where('id', $id)->first();
             return view('keuangan.penjualan_detail')->with('data', $data);
-        } elseif (Auth::user()->level == "pengadaan"){
-            
-        }
-
-    	
+        } 
+	
     }
 
     public function hapusDetailPenjualan($id)

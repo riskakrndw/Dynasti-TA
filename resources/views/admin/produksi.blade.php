@@ -49,10 +49,11 @@
                 <table id="example1" class="table table-bordered table-hover">
                   <thead>
                     <tr>
-                      <th style="width: 30px">No</th>
+                      <th style="width: 10px">No</th>
+                      <th style="width: 125px">Kode Produksi</th>
                       <th style="width: 150px">Tanggal</th>
                       <th style="width: 350px">Nama Ice Cream</th>
-                      <th style="width: 150px">Jumlah</th>
+                      <th style="width: 100px">Jumlah</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -63,8 +64,8 @@
                       <td></td>
                       <td></td>
                       <td></td>
+                      <td></td>
                       <td>
-                        <a href="" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                         <a href="" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
                         <!-- <a type="button" href="" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
                       </td>

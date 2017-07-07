@@ -17,14 +17,16 @@ class PembelianController extends Controller
     {
         if(Auth::user()->level == "manager"){
             $data = Pembelian::all();
-            /*$dd($data);*/
-            return view('admin.pembelian')->with('data', $data);
+            $databerhasil = Pembelian::where('status', '=', 'berhasil')->get();
+            $datamenunggu = Pembelian::where('status', '=', 'menunggu')->get();
+            $datagagal = Pembelian::where('status', '=', 'gagal')->get();
+            return view('admin.pembelian')->with('data', $data)->with('databerhasil', $databerhasil)->with('datamenunggu', $datamenunggu)->with('datagagal', $datagagal);
         } elseif (Auth::user()->level == "keuangan"){
-            $data = Pembelian::all();
+            $data = Pembelian::where('id_users', Auth::user()->id)->get();
             /*$dd($data);*/
             return view('keuangan.pembelian')->with('data', $data);
         } elseif (Auth::user()->level == "pengadaan"){
-            $data = Pembelian::where('status', '=', 'menunggu')->get();
+            $data = Pembelian::where('status', '=', 'menunggu')->where('id_users', Auth::user()->id)->get();
             /*$dd($data);*/
             return view('pengadaan.pembelian')->with('data', $data);
         }
