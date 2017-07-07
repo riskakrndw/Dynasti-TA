@@ -2,9 +2,7 @@
 
 @section("title", "Data Pengadaan")
 
-@section("beli", "active")
-
-@section("transaksi", "active")
+@section("pembelianPeng", "active")
 
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
@@ -16,12 +14,11 @@
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Data Pengadaan
+        Data Permintaan Pengadaan
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Transaksi</a></li>
-        <li class="active">Data Pengadaan</li>
+        <li class="active">Permintaan Pengadaan</li>
       </ol>
     </section>
 
@@ -31,7 +28,7 @@
 
         <!-- Tambah es -->
           <div class="col-md-12">
-            <a href="{{route('tambahBeli')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Pengadaan </button></a>
+            <a href="{{route('tambahBeliPeng')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Permintaan Pengadaan </button></a>
           </div>
         <!-- /Tambah es -->        
 
@@ -42,7 +39,7 @@
             <!-- header -->
               <div class="box-header">
                 <ul class="nav nav-tabs-custom">
-                  <li class="pull-left box-header"><h3 class="box-title">Daftar Pengadaan</h3></li>
+                  <li class="pull-left box-header"><h3 class="box-title">Daftar Permintaan Pengadaan</h3></li>
                 </ul>
               </div>
             <!-- /header -->
@@ -68,8 +65,8 @@
                       <td>{{ $data->tgl }}</td>
                       <td>{{ $data->total }}</td>
                       <td>
-                        <a href="{{ url('manager/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                        <a href="{{ url('manager/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                        <a href="{{ url('pengadaan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                        <a href="{{ url('pengadaan/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
                         <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
                       </td>
                     </tr>

@@ -41,7 +41,8 @@
     
     <style type="text/css">
        .main-header .navbar {
-          background-color: #004365 !important;
+          background-color: #da8c10 !important;
+          color: #ffffff !important;
         }
          .main-header .navbar .nav > li > a {
           color: #ffffff;
@@ -60,14 +61,11 @@
           color: #ffffff;
         }
          .main-header .navbar .sidebar-toggle:hover {
-          color: #f6f6f6;
-          background: rgba(0, 0, 0, 0.1);
+          background-color: #bd770a !important;
+          color: #ffffff !important;
         }
          .main-header .navbar .sidebar-toggle {
           color: #fff;
-        }
-         .main-header .navbar .sidebar-toggle:hover {
-          background-color: #0a222f !important;
         }
         @media (max-width: 767px) {
            .main-header .navbar .dropdown-menu li.divider {
@@ -81,18 +79,52 @@
           }
         }
          .main-header .logo {
-          background-color: #004365 !important;
-          color: #ffffff;
+          background-color: #da8c10 !important;
+          color: #ffffff !important;
           border-bottom: 0 solid transparent;
         }
          .main-header .logo:hover {
-          background-color: #0a222f !important;
+          background-color: #bd770a !important;
+          color: #ffffff !important;
         }
          .main-header li.user-header {
-          background-color: #3c8dbc;
+          background-color: #f39c12 !important;
         }
          .content-header {
           background: transparent;
+        }
+
+        .main-sidebar .wrapper, .main-sidebar, .main-sidebar .left-side {
+          background-color: #23221c !important;
+        }
+
+        .main-sidebar .sidebar-menu>li:hover>a, .main-sidebar .sidebar-menu>li.active>a{
+          color: #fbbc35 !important;
+          background: #1b1a16 !important;
+          border-left-color: #f9e10f !important;
+        }
+        .main-sidebar .sidebar-menu>li.sidebar {
+          color: #ffffff !important;
+          background: #af9d00 !important;
+        }
+        .main-sidebar .sidebar-menu>li.header {
+          color: #ffffff;
+          background: #79600b;
+        }
+        .main-sidebar .treeview-menu>li>a {
+          color: #ffffff;
+          background: #2d2c26 !important;
+        }
+        .main-sidebar .treeview-menu>li:hover>a, .main-sidebar .treeview-menu>li.active>a {
+          color: #fbbc35 !important;
+          background: #2d2c26 !important;
+        }
+        .main-sidebar .sidebar-menu>li>.treeview-menu {
+          margin: 0 1px;
+          background: #2d2c26;
+        }
+        .wrapper, .wrapper .wrapper, .wrapper .left-side {
+          background-color: #23221c !important;
         }
     </style>
 

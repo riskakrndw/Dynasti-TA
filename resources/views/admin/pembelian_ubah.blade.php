@@ -83,11 +83,14 @@
               </ul>
 
               <!-- Data bahan -->
-                <div class="col-xs-4">
+                <div class="col-xs-3">
                   <input type="hidden" class="form-control" id="namaBahan" placeholder="Nama Bahan">
                 </div>
+                <div class="col-xs-2">
+                  <input type="text" class="form-control" id="satuanBahan" placeholder="Satuan" disabled>
+                </div>
                 <input class="form-control" type="hidden" name="idBahan" id="idBahan" value="">
-                <div class="col-xs-3">
+                <div class="col-xs-2">
                   <input type="text" class="form-control" id="hargaBahan" placeholder="Harga" disabled>
                 </div>
                 <div class="col-xs-3">
@@ -106,6 +109,7 @@
                       <tr>
                         <th style="width:50px">No</th>
                         <th style="width: 325px">Nama Bahan</th>
+                        <th style="width: 200px">Satuan</th>
                         <th style="width: 200px">Harga</th>
                         <th style="width: 175px">Jumlah</th>
                         <th style="width: 250px">Subtotal</th>
@@ -119,13 +123,14 @@
                           $id = $no+1;
                           $nama = str_replace(' ', '', $detail_beli->bahan->nama);
                         ?>
-                        <tr id="tr{{$id}}">
+                        <tr id="tr{{$id}}" no="{{$no}}">
                           <td>{{ $no++ }}</td>
                           <td>{{ $detail_beli->bahan->nama }}</td>
+                          <td>{{ $detail_beli->bahan->satuan }}</td>
                           <td>{{ $detail_beli->bahan->harga }}</td>
                           <td id="{{ $nama }}">{{ $detail_beli->jumlah }}</td>
                           <td id="{{ $nama }}subTotal" class="subTotal">{{ $detail_beli->subtotal }}</td>
-                          <td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td>
+                          <td class="col-md-3 control-label"><a class="remove-type pull-right" data-nama="{{ $nama }}" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td>
                         </tr>
                       @endforeach
                     </tbody>
@@ -185,6 +190,7 @@
           $.get('/dynasti/public/api/namaBahan/'+$('#namaBahan').val(),
             function(hasil){
               var nama = hasil;
+              var satuan = $('#satuanBahan').val();
               var harga = $('#hargaBahan').val();
               var jumlah = $('#jumlahBahan').val();
               var total = $('#totalHarga').val();
@@ -202,11 +208,12 @@
               }
               else{
                 nomorBaris = nomorBaris + 1;
-                $('#type_container').append('<tr id="'+type_div+'" no="'+nomorBaris+'"><td id="no'+nomorBaris+'">'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                $('#type_container').append('<tr id="'+type_div+'" no="'+nomorBaris+'"><td id="no'+nomorBaris+'">'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-nama="'+nama.replace(/\s/g,'')+'" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
               }
               $('#namaBahan').val('');
               $('#hargaBahan').val('');
               $('#jumlahBahan').val('');
+              $('#satuanBahan').val('');
 
               var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
               var totalHargaBaru = totalHargaLama + Subtotal;
@@ -222,7 +229,7 @@
             var id = jQuery(this).attr('data-id');
             //if (id == 0) {
                 //var trID = jQuery(this).parents("tr").attr('id');
-                nomorBaris = nomorBaris - 1;
+                
                 var deletedSubTotal = $(this).closest("tr").find(".subTotal").text();
                 var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
                 var totalHargaBaru = totalHargaLama - deletedSubTotal;
@@ -249,6 +256,7 @@
           function(hasil){
             $('#idBahan').val(hasil.id);
             $('#hargaBahan').val(hasil.harga);
+            $('#satuanBahan').val(hasil.satuan);
           }
         ) //ngambil value nama
 
@@ -276,13 +284,15 @@
           var col3_value = currentRow.find("td:eq(3)").text();
           var col4_value = currentRow.find("td:eq(4)").text();
           var col5_value = currentRow.find("td:eq(5)").text();
+          var col6_value = currentRow.find("td:eq(6)").text();
 
           var obj={};
           obj.no = col0_value;
           obj.nama_bahan = col1_value;
-          obj.harga = col2_value;
-          obj.jumlah = col3_value;
-          obj.subtotal = col4_value;
+          obj.satuan = col2_value;
+          obj.harga = col3_value;
+          obj.jumlah = col4_value;
+          obj.subtotal = col5_value;
 
           arrData.push(obj);
         });
@@ -294,7 +304,7 @@
           for (var i=0; i<arrData.length; i++){
             $.ajax({
               type: "GET",
-              url: "/dynasti/public/pembelian/simpan1/"+idbeli+"/"+arrData[i]['nama_bahan']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
+              url: "/dynasti/public/manager/pembelian/simpan1/"+idbeli+"/"+arrData[i]['nama_bahan']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
               success: function(result) {
                 console.log('berhasil');
               }
@@ -305,7 +315,7 @@
         
           $.ajax({
               type: "GET",
-              url: "/dynasti/public/pembelian/ubah/"+idbeli+"/"+kode+"/"+pengguna+"/"+datepicker+"/"+total+"/"+status,
+              url: "/dynasti/public/manager/pembelian/ubah/"+idbeli+"/"+kode+"/"+pengguna+"/"+datepicker+"/"+total+"/"+status,
               success: function(result) {
 
               }
@@ -314,14 +324,14 @@
 
         $.ajax({
               type: "GET",
-              url: "/dynasti/public/pembelian/hapusDetailPembelian/"+idbeli,
+              url: "/dynasti/public/manager/pembelian/hapusDetailPembelian/"+idbeli,
               success: function(result) {
                console.log(result);
               }
           }).done(a);
 
         $(document).ajaxStop(function(){
-          window.location="{{URL::to('pembelian')}}";
+          window.location="{{URL::to('manager/pembelian')}}";
         });
       });
     });

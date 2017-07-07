@@ -286,7 +286,7 @@
           for (var i=0; i<arrData.length; i++){
             $.ajax({
               type: "GET",
-              url: "/dynasti/public/penjualan/simpan1/"+idjual+"/"+arrData[i]['nama_es']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
+              url: "/dynasti/public/manager/penjualan/simpan1/"+idjual+"/"+arrData[i]['nama_es']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
               success: function(result) {
                 /*console.log('berhasil');*/
               }
@@ -296,7 +296,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/dynasti/public/penjualan/simpan/"+kode+"/"+pengguna+"/"+datepicker+"/"+total,
+            url: "/dynasti/public/manager/penjualan/simpan/"+kode+"/"+pengguna+"/"+datepicker+"/"+total,
             success: function(result) {
               idjual = result;
               /*console.log(idjual)*/
@@ -304,7 +304,7 @@
         }).done(a);
 
         $(document).ajaxStop(function(){
-          window.location="{{URL::to('penjualan')}}";
+          window.location="{{URL::to('manager/penjualan')}}";
         });
         
       });

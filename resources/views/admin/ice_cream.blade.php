@@ -53,11 +53,11 @@
                   <thead>
                     <tr>
                       <th style="width: 10px">No</th>
-                      <th style="width: 150px">Nama Ice Cream</th>
-                      <th style="width: 100px">Rasa</th>
-                      <th style="width: 100px">Jenis</th>
-                      <th style="width: 125px">Harga</th>
-                      <th style="width: 75px">Stok</th>
+                      <th style="width: 300px">Nama Ice Cream</th>
+                      <!-- <th style="width: 100px">Rasa</th>
+                      <th style="width: 100px">Jenis</th> -->
+                      <th style="width: 150px">Harga</th>
+                      <th style="width: 100px">Stok</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -69,7 +69,7 @@
                       <td>{{ $no++ }}</td>
                       <td>{{ $data->nama }}</td>
 
-                      @if($data->id_rasa)
+                     <!--  @if($data->id_rasa)
                         <td>{{ $data->rasa->nama }}</td>
                       @else
                         <td>Rasa tidak ditemukan</td>
@@ -79,7 +79,7 @@
                         <td>{{ $data->jenis->nama }}</td>
                       @else
                         <td>Jenis tidak ditemukan</td>
-                      @endif
+                      @endif -->
 
                       <td>{{ $data->harga }}</td>
                       <td>{{ $data->stok }}</td>

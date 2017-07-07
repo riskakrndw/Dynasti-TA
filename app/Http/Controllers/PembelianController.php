@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 use App\Pembelian;
 use App\DetailPembelian;
@@ -11,23 +12,38 @@ use App\User;
 
 class PembelianController extends Controller
 {
-
-    public function __construct(){
-        $this->middleware('levelManager');
-    }
-
     
     public function index()
     {
-        $data = Pembelian::all();
-        /*$dd($data);*/
-        return view('admin.pembelian')->with('data', $data);
+        if(Auth::user()->level == "manager"){
+            $data = Pembelian::all();
+            /*$dd($data);*/
+            return view('admin.pembelian')->with('data', $data);
+        } elseif (Auth::user()->level == "keuangan"){
+            $data = Pembelian::all();
+            /*$dd($data);*/
+            return view('keuangan.pembelian')->with('data', $data);
+        } elseif (Auth::user()->level == "pengadaan"){
+            $data = Pembelian::where('status', '=', 'menunggu')->get();
+            /*$dd($data);*/
+            return view('pengadaan.pembelian')->with('data', $data);
+        }
+        
     }
 
     public function tambah()
     {
-        $dataBahan = DetailPembelian::get();
-        return view('admin.pembelian_tambah');
+        if(Auth::user()->level == "manager"){
+            $dataBahan = DetailPembelian::get();
+            return view('admin.pembelian_tambah');
+        } elseif (Auth::user()->level == "keuangan"){
+            $dataBahan = DetailPembelian::get();
+            return view('keuangan.pembelian_tambah');
+        } elseif (Auth::user()->level == "pengadaan"){
+            $dataBahan = DetailPembelian::get();
+            return view('pengadaan.pembelian_tambah');
+        }
+        
     }
 
     public function store($kode, $pengguna, $datepicker, $total, $status)
@@ -37,7 +53,13 @@ class PembelianController extends Controller
         $data->id_users = $pengguna;
         $data->tgl = $datepicker;
         $data->total = $total;
-        $data->status = "berhasil";
+        if(Auth::user()->level == "manager"){
+            $data->status = "berhasil";
+        } elseif (Auth::user()->level == "keuangan"){
+            $data->status = "berhasil";
+        } elseif (Auth::user()->level == "pengadaan"){
+            $data->status = "menunggu";
+        }
         $data->save();
 
         return $data->id;
@@ -67,7 +89,13 @@ class PembelianController extends Controller
         $data->id_users = $pengguna;
         $data->tgl = $datepicker;
         $data->total = $total;
-        $data->status = "berhasil";
+        if(Auth::user()->level == "manager"){
+            $data->status = "berhasil";
+        } elseif (Auth::user()->level == "keuangan"){
+            $data->status = "berhasil";
+        } elseif (Auth::user()->level == "pengadaan"){
+            $data->status = "menunggu";
+        }
         $data->save();
 
         return $data->id;
@@ -87,14 +115,32 @@ class PembelianController extends Controller
 
     public function showEdit($id)
     {
-        $data = Pembelian::where('id', $id)->first();
-        return view('admin.pembelian_ubah')->with('data', $data);
+        if(Auth::user()->level == "manager"){
+            $data = Pembelian::where('id', $id)->first();
+            return view('admin.pembelian_ubah')->with('data', $data);
+        } elseif (Auth::user()->level == "keuangan"){
+            $data = Pembelian::where('id', $id)->first();
+            return view('keuangan.pembelian_ubah')->with('data', $data);
+        } elseif (Auth::user()->level == "pengadaan"){
+            $data = Pembelian::where('id', $id)->first();
+            return view('pengadaan.pembelian_ubah')->with('data', $data);
+        }
+        
     }
 
     public function show($id)
     {
-        $data = Pembelian::where('id', $id)->first();
-        return view('admin.pembelian_detail')->with('data', $data);
+        if(Auth::user()->level == "manager"){
+            $data = Pembelian::where('id', $id)->first();
+            return view('admin.pembelian_detail')->with('data', $data);
+        } elseif (Auth::user()->level == "keuangan"){
+            $data = Pembelian::where('id', $id)->first();
+            return view('keuangan.pembelian_detail')->with('data', $data);
+        } elseif (Auth::user()->level == "pengadaan"){
+            $data = Pembelian::where('id', $id)->first();
+            return view('pengadaan.pembelian_detail')->with('data', $data);
+        }
+        
     }
 
     public function hapusDetailPembelian($id)
@@ -115,4 +161,26 @@ class PembelianController extends Controller
         return redirect()->back()->with($notification);
                 
     }
+
+    public function konfirmasi(){
+        $data = Pembelian::where('status', '=', 'menunggu')->get();
+        /*$dd($data);*/
+        return view('admin.permintaan')->with('data', $data);
+    }
+
+    public function ubahStatus(Request $request)
+    {
+        $data = Pembelian::where('id', $request->id)->first();
+
+        $data->status = $request->status;
+        $data->save();
+
+        $notification = array(
+            'message' => 'Data berhasil diubah',
+            'alert-type' => 'info'
+        );
+        return redirect()->back()->with($notification);
+
+    }
+
 }

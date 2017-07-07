@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Auth;
 
 use Illuminate\Http\Request;
 use App\Bahan;
@@ -10,9 +11,9 @@ use App\DetailPembelian;
 class BahanController extends Controller
 {
 
-    public function __construct(){
-        $this->middleware('levelManager');
-    }
+    // public function __construct(){
+    //     $this->middleware('levelManager');
+    // }
 
     /**
      * Display a listing of the resource.
@@ -22,7 +23,11 @@ class BahanController extends Controller
     public function index()
     {
         $data = Bahan::all();
-        return view('admin.bahan', ['data'=>$data]);
+        if(Auth::user()->level == "manager"){
+            return view('admin.bahan', ['data'=>$data]);
+        } elseif (Auth::user()->level == "pengadaan"){
+            return view('pengadaan.bahan', ['data'=>$data]);
+        }
     }
 
     /**

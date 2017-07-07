@@ -1,8 +1,10 @@
 @extends('layout_master.master')
 
-@section("title", "Produksi")
+@section("title", "Bahan Baku")
 
-@section("produksi", "active")
+@section("stokbahan", "active")
+
+@section("stok", "active")
 
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
@@ -14,71 +16,62 @@
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Data Produksi
+        Data Stok Bahan Baku
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Data Produksi</li>
+        <li><a href="#"> Data Stok</a></li>
+        <li class="active">Bahan Baku</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
-      <div class="row">
+      <div class="row">       
 
-        <!-- Tambah produksi -->
-          <div class="col-md-12">
-            <a href="{{route('tambahProduksi')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Produksi </button></a>
-          </div>
-        <!-- /Tambah produksi -->        
-
-        <!-- Data produksi -->
+        <!-- Data bahan -->
         <div class="col-xs-12">
-          <br>
           <div class="box box-success">
+
             <!-- header -->
               <div class="box-header">
                 <ul class="nav nav-tabs-custom">
-                  <li class="pull-left box-header"><h3 class="box-title">Daftar Produksi</h3></li>
+                  <li class="pull-left box-header"><h3 class="box-title">Daftar Bahan</h3></li>
                 </ul>
               </div>
             <!-- /header -->
 
-            <!-- tabel produksi -->
+            <!-- tabel bahan -->
               <div class="box-body">
                 <table id="example1" class="table table-bordered table-hover">
                   <thead>
                     <tr>
                       <th style="width: 30px">No</th>
-                      <th style="width: 150px">Tanggal</th>
-                      <th style="width: 350px">Nama Ice Cream</th>
-                      <th style="width: 150px">Jumlah</th>
-                      <th>Aksi</th>
+                      <th style="width: 250px">Nama Bahan</th>
+                      <th style="width: 110px">Satuan</th>
+                      <th style="width: 180px">Harga Satuan</th>
+                      <th style="width: 100px">Stok</th>
                     </tr>
                   </thead>
                   <tbody>
-                    
+                    <?php $no=1; ?>
+                    @foreach($data as $data)
                     <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                        <a href="" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                        <a href="" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
-                        <!-- <a type="button" href="" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
-                      </td>
+                      <td>{{ $no++ }}</td>
+                      <td>{{ $data->nama }}</td>
+                      <td>{{ $data->satuan }}</td>
+                      <td>{{ $data->harga }}</td>
+                      <td>{{ $data->stok }}</td>
                     </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
-            <!-- /.tabel produksi -->
+            <!-- /.tabel bahan -->
 
           </div>
         </div>
-        <!-- /Data produksi -->
-
-
+        <!-- /Data bahan -->
 
       </div>
     </section>

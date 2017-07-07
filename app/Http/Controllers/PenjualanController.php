@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 use App\Penjualan;
 use App\DetailPenjualan;
@@ -12,20 +13,34 @@ use App\User;
 class PenjualanController extends Controller
 {
 
-    public function __construct(){
-        $this->middleware('levelManager');
-    }
-    
     public function index()
     {
-    	$data = Penjualan::all();
-    	return view('admin.penjualan')->with('data', $data);
+        if(Auth::user()->level == "manager"){
+            $data = Penjualan::all();
+            return view('admin.penjualan')->with('data', $data);
+        } elseif (Auth::user()->level == "keuangan"){
+            $data = Penjualan::all();
+            return view('keuangan.penjualan')->with('data', $data);
+        } elseif (Auth::user()->level == "pengadaan"){
+            
+        }
+
+    	
     }
 
     public function tambah()
     {
-    	$dataIceCream = DetailPenjualan::get();
-    	return view('admin.penjualan_tambah');
+        if(Auth::user()->level == "manager"){
+            $dataIceCream = DetailPenjualan::get();
+            return view('admin.penjualan_tambah');
+        } elseif (Auth::user()->level == "keuangan"){
+            $dataIceCream = DetailPenjualan::get();
+            return view('keuangan.penjualan_tambah');
+        } elseif (Auth::user()->level == "pengadaan"){
+            
+        }
+
+    	
     }
 
     public function store($kode, $pengguna, $datepicker, $total)
@@ -81,14 +96,32 @@ class PenjualanController extends Controller
 
     public function showEdit($id)
     {
-    	$data = Penjualan::where('id', $id)->first();
-    	return view('admin.penjualan_ubah')->with('data', $data);
+        if(Auth::user()->level == "manager"){
+            $data = Penjualan::where('id', $id)->first();
+            return view('admin.penjualan_ubah')->with('data', $data);
+        } elseif (Auth::user()->level == "keuangan"){
+            $data = Penjualan::where('id', $id)->first();
+            return view('keuangan.penjualan_ubah')->with('data', $data);
+        } elseif (Auth::user()->level == "pengadaan"){
+            
+        }
+
+    	
     }
 
     public function show($id)
     {
-    	$data = Penjualan::where('id', $id)->first();
-    	return view('admin.penjualan_detail')->with('data', $data);
+        if(Auth::user()->level == "manager"){
+            $data = Penjualan::where('id', $id)->first();
+            return view('admin.penjualan_detail')->with('data', $data);
+        } elseif (Auth::user()->level == "keuangan"){
+            $data = Penjualan::where('id', $id)->first();
+            return view('keuangan.penjualan_detail')->with('data', $data);
+        } elseif (Auth::user()->level == "pengadaan"){
+            
+        }
+
+    	
     }
 
     public function hapusDetailPenjualan($id)

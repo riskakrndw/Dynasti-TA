@@ -1,8 +1,8 @@
 @extends('layout_master.master')
 
-@section("title", "Tambah Produksi")
+@section("title", "Tambah Ice Cream")
 
-@section("produksi", "active")
+@section("pembelianPeng", "active")
 
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
@@ -22,8 +22,8 @@
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Data Produksi</a></li>
-        <li class="active">Tambah</li>
+        <li><a href="#">Permintaan Pembelian</a></li>
+        <li class="active">Ubah</li>
       </ol>
     </section>
 
@@ -33,27 +33,29 @@
 
         
         <div class="col-md-12">
-          <a href="{{route('penjualan')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data penjualan </button></a>
+          <a href="{{route('pembelianPeng')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman detail pembelian </button></a>
         </div>   
 
-        <!-- Tambah penjualan -->
+        <!-- Tambah Pembelian -->
           <div class="col-md-12">
             <br>
             <div class="box box-success">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Data Penjualan</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Data Pembelian</h3></li>
               </ul>
 
-              <!-- Form tambah penjualan -->
+              <!-- Form tambah pembelian -->
                 <form role="form" action="" method="">
                   {{csrf_field()}}
                   <div class="box-body">
+                    <input class="form-control" type="hidden" name="idPengguna" id="idPengguna" value="{{Auth::User()->id}}">
+                    <input class="form-control" type="hidden" name="status" id="status" value="">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Kode Penjualan</label>
+                        <label>Kode Pembelian</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Penjualan" name="kode" id="kode">
+                          <input class="form-control" placeholder="Kode Pembelian" name="kode" id="kode" value="{{ $data->kode_pembelian }}" >
                         </div>
                       </div>
                     </div>
@@ -64,39 +66,35 @@
                           <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" class="form-control pull-right" id="datepicker">
+                          <input type="text" class="form-control pull-right" id="datepicker" value="{{ $data->tgl }}" >
                         </div>
                       </div>
                     </div>
                   </div>
                 
-              <!-- /Form tambah penjualan -->
+              <!-- /Form tambah es -->
 
               <hr id="garis">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Ice Cream yang terjual</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Bahan baku yang diperlukan</h3></li>
               </ul>
 
               <!-- Data bahan -->
-                <div class="col-xs-2">
-                  <input type="hidden" class="form-control" id="namaEs" placeholder="Nama Ice Cream">
-                </div>
-                <input class="form-control" type="hidden" name="idEs" id="idEs" value="">
-                <input class="form-control" type="hidden" name="stokEs" id="stokEs" value="">
-                <div class="col-xs-2">
-                  <input type="text" class="form-control" id="hargaEs" placeholder="Harga" disabled>
+                <div class="col-xs-3">
+                  <input type="hidden" class="form-control" id="namaBahan" placeholder="Nama Bahan">
                 </div>
                 <div class="col-xs-2">
-                  <input type="text" class="form-control" id="rasaEs" placeholder="Rasa" disabled>
+                  <input type="text" class="form-control" id="satuanBahan" placeholder="Satuan" disabled>
+                </div>
+                <input class="form-control" type="hidden" name="idBahan" id="idBahan" value="">
+                <div class="col-xs-2">
+                  <input type="text" class="form-control" id="hargaBahan" placeholder="Harga" disabled>
+                </div>
+                <div class="col-xs-3">
+                  <input type="text" class="form-control" id="jumlahBahan" placeholder="Jumlah yang dibutuhkan" onKeyPress="return goodchars(event,'0123456789',this)">
                 </div>
                 <div class="col-xs-2">
-                  <input type="text" class="form-control" id="jenisEs" placeholder="Jenis" disabled>
-                </div>
-                <div class="col-xs-2">
-                  <input type="text" class="form-control" id="jumlahEs" placeholder="Jumlah yang terjual" onKeyPress="return goodchars(event,'0123456789',this)">
-                </div>
-                <div class="col-xs-2">
-                  <a href="javascript: void(0)"><button type="button" class="btn btn-sm btn-default btnTambahEs"><i class="fa  fa-plus "></i> Tambah Ice Cream </button></a>
+                  <a href="javascript: void(0)"><button type="button" class="btn btn-sm btn-default btnTambahBahan"><i class="fa  fa-plus "></i> Tambah Bahan </button></a>
                 </div>
               <!-- ./Data bahan -->
 
@@ -107,23 +105,37 @@
                     <thead>
                       <tr>
                         <th style="width:50px">No</th>
-                        <th style="width: 200px">Nama Ice Cream</th>
-                        <th style="width: 175px">Harga</th>
-                        <th style="width: 100px">Rasa</th>
-                        <th style="width: 100px">Jenis</th>
-                        <th style="width: 100px">Jumlah</th>
+                        <th style="width: 325px">Nama Bahan</th>
+                        <th style="width: 200px">Satuan</th>
+                        <th style="width: 200px">Harga</th>
+                        <th style="width: 175px">Jumlah</th>
                         <th style="width: 250px">Subtotal</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody id="type_container">
-                      
+                      <?php $no=1; ?>
+                      @foreach($data->detail_beli as $detail_beli)
+                        <?php 
+                          $id = $no+1;
+                          $nama = str_replace(' ', '', $detail_beli->bahan->nama);
+                        ?>
+                        <tr id="tr{{$id}}" no="{{$no}}">
+                          <td>{{ $no++ }}</td>
+                          <td>{{ $detail_beli->bahan->nama }}</td>
+                          <td>{{ $detail_beli->bahan->satuan }}</td>
+                          <td>{{ $detail_beli->bahan->harga }}</td>
+                          <td id="{{ $nama }}">{{ $detail_beli->jumlah }}</td>
+                          <td id="{{ $nama }}subTotal" class="subTotal">{{ $detail_beli->subtotal }}</td>
+                          <td class="col-md-3 control-label"><a class="remove-type pull-right" data-nama="{{ $nama }}" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td>
+                        </tr>
+                      @endforeach
                     </tbody>
                   </table>
                   <br>
 
                   <span>Total Harga</span>
-                  <input id="totalHarga" class="totalHarga" name="total" placeholder="0" value="0" disabled>
+                  <input id="totalHarga" class="totalHarga" name="total" placeholder="0" value="{{ $data->total }}" disabled>
 
                   <div class="col-md-12">
                     <button type="button" class="btn btn-sm btn-primary pull-right" value="Submit" id="submit"><i class="fa fa-floppy-o"></i> Simpan </button>
@@ -134,8 +146,8 @@
             </div>
           </div>
           </form>
-        <!-- /Tambah penjualan -->
-        
+        <!-- /Tambah pembelian -->
+
       </div>
     </section>
     <!-- /. main content -->
@@ -157,7 +169,6 @@
   <script src="{{url('dist/js/bootstrap-datepicker.js')}}"></script>
 
 
-  <!-- script tambah bahan baku -->
   <script>
     //Date picker
       $('#datepicker').datepicker({
@@ -165,54 +176,47 @@
         format: "yyyy-mm-dd"
       });
 
-    var nomorBaris = 0;
+    var nomorBaris = {{$no - 1}};
     jQuery(document).ready(function() {
       var doc = $(document);
-      jQuery('.btnTambahEs').die('click').live('click', function(e) {
+      jQuery('.btnTambahBahan').die('click').live('click', function(e) {
         e.preventDefault();
-        if($('#jumlahEs').val() > $('#stokEs').val()){
-          alert("stok tidak mencukupi");
-        }
-        else{
-          for(var i = 0; i<1; i++){
-            var type_div = 'teams_'+jQuery.now();
-      
-            $.get('/dynasti/public/api/namaIceCream/'+$('#idEs').val(),
-              function(hasil){
-                var nama = hasil;
-                var harga = $('#hargaEs').val();
-                var rasa = $('#rasaEs').val();
-                var jenis = $('#jenisEs').val();
-                var jumlah = $('#jumlahEs').val();
-                var total = $('#totalHarga').val();
-                var Subtotal = parseInt(harga) * parseInt(jumlah);
-                var namadb  = "#" + nama.replace(/\s/g,'');
-                var namaSub = namadb + "subTotal";
-                if ($(namadb).length){
-                  prevVal = $(namadb).text();
-                  newVal = parseInt(prevVal)+parseInt(jumlah);
-                  $(namadb).text(newVal);
+        for(var i = 0; i<1; i++){
+          var type_div = 'teams_'+jQuery.now();
+    
+          $.get('/dynasti/public/api/namaBahan/'+$('#namaBahan').val(),
+            function(hasil){
+              var nama = hasil;
+              var satuan = $('#satuanBahan').val();
+              var harga = $('#hargaBahan').val();
+              var jumlah = $('#jumlahBahan').val();
+              var total = $('#totalHarga').val();
+              var Subtotal = parseInt(harga) * parseInt(jumlah);
+              var namadb  = "#" + nama.replace(/\s/g,'');
+              var namaSub = namadb + "subTotal";
+              if ($(namadb).length){
+                prevVal = $(namadb).text();
+                newVal = parseInt(prevVal)+parseInt(jumlah);
+                $(namadb).text(newVal);
 
-                  prevSub = $(namaSub).text();
-                  newSub = parseInt(prevSub) + parseInt(jumlah) * parseInt(harga);
-                  $(namaSub).text(newSub);
-                }
-                else{
-                  nomorBaris = nomorBaris + 1;
-                $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td>'+rasa+'</td><td>'+jenis+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
-                }
-                $('#namaEs').val('');
-                $('#hargaEs').val('');
-                $('#rasaEs').val('');
-                $('#jenisEs').val('');
-                $('#jumlahEs').val('');
-
-                var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
-                var totalHargaBaru = totalHargaLama + Subtotal;
-                document.getElementById('totalHarga').value = totalHargaBaru;
+                prevSub = $(namaSub).text();
+                newSub = parseInt(prevSub) + parseInt(jumlah) * parseInt(harga);
+                $(namaSub).text(newSub);
               }
-            )
-          }
+              else{
+                nomorBaris = nomorBaris + 1;
+                $('#type_container').append('<tr id="'+type_div+'" no="'+nomorBaris+'"><td id="no'+nomorBaris+'">'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-nama="'+nama.replace(/\s/g,'')+'" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+              }
+              $('#namaBahan').val('');
+              $('#hargaBahan').val('');
+              $('#jumlahBahan').val('');
+              $('#satuanBahan').val('');
+
+              var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
+              var totalHargaBaru = totalHargaLama + Subtotal;
+              document.getElementById('totalHarga').value = totalHargaBaru;
+            }
+          )
         }
       });
   
@@ -222,12 +226,19 @@
             var id = jQuery(this).attr('data-id');
             //if (id == 0) {
                 //var trID = jQuery(this).parents("tr").attr('id');
-                jQuery('#' + id).remove();
-                nomorBaris = nomorBaris - 1;
+                
                 var deletedSubTotal = $(this).closest("tr").find(".subTotal").text();
                 var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
                 var totalHargaBaru = totalHargaLama - deletedSubTotal;
                 document.getElementById('totalHarga').value = totalHargaBaru;
+
+                var jmltr = $('#type_container').children().length;
+                for(var i=parseInt($(this).closest('tr').attr('no'))+1; i<=jmltr; i++){
+                  $('#no'+i).text($('#no'+i).text() - 1);
+                  $('#no'+i).attr('id', $('#no'+i).text() - 1);
+                }
+                jQuery('#' + id).remove();
+                nomorBaris = nomorBaris - 1;
                 
            // }
             return true;
@@ -237,15 +248,12 @@
       });
 
       //nampilin id
-      $('#namaEs').change(function(){
-        $.get('/dynasti/public/api/icecream/'+$('#namaEs').val(),
+      $('#namaBahan').change(function(){
+        $.get('/dynasti/public/api/bahan/'+$('#namaBahan').val(),
           function(hasil){
-            $('#idEs').val(hasil[0]);
-            $('#stokEs').val(hasil[1]);
-            $('#namaEs').val(hasil[2]);
-            $('#hargaEs').val(hasil[3]);
-            $('#jenisEs').val(hasil[4]);
-            $('#rasaEs').val(hasil[5]);
+            $('#idBahan').val(hasil.id);
+            $('#hargaBahan').val(hasil.harga);
+            $('#satuanBahan').val(hasil.satuan);
           }
         ) //ngambil value nama
 
@@ -254,6 +262,7 @@
       //save multi record to db
       $('#submit').on('click', function(){
         var kode = $('#kode').val();
+        var pengguna = $('#idPengguna').val();
         var datepicker = $('#datepicker').val();
         var bulan = new Date(datepicker).getMonth()+1;
         var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
@@ -273,63 +282,69 @@
           var col4_value = currentRow.find("td:eq(4)").text();
           var col5_value = currentRow.find("td:eq(5)").text();
           var col6_value = currentRow.find("td:eq(6)").text();
-          var col7_value = currentRow.find("td:eq(7)").text();
 
           var obj={};
           obj.no = col0_value;
-          obj.nama_es = col1_value;
-          obj.harga = col2_value;
-          obj.rasa = col3_value;
-          obj.jenis = col4_value;
-          obj.jumlah = col5_value;
-          obj.subtotal = col6_value;
+          obj.nama_bahan = col1_value;
+          obj.satuan = col2_value;
+          obj.harga = col3_value;
+          obj.jumlah = col4_value;
+          obj.subtotal = col5_value;
 
           arrData.push(obj);
         });
   
-        var idjual;
+        var idbeli = {{ $data->id }};
+        var status;
  
         function a(){
           for (var i=0; i<arrData.length; i++){
             $.ajax({
               type: "GET",
-              url: "/dynasti/public/penjualan/simpan1/"+idjual+"/"+arrData[i]['nama_es']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
+              url: "/dynasti/public/pengadaan/pembelian/simpan1/"+idbeli+"/"+arrData[i]['nama_bahan']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
               success: function(result) {
-                /*console.log('berhasil');*/
+                console.log('berhasil');
               }
             });
           }
         };
 
-        $.ajax({
-            type: "GET",
-            url: "/dynasti/public/penjualan/simpan/"+kode+"/"+datepicker+"/"+total,
-            success: function(result) {
-              idjual = result;
-              /*console.log(idjual)*/
-            }
-        }).done(a);
-
-        $(document).ajaxComplete(function(){
-          window.location="{{URL::to('penjualan')}}";
-        });
         
+          $.ajax({
+              type: "GET",
+              url: "/dynasti/public/pengadaan/pembelian/ubah/"+idbeli+"/"+kode+"/"+pengguna+"/"+datepicker+"/"+total+"/"+status,
+              success: function(result) {
+
+              }
+          });
+        
+
+        $.ajax({
+              type: "GET",
+              url: "/dynasti/public/pengadaan/pembelian/hapusDetailPembelian/"+idbeli,
+              success: function(result) {
+               console.log(result);
+              }
+          }).done(a);
+
+        $(document).ajaxStop(function(){
+          window.location="{{URL::to('pengadaan/pembelian')}}";
+        });
       });
     });
   </script>
 
-  <!-- script select 2 untuk nyari bahan -->
   <script>
     jQuery(document).ready(function($) {
         // trigger select2 for each untriggered select2 box
-        $("#namaEs").each(function (i, obj) {
+        $("#namaBahan").each(function (i, obj) {
           if (!$(obj).data("select2"))
           {
             $(obj).select2({
-              placeholder: "Nama Ice Cream",
+              placeholder: "Nama Bahan",
               minimumInputLength: "1",
               ajax: {
-                url: "/dynasti/public/api/icecream",
+                url: "/dynasti/public/api/bahan",
                 dataType: 'json',
                 quietMillis: 250,
                 data: function (term, page) {
@@ -358,7 +373,7 @@
                 // the input tag has a value attribute preloaded that points to a preselected repository's id
                 // this function resolves that id attribute to an object that select2 can render
                 // using its formatResult renderer - that way the repository name is shown preselected
-                $.ajax("/dynasti/public/api/icecream" + '/' , {
+                $.ajax("/dynasti/public/api/bahan" + '/' , {
                   dataType: "json"
                 }).done(function(data) {
                   textField = "nama";

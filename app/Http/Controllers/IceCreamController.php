@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Auth;
 
 use Illuminate\Http\Request;
 use App\IceCream;
@@ -12,10 +13,6 @@ use App\Bahan;
 class IceCreamController extends Controller
 {
 
-    public function __construct(){
-        $this->middleware('levelManager');
-    }
-
     public function index()
     {
         $data = IceCream::all();
@@ -23,7 +20,12 @@ class IceCreamController extends Controller
         $dataRasa = Rasa::get();
         $dataBahan = DetailBahan::get();
         /*dd($data);*/
-        return view('admin.ice_cream')->with('data', $data)->with('dataJenis', $dataJenis)->with('dataRasa', $dataRasa);
+        if(Auth::user()->level == "manager"){
+            return view('admin.ice_cream')->with('data', $data)->with('dataJenis', $dataJenis)->with('dataRasa', $dataRasa);
+        } elseif (Auth::user()->level == "pengadaan"){
+            return view('pengadaan.ice_cream')->with('data', $data)->with('dataJenis', $dataJenis)->with('dataRasa', $dataRasa);
+        }
+        
     }
 
 

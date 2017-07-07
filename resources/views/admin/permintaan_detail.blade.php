@@ -1,8 +1,8 @@
 @extends('layout_master.master')
 
-@section("title", "Detail Penjualan")
+@section("title", "Tambah Ice Cream")
 
-@section("jual", "active")
+@section("beli", "active")
 
 @section("transaksi", "active")
 
@@ -25,7 +25,7 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#"> Transaksi</a></li>
-        <li><a href="#">Data Penjualan</a></li>
+        <li><a href="#">Data Pembelian</a></li>
         <li class="active">Lihat Detail</li>
       </ol>
     </section>
@@ -36,27 +36,27 @@
 
         
         <div class="col-md-12">
-          <a href="{{route('penjualan')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data penjualan </button></a>
+          <a href="{{route('pembelian')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data pembelian </button></a>
         </div>   
 
-        <!-- Tambah jual -->
+        <!-- Tambah Es -->
           <div class="col-md-12">
             <br>
             <div class="box box-success">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Data Penjualan</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Data Pembelian</h3></li>
               </ul>
 
-              <!-- Form tambah jual -->
+              <!-- Form tambah es -->
                 <form role="form" action="" method="">
                   {{csrf_field()}}
                   <div class="box-body">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Kode Penjualan</label>
+                        <label>Kode Pembelian</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Penjualan" name="kode" id="kode" value="{{ $data->kode_penjualan }}" disabled>
+                          <input class="form-control" placeholder="Kode Pembelian" name="kode" id="kode" value="{{ $data->kode_pembelian }}" disabled>
                         </div>
                       </div>
                     </div>
@@ -73,39 +73,37 @@
                     </div>
                   </div>
                 
-              <!-- /Form tambah jual -->
+              <!-- /Form tambah es -->
 
               <hr id="garis">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Daftar ice cream yang dijual</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Bahan baku yang diperlukan</h3></li>
               </ul>
 
-              <!-- tabel es -->
+              <!-- tabel bahan -->
                 <div class="box-body">
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
                       <tr>
                         <th style="width:50px">No</th>
-                        <th style="width: 200px">Nama Ice Cream</th>
-                        <th style="width: 175px">Harga</th>
-                        <th style="width: 100px">Rasa</th>
-                        <th style="width: 100px">Jenis</th>
-                        <th style="width: 100px">Jumlah</th>
+                        <th style="width: 325px">Nama Bahan</th>
+                        <th style="width: 100px">Satuan</th>
+                        <th style="width: 200px">Harga</th>
+                        <th style="width: 175px">Jumlah</th>
                         <th style="width: 250px">Subtotal</th>
                       </tr>
                     </thead>
                     <tbody id="type_container">
                       <?php $no=1; ?>
-                      @foreach($data->detail_jual as $detail_jual)
+                      @foreach($data->detail_beli as $detail_beli)
                         <?php $id = $no+1; ?>
                         <tr id="tr{{$id}}">
                           <td>{{ $no++ }}</td>
-                          <td>{{ $detail_jual->ice_cream->nama }}</td>
-                          <td>{{ $detail_jual->ice_cream->harga }}</td>
-                          <td>{{ $detail_jual->ice_cream->rasa->nama }}</td>
-                          <td>{{ $detail_jual->ice_cream->jenis->nama }}</td>
-                          <td id="{{ $detail_jual->ice_cream->nama }}">{{ $detail_jual->jumlah }}</td>
-                          <td class="subTotal">{{ $detail_jual->subtotal }}</td>
+                          <td>{{ $detail_beli->bahan->nama }}</td>
+                          <td>{{ $detail_beli->bahan->satuan }}</td>
+                          <td>{{ $detail_beli->bahan->harga }}</td>
+                          <td id="{{ $detail_beli->bahan->nama }}">{{ $detail_beli->jumlah }}</td>
+                          <td class="subTotal">{{ $detail_beli->subtotal }}</td>
                         </tr>
                       @endforeach
                     </tbody>
@@ -116,11 +114,11 @@
                   <input id="totalHarga" class="totalHarga" name="total" placeholder="0" value="{{ $data->total }}" disabled>
 
                 </div>
-              <!-- /.tabel es -->
+              <!-- /.tabel bahan -->
             </div>
           </div>
           </form>
-        <!-- /Tambah jual -->
+        <!-- /Tambah es -->
       </div>
     </section>
     <!-- /. main content -->

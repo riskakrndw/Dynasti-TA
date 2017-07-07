@@ -31,7 +31,7 @@
 
         <!-- Tambah es -->
           <div class="col-md-12">
-            <a href="{{route('tambahBeli')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Pengadaan </button></a>
+            <a href="{{route('tambahBeliKeu')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Pengadaan </button></a>
           </div>
         <!-- /Tambah es -->        
 
@@ -68,8 +68,8 @@
                       <td>{{ $data->tgl }}</td>
                       <td>{{ $data->total }}</td>
                       <td>
-                        <a href="{{ url('manager/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                        <a href="{{ url('manager/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                        <a href="{{ url('keuangan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                        <a href="{{ url('keuangan/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
                         <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
                       </td>
                     </tr>

@@ -11,52 +11,21 @@
         <li class="header">MAIN NAVIGATION</li>
 
         @if(Auth::user()->level == "manager")
-        <li class="@yield("beranda")"><a href="{{route('beranda')}}"><i class="fa fa-home"></i> <span>Beranda</span></a></li>
-        <li class="treeview @yield("master")">
-          <a href="#">
-            <i class="fa fa-th-large"></i> <span>Master Data</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="@yield("jenis")"><a href="{{route('jenis')}}"><i class="fa fa-list"></i> Data Jenis</a></li>
-            <li class="@yield("rasa")"><a href="{{route('rasa')}}"><i class="fa fa-list"></i> Data Rasa</a></li>
-            <li class="@yield("bahan")"><a href="{{route('bahan')}}"><i class="fa fa-list"></i> Data Bahan Baku</a></li>
-            <li class="@yield("es")"><a href="{{route('icecream')}}"><i class="fa fa-list"></i> Data Ice Cream</a></li>
-          </ul>
-        </li>
-        <li class="treeview @yield("transaksi")">
-          <a href="#">
-            <i class="fa fa-cart-plus"></i> <span>Transaksi</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="@yield("beli")"><a href="{{route('pembelian')}}"><i class="fa fa-list"></i> Data Pembelian</a></li>
-            <li class="@yield("jual")"><a href="{{route('penjualan')}}"><i class="fa fa-list"></i> Data Penjualan</a></li>
-          </ul>
-        </li>
-        <li class="@yield("pesan")"><a href=""><i class="fa fa-calendar-plus-o"></i> <span>Pemesanan</span></a></li>
-        <li class="@yield("produksi")"><a href="{{route('produksi')}}"><i class="fa fa-industry"></i> <span>Produksi</span></a></li>
-        <li class="treeview @yield("laporan")">
-          <a href="#">
-            <i class="fa fa-folder"></i> <span>Laporan</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="@yield("lapbeli")"><a href="#"><i class="fa fa-file"></i> Laporan Pembelian</a></li>
-            <li class="@yield("lapjual")"><a href="#"><i class="fa fa-file"></i> Laporan Penjualan</a></li>
-            <li class="@yield("lapstok")"><a href="#"><i class="fa fa-file"></i> Laporan Stok Barang</a></li>
-            <li class="@yield("lapuntungrugi")"><a href="#"><i class="fa fa-file"></i> Laporan Untung Rugi</a></li>
-          </ul>
-        </li>
-        <li class="@yield("user")"><a href="{{route('pengguna')}}"><i class="fa  fa-user-plus"></i> <span>Data Pengguna</span></a></li>
-        @elseif(Auth::user()->level == "keuangan")
-        <li class="@yield("beranda")"><a href="{{route('berandakeu')}}"><i class="fa fa-home"></i> <span>Beranda</span></a></li>
+          <li class="@yield("beranda")"><a href="{{route('beranda')}}"><i class="fa fa-home"></i> <span>Beranda</span></a></li>
+          <li class="treeview @yield("master")">
+            <a href="#">
+              <i class="fa fa-th-large"></i> <span>Master Data</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="@yield("jenis")"><a href="{{route('jenis')}}"><i class="fa fa-list"></i> Data Jenis</a></li>
+              <li class="@yield("rasa")"><a href="{{route('rasa')}}"><i class="fa fa-list"></i> Data Rasa</a></li>
+              <li class="@yield("bahan")"><a href="{{route('bahan')}}"><i class="fa fa-list"></i> Data Bahan Baku</a></li>
+              <li class="@yield("es")"><a href="{{route('icecream')}}"><i class="fa fa-list"></i> Data Ice Cream</a></li>
+            </ul>
+          </li>
           <li class="treeview @yield("transaksi")">
             <a href="#">
               <i class="fa fa-cart-plus"></i> <span>Transaksi</span>
@@ -65,26 +34,59 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li class="@yield("beli")"><a href="{{route('pembeliankeu')}}"><i class="fa fa-list"></i> Data Pembelian</a></li>
-              <li class="@yield("jual")"><a href="{{route('penjualankeu')}}"><i class="fa fa-list"></i> Data Penjualan</a></li>
+              <li class="@yield("beli")"><a href="{{route('pembelian')}}"><i class="fa fa-list"></i> Data Pembelian</a></li>
+              <li class="@yield("jual")"><a href="{{route('penjualan')}}"><i class="fa fa-list"></i> Data Penjualan</a></li>
             </ul>
           </li>
-          @elseif(Auth::user()->level == "pengadaan")
-        <li class="@yield("beranda")"><a href="{{route('berandapeng')}}"><i class="fa fa-home"></i> <span>Beranda</span></a></li>
-            <li class="treeview @yield("master")">
+          <li class="@yield("pesan")"><a href=""><i class="fa fa-calendar-plus-o"></i> <span>Pemesanan</span></a></li>
+          <li class="@yield("produksi")"><a href="{{route('produksi')}}"><i class="fa fa-industry"></i> <span>Produksi</span></a></li>
+          <li class="treeview @yield("laporan")">
+            <a href="#">
+              <i class="fa fa-folder"></i> <span>Laporan</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="@yield("lapbeli")"><a href="#"><i class="fa fa-file"></i> Laporan Pembelian</a></li>
+              <li class="@yield("lapjual")"><a href="#"><i class="fa fa-file"></i> Laporan Penjualan</a></li>
+              <li class="@yield("lapstok")"><a href="#"><i class="fa fa-file"></i> Laporan Stok Barang</a></li>
+              <li class="@yield("lapuntungrugi")"><a href="#"><i class="fa fa-file"></i> Laporan Untung Rugi</a></li>
+            </ul>
+          </li>
+          <li class="@yield("user")"><a href="{{route('pengguna')}}"><i class="fa  fa-user-plus"></i> <span>Data Pengguna</span></a></li>
+
+        @elseif(Auth::user()->level == "keuangan")
+          <li class="@yield("beranda")"><a href="{{route('berandakeu')}}"><i class="fa fa-home"></i> <span>Beranda</span></a></li>
+            <li class="treeview @yield("transaksi")">
               <a href="#">
-                <i class="fa fa-th-large"></i> <span>Master Data</span>
+                <i class="fa fa-cart-plus"></i> <span>Transaksi</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li class="@yield("jenis")"><a href="{{route('jenispeng')}}"><i class="fa fa-list"></i> Data Jenis</a></li>
-                <li class="@yield("rasa")"><a href="{{route('rasapeng')}}"><i class="fa fa-list"></i> Data Rasa</a></li>
-                <li class="@yield("bahan")"><a href="{{route('bahanpeng')}}"><i class="fa fa-list"></i> Data Bahan Baku</a></li>
-                <li class="@yield("es")"><a href="{{route('icecreampeng')}}"><i class="fa fa-list"></i> Data Ice Cream</a></li>
+                <li class="@yield("beli")"><a href="{{route('pembelianKeu')}}"><i class="fa fa-list"></i> Data Pembelian</a></li>
+                <li class="@yield("jual")"><a href="{{route('penjualanKeu')}}"><i class="fa fa-list"></i> Data Penjualan</a></li>
               </ul>
             </li>
+
+          @elseif(Auth::user()->level == "pengadaan")
+            <li class="@yield("berandapeng")"><a href="{{route('berandapeng')}}"><i class="fa fa-home"></i> <span>Beranda</span></a></li>
+            <li class="treeview @yield("stok")">
+              <a href="#">
+                <i class="fa fa-exclamation-circle"></i> <span>Data Stok</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li class="@yield("stokbahan")"><a href="{{route('bahanpeng')}}"><i class="fa fa-list"></i> Bahan Baku</a></li>
+                <li class="@yield("stokes")"><a href="{{route('icecreampeng')}}"><i class="fa fa-list"></i> Ice Cream</a></li>
+              </ul>
+            </li>
+            <li class="@yield("pembelianPeng")"><a href="{{route('pembelianPeng')}}"><i class="fa  fa-cart-plus"></i> <span>Permintaan Pengadaan</span></a></li>
+        
         @endif
       </ul>
     </section>
