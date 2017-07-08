@@ -345,8 +345,8 @@
           var obj={};
           obj.no = col0_value;
           obj.nama_bahan = col1_value;
-          obj.jumlah = col2_value;
-          obj.satuan = col3_value;
+          obj.jumlah = col3_value;
+          obj.satuan = col2_value;
 
           arrData.push(obj);
         });
@@ -358,7 +358,7 @@
             $.ajax({
               type: "POST",
               url: "http://localhost:8081/dynasti/public/icecream/ubah1",
-              data:'ides=' + ides + '& nama_bahan=' + arrData[i]['nama_bahan'] + '& jumlah =' + arrData[i]['jumlah'] + '& satuan =' + arrData[i]['satuan'] +'& _token='+"{{csrf_token()}}",
+              data:'ides=' + ides + '& nama_bahan=' + arrData[i]['nama_bahan'] + '& satuan =' + arrData[i]['satuan'] + '& jumlah =' + arrData[i]['jumlah'] +'& _token='+"{{csrf_token()}}",
               success: function(result) {
               }
             });
