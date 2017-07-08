@@ -33,14 +33,14 @@
           <div class="col-lg-3">
             <div class="small-box bg-yellow">
               <div class="inner">
-                <h3>13</h3>
+                <h3>{{ $totalstokbahan }}</h3>
 
                 <p>Stok Bahan Baku</p>
               </div>
               <div class="icon">
                 <i class="ion ion-android-cart"></i>
               </div>
-              <a href="#" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="{{route('stokBahan')}}" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
 
@@ -61,14 +61,14 @@
           <div class="col-lg-3">
             <div class="small-box bg-red">
               <div class="inner">
-                <h3>1</h3>
+                <h3>{{ $totalstokes }}</h3>
 
                 <p>Stok Ice Cream</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pricetags"></i>
               </div>
-              <a href="#" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="{{route('stokIce')}}" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
         </div>

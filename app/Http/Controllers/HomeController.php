@@ -19,8 +19,21 @@ class HomeController extends Controller
     public function index_manager()
     {
         $jumlahpermintaan = Pembelian::where('status', '=', 'menunggu')->count();
+        $totalstokbahan = Bahan::where('stok', '<', '10')->count();
+        $totalstokes = IceCream::where('stok', '<', '100')->count();
         // dd($datapengadaan);
-        return view('admin.beranda')->with('jumlahpermintaan', $jumlahpermintaan);
+        return view('admin.beranda')->with('jumlahpermintaan', $jumlahpermintaan)->with('totalstokbahan', $totalstokbahan)->with('totalstokes', $totalstokes);
+    }
+
+    public function stokBahan(){
+
+        $data = Bahan::where('stok', '<', '10')->get();
+        return view('admin.stokBahan')->with('data', $data);
+    }
+
+    public function stokIce(){
+        $data = IceCream::where('stok', '<', '100')->get();
+        return view('admin.stokIce')->with('data', $data);
     }
 
     public function index_keuangan()

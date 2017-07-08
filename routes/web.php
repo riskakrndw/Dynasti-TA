@@ -113,6 +113,12 @@ Route::group(['middleware' => 'levelManager'], function(){
 			Route::get('/manager/konfirmasi/lihat/{id}', 'PembelianController@show');
 			Route::post('/manager/konfirmasi/ubah', 'PembelianController@ubahStatus');
 
+	//STOK BAHAN
+		Route::get('/manager/stok-bahan', 'HomeController@stokBahan')->name('stokBahan');
+
+	//STOK ES
+		Route::get('/manager/stok-ice', 'HomeController@stokIce')->name('stokIce');
+
 	//PENJUALAN
 		/*menampilkan halaman penjualan*/
 			Route::get('/manager/penjualan', 'PenjualanController@index')->name('penjualan');

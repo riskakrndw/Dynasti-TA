@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 use App\Produksi;
 use App\IceCream;
@@ -15,5 +16,16 @@ class ProduksiController extends Controller
     {
     	$data = Produksi::all();
     	return view('admin.produksi')->with('data', $data);
+    }
+
+    public function tambah()
+    {
+        if(Auth::user()->level == "manager"){
+            $dataIceCream = Produksi::get();
+            return view('admin.produksi_tambah');
+        } elseif (Auth::user()->level == "keuangan"){
+           
+        } 
+    	
     }
 }
