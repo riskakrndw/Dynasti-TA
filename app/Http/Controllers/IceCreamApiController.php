@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\IceCream;
+use App\DetailBahan;
 
 class IceCreamApiController extends Controller
 {
@@ -40,5 +41,11 @@ class IceCreamApiController extends Controller
         $hasil[] = $data->jenis->nama;
         $hasil[] = $data->rasa->nama;
         return $hasil;
+    }
+
+    public function showDetail($id)
+    {
+        $data = DetailBahan::where('id_es', $id)->get();
+        return $data;
     }
 }

@@ -314,7 +314,7 @@
           for (var i=0; i<arrData.length; i++){
             $.ajax({
               type: "POST",
-              url: "http://localhost:8081/dynasti/public/icecream/simpan1",
+              url: "http://localhost:8081/dynasti/public/manager/icecream/simpan1",
               data:'nama_bahan=' + arrData[i]['nama_bahan'] + '& satuan =' + arrData[i]['satuan'] + '& jumlah =' + arrData[i]['jumlah'] +'& _token='+"{{csrf_token()}}",
               success: function(result) {
               }
@@ -324,14 +324,14 @@
 
          $.ajax({
               type: "POST",
-              url: "http://localhost:8081/dynasti/public/icecream/simpan",
+              url: "http://localhost:8081/dynasti/public/manager/icecream/simpan",
               data: 'nama =' + nama + '& harga = ' + harga + '& stok = ' + stok + '& listRasa = ' + listRasa + '& listJenis = ' + listJenis+'& _token='+"{{csrf_token()}}",
               success: function(result) {
               }
           }).done(a);
 
         $(document).ajaxStop(function(){
-          window.location="{{URL::to('icecream')}}";
+          window.location="{{URL::to('manager/icecream')}}";
         });
         
       });

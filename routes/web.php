@@ -31,6 +31,7 @@ Route::get('/api/namaBahan/{id}', 'BahanApiController@reqNamaBahan')->name('apin
 //apiicecream
 Route::get('/api/icecream', 'IceCreamApiController@index')->name('apiicecream');
 Route::get('/api/icecream/{id}', 'IceCreamApiController@show')->name('apiicecreamshow');
+Route::get('/api/detail-icecream/{id}', 'IceCreamApiController@showDetail')->name('apiicecreamshowdetail');
 Route::get('/api/namaIceCream/{id}', 'IceCreamApiController@reqNamaIceCream')->name('apinamaicecream');
 
 //beranda
@@ -68,21 +69,21 @@ Route::post('/manager/rasa/edit', 'RasaController@update');
 Route::group(['middleware' => 'levelManager'], function(){
 	//ICECREAM
 		/*menampilkan halaman es*/
-			Route::get('/icecream', 'IceCreamController@index')->name('icecream');
+			Route::get('/manager/icecream', 'IceCreamController@index')->name('icecream');
 		/*menampilkan form tambah*/
-			Route::get('/icecream/tambah', 'IceCreamController@tambah')->name('tambahEs');
+			Route::get('/manager/icecream/tambah', 'IceCreamController@tambah')->name('tambahEs');
 		/*melakukan create*/
-			Route::post('/icecream/simpan', 'IceCreamController@store');
-			Route::post('/icecream/simpan1', 'IceCreamController@store1');
+			Route::post('/manager/icecream/simpan', 'IceCreamController@store');
+			Route::post('/manager/icecream/simpan1', 'IceCreamController@store1');
 		/*melakukan delete*/
-			Route::get('/icecream/hapus/{id}', 'IceCreamController@destroy')->name('hapusIceCream');
+			Route::get('/manager/icecream/hapus/{id}', 'IceCreamController@destroy')->name('hapusIceCream');
 		/*melakukan lihat detail*/
-			Route::get('/icecream/lihat/{id}', 'IceCreamController@show');
+			Route::get('/manager/icecream/lihat/{id}', 'IceCreamController@show');
 		/*melakukan ubah*/
-			Route::post('/icecream/hapusDetailBahan', 'IceCreamController@hapusDetailBahan')->name('hapusDetailBahan');
-			Route::get('/icecream/edit/{id}', 'IceCreamController@showEdit');
-			Route::post('/icecream/ubah', 'IceCreamController@ubah');
-			Route::post('/icecream/ubah1', 'IceCreamController@ubah1');
+			Route::post('/manager/icecream/hapusDetailBahan', 'IceCreamController@hapusDetailBahan')->name('hapusDetailBahan');
+			Route::get('/manager/icecream/edit/{id}', 'IceCreamController@showEdit');
+			Route::post('/manager/icecream/ubah', 'IceCreamController@ubah');
+			Route::post('/manager/icecream/ubah1', 'IceCreamController@ubah1');
 
 	//BAHAN
 		Route::get('/manager/bahan', 'BahanController@index')->name('bahan');

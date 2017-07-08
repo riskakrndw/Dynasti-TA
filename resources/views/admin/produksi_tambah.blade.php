@@ -237,6 +237,17 @@
 
       });
 
+      $('#namaEs').change(function(){
+        $.get('/dynasti/public/api/detail-icecream/'+$('#namaEs').val(),
+          function(hasil){
+            $('#namaEs').val(hasil.nama);
+          }
+          console.log('hasil');
+        ) //ngambil value nama
+
+      });
+
+
       //save multi record to db
       $('#submit').on('click', function(){
         var kode = $('#kode').val();

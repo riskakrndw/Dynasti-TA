@@ -84,8 +84,8 @@
                       <td>{{ $data->harga }}</td>
                       <td>{{ $data->stok }}</td>
                       <td>
-                        <a href="{{ url('icecream/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                        <a href="{{ url('icecream/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                        <a href="{{ url('manager/icecream/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                        <a href="{{ url('manager/icecream/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
                         <a type="button" href="{{route('hapusIceCream', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button>
                       </td>
                     </tr>

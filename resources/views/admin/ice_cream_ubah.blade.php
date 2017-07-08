@@ -357,7 +357,7 @@
           for (var i=0; i<arrData.length; i++){
             $.ajax({
               type: "POST",
-              url: "http://localhost:8081/dynasti/public/icecream/ubah1",
+              url: "http://localhost:8081/dynasti/public/manager/icecream/ubah1",
               data:'ides=' + ides + '& nama_bahan=' + arrData[i]['nama_bahan'] + '& satuan =' + arrData[i]['satuan'] + '& jumlah =' + arrData[i]['jumlah'] +'& _token='+"{{csrf_token()}}",
               success: function(result) {
               }
@@ -367,7 +367,7 @@
 
           $.ajax({
               type: "POST",
-              url: "http://localhost:8081/dynasti/public/icecream/ubah",
+              url: "http://localhost:8081/dynasti/public/manager/icecream/ubah",
               data:'ides=' + ides + '& nama=' + nama + '& harga = ' + harga + '& stok = ' + stok + '& listRasa = ' + listRasa + '& listJenis = ' + listJenis+'& _token='+"{{csrf_token()}}",
               success: function(result) {
 
@@ -377,7 +377,7 @@
 
         $.ajax({
               type: "POST",
-              url: "http://localhost:8081/dynasti/public/icecream/hapusDetailBahan",
+              url: "http://localhost:8081/dynasti/public/manager/icecream/hapusDetailBahan",
               data: 'ides=' + ides +'& _token='+"{{csrf_token()}}",
               success: function(result) {
                console.log(result);
@@ -385,7 +385,7 @@
           }).done(a);
 
         $(document).ajaxStop(function(){
-          window.location="{{URL::to('icecream')}}";
+          window.location="{{URL::to('manager/icecream')}}";
         });
 
       });
