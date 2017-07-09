@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\IceCream;
 use App\DetailBahan;
+use Illuminate\Support\Facades\DB;
 
 class IceCreamApiController extends Controller
 {
@@ -45,7 +46,10 @@ class IceCreamApiController extends Controller
 
     public function showDetail($id)
     {
-        $data = DetailBahan::where('id_es', $id)->get();
+        $data = DB::table('detail_bahan')
+                ->join('bahan_baku', 'detail_bahan.id_bahan', '=', 'bahan_baku.id')
+                ->where('id_es', $id)
+                ->get();
         return $data;
     }
 }

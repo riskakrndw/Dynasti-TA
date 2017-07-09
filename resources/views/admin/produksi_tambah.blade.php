@@ -223,26 +223,19 @@
       });
 
       //nampilin id
-      $('#namaEs').change(function(){
-        $.get('/dynasti/public/api/icecream/'+$('#namaEs').val(),
-          function(hasil){
-            $('#idEs').val(hasil[0]);
-            $('#stokEs').val(hasil[1]);
-            $('#namaEs').val(hasil[2]);
-            $('#hargaEs').val(hasil[3]);
-            $('#jenisEs').val(hasil[4]);
-            $('#rasaEs').val(hasil[5]);
-          }
-        ) //ngambil value nama
-
-      });
+      
 
       $('#namaEs').change(function(){
         $.get('/dynasti/public/api/detail-icecream/'+$('#namaEs').val(),
-          function(hasil){
-            $('#namaEs').val(hasil.nama);
+          function(data){
+
+             $.each(data, function(index, data){
+              nomorBaris++
+                $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td>'+data.takaran+'</td></tr>');            
+              console.log(data);
+             })
+          
           }
-          console.log('hasil');
         ) //ngambil value nama
 
       });
