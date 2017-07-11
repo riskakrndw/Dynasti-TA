@@ -111,6 +111,7 @@
                     </tbody>
                   </table>
                   
+                  <br>
                   <div class="col-md-12">
                     <button type="button" class="btn btn-sm btn-primary pull-right" value="Submit" id="submit"><i class="fa fa-floppy-o"></i> Simpan </button>
                   </div>
@@ -154,84 +155,28 @@
     var nomorBaris = 0;
     jQuery(document).ready(function() {
       var doc = $(document);
-      jQuery('.btnTambahEs').die('click').live('click', function(e) {
-        e.preventDefault();
-        if($('#jumlahEs').val() > $('#stokEs').val()){
-          alert("stok tidak mencukupi");
-        }
-        else{
-          for(var i = 0; i<1; i++){
-            var type_div = 'teams_'+jQuery.now();
-      
-            $.get('/dynasti/public/api/namaIceCream/'+$('#idEs').val(),
-              function(hasil){
-                var nama = hasil;
-                var harga = $('#hargaEs').val();
-                var rasa = $('#rasaEs').val();
-                var jenis = $('#jenisEs').val();
-                var jumlah = $('#jumlahEs').val();
-                var total = $('#totalHarga').val();
-                var Subtotal = parseInt(harga) * parseInt(jumlah);
-                var namadb  = "#" + nama.replace(/\s/g,'');
-                var namaSub = namadb + "subTotal";
-                if ($(namadb).length){
-                  prevVal = $(namadb).text();
-                  newVal = parseInt(prevVal)+parseInt(jumlah);
-                  $(namadb).text(newVal);
+        
+      $('#jumlah').change(function(){
+        var jumlah = $('#jumlah').val();
+        var total = $('#total').val();
 
-                  prevSub = $(namaSub).text();
-                  newSub = parseInt(prevSub) + parseInt(jumlah) * parseInt(harga);
-                  $(namaSub).text(newSub);
-                }
-                else{
-                  nomorBaris = nomorBaris + 1;
-                $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td>'+rasa+'</td><td>'+jenis+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
-                }
-                $('#namaEs').val('');
-                $('#hargaEs').val('');
-                $('#rasaEs').val('');
-                $('#jenisEs').val('');
-                $('#jumlahEs').val('');
+        var totalHargaLama = parseInt(document.getElementById('total').value);
+        var totalHargaBaru = totalHargaLama * parseInt(jumlah);
+        document.getElementById('total').value = totalHargaBaru;
 
-                var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
-                var totalHargaBaru = totalHargaLama + Subtotal;
-                document.getElementById('totalHarga').value = totalHargaBaru;
-              }
-            )
-          }
-        }
-      });
-  
-      jQuery(".remove-type").die('click').live('click', function (e) {
-        var didConfirm = confirm("Are you sure You want to delete");
-        if (didConfirm == true) {
-            var id = jQuery(this).attr('data-id');
-            //if (id == 0) {
-                //var trID = jQuery(this).parents("tr").attr('id');
-                jQuery('#' + id).remove();
-                nomorBaris = nomorBaris - 1;
-                var deletedSubTotal = $(this).closest("tr").find(".subTotal").text();
-                var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
-                var totalHargaBaru = totalHargaLama - deletedSubTotal;
-                document.getElementById('totalHarga').value = totalHargaBaru;
-                
-           // }
-            return true;
-        } else {
-            return false;
-        }
+        alert(total);
       });
 
-      //nampilin id
       
-
+      
+      //menampilkan detail es
       $('#namaEs').change(function(){
         $.get('/dynasti/public/api/detail-icecream/'+$('#namaEs').val(),
           function(data){
 
              $.each(data, function(index, data){
               nomorBaris++
-                $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td>'+data.takaran+'</td></tr>');            
+                $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td id="total">'+data.takaran+'</td></tr>');            
               console.log(data);
              })
           

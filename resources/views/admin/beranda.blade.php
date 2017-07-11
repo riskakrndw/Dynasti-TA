@@ -31,7 +31,7 @@
         <div class="row">
 
           <div class="col-lg-3">
-            <div class="small-box bg-yellow">
+            <div class="small-box bg-red">
               <div class="inner">
                 <h3>{{ $totalstokbahan }}</h3>
 
@@ -80,7 +80,7 @@
           <div class="col-lg-8">
             <section class="connectedSortable">
               <!-- info pemesanan -->
-                <div class="box box-success">
+                <div class="box">
                   <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs pull-right">
                       <li class="pull-left header"><i class="fa fa-info-circle"></i> Informasi Pemesanan</li>
@@ -118,7 +118,7 @@
           <div class="col-lg-4">
           <section class="connectedSortable">
             <!-- info pemesanan -->
-              <div class="box box-success">
+              <div class="box">
                 <div class="nav-tabs-custom">
                   <ul class="nav nav-tabs pull-right">
                     <li class="pull-left header"><i class="fa fa-info-circle"></i> Ice Cream Terlaku</li>
