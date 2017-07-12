@@ -82,7 +82,7 @@
                         <label>Jumlah Produksi</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Jumlah Produksi" name="jumlah" id="jumlah">
+                          <input class="form-control" placeholder="Jumlah Produksi" name="jumlah" id="jumlah" onKeyPress="return goodchars(event,'0123456789',this)">
                         </div>
                       </div>
                     </div>
@@ -104,6 +104,7 @@
                         <th style="width: 250px">Nama Bahan</th>
                         <th style="width: 200px">Satuan</th>
                         <th style="width: 250px">Jumlah</th>
+                        <th style="width: 250px">Stok</th>
                       </tr>
                     </thead>
                     <tbody id="type_container">
@@ -151,40 +152,62 @@
         autoclose: true,
         format: "yyyy-mm-dd"
       });
-
+    var w = 0;
+    var arr  = [];
     var nomorBaris = 0;
+
     jQuery(document).ready(function() {
       var doc = $(document);
-        
+      w = 0;
+      arr = [];
       $('#jumlah').change(function(){
         var jumlah = $('#jumlah').val();
-        var total = $('#total').val();
+        if (jumlah <= 0){
+          alert('jumlah produksi minimal 1')
+        }else{
+          i = 0
+          
+          // $('.stok').each(function(){
+          //   var stok = $(this).text();
+          // });
 
-        var totalHargaLama = parseInt(document.getElementById('total').value);
-        var totalHargaBaru = totalHargaLama * parseInt(jumlah);
-        document.getElementById('total').value = totalHargaBaru;
+          $('.total').each(function(){
+            var total = $(this).text();
+            // if (stok < total){
+            //   alert('stok tidak cukup')
+            // }else{
 
-        alert(total);
+              if(w == 0)
+                arr.push(total);
+
+              $(this).text(parseInt(arr[i])*jumlah);
+              i++;
+            // }
+          });
+
+          w = 1
+          console.log(arr);
+
+          //alert(total);
+        }
       });
 
-      
-      
       //menampilkan detail es
       $('#namaEs').change(function(){
+        w = 0;
+        $('#type_container').html('');
+        nomorBaris = 0;
         $.get('/dynasti/public/api/detail-icecream/'+$('#namaEs').val(),
           function(data){
-
              $.each(data, function(index, data){
               nomorBaris++
-                $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td id="total">'+data.takaran+'</td></tr>');            
+                $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td class="total">'+data.takaran+'</td><td>'+data.stok+'</td></tr>');            
               console.log(data);
              })
           
           }
         ) //ngambil value nama
-
       });
-
 
       //save multi record to db
       $('#submit').on('click', function(){
@@ -192,8 +215,10 @@
         var datepicker = $('#datepicker').val();
         var bulan = new Date(datepicker).getMonth()+1;
         var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
-        console.log(bulan);
-        var total = $('#totalHarga').val();
+        // console.log(bulan);
+        var namaEs = $('#namaEs').val();
+        var jumlah = $('#jumlah').val();
+
 
         var arrData=[];
 
@@ -206,18 +231,12 @@
           var col2_value = currentRow.find("td:eq(2)").text();
           var col3_value = currentRow.find("td:eq(3)").text();
           var col4_value = currentRow.find("td:eq(4)").text();
-          var col5_value = currentRow.find("td:eq(5)").text();
-          var col6_value = currentRow.find("td:eq(6)").text();
-          var col7_value = currentRow.find("td:eq(7)").text();
 
           var obj={};
           obj.no = col0_value;
-          obj.nama_es = col1_value;
-          obj.harga = col2_value;
-          obj.rasa = col3_value;
-          obj.jenis = col4_value;
-          obj.jumlah = col5_value;
-          obj.subtotal = col6_value;
+          obj.nama_bahan = col1_value;
+          obj.satuan = col2_value;
+          obj.jumlah = col3_value;
 
           arrData.push(obj);
         });

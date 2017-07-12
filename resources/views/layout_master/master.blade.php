@@ -41,7 +41,7 @@
     
     <style type="text/css">
        .main-header .navbar {
-          background-color: #fb8a04 !important;
+          background-color: #cc5b09 !important;
           color: #ffffff !important;
         }
          .main-header .navbar .nav > li > a {
@@ -61,7 +61,7 @@
           color: #ffffff;
         }
          .main-header .navbar .sidebar-toggle:hover {
-          background-color: #bd770a !important;
+          background-color: #b75006 !important;
           color: #ffffff !important;
         }
          .main-header .navbar .sidebar-toggle {
@@ -79,12 +79,12 @@
           }
         }
          .main-header .logo {
-          background-color: #fb8a04 !important;
+          background-color: #cc5b09 !important;
           color: #ffffff !important;
           border-bottom: 0 solid transparent;
         }
          .main-header .logo:hover {
-          background-color: #bd770a !important;
+          background-color: #b75006 !important;
           color: #ffffff !important;
         }
          .main-header li.user-header {
@@ -102,7 +102,7 @@
         .main-sidebar .sidebar-menu>li:hover>a, .main-sidebar .sidebar-menu>li.active>a{
           color: #000000 !important;
           background: #fded5d !important;
-          border-left-color: #fb8a04 !important;
+          border-left-color: #cc5b09 !important;
           font-weight: bolder;
         }
         .main-sidebar .sidebar-menu>li>a, .main-sidebar .sidebar-menu>li>a{
@@ -115,7 +115,7 @@
         }
         .main-sidebar .sidebar-menu>li.header {
           color: #ffffff;
-          background: #fb8a04;
+          background: #cc5b09;
         }
         .main-sidebar .treeview-menu>li>a {
           color: #ffffff;
@@ -146,7 +146,7 @@
         }
 
         .callout.callout-info {
-          border-color: #fb8a04 !important;
+          border-color: #e86200 !important;
         }
 
         .btn-primary {
