@@ -54,7 +54,7 @@
                         <label>Kode Produksi</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Produksi" name="kode" id="kode">
+                          <input class="form-control" placeholder="Kode Produksi" name="kode" id="kode" value="{{ $data->kode_produksi }}">
                         </div>
                       </div>
                     </div>
@@ -65,7 +65,7 @@
                           <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" class="form-control pull-right" id="datepicker" name="datepicker">
+                          <input type="text" class="form-control pull-right" id="datepicker" name="datepicker" value="{{ $data->tgl }}">
                         </div>
                       </div>
                     </div>
@@ -75,7 +75,7 @@
                         <label>Nama Ice Cream</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input type="hidden" class="form-control" id="namaEs" name="namaEs" placeholder="Nama Ice Cream">
+                          <input type="hidden" class="form-control" id="namaEs" name="namaEs" placeholder="Nama Ice Cream" value"">
                         </div>
                       </div>
                     </div>
@@ -156,53 +156,37 @@
       });
     var w = 0;
     var arr  = [];
-    var arr2 = [];
     var nomorBaris = 0;
 
     jQuery(document).ready(function() {
       var doc = $(document);
       w = 0;
       arr = [];
-      arr2 = [];
       $('#jumlah').change(function(){
         var jumlah = $('#jumlah').val();
-        wh = false; // penanda kalau ada jumlah yg melebihi stok
         if (jumlah <= 0){
           alert('jumlah produksi minimal 1')
         }else{
           i = 0
           
           // $('.stok').each(function(){
-          //   variy stok = $(this).text();
+          //   var stok = $(this).text();
           // });
 
           $('.total').each(function(){
             var total = $(this).text();
-            
             // if (stok < total){
             //   alert('stok tidak cukup')
             // }else{
 
               if(w == 0)
-              arr.push(total);
+                arr.push(total);
 
               $(this).text(parseInt(arr[i])*jumlah);
-
-              if((arr[i]*jumlah) > arr2[i]){
-                wh = true;
-              }
-
               i++;
             // }
           });
 
-          if(wh == true)
-          {
-            alert('ga bisa produksi')
-            $('#submit').attr('disabled',true);
-          }else{
-            $('#submit').attr('disabled',false)
-          }
           w = 1
           console.log(arr);
 
@@ -213,14 +197,12 @@
       //menampilkan detail es
       $('#namaEs').change(function(){
         w = 0;
-        arr2 = [];
         $('#type_container').html('');
         nomorBaris = 0;
 
         $.get('/dynasti/public/api/icecream/'+$('#namaEs').val(),
           function(hasil){
             $('#ides').val(hasil[0]);
-            console.log("hasil : "+hasil);
           }
         )
 
@@ -230,7 +212,6 @@
               nomorBaris++
                 $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td class="total">'+data.takaran+'</td><td>'+data.stok+'</td></tr>');            
               console.log(data);
-              arr2.push(data.stok);
              })
           
           }

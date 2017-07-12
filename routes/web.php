@@ -143,16 +143,11 @@ Route::group(['middleware' => 'levelManager'], function(){
 		/*menampilkan form tambah*/
 			Route::get('/manager/produksi/tambah', 'ProduksiController@tambah')->name('tambahProduksi');
 		/*melakukan create*/
-			Route::get('/manager/produksi/simpan/{kode}/{pengguna}/{datepicker}/{total}', 'ProduksiController@store');
-			Route::get('/manager/produksi/simpan1/{idjual}/{namaes}/{jumlah}/{subtotal}', 'ProduksiController@store1');
-		/*melakukan delete*/
-			Route::get('/manager/produksi/hapus/{id}', 'ProduksiController@destroy')->name('hapusProduksi');
-		/*melakukan lihat detail*/
-			Route::get('/manager/produksi/lihat/{id}', 'ProduksiController@show');
+			Route::get('/manager/produksi/simpan/{ides}/{pengguna}/{kode}/{datepicker}/{jumlah}', 'ProduksiController@store');
 		/*melakukan ubah*/
-			Route::get('/manager/produksi/hapusDetailPenjualan/{id}', 'ProduksiController@hapusDetailProduksi')->name('hapusDetailProduksi');
-			Route::get('/manager/produksi/edit/{id}', 'ProduksiController@showEdit');
-			Route::get('/manager/produksi/ubah/{id_jual}/{kode}/{pengguna}/{datepicker}/{total}', 'ProduksiController@ubah');
+			Route::get('/manager/penjualan/edit/{id}', 'ProduksiController@showEdit');
+			Route::get('/manager/penjualan/ubah/{id_jual}/{kode}/{pengguna}/{datepicker}/{total}', 'ProduksiController@ubah');
+
 });
 	
 

@@ -35,7 +35,7 @@
         <!-- Data produksi -->
         <div class="col-xs-12">
           <br>
-          <div class="box box-success">
+          <div class="box">
             <!-- header -->
               <div class="box-header">
                 <ul class="nav nav-tabs-custom">
@@ -58,18 +58,19 @@
                     </tr>
                   </thead>
                   <tbody>
-                    
+                    <?php $no=1; ?>
+                    @foreach($data as $data)
                     <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td>{{ $no++ }}</td>
+                      <td>{{ $data->kode_produksi }}</td>
+                      <td>{{ $data->tgl }}</td>
+                      <td>{{ $data->ice_cream->nama }}</td>
+                      <td>{{ $data->jumlah }}</td>
                       <td>
-                        <a href="" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
-                        <!-- <a type="button" href="" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
+                        <a href="{{ url('manager/produksi/edit/'.$data->id) }}" class="btn btn-sm btn-default"><i class="fa fa-edit"></i> Ubah</a>
                       </td>
                     </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>

@@ -28,4 +28,8 @@ class IceCream extends Model
         return $this->belongsToMany('App\Bahan');
     }
 
+    public function produksi(){
+        return $this->hasMany('App\Produksi', 'id_es');
+    }
+
 }

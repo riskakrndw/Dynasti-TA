@@ -12,11 +12,11 @@ class Produksi extends Model
     	'id', 'tgl'
     ];
 
-    public function detail_produksi(){
-    	return $this->hasMany('App\DetailProduksi', 'id_produksi');
+    public function ice_cream(){
+    	return $this->belongsTo('App\IceCream', 'id_es');
     }
 
-    public function ice_cream(){
-    	return $this->belongsToMany('App\IceCream');
+    public function users(){
+        return $this->belongsTo('App\User', 'id_users');
     }
 }
