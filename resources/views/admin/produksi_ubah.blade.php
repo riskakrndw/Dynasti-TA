@@ -41,7 +41,7 @@
             <br>
             <div class="box box-success">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Data Penjualan</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Data Produksi</h3></li>
               </ul>
 
               <!-- Form tambah penjualan -->
@@ -75,7 +75,7 @@
                         <label>Nama Ice Cream</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input type="hidden" class="form-control" id="namaEs" name="namaEs" placeholder="Nama Ice Cream" value"">
+                          <input type="hidden" class="form-control" id="namaEs" name="namaEs" placeholder="{{ $data->ice_cream->nama }}">
                         </div>
                       </div>
                     </div>
@@ -84,7 +84,7 @@
                         <label>Jumlah Produksi</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Jumlah Produksi" name="jumlah" id="jumlah" onKeyPress="return goodchars(event,'0123456789',this)">
+                          <input class="form-control" placeholder="Jumlah Produksi" name="jumlah" id="jumlah" onKeyPress="return goodchars(event,'0123456789',this)" value="{{ $data->jumlah }}">
                         </div>
                       </div>
                     </div>
@@ -97,7 +97,7 @@
                 <li class="pull-left box-header"><h3 class="box-title">Daftar bahan yang diperlukan</h3></li>
               </ul>
 
-                <div class="box-body">
+                <div class="box-body table-responsive">
                   
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
@@ -110,7 +110,18 @@
                       </tr>
                     </thead>
                     <tbody id="type_container">
-                      
+                      <?php $no=1; ?>
+                      @foreach($data->ice_cream as $iceCream)
+                      <?php
+                        $id = $data->id;
+                      ?>
+                          <tr id="{{$id}}">
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $iceCream->detail_bahan->bahan->nama }}</td>
+                            <td>{{ $iceCream->detail_bahan->bahan->satuan }}</td>
+                            <td>{{ $iceCream->detail_bahan->takaran }}</td>
+                          </tr>
+                      @endforeach
                     </tbody>
                   </table>
                   
@@ -147,178 +158,5 @@
   <script src="{{url('dist/js/bootstrap-datepicker.js')}}"></script>
 
 
-  <!-- script tambah bahan baku -->
-  <script>
-    //Date picker
-      $('#datepicker').datepicker({
-        autoclose: true,
-        format: "yyyy-mm-dd"
-      });
-    var w = 0;
-    var arr  = [];
-    var nomorBaris = 0;
-
-    jQuery(document).ready(function() {
-      var doc = $(document);
-      w = 0;
-      arr = [];
-      $('#jumlah').change(function(){
-        var jumlah = $('#jumlah').val();
-        if (jumlah <= 0){
-          alert('jumlah produksi minimal 1')
-        }else{
-          i = 0
-          
-          // $('.stok').each(function(){
-          //   var stok = $(this).text();
-          // });
-
-          $('.total').each(function(){
-            var total = $(this).text();
-            // if (stok < total){
-            //   alert('stok tidak cukup')
-            // }else{
-
-              if(w == 0)
-                arr.push(total);
-
-              $(this).text(parseInt(arr[i])*jumlah);
-              i++;
-            // }
-          });
-
-          w = 1
-          console.log(arr);
-
-          //alert(total);
-        }
-      });
-
-      //menampilkan detail es
-      $('#namaEs').change(function(){
-        w = 0;
-        $('#type_container').html('');
-        nomorBaris = 0;
-
-        $.get('/dynasti/public/api/icecream/'+$('#namaEs').val(),
-          function(hasil){
-            $('#ides').val(hasil[0]);
-          }
-        )
-
-        $.get('/dynasti/public/api/detail-icecream/'+$('#namaEs').val(),
-          function(data){
-             $.each(data, function(index, data){
-              nomorBaris++
-                $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td class="total">'+data.takaran+'</td><td>'+data.stok+'</td></tr>');            
-              console.log(data);
-             })
-          
-          }
-        ) //ngambil value nama
-      });
-
-      //save multi record to db
-      $('#submit').on('click', function(){
-        var kode = $('#kode').val();
-        var pengguna = $('#idPengguna').val();
-        var ides = $('#ides').val();
-        var datepicker = $('#datepicker').val();
-        var bulan = new Date(datepicker).getMonth()+1;
-        var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
-        // console.log(bulan);
-        var namaEs = $('#namaEs').val();
-        var jumlah = $('#jumlah').val();
-
-
-        var arrData=[];
-
-        //loop over each table row (tr)
-        $("#type_container tr").each(function(){
-          var currentRow = $(this);
-
-          var col0_value = currentRow.find("td:eq(0)").text();
-          var col1_value = currentRow.find("td:eq(1)").text();
-          var col2_value = currentRow.find("td:eq(2)").text();
-          var col3_value = currentRow.find("td:eq(3)").text();
-          var col4_value = currentRow.find("td:eq(4)").text();
-
-          var obj={};
-          obj.no = col0_value;
-          obj.nama_bahan = col1_value;
-          obj.satuan = col2_value;
-          obj.total = col3_value;
-
-          arrData.push(obj);
-        });
-
-
-        $.ajax({
-            type: "GET",
-            url: "/dynasti/public/manager/produksi/simpan/"+ides+"/"+pengguna+"/"+kode+"/"+datepicker+"/"+jumlah,
-            success: function(result) {
-              /*console.log(idjual)*/
-            }
-        });
-
-        $(document).ajaxStop(function(){
-          window.location="{{URL::to('manager/produksi')}}";
-        });
-        
-      });
-    });
-  </script>
-
-  <!-- script select 2 untuk nyari bahan -->
-  <script>
-    jQuery(document).ready(function($) {
-        // trigger select2 for each untriggered select2 box
-        $("#namaEs").each(function (i, obj) {
-          if (!$(obj).data("select2"))
-          {
-            $(obj).select2({
-              placeholder: "Nama Ice Cream",
-              minimumInputLength: "1",
-              ajax: {
-                url: "/dynasti/public/api/icecream",
-                dataType: 'json',
-                quietMillis: 250,
-                data: function (term, page) {
-                  return {
-                    q: term, // search term
-                    page: page
-                  };
-                },
-                results: function (data, params) {
-                  params.page = params.page || 1;
-                  var result = {
-                    results: $.map(data.data, function (item) {
-                      textField = "nama";
-                      return {
-                        text: item[textField],
-                        id: item["id"]
-                      }
-                    }),
-                    more: data.current_page < data.last_page
-                  };
-                  return result;
-                },
-                cache: true
-              },
-              initSelection: function(element, callback) {
-                // the input tag has a value attribute preloaded that points to a preselected repository's id
-                // this function resolves that id attribute to an object that select2 can render
-                // using its formatResult renderer - that way the repository name is shown preselected
-                $.ajax("/dynasti/public/api/icecream" + '/' , {
-                  dataType: "json"
-                }).done(function(data) {
-                  textField = "nama";
-                  callback({ text: data[textField], id: data["id"] });
-                });
-              },
-            });
-          }
-        });
-    });
-  </script>
+  
 @endsection

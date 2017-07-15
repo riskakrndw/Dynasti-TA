@@ -81,7 +81,7 @@
               <!-- /header -->
 
               <!-- tabel jenis -->
-                <div class="box-body">
+                <div class="box-body table-responsive">
                   <table id="example1" class="table table-bordered table-hover">
                     <thead>
                       <tr>
@@ -137,6 +137,7 @@
         <!-- /Data jenis -->
 
       </div>
+
     </section>
     <!-- /. main content -->
   </div>

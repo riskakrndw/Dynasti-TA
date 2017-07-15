@@ -78,7 +78,7 @@
               </ul>
 
               <!-- tabel bahan -->
-                <div class="box-body">
+                <div class="box-body table-responsive">
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
                       <tr>

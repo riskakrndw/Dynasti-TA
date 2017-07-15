@@ -145,8 +145,8 @@ Route::group(['middleware' => 'levelManager'], function(){
 		/*melakukan create*/
 			Route::get('/manager/produksi/simpan/{ides}/{pengguna}/{kode}/{datepicker}/{jumlah}', 'ProduksiController@store');
 		/*melakukan ubah*/
-			Route::get('/manager/penjualan/edit/{id}', 'ProduksiController@showEdit');
-			Route::get('/manager/penjualan/ubah/{id_jual}/{kode}/{pengguna}/{datepicker}/{total}', 'ProduksiController@ubah');
+			Route::get('/manager/produksi/edit/{id}', 'ProduksiController@showEdit');
+			Route::get('/manager/produksi/ubah/{id_jual}/{kode}/{pengguna}/{datepicker}/{total}', 'ProduksiController@ubah');
 
 });
 	

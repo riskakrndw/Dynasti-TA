@@ -99,7 +99,7 @@
               <!-- ./Data bahan -->
 
               <!-- tabel bahan -->
-                <div class="box-body">
+                <div class="box-body table-responsive">
                   <br><br>
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>

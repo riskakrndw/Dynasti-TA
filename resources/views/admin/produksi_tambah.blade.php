@@ -41,7 +41,7 @@
             <br>
             <div class="box box-success">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Data Penjualan</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Data Produksi</h3></li>
               </ul>
 
               <!-- Form tambah penjualan -->
@@ -97,7 +97,7 @@
                 <li class="pull-left box-header"><h3 class="box-title">Daftar bahan yang diperlukan</h3></li>
               </ul>
 
-                <div class="box-body">
+                <div class="box-body table-responsive">
                   
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
@@ -171,17 +171,9 @@
           alert('jumlah produksi minimal 1')
         }else{
           i = 0
-          
-          // $('.stok').each(function(){
-          //   variy stok = $(this).text();
-          // });
 
           $('.total').each(function(){
             var total = $(this).text();
-            
-            // if (stok < total){
-            //   alert('stok tidak cukup')
-            // }else{
 
               if(w == 0)
               arr.push(total);
@@ -193,7 +185,6 @@
               }
 
               i++;
-            // }
           });
 
           if(wh == true)

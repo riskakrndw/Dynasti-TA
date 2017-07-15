@@ -46,7 +46,7 @@
             </ul>
             <div class="tab-content">
               <div class="active tab-pane" id="semua">
-                <div class="box-body">
+                <div class="box-body table-responsive">
                   <table id="example1" class="table table-bordered table-hover">
                     <thead>
                       <tr>
@@ -78,7 +78,7 @@
 
               <!-- /.tab-pane -->
               <div class="tab-pane" id="menunggu">
-                <div class="box-body">
+                <div class="box-body table-responsive">
                   <table id="example12" class="table table-bordered table-hover">
                     <thead>
                       <tr>
@@ -110,7 +110,7 @@
               <!-- /.tab-pane -->
 
               <div class="tab-pane" id="berhasil">
-                <div class="box-body">
+                <div class="box-body table-responsive">
                   <table id="example13" class="table table-bordered table-hover">
                     <thead>
                       <tr>
@@ -142,7 +142,7 @@
               <!-- /.tab-pane -->
 
               <div class="tab-pane" id="gagal">
-                <div class="box-body">
+                <div class="box-body table-responsive">
                   <table id="example15" class="table table-bordered table-hover">
                     <thead>
                       <tr>
