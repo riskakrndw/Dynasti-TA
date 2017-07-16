@@ -106,7 +106,7 @@
                         <th style="width: 250px">Nama Bahan</th>
                         <th style="width: 200px">Satuan</th>
                         <th style="width: 250px">Jumlah</th>
-                        <th style="width: 250px">Stok</th>
+                        <th style="display:none">Stok</th>
                       </tr>
                     </thead>
                     <tbody id="type_container">
@@ -219,7 +219,7 @@
           function(data){
              $.each(data, function(index, data){
               nomorBaris++
-                $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td class="total">'+data.takaran+'</td><td>'+data.stok+'</td></tr>');            
+                $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td class="total">'+data.takaran+'</td><td style="display:none">'+data.stok+'</td></tr>');            
               console.log(data);
               arr2.push(data.stok);
              })

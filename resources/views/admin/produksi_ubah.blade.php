@@ -106,20 +106,21 @@
                         <th style="width: 250px">Nama Bahan</th>
                         <th style="width: 200px">Satuan</th>
                         <th style="width: 250px">Jumlah</th>
-                        <th style="width: 250px">Stok</th>
+                        <th style="display:none">Stok</th>
                       </tr>
                     </thead>
                     <tbody id="type_container">
                       <?php $no=1; ?>
-                      @foreach($data->ice_cream as $iceCream)
+                      @foreach($data->ice_cream->detail_bahan as $detailBahan)
                       <?php
                         $id = $data->id;
                       ?>
                           <tr id="{{$id}}">
                             <td>{{ $no++ }}</td>
-                            <td>{{ $iceCream->detail_bahan->bahan->nama }}</td>
-                            <td>{{ $iceCream->detail_bahan->bahan->satuan }}</td>
-                            <td>{{ $iceCream->detail_bahan->takaran }}</td>
+                            <td>{{ $detailBahan->bahan->nama }}</td>
+                            <td>{{ $detailBahan->bahan->satuan }}</td>
+                            <td>{{ $detailBahan->takaran }}</td>
+                            <td style="display:none">{{ $detailBahan->bahan->stok }}</td>
                           </tr>
                       @endforeach
                     </tbody>
@@ -157,6 +158,189 @@
 <!-- date -->
   <script src="{{url('dist/js/bootstrap-datepicker.js')}}"></script>
 
+  <!-- script tambah bahan baku -->
+  <script>
+    //Date picker
+      $('#datepicker').datepicker({
+        autoclose: true,
+        format: "yyyy-mm-dd"
+      });
+    var w = 0;
+    var arr  = [];
+    var arr2 = [];
+    var nomorBaris = 0;
 
+    jQuery(document).ready(function() {
+      var doc = $(document);
+      w = 0;
+      arr = [];
+      arr2 = [];
+      $('#jumlah').change(function(){
+        var jumlah = $('#jumlah').val();
+        wh = false; // penanda kalau ada jumlah yg melebihi stok
+        if (jumlah <= 0){
+          alert('jumlah produksi minimal 1')
+        }else{
+          i = 0
+
+          $('.total').each(function(){
+            var total = $(this).text();
+
+              if(w == 0)
+              arr.push(total);
+
+              $(this).text(parseInt(arr[i])*jumlah);
+
+              if((arr[i]*jumlah) > arr2[i]){
+                wh = true;
+              }
+
+              i++;
+          });
+
+          if(wh == true)
+          {
+            alert('ga bisa produksi')
+            $('#submit').attr('disabled',true);
+          }else{
+            $('#submit').attr('disabled',false)
+          }
+          w = 1
+          console.log(arr);
+
+          //alert(total);
+        }
+      });
+
+      //menampilkan detail es
+      $('#namaEs').change(function(){
+        w = 0;
+        arr2 = [];
+        $('#type_container').html('');
+        nomorBaris = 0;
+
+        $.get('/dynasti/public/api/icecream/'+$('#namaEs').val(),
+          function(hasil){
+            $('#ides').val(hasil[0]);
+            console.log("hasil : "+hasil);
+          }
+        )
+
+        $.get('/dynasti/public/api/detail-icecream/'+$('#namaEs').val(),
+          function(data){
+             $.each(data, function(index, data){
+              nomorBaris++
+                $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td class="total">'+data.takaran+'</td><td style="display:none">'+data.stok+'</td></tr>');            
+              console.log(data);
+              arr2.push(data.stok);
+             })
+          
+          }
+        ) //ngambil value nama
+      });
+
+      //save multi record to db
+      $('#submit').on('click', function(){
+        var kode = $('#kode').val();
+        var pengguna = $('#idPengguna').val();
+        var ides = $('#ides').val();
+        var datepicker = $('#datepicker').val();
+        var bulan = new Date(datepicker).getMonth()+1;
+        var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
+        // console.log(bulan);
+        var namaEs = $('#namaEs').val();
+        var jumlah = $('#jumlah').val();
+
+
+        var arrData=[];
+
+        //loop over each table row (tr)
+        $("#type_container tr").each(function(){
+          var currentRow = $(this);
+
+          var col0_value = currentRow.find("td:eq(0)").text();
+          var col1_value = currentRow.find("td:eq(1)").text();
+          var col2_value = currentRow.find("td:eq(2)").text();
+          var col3_value = currentRow.find("td:eq(3)").text();
+          var col4_value = currentRow.find("td:eq(4)").text();
+
+          var obj={};
+          obj.no = col0_value;
+          obj.nama_bahan = col1_value;
+          obj.satuan = col2_value;
+          obj.total = col3_value;
+
+          arrData.push(obj);
+        });
+
+
+        $.ajax({
+            type: "GET",
+            url: "/dynasti/public/manager/produksi/simpan/"+ides+"/"+pengguna+"/"+kode+"/"+datepicker+"/"+jumlah,
+            success: function(result) {
+              /*console.log(idjual)*/
+            }
+        });
+
+        $(document).ajaxStop(function(){
+          window.location="{{URL::to('manager/produksi')}}";
+        });
+        
+      });
+    });
+  </script>
+
+  <!-- script select 2 untuk nyari bahan -->
+  <script>
+    jQuery(document).ready(function($) {
+        // trigger select2 for each untriggered select2 box
+        $("#namaEs").each(function (i, obj) {
+          if (!$(obj).data("select2"))
+          {
+            $(obj).select2({
+              placeholder: "Nama Ice Cream",
+              minimumInputLength: "1",
+              ajax: {
+                url: "/dynasti/public/api/icecream",
+                dataType: 'json',
+                quietMillis: 250,
+                data: function (term, page) {
+                  return {
+                    q: term, // search term
+                    page: page
+                  };
+                },
+                results: function (data, params) {
+                  params.page = params.page || 1;
+                  var result = {
+                    results: $.map(data.data, function (item) {
+                      textField = "nama";
+                      return {
+                        text: item[textField],
+                        id: item["id"]
+                      }
+                    }),
+                    more: data.current_page < data.last_page
+                  };
+                  return result;
+                },
+                cache: true
+              },
+              initSelection: function(element, callback) {
+                // the input tag has a value attribute preloaded that points to a preselected repository's id
+                // this function resolves that id attribute to an object that select2 can render
+                // using its formatResult renderer - that way the repository name is shown preselected
+                $.ajax("/dynasti/public/api/icecream" + '/' , {
+                  dataType: "json"
+                }).done(function(data) {
+                  textField = "nama";
+                  callback({ text: data[textField], id: data["id"] });
+                });
+              },
+            });
+          }
+        });
+    });
+  </script>
   
 @endsection
