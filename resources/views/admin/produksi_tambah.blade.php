@@ -106,7 +106,7 @@
                         <th style="width: 250px">Nama Bahan</th>
                         <th style="width: 200px">Satuan</th>
                         <th style="width: 250px">Jumlah</th>
-                        <th style="display:none">Stok</th>
+                        <th>Stok</th>
                       </tr>
                     </thead>
                     <tbody id="type_container">
@@ -157,6 +157,7 @@
     var w = 0;
     var arr  = [];
     var arr2 = [];
+    var idbahan = [];
     var nomorBaris = 0;
 
     jQuery(document).ready(function() {
@@ -218,9 +219,10 @@
         $.get('/dynasti/public/api/detail-icecream/'+$('#namaEs').val(),
           function(data){
              $.each(data, function(index, data){
+              idbahan.push(data.id); //ngambil id bahan
               nomorBaris++
-                $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td class="total">'+data.takaran+'</td><td style="display:none">'+data.stok+'</td></tr>');            
-              console.log(data);
+                $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td class="total">'+data.takaran+'</td><td>'+data.stok+'</td></tr>');            
+              // console.log(data);
               arr2.push(data.stok);
              })
           
@@ -239,41 +241,18 @@
         // console.log(bulan);
         var namaEs = $('#namaEs').val();
         var jumlah = $('#jumlah').val();
-
-
-        var arrData=[];
-
-        //loop over each table row (tr)
-        $("#type_container tr").each(function(){
-          var currentRow = $(this);
-
-          var col0_value = currentRow.find("td:eq(0)").text();
-          var col1_value = currentRow.find("td:eq(1)").text();
-          var col2_value = currentRow.find("td:eq(2)").text();
-          var col3_value = currentRow.find("td:eq(3)").text();
-          var col4_value = currentRow.find("td:eq(4)").text();
-
-          var obj={};
-          obj.no = col0_value;
-          obj.nama_bahan = col1_value;
-          obj.satuan = col2_value;
-          obj.total = col3_value;
-
-          arrData.push(obj);
-        });
-
-
+        console.log(idbahan)
         $.ajax({
             type: "GET",
-            url: "/dynasti/public/manager/produksi/simpan/"+ides+"/"+pengguna+"/"+kode+"/"+datepicker+"/"+jumlah,
+            url: "/dynasti/public/manager/produksi/simpan/"+ides+"/"+pengguna+"/"+kode+"/"+datepicker+"/"+jumlah+"/"+idbahan,
             success: function(result) {
-              /*console.log(idjual)*/
+              console.log(result)
             }
         });
 
-        $(document).ajaxStop(function(){
-          window.location="{{URL::to('manager/produksi')}}";
-        });
+        // $(document).ajaxStop(function(){
+        //   window.location="{{URL::to('manager/produksi')}}";
+        // });
         
       });
     });

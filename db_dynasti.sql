@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 09 Jul 2017 pada 11.17
+-- Generation Time: 18 Jul 2017 pada 06.17
 -- Versi Server: 10.1.19-MariaDB
 -- PHP Version: 5.6.24
 
@@ -41,12 +41,12 @@ CREATE TABLE `bahan_baku` (
 --
 
 INSERT INTO `bahan_baku` (`id`, `nama`, `harga`, `stok`, `satuan`, `created_at`, `updated_at`) VALUES
-(28, 'es batu', 8000, 32136, 'unita', '2017-06-09 08:12:26', '2017-06-20 05:47:15'),
+(28, 'es batu', 8000, 32100, 'unita', '2017-06-09 08:12:26', '2017-07-17 03:30:33'),
 (29, 'adada', 3000, 3044, 'aada', '2017-06-12 05:31:33', '2017-06-12 05:31:33'),
 (30, 'sasasfa', 454545, 57, 'fafa', '2017-06-19 13:30:22', '2017-06-19 13:30:22'),
 (31, 'adsada', 5455454, 58, 'dadaa', '2017-06-19 13:32:18', '2017-06-19 13:32:18'),
 (32, 'afasfafa', 45454, 53, 'afasfa', '2017-06-19 13:32:27', '2017-06-19 13:32:27'),
-(33, 'garam', 800, 65, 'gr', '2017-06-28 09:48:06', '2017-06-28 09:48:18');
+(33, 'garam', 800, 33, 'gr', '2017-06-28 09:48:06', '2017-07-17 03:52:59');
 
 --
 -- Trigger `bahan_baku`
@@ -81,7 +81,13 @@ INSERT INTO `detail_bahan` (`id`, `id_bahan`, `id_es`, `takaran`, `satuan`, `cre
 (34, 33, 170, 4, 'gr', '2017-06-28 10:40:37', '2017-06-28 10:40:37'),
 (35, 29, 170, 5, 'aada', '2017-06-28 10:40:37', '2017-06-28 10:40:37'),
 (39, 30, 193, 5, 'fafa', '2017-07-08 08:53:54', '2017-07-08 08:53:54'),
-(40, 28, 193, 10, 'unita', '2017-07-08 08:53:55', '2017-07-08 08:53:55');
+(40, 28, 193, 10, 'unita', '2017-07-08 08:53:55', '2017-07-08 08:53:55'),
+(41, 28, 194, 4, 'unita', '2017-07-15 21:11:58', '2017-07-15 21:11:58'),
+(42, 33, 194, 3, 'gr', '2017-07-15 21:11:58', '2017-07-15 21:11:58'),
+(43, 33, 195, 0.5, 'gr', '2017-07-17 03:42:36', '2017-07-17 03:42:36'),
+(44, 28, 195, 0.5, 'unita', '2017-07-17 03:42:36', '2017-07-17 03:42:36'),
+(45, 33, 196, 0.07792207792207792, 'gr', '2017-07-17 03:44:22', '2017-07-17 03:44:22'),
+(46, 33, 197, 0.05747126436781609, 'gr', '2017-07-17 03:51:27', '2017-07-17 03:51:27');
 
 -- --------------------------------------------------------
 
@@ -224,8 +230,12 @@ CREATE TABLE `ice_cream` (
 --
 
 INSERT INTO `ice_cream` (`id`, `id_jenis`, `id_rasa`, `nama`, `harga`, `stok`, `created_at`, `updated_at`) VALUES
-(170, 40, 18, 'Ice Cream cup kecil pisang', 9000, 54, '2017-06-28 10:40:13', '2017-06-28 10:40:13'),
-(193, 40, 18, 'Ice Cream cup kecil pisang', 54, 5, '2017-07-08 02:45:58', '2017-07-08 08:53:53');
+(170, 40, 18, 'Ice Cream cup kecil pisang', 9000, 57, '2017-06-28 10:40:13', '2017-07-17 02:50:27'),
+(193, 40, 18, 'Ice Cream cup kecil pisang', 54, 20, '2017-07-08 02:45:58', '2017-07-17 02:36:11'),
+(194, 38, 17, 'Ice Cream stik cokelat', 3000, 151, '2017-07-15 21:11:57', '2017-07-17 03:30:33'),
+(195, 38, 18, 'Ice Cream stik pisang', 3000, 70, '2017-07-17 03:42:36', '2017-07-17 03:42:36'),
+(196, 38, 20, 'Ice Cream stik strawberry', 9000, 66, '2017-07-17 03:44:22', '2017-07-17 03:44:22'),
+(197, 40, 20, 'Ice Cream cup kecil strawberry', 6000, 93, '2017-07-17 03:51:26', '2017-07-17 03:52:59');
 
 -- --------------------------------------------------------
 
@@ -407,11 +417,20 @@ CREATE TABLE `produksi` (
   `id` int(20) NOT NULL,
   `id_es` int(5) NOT NULL,
   `id_users` int(3) NOT NULL,
-  `tgl` datetime NOT NULL,
+  `kode_produksi` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tgl` date NOT NULL,
   `jumlah` int(5) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `produksi`
+--
+
+INSERT INTO `produksi` (`id`, `id_es`, `id_users`, `kode_produksi`, `tgl`, `jumlah`, `created_at`, `updated_at`) VALUES
+(40, 194, 5, 'sasasa', '2017-07-11', 4, '2017-07-17 03:27:01', '2017-07-17 03:30:33'),
+(41, 197, 5, 'fggfgf', '2017-06-27', 87, '2017-07-17 03:52:58', '2017-07-17 03:52:58');
 
 -- --------------------------------------------------------
 
@@ -580,7 +599,7 @@ ALTER TABLE `bahan_baku`
 -- AUTO_INCREMENT for table `detail_bahan`
 --
 ALTER TABLE `detail_bahan`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT for table `detail_pembelian`
 --
@@ -600,7 +619,7 @@ ALTER TABLE `detail_penjualan`
 -- AUTO_INCREMENT for table `ice_cream`
 --
 ALTER TABLE `ice_cream`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
 --
 -- AUTO_INCREMENT for table `jenis`
 --
@@ -630,7 +649,7 @@ ALTER TABLE `penjualan`
 -- AUTO_INCREMENT for table `produksi`
 --
 ALTER TABLE `produksi`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `rasa`
 --

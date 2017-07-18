@@ -9,6 +9,8 @@
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
 <link href="{{url('dist/css/bootstrap-modal.css')}}" rel="stylesheet" />
+<link href="{{url('dist/sweetalert.css')}}" rel="stylesheet" type="text/css"/>
+
 @endsection
 
 @section("content")
@@ -56,7 +58,7 @@
                         </div>
                         <div class="form-group">
                           <div class="box-footer pull-right">
-                            <button type="submit" class="btn btn-primary">Tambah</button>
+                            <button type="submit" class="btn btn-primary btnSimpan">Tambah</button>
                           </div>
                         </div>
                       </form>
@@ -149,6 +151,7 @@
  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script> -->
   <script src="{{url('dist/js/bootstrap-modalmanager.js')}}"></script>
   <script src="{{url('dist/js/bootstrap-modal.js')}}"></script>
+  <script src="{{url('dist/sweetalert.min.js')}}"></script>  
 
   <script type="text/javascript">
     $(document).ready(function(){

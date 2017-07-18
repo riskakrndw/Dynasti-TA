@@ -77,7 +77,7 @@ class IceCreamController extends Controller
         $datadetail = new DetailBahan;
         $datadetail->id_es = $ides;
         $datadetail->id_bahan = $idbahan['id'];
-        $datadetail->takaran = $request->jumlah_;
+        $datadetail->takaran = $request->jumlah_ / $request->jumlahProduksi_;
         $datadetail->satuan = $request->satuan_;
         $datadetail->save();
 

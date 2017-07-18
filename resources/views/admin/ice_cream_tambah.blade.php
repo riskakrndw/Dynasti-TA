@@ -95,6 +95,18 @@
                           @endif
                       </div>
                     </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Jumlah es sekali takaran</label>
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
+                            <input class="form-control" placeholder="jumlahProduksi" name="jumlahProduksi" id="jumlahProduksi" onKeyPress="return goodchars(event,'0123456789',this)">
+                          </div>
+                          @if($errors->has('jumlahProduksi'))
+                            <span class="help-block">{{$errors->first('jumlahProduksi')}}</span>
+                          @endif
+                      </div>
+                    </div>
                   </div>
                 
               <!-- /Form tambah es -->
@@ -315,7 +327,7 @@
             $.ajax({
               type: "POST",
               url: "http://localhost:8081/dynasti/public/manager/icecream/simpan1",
-              data:'nama_bahan=' + arrData[i]['nama_bahan'] + '& satuan =' + arrData[i]['satuan'] + '& jumlah =' + arrData[i]['jumlah'] +'& _token='+"{{csrf_token()}}",
+              data:'nama_bahan=' + arrData[i]['nama_bahan'] + '& satuan =' + arrData[i]['satuan'] + '& jumlah =' + arrData[i]['jumlah'] + '& jumlahProduksi =' + $('#jumlahProduksi').val() +'& _token='+"{{csrf_token()}}",
               success: function(result) {
               }
             });
@@ -325,7 +337,7 @@
          $.ajax({
               type: "POST",
               url: "http://localhost:8081/dynasti/public/manager/icecream/simpan",
-              data: 'nama =' + nama + '& harga = ' + harga + '& stok = ' + stok + '& listRasa = ' + listRasa + '& listJenis = ' + listJenis+'& _token='+"{{csrf_token()}}",
+              data: 'nama =' + nama + '& harga = ' + harga + '& stok = ' + stok + '& listRasa = ' + listRasa + '& listJenis = ' + listJenis +'& _token='+"{{csrf_token()}}",
               success: function(result) {
               }
           }).done(a);

@@ -69,7 +69,7 @@
                         </div>
                       </div>
                     </div>
-                    <input type="hidden" name="ides" id="ides">
+                    <input type="hidden" name="ides" id="ides" value="{{ $data->ice_cream->id }}">
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Nama Ice Cream</label>
@@ -119,7 +119,7 @@
                             <td>{{ $no++ }}</td>
                             <td>{{ $detailBahan->bahan->nama }}</td>
                             <td>{{ $detailBahan->bahan->satuan }}</td>
-                            <td>{{ $detailBahan->takaran }}</td>
+                            <td class="total">{{ $detailBahan->takaran }}</td>
                             <td style="display:none">{{ $detailBahan->bahan->stok }}</td>
                           </tr>
                       @endforeach
@@ -168,6 +168,7 @@
     var w = 0;
     var arr  = [];
     var arr2 = [];
+    var idbahan = [];
     var nomorBaris = 0;
 
     jQuery(document).ready(function() {
@@ -175,6 +176,51 @@
       w = 0;
       arr = [];
       arr2 = [];
+
+      @foreach($datadetail as $value)
+        idbahan.push({{$value->id_bahan}});
+        // console.log({{$value->id_bahan}})
+      @endforeach
+
+      
+
+      var jumlah = $('#jumlah').val();
+        wh = false; // penanda kalau ada jumlah yg melebihi stok
+        if (jumlah <= 0){
+          alert('jumlah produksi minimal 1')
+        }else{
+          i = 0
+
+          $('.total').each(function(){
+            var total = $(this).text();
+
+              if(w == 0)
+              arr.push(total);
+
+              $(this).text(parseInt(arr[i])*jumlah);
+
+              console.log($(this).text())
+
+              if((arr[i]*jumlah) > arr2[i]){
+                wh = true;
+              }
+
+              i++;
+          });
+
+          if(wh == true)
+          {
+            alert('ga bisa produksi')
+            $('#submit').attr('disabled',true);
+          }else{
+            $('#submit').attr('disabled',false)
+          }
+          w = 1
+          console.log(arr);
+
+          //alert(total);
+        }
+
       $('#jumlah').change(function(){
         var jumlah = $('#jumlah').val();
         wh = false; // penanda kalau ada jumlah yg melebihi stok
@@ -229,6 +275,7 @@
         $.get('/dynasti/public/api/detail-icecream/'+$('#namaEs').val(),
           function(data){
              $.each(data, function(index, data){
+              idbahan.push(data.id); //ngambil id bahan
               nomorBaris++
                 $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td class="total">'+data.takaran+'</td><td style="display:none">'+data.stok+'</td></tr>');            
               console.log(data);
@@ -251,34 +298,13 @@
         var namaEs = $('#namaEs').val();
         var jumlah = $('#jumlah').val();
 
-
-        var arrData=[];
-
-        //loop over each table row (tr)
-        $("#type_container tr").each(function(){
-          var currentRow = $(this);
-
-          var col0_value = currentRow.find("td:eq(0)").text();
-          var col1_value = currentRow.find("td:eq(1)").text();
-          var col2_value = currentRow.find("td:eq(2)").text();
-          var col3_value = currentRow.find("td:eq(3)").text();
-          var col4_value = currentRow.find("td:eq(4)").text();
-
-          var obj={};
-          obj.no = col0_value;
-          obj.nama_bahan = col1_value;
-          obj.satuan = col2_value;
-          obj.total = col3_value;
-
-          arrData.push(obj);
-        });
-
+        var idproduksi = {{ $data->id }};
 
         $.ajax({
             type: "GET",
-            url: "/dynasti/public/manager/produksi/simpan/"+ides+"/"+pengguna+"/"+kode+"/"+datepicker+"/"+jumlah,
+            url: "/dynasti/public/manager/produksi/ubah/"+idproduksi+"/"+ides+"/"+pengguna+"/"+kode+"/"+datepicker+"/"+jumlah+"/"+idbahan,
             success: function(result) {
-              /*console.log(idjual)*/
+              console.log(idproduksi)
             }
         });
 

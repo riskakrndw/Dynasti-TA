@@ -143,10 +143,10 @@ Route::group(['middleware' => 'levelManager'], function(){
 		/*menampilkan form tambah*/
 			Route::get('/manager/produksi/tambah', 'ProduksiController@tambah')->name('tambahProduksi');
 		/*melakukan create*/
-			Route::get('/manager/produksi/simpan/{ides}/{pengguna}/{kode}/{datepicker}/{jumlah}', 'ProduksiController@store');
+			Route::get('/manager/produksi/simpan/{ides}/{pengguna}/{kode}/{datepicker}/{jumlah}/{idbahan}', 'ProduksiController@store');
 		/*melakukan ubah*/
 			Route::get('/manager/produksi/edit/{id}', 'ProduksiController@showEdit');
-			Route::get('/manager/produksi/ubah/{id_jual}/{kode}/{pengguna}/{datepicker}/{total}', 'ProduksiController@ubah');
+			Route::get('/manager/produksi/ubah/{idproduksi}/{ides}/{pengguna}/{kode}/{datepicker}/{jumlah}/{idbahan}', 'ProduksiController@ubah');
 
 });
 	

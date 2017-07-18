@@ -9,6 +9,7 @@ use App\Produksi;
 use App\IceCream;
 use App\User;
 use App\Bahan;
+use App\DetailBahan;
 
 class ProduksiController extends Controller
 {
@@ -30,20 +31,10 @@ class ProduksiController extends Controller
     	
     }
 
-    public function store($ides, $pengguna, $kode, $datepicker, $jumlah)
+    public function store($ides, $pengguna, $kode, $datepicker, $jumlah, $idbahan)
     {
 
-        // foreach ($ides as $key) {
-        //     $detailbahan = DetailBahan::where('id_es', $key);
-        //     dd($detailbahan);
-        //     foreach ($detailbahan->id_bahan as $value) {
-        //         $a = $detailbahan->takaran * $jumlah;
-        //         $databahan = Bahan::where('id_bahan', $value);
-        //         $databahan->stok = $databahan->stok - $a;
-        //         $data->save();
-
-        //     }
-        // }
+        // dd($idbahan);
         $data = new Produksi;
         $data->id_es = $ides;
         $data->id_users = $pengguna;
@@ -52,7 +43,18 @@ class ProduksiController extends Controller
         $data->jumlah = $jumlah;
         $data->save();
 
+        $dataes = IceCream::find($ides);
+        $dataes->stok = $dataes->stok + $jumlah;
+        $dataes->save();   
 
+        $arr = explode(',', $idbahan); //mecah jadi array
+        foreach ($arr as $bahan) {
+            $databahan = Bahan::find($bahan);
+            // dd($bahan);
+            $datadetail = DetailBahan::where('id_es', '=', $ides)->where('id_bahan', '=', $bahan)->first()->takaran;
+            $databahan->stok = $databahan->stok - $datadetail*$jumlah;
+            $databahan->save();
+        }
     }
 
     public function edit($id)
@@ -60,23 +62,40 @@ class ProduksiController extends Controller
         $data = Produksi::find($id);
     }
 
-    public function ubah($id_produksi, $ides, $pengguna, $kode, $datepicker, $jumlah)
+    public function ubah($id_produksi, $ides, $pengguna, $kode, $datepicker, $jumlah, $idbahan)
     {
         $data = Produksi::find($id_produksi);
+        
+
+        $dataes = IceCream::find($ides);
+        $dataes->stok = $dataes->stok - $data->jumlah + $jumlah;
+        $dataes->save();   
+
+        $arr = explode(',', $idbahan); //mecah jadi array
+        foreach ($arr as $bahan) {
+            $databahan = Bahan::find($bahan);
+            // dd($bahan);
+            $datadetail = DetailBahan::where('id_es', '=', $ides)->where('id_bahan', '=', $bahan)->first()->takaran;
+            $databahan->stok = $databahan->stok + $data->jumlah * $datadetail - $datadetail * $jumlah;
+            $databahan->save();
+        }
+
         $data->id_es = $ides;
         $data->id_users = $pengguna;
         $data->kode_produksi = $kode;
         $data->tgl = $datepicker;
         $data->jumlah = $jumlah;
         $data->save();
+
     }
 
     public function showEdit($id)
     {
         if(Auth::user()->level == "manager"){
             $data = Produksi::where('id', $id)->first();
-            // $databahan = Bahan::where('id', $id)->first();
-            return view('admin.produksi_ubah')->with('data', $data);
+            $datadetail = DetailBahan::where('id_es', '=', $data->id_es)->select('id_bahan')->get();
+            // dd($datadetail);
+            return view('admin.produksi_ubah')->with('data', $data)->with('datadetail', $datadetail);
         } elseif (Auth::user()->level == "produksi"){
             
         }
