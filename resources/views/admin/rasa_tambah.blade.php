@@ -71,7 +71,7 @@
                             {{ $dataJenis->nama }}
                             <br>
                             <div id="showjenis{{$key}}" class="hide">
-                            dalam 1 resep
+                            dalam 1 kali pembuatan menghasilkan:
                               <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-font"></i></span>
 

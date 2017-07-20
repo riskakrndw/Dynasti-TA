@@ -49,6 +49,8 @@
                   {{csrf_field()}}
                   <div class="box-body">
                     <input type="hidden" name="idPengguna" id="idPengguna" value="{{ Auth::User()->id }}">
+                    <input class="form-control bb">
+
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Kode Produksi</label>
@@ -83,6 +85,7 @@
                       <div class="form-group">
                         <label>Jumlah Produksi</label>
                         <div id="namaJenis">
+
                         </div>
                       </div>
                     </div>
@@ -167,26 +170,36 @@
     
     });
 
-    $('.bb').bind('keyup mouseup', function(){
-      alert('ga bisa produksi')
+    $(document).on('change','#jumlahPro',function(){
+      console.log('cek takan:'+arrTakaran)
         var j=1;
         for(var i = 0; i<arrTakaran.length; i++){
           var totalTakaran = 0; 
-          $('input:number[name=jumlah]').each(function(){
-            var jumlahproduksi = $(this).attr('jmlproduksi');
-            var jumlah = $(this).val();
-            var takaranjenis = parseFloat(jumlah) * parseFloat(arrTakaran[i]) / parseFloat(jumlahproduksi);
-            var totalTakaran = totalTakaran + takaranjenis;
-          })
+          wh = false;
+          $('.total').each(function(){ 
+            var jumlahproduksi = $('#jumlahPro').attr('jmlproduksi'); //jumlah yang dihasilkan dalam 1 takaran
+            var jumlah = $('#jumlahPro').val(); //jumlah yang ingin diproduksi
+            console.log(String(jumlah)+String(arrTakaran[i])+String(jumlahproduksi))
+            var takaranjenis = parseFloat(jumlah) * (parseInt(arrTakaran[i]) / parseInt(jumlahproduksi)); //jumlah yg ingin diproduksi * takaran per bahan / jumlah yang dihasilkan dalam 1 takaran
+            var totalTakaran = parseFloat(takaranjenis);
 
-          wh = false; // penanda kalau ada jumlah yg melebihi stok
-          
-          if(totalTakaran > arr2[i]){
-            wh = true;
-            break;
-          }
-          console.log(totalTakaran);
-          $('#jumlah'+j).text(totalTakaran);
+            console.log('jumlahproduksi : '+jumlahproduksi)
+            console.log('jumlah:'+jumlah) 
+            console.log('takaranJenis : '+takaranjenis)
+            console.log('totalTakaran :'+totalTakaran)
+            var total = $(this).text();
+
+              if(w == 0)
+              arr.push(total);
+
+              $(this).text(parseFloat(totalTakaran));
+
+              if((parseFloat(totalTakaran)) > arr2[i]){
+                wh = true;
+              }
+
+              i++;
+          })
         }
 
         if(wh == true)
@@ -224,6 +237,8 @@
               arr2.push(data.stok);
               arrTakaran.push(data.takaran);
              })
+             console.log(arr2)
+             console.log(arrTakaran)
           
           }
         ) //ngambil value nama
@@ -234,8 +249,7 @@
              $.each(data, function(index, data){
               nomorBaris++
                 $('#namaJenis').append('<div class="input-group">' + data[1] +
-                            '<span class="input-group-addon"><i class="fa fa-font"></i></span>' +
-                            '<input class="form-control bb" jmlproduksi="'+data[2]+'" placeholder="Jumlah Produksi" name="jumlah" min="1" type="number" id="'+data[0]+'">' +
+                            '<input class="form-control bb" jmlproduksi="'+data[2]+'" placeholder="Jumlah Produksi" name="jumlah" min="1" type="number" id="jumlahPro">' +
                           '</div>');            
               console.log(data);
              })
