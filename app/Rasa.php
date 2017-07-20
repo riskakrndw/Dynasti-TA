@@ -9,11 +9,15 @@ class Rasa extends Model
     protected $table = "rasa";
 
     protected $fillable = [
-    	'id', 'nama'
+    	'id', 'nama', 'takaran'
     ];
 
     public function ice_cream(){
     	return $this->hasMany('App\Icecream', 'id_rasa');
+    }
+
+    public function detail_rasa(){
+    	return $this->hasMany('App\DetailRasa', 'id_rasa');
     }
     
 }

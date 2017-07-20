@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DetailBahan extends Model
+class DetailEs extends Model
 {
-    protected $table = "detail_bahan";
+    protected $table = "detail_es";
 
     protected $fillable = [
-    	'id_bahan', 'id_es', 'takaran', 'satuan',
+    	'id_bahan', 'id_es', 'takaran',
     ];
 
     public function ice_cream(){

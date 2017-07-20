@@ -44,7 +44,7 @@
             <br>
             <div class="box box-success">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Data Ice Cream</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Data Rasa</h3></li>
               </ul>
 
               <!-- Form tambah es -->
@@ -52,10 +52,10 @@
                   {{csrf_field()}}
                   <div class="box-body">
                     <div class="col-md-12">
-                      <label>Nama Ice Cream</label>
+                      <label>Nama</label>
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                        <input class="form-control" placeholder="Nama Ice Cream" name="nama" id="nama" value="{{ $data->nama }}" disabled>
+                        <input class="form-control" placeholder="Nama" name="nama" id="nama" value="{{ $data->nama }}" disabled>
                       </div>
                       @if($errors->has('nama'))
                         <span class="help-block">{{$errors->first('nama')}}</span>
@@ -64,41 +64,11 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <br>
-                        <label>Nama Rasa</label>
-                        <input class="form-control" disabled
-                          @if($data->id_rasa)
-                            placeholder = "{{ $data->rasa->nama }}"
-                          @else
-                            placeholder = "Rasa tidak ditemukan"
-                          @endif
-                        >
-                      </div>
-                      <div class="form-group">
-                        <label>Harga</label>
-                          <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                            <input class="form-control" placeholder="Harga" name="harga" id="harga" value="{{ $data->harga }}" onKeyPress="return goodchars(event,'0123456789',this)" disabled>
-                          </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <br>
-                        <label>Nama Jenis</label>
-                        <input class="form-control" disabled
-                          @if($data->id_jenis)
-                            placeholder = "{{ $data->jenis->nama }}"
-                          @else
-                            placeholder = "Jenis tidak ditemukan"
-                          @endif
-                        >
-                      </div>
-                      <div class="form-group">
-                        <label>Stok</label>
-                          <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
-                            <input class="form-control" placeholder="Stok" name="stok" id="stok" value="{{ $data->stok }}" onKeyPress="return goodchars(event,'0123456789',this)" disabled>
-                          </div>
+                        <label>Jenis</label><br>
+                        @foreach($data->ice_cream as $dataJenis)
+                        <label>{{ $dataJenis->jenis->nama }}</label>
+                        <input class="form-control" disabled placeholder="{{ $dataJenis->jumlah_produksi }}">
+                        @endforeach
                       </div>
                     </div>
                   </div>
@@ -123,13 +93,13 @@
                     </thead>
                     <tbody id="type_container">
                       <?php $no=1; ?>
-                      @foreach($data->detail_bahan as $detailBahan)
+                      @foreach($data->detail_rasa as $detailRasa)
                         <?php $id = $no+1; ?>
                         <tr id="tr{{$id}}">
                           <td>{{ $no++ }}</td>
-                          <td>{{ $detailBahan->bahan->nama }}</td>
-                          <td id="{{ $detailBahan->bahan->nama }}">{{ $detailBahan->takaran }}</td>
-                          <td>{{ $detailBahan->bahan->satuan }}</td>
+                          <td>{{ $detailRasa->bahan->nama }}</td>
+                          <td>{{ $detailRasa->takaran }}</td>
+                          <td>{{ $detailRasa->bahan->satuan }}</td>
                         </tr>
                       @endforeach
                     </tbody>

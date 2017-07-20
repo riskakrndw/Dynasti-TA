@@ -55,6 +55,15 @@
                           @if($errors->has('nama'))
                             <span class="help-block">Nama jenis minimal 2 karakter</span>
                           @endif
+                          <br>
+                          <label>Harga</label>
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                            <input class="form-control" placeholder="Harga" name="harga">
+                          </div>
+                          @if($errors->has('harga'))
+                            <span class="help-block">Nama jenis minimal 2 karakter</span>
+                          @endif
                         </div>
                         <div class="form-group">
                           <div class="box-footer pull-right">
@@ -88,7 +97,8 @@
                     <thead>
                       <tr>
                         <th style="width: 50px">No</th>
-                        <th style="width: 700px">Nama Jenis</th>
+                        <th style="width: 500px">Nama Jenis</th>
+                        <th>Harga</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
@@ -98,6 +108,7 @@
                       <tr>
                         <td>{{ $no++ }}</td>
                         <td>{{ $data->nama }}</td>
+                        <td>{{ $data->harga }}</td>
                         <td>
                           <button type="button" class="btn btn-sm btn-default btnEditJenis" data-toggle="modal" data-target="" data-id="{{$data->id}}" data-nama="{{$data->nama}}" <i class="fa fa-edit"></i> Ubah</button>
                           <a type="button" href="{{route('hapusJenis', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button>

@@ -15,7 +15,7 @@
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Data Jenis
+        Data Rasa
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -30,46 +30,13 @@
 
         <!-- Tambah jenis -->
           <div class="col-md-12">
-            <div class="box box-success">
-              <div class="box-header with-border">
-                <h3 class="box-title">Tambah Data Rasa</h3>
-
-                <div class="box-tools pull-right">
-                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                </div>
-              </div>
-              <div class="box-body">
-                <div class="row">
-                  <div class="col-md-12">
-                    <!-- Form tambah rasa -->
-                      <form role="form" action="{{url('manager/rasa/simpan')}}" method="POST">
-                        {{csrf_field()}}
-                        <div class="form-group">
-                          <label>Nama Rasa</label>
-                          <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                            <input class="form-control" placeholder="Nama Rasa" name="nama">
-                          </div>
-                          @if($errors->has('nama'))
-                            <span class="help-block">Nama rasa minimal 2 karakter</span>
-                          @endif
-                        </div>
-                        <div class="form-group">
-                          <div class="box-footer pull-right">
-                            <button type="submit" class="btn btn-primary">Tambah</button>
-                          </div>
-                        </div>
-                      </form>
-                    <!-- Form tambah rasa -->
-                  </div>
-                </div>
-              </div>
-            </div>
+            <a href="{{route('tambahRasa')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Rasa </button></a>
           </div>
         <!-- /Tambah rasa -->
 
         <!-- Data rasa -->
           <div class="col-xs-12">
+            <br>
             <div class="box box-success">
 
               <!-- header -->
@@ -97,6 +64,7 @@
                         <td>{{ $no++ }}</td>
                         <td>{{ $data->nama }}</td>
                         <td>
+                          <a href="{{ url('manager/rasa/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                           <button type="button" class="btn btn-sm btn-default btnEditRasa" data-toggle="modal" data-target="" data-id="{{$data->id}}" data-nama="{{$data->nama}}" <i class="fa fa-edit"></i> Ubah</button>
                           <a type="button" href="{{route('hapusRasa', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button>
                         </td>

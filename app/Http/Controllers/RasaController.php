@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Jenis;
 use App\Rasa;
+use App\Bahan;
+use App\IceCream;
+use App\DetailRasa;
+use App\DetailEs;
 
 class RasaController extends Controller
 {
@@ -23,22 +28,18 @@ class RasaController extends Controller
         return view('admin.rasa', ['data'=>$data]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('admin.rasa');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function tambah()
+    {
+        $dataJenis = Jenis::get();
+        $dataRasa = Rasa::get();
+        return view('admin.rasa_tambah')->with('dataJenis', $dataJenis)->with('dataRasa', $dataRasa);
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -49,42 +50,87 @@ class RasaController extends Controller
         $data->nama = $request->nama;
         $data->save();
 
-        $notification = array(
-            'message' => 'Data berhasil ditambah',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        return $data->id;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function store1(Request $request)
+    {
+        /*$this->validate($request, [
+            'nama' => 'required|min:2|max:50',
+            'harga' => 'required|min:2|max:50',
+            'stok' => 'required|min:2|max:50',
+            'total' => 'required',
+            'jumlahProduksi' => 'required|max:10',
+        ]);*/   
+        $idrasa= Rasa::max('id');
+
+        $idbahan = Bahan::where('nama', '=', $request->nama_bahan)->first();
+        $datadetail = new DetailRasa;
+        $datadetail->id_rasa = $idrasa;
+        $datadetail->id_bahan = $idbahan['id'];
+        $datadetail->takaran = $request->takaran_;
+        $datadetail->save();
+    }
+
+    public function store2(Request $request)
+    {
+        /*$this->validate($request, [
+            'nama' => 'required|min:2|max:50',
+            'harga' => 'required|min:2|max:50',
+            'stok' => 'required|min:2|max:50',
+            'total' => 'required',
+            'jumlahProduksi' => 'required|max:10',
+        ]);*/   
+        $idrasa= Rasa::max('id');
+
+        $rasa=Rasa::find($idrasa);
+        $jenis=Jenis::find($request->idjenis);
+        $nama='Ice Cream '.$jenis->nama.' '.$rasa->nama;
+       
+        $data = new IceCream;
+        $data->nama = $nama;
+        $data->id_jenis = $request->idjenis;
+        $data->id_rasa = $idrasa;
+        $data->jumlah_produksi = $request->jumlah_produksi;
+        $data->save();
+
+        return $data->id;
+    }
+
+    public function store3(Request $request)
+    {
+        /*$this->validate($request, [
+            'nama' => 'required|min:2|max:50',
+            'harga' => 'required|min:2|max:50',
+            'stok' => 'required|min:2|max:50',
+            'total' => 'required',
+            'jumlahProduksi' => 'required|max:10',
+        ]);*/   
+        $idrasa= Rasa::max('id');
+
+        $idbahan = Bahan::where('nama', '=', $request->nama_bahan)->first();
+        $datadetail = new DetailEs;
+        $datadetail->id_es = $request->ides;
+        $datadetail->takaran = $request->takaran;
+        $datadetail->id_bahan = $idbahan['id'];
+        $datadetail->save();
+    }
+
     public function show($id)
     {
-        //
+        $dataJenis = Jenis::get();
+        $data = Rasa::where('id', $id)->first();
+        // dd($data);
+        return view('admin.rasa_detail')->with(compact('dataJenis', $dataJenis, 'data', $data));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
+
     public function edit($id)
     {
         $data = Rasa::find($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
         $data = Rasa::find($request->id);
@@ -98,12 +144,6 @@ class RasaController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request, $id)
     {
         $data = Rasa::where('id', $id)->delete();

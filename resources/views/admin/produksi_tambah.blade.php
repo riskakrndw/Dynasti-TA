@@ -72,19 +72,17 @@
                     <input type="hidden" name="ides" id="ides">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Nama Ice Cream</label>
+                        <label>Rasa</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input type="hidden" class="form-control" id="namaEs" name="namaEs" placeholder="Nama Ice Cream">
+                          <input type="hidden" class="form-control" id="rasa" name="rasa" placeholder="Rasa">
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Jumlah Produksi</label>
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Jumlah Produksi" name="jumlah" id="jumlah" onKeyPress="return goodchars(event,'0123456789',this)">
+                        <div id="namaJenis">
                         </div>
                       </div>
                     </div>
@@ -165,70 +163,90 @@
       w = 0;
       arr = [];
       arr2 = [];
-      $('#jumlah').change(function(){
-        var jumlah = $('#jumlah').val();
-        wh = false; // penanda kalau ada jumlah yg melebihi stok
-        if (jumlah <= 0){
-          alert('jumlah produksi minimal 1')
-        }else{
-          i = 0
+      arrTakaran = [];
+    
+    });
 
-          $('.total').each(function(){
-            var total = $(this).text();
+    $('.bb').bind('keyup mouseup', function(){
+      alert('ga bisa produksi')
+        var j=1;
+        for(var i = 0; i<arrTakaran.length; i++){
+          var totalTakaran = 0; 
+          $('input:number[name=jumlah]').each(function(){
+            var jumlahproduksi = $(this).attr('jmlproduksi');
+            var jumlah = $(this).val();
+            var takaranjenis = parseFloat(jumlah) * parseFloat(arrTakaran[i]) / parseFloat(jumlahproduksi);
+            var totalTakaran = totalTakaran + takaranjenis;
+          })
 
-              if(w == 0)
-              arr.push(total);
-
-              $(this).text(parseInt(arr[i])*jumlah);
-
-              if((arr[i]*jumlah) > arr2[i]){
-                wh = true;
-              }
-
-              i++;
-          });
-
-          if(wh == true)
-          {
-            alert('ga bisa produksi')
-            $('#submit').attr('disabled',true);
-          }else{
-            $('#submit').attr('disabled',false)
+          wh = false; // penanda kalau ada jumlah yg melebihi stok
+          
+          if(totalTakaran > arr2[i]){
+            wh = true;
+            break;
           }
-          w = 1
-          console.log(arr);
-
-          //alert(total);
+          console.log(totalTakaran);
+          $('#jumlah'+j).text(totalTakaran);
         }
+
+        if(wh == true)
+        {
+          alert('ga bisa produksi')
+          $('#submit').attr('disabled',true);
+        }else{
+          $('#submit').attr('disabled',false);
+        }
+        w = 1
+        console.log(arr);
       });
 
       //menampilkan detail es
-      $('#namaEs').change(function(){
+      $('#rasa').change(function(){
         w = 0;
         arr2 = [];
         $('#type_container').html('');
         nomorBaris = 0;
 
-        $.get('/dynasti/public/api/icecream/'+$('#namaEs').val(),
+        $.get('/dynasti/public/api/rasa/'+$('#rasa').val(),
           function(hasil){
             $('#ides').val(hasil[0]);
             console.log("hasil : "+hasil);
           }
         )
 
-        $.get('/dynasti/public/api/detail-icecream/'+$('#namaEs').val(),
+        $.get('/dynasti/public/api/detail-rasa/'+$('#rasa').val(),
           function(data){
              $.each(data, function(index, data){
               idbahan.push(data.id); //ngambil id bahan
               nomorBaris++
-                $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td class="total">'+data.takaran+'</td><td>'+data.stok+'</td></tr>');            
-              // console.log(data);
+                $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td id="total'+nomorBaris+'" class="total">'+"0"+'</td><td>'+data.stok+'</td></tr>');            
+              console.log(data);
               arr2.push(data.stok);
+              arrTakaran.push(data.takaran);
              })
           
           }
         ) //ngambil value nama
+
+        $.get('/dynasti/public/api/detail-jenis/'+$('#rasa').val(),
+          function(data){
+            $('#namaJenis').empty();
+             $.each(data, function(index, data){
+              nomorBaris++
+                $('#namaJenis').append('<div class="input-group">' + data[1] +
+                            '<span class="input-group-addon"><i class="fa fa-font"></i></span>' +
+                            '<input class="form-control bb" jmlproduksi="'+data[2]+'" placeholder="Jumlah Produksi" name="jumlah" min="1" type="number" id="'+data[0]+'">' +
+                          '</div>');            
+              console.log(data);
+             })
+          
+          }
+        )
       });
+      
+      $('.bb').change(function(){
+        alert('halo');
+      })
 
       //save multi record to db
       $('#submit').on('click', function(){
@@ -239,7 +257,7 @@
         var bulan = new Date(datepicker).getMonth()+1;
         var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
         // console.log(bulan);
-        var namaEs = $('#namaEs').val();
+        var rasa = $('#rasa').val();
         var jumlah = $('#jumlah').val();
         console.log(idbahan)
         $.ajax({
@@ -255,21 +273,21 @@
         // });
         
       });
-    });
+    // });
   </script>
 
   <!-- script select 2 untuk nyari bahan -->
   <script>
     jQuery(document).ready(function($) {
         // trigger select2 for each untriggered select2 box
-        $("#namaEs").each(function (i, obj) {
+        $("#rasa").each(function (i, obj) {
           if (!$(obj).data("select2"))
           {
             $(obj).select2({
-              placeholder: "Nama Ice Cream",
+              placeholder: "Rasa",
               minimumInputLength: "1",
               ajax: {
-                url: "/dynasti/public/api/icecream",
+                url: "/dynasti/public/api/rasa",
                 dataType: 'json',
                 quietMillis: 250,
                 data: function (term, page) {
@@ -298,7 +316,7 @@
                 // the input tag has a value attribute preloaded that points to a preselected repository's id
                 // this function resolves that id attribute to an object that select2 can render
                 // using its formatResult renderer - that way the repository name is shown preselected
-                $.ajax("/dynasti/public/api/icecream" + '/' , {
+                $.ajax("/dynasti/public/api/rasa" + '/' , {
                   dataType: "json"
                 }).done(function(data) {
                   textField = "nama";

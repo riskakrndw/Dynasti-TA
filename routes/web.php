@@ -34,6 +34,15 @@ Route::get('/api/icecream/{id}', 'IceCreamApiController@show')->name('apiicecrea
 Route::get('/api/detail-icecream/{id}', 'IceCreamApiController@showDetail')->name('apiicecreamshowdetail');
 Route::get('/api/namaIceCream/{id}', 'IceCreamApiController@reqNamaIceCream')->name('apinamaicecream');
 
+
+//apirasa
+Route::get('/api/rasa', 'RasaApiController@index')->name('apirasa');
+Route::get('/api/rasa/{id}', 'RasaApiController@show')->name('apirasashow');
+Route::get('/api/namaRasa/{id}', 'RasaApiController@reqNamaRasa')->name('apinamarasa');
+Route::get('/api/detail-jenis/{id}', 'RasaApiController@showJenis')->name('apirasashowjenis');
+Route::get('/api/detail-rasa/{id}', 'RasaApiController@showDetail')->name('apirasashowdetail');
+
+
 //beranda
 Route::get('/manager/beranda', 'HomeController@index_manager')->name('beranda');
 Route::get('/keuangan/beranda', 'HomeController@index_keuangan')->name('berandakeu');
@@ -64,6 +73,15 @@ Route::get('/manager/rasa', 'RasaController@index')->name('rasa');
 Route::post('/manager/rasa/simpan', 'RasaController@store');
 Route::get('/manager/rasa/hapus/{id}', 'RasaController@destroy')->name('hapusRasa');
 Route::post('/manager/rasa/edit', 'RasaController@update');
+/*menampilkan form tambah*/
+	Route::get('/manager/rasa/tambah', 'RasaController@tambah')->name('tambahRasa');
+/*melakukan create*/
+	Route::post('/manager/rasa/simpan', 'RasaController@store');
+	Route::post('/manager/rasa/simpan1', 'RasaController@store1');
+	Route::post('/manager/rasa/simpan2', 'RasaController@store2');
+	Route::post('/manager/rasa/simpan3', 'RasaController@store3');
+/*melakukan lihat detail*/
+	Route::get('/manager/rasa/lihat/{id}', 'RasaController@show');
 
 
 Route::group(['middleware' => 'levelManager'], function(){

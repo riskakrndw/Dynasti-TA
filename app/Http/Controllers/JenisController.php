@@ -26,6 +26,7 @@ class JenisController extends Controller
 
         $data = new Jenis;
         $data->nama = $request->nama;
+        $data->harga = $request->harga;
         $data->save();
 
         $notification = array(

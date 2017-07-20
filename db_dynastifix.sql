@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 18 Jul 2017 pada 06.17
+-- Generation Time: 20 Jul 2017 pada 13.59
 -- Versi Server: 10.1.19-MariaDB
 -- PHP Version: 5.6.24
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_dynasti`
+-- Database: `db_dynastifix`
 --
 
 -- --------------------------------------------------------
@@ -30,7 +30,7 @@ CREATE TABLE `bahan_baku` (
   `id` int(5) NOT NULL,
   `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `harga` int(10) NOT NULL,
-  `stok` int(10) NOT NULL,
+  `stok` float NOT NULL,
   `satuan` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -41,12 +41,8 @@ CREATE TABLE `bahan_baku` (
 --
 
 INSERT INTO `bahan_baku` (`id`, `nama`, `harga`, `stok`, `satuan`, `created_at`, `updated_at`) VALUES
-(28, 'es batu', 8000, 32100, 'unita', '2017-06-09 08:12:26', '2017-07-17 03:30:33'),
-(29, 'adada', 3000, 3044, 'aada', '2017-06-12 05:31:33', '2017-06-12 05:31:33'),
-(30, 'sasasfa', 454545, 57, 'fafa', '2017-06-19 13:30:22', '2017-06-19 13:30:22'),
-(31, 'adsada', 5455454, 58, 'dadaa', '2017-06-19 13:32:18', '2017-06-19 13:32:18'),
-(32, 'afasfafa', 45454, 53, 'afasfa', '2017-06-19 13:32:27', '2017-06-19 13:32:27'),
-(33, 'garam', 800, 33, 'gr', '2017-06-28 09:48:06', '2017-07-17 03:52:59');
+(1, 'air', 5000, 60, 'ml', '2017-07-19 23:33:49', '2017-07-19 23:33:49'),
+(2, 'garam', 9000, 56, 'gr', '2017-07-19 23:34:20', '2017-07-19 23:34:20');
 
 --
 -- Trigger `bahan_baku`
@@ -60,34 +56,30 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_bahan`
+-- Struktur dari tabel `detail_es`
 --
 
-CREATE TABLE `detail_bahan` (
+CREATE TABLE `detail_es` (
   `id` int(5) UNSIGNED NOT NULL,
   `id_bahan` int(5) NOT NULL,
   `id_es` int(5) NOT NULL,
   `takaran` double NOT NULL,
-  `satuan` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `detail_bahan`
+-- Dumping data untuk tabel `detail_es`
 --
 
-INSERT INTO `detail_bahan` (`id`, `id_bahan`, `id_es`, `takaran`, `satuan`, `created_at`, `updated_at`) VALUES
-(34, 33, 170, 4, 'gr', '2017-06-28 10:40:37', '2017-06-28 10:40:37'),
-(35, 29, 170, 5, 'aada', '2017-06-28 10:40:37', '2017-06-28 10:40:37'),
-(39, 30, 193, 5, 'fafa', '2017-07-08 08:53:54', '2017-07-08 08:53:54'),
-(40, 28, 193, 10, 'unita', '2017-07-08 08:53:55', '2017-07-08 08:53:55'),
-(41, 28, 194, 4, 'unita', '2017-07-15 21:11:58', '2017-07-15 21:11:58'),
-(42, 33, 194, 3, 'gr', '2017-07-15 21:11:58', '2017-07-15 21:11:58'),
-(43, 33, 195, 0.5, 'gr', '2017-07-17 03:42:36', '2017-07-17 03:42:36'),
-(44, 28, 195, 0.5, 'unita', '2017-07-17 03:42:36', '2017-07-17 03:42:36'),
-(45, 33, 196, 0.07792207792207792, 'gr', '2017-07-17 03:44:22', '2017-07-17 03:44:22'),
-(46, 33, 197, 0.05747126436781609, 'gr', '2017-07-17 03:51:27', '2017-07-17 03:51:27');
+INSERT INTO `detail_es` (`id`, `id_bahan`, `id_es`, `takaran`, `created_at`, `updated_at`) VALUES
+(1, 1, 29, 0.8333333333333334, '2017-07-20 00:39:07', '2017-07-20 00:39:07'),
+(2, 1, 30, 0.13333333333333333, '2017-07-20 00:39:52', '2017-07-20 00:39:52'),
+(3, 2, 31, 0.8571428571428571, '2017-07-20 00:43:19', '2017-07-20 00:43:19'),
+(4, 1, 33, 0.06, '2017-07-20 01:04:53', '2017-07-20 01:04:53'),
+(5, 1, 32, 0.09, '2017-07-20 01:04:53', '2017-07-20 01:04:53'),
+(6, 2, 32, 0.09, '2017-07-20 01:04:53', '2017-07-20 01:04:53'),
+(7, 2, 33, 0.06, '2017-07-20 01:04:53', '2017-07-20 01:04:53');
 
 -- --------------------------------------------------------
 
@@ -104,37 +96,6 @@ CREATE TABLE `detail_pembelian` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data untuk tabel `detail_pembelian`
---
-
-INSERT INTO `detail_pembelian` (`id`, `id_pembelian`, `id_bahan`, `jumlah`, `subtotal`, `created_at`, `updated_at`) VALUES
-(11, 2, 29, 4, 12000, '2017-06-29 02:35:43', '2017-06-29 02:35:43'),
-(12, 2, 30, 3, 1363635, '2017-06-29 02:35:44', '2017-06-29 02:35:44'),
-(13, 2, 32, 5, 227270, '2017-06-29 02:35:44', '2017-06-29 02:35:44'),
-(14, 2, 33, 5, 4000, '2017-06-29 02:35:44', '2017-06-29 02:35:44'),
-(16, 4, 29, 3, 9000, '2017-07-02 09:16:54', '2017-07-02 09:16:54'),
-(17, 5, 32, 3, 136362, '2017-07-02 09:45:15', '2017-07-02 09:45:15'),
-(19, 6, 28, 4, 32000, '2017-07-05 21:50:59', '2017-07-05 21:50:59'),
-(20, 6, 31, 4, 21821816, '2017-07-05 21:51:00', '2017-07-05 21:51:00'),
-(21, 7, 30, 5, 2272725, '2017-07-05 22:08:41', '2017-07-05 22:08:41'),
-(22, 8, 28, 5, 40000, '2017-07-05 23:07:00', '2017-07-05 23:07:00'),
-(23, 9, 28, 8000, 4, '2017-07-06 02:39:30', '2017-07-06 02:39:30'),
-(24, 9, 29, 3000, 4, '2017-07-06 02:39:30', '2017-07-06 02:39:30'),
-(25, 3, 28, 8000, 9, '2017-07-06 02:44:34', '2017-07-06 02:44:34'),
-(26, 10, 28, 8000, 4, '2017-07-06 02:47:54', '2017-07-06 02:47:54'),
-(27, 11, 28, 8000, 10, '2017-07-06 02:49:45', '2017-07-06 02:49:45'),
-(28, 12, 29, 4, 12000, '2017-07-06 02:50:56', '2017-07-06 02:50:56'),
-(29, 12, 28, 4, 32000, '2017-07-06 02:50:56', '2017-07-06 02:50:56'),
-(30, 13, 28, 4, 32000, '2017-07-06 02:51:27', '2017-07-06 02:51:27'),
-(31, 14, 28, 5, 40000, '2017-07-06 02:54:02', '2017-07-06 02:54:02'),
-(32, 15, 28, 4, 32000, '2017-07-06 04:28:08', '2017-07-06 04:28:08'),
-(34, 16, 28, 8, 64000, '2017-07-06 05:03:30', '2017-07-06 05:03:30'),
-(36, 17, 28, 4, 32000, '2017-07-06 21:01:09', '2017-07-06 21:01:09'),
-(37, 17, 30, 4, 1818180, '2017-07-06 21:01:09', '2017-07-06 21:01:09'),
-(38, 18, 28, 4, 32000, '2017-07-07 03:00:11', '2017-07-07 03:00:11'),
-(39, 19, 28, 4, 32000, '2017-07-07 03:46:17', '2017-07-07 03:46:17');
 
 --
 -- Trigger `detail_pembelian`
@@ -211,6 +172,62 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `detail_rasa`
+--
+
+CREATE TABLE `detail_rasa` (
+  `id` int(5) NOT NULL,
+  `id_rasa` int(3) NOT NULL,
+  `id_bahan` int(5) NOT NULL,
+  `takaran` double NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `detail_rasa`
+--
+
+INSERT INTO `detail_rasa` (`id`, `id_rasa`, `id_bahan`, `takaran`, `created_at`, `updated_at`) VALUES
+(1, 2, 1, 0, '2017-07-19 23:36:50', '2017-07-19 23:36:50'),
+(2, 3, 1, 0, '2017-07-19 23:38:17', '2017-07-19 23:38:17'),
+(3, 4, 1, 0, '2017-07-19 23:40:26', '2017-07-19 23:40:26'),
+(4, 5, 1, 0, '2017-07-19 23:43:00', '2017-07-19 23:43:00'),
+(5, 6, 1, 0, '2017-07-19 23:43:41', '2017-07-19 23:43:41'),
+(6, 7, 1, 0, '2017-07-19 23:45:06', '2017-07-19 23:45:06'),
+(7, 8, 1, 0, '2017-07-19 23:46:30', '2017-07-19 23:46:30'),
+(8, 9, 2, 0, '2017-07-19 23:47:14', '2017-07-19 23:47:14'),
+(9, 10, 1, 0, '2017-07-19 23:47:52', '2017-07-19 23:47:52'),
+(10, 11, 1, 0, '2017-07-19 23:48:42', '2017-07-19 23:48:42'),
+(11, 12, 1, 0, '2017-07-19 23:49:43', '2017-07-19 23:49:43'),
+(12, 13, 1, 0, '2017-07-19 23:51:15', '2017-07-19 23:51:15'),
+(13, 14, 2, 0, '2017-07-19 23:55:22', '2017-07-19 23:55:22'),
+(14, 15, 1, 0, '2017-07-19 23:56:20', '2017-07-19 23:56:20'),
+(15, 16, 1, 0, '2017-07-19 23:57:11', '2017-07-19 23:57:11'),
+(16, 17, 1, 0, '2017-07-19 23:58:46', '2017-07-19 23:58:46'),
+(17, 18, 1, 0, '2017-07-20 00:00:15', '2017-07-20 00:00:15'),
+(18, 19, 2, 0, '2017-07-20 00:01:10', '2017-07-20 00:01:10'),
+(19, 20, 1, 0, '2017-07-20 00:02:31', '2017-07-20 00:02:31'),
+(20, 21, 1, 0, '2017-07-20 00:03:07', '2017-07-20 00:03:07'),
+(21, 22, 1, 0, '2017-07-20 00:03:52', '2017-07-20 00:03:52'),
+(22, 23, 1, 0, '2017-07-20 00:05:15', '2017-07-20 00:05:15'),
+(23, 24, 1, 0, '2017-07-20 00:06:03', '2017-07-20 00:06:03'),
+(24, 25, 1, 0, '2017-07-20 00:06:38', '2017-07-20 00:06:38'),
+(25, 25, 2, 0, '2017-07-20 00:06:38', '2017-07-20 00:06:38'),
+(26, 26, 1, 0, '2017-07-20 00:34:08', '2017-07-20 00:34:08'),
+(27, 27, 1, 0, '2017-07-20 00:34:37', '2017-07-20 00:34:37'),
+(28, 28, 1, 0, '2017-07-20 00:35:56', '2017-07-20 00:35:56'),
+(29, 29, 1, 0, '2017-07-20 00:37:00', '2017-07-20 00:37:00'),
+(30, 30, 1, 0, '2017-07-20 00:39:06', '2017-07-20 00:39:06'),
+(31, 31, 1, 0, '2017-07-20 00:39:52', '2017-07-20 00:39:52'),
+(32, 32, 2, 0, '2017-07-20 00:43:19', '2017-07-20 00:43:19'),
+(33, 33, 1, 0, '2017-07-20 01:04:53', '2017-07-20 01:04:53'),
+(34, 33, 2, 0, '2017-07-20 01:04:53', '2017-07-20 01:04:53'),
+(35, 37, 1, 6, '2017-07-20 01:21:23', '2017-07-20 01:21:23');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `ice_cream`
 --
 
@@ -219,8 +236,8 @@ CREATE TABLE `ice_cream` (
   `id_jenis` int(3) DEFAULT NULL,
   `id_rasa` int(3) DEFAULT NULL,
   `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `harga` int(10) NOT NULL,
-  `stok` int(10) NOT NULL,
+  `stok` int(10) DEFAULT '0',
+  `jumlah_produksi` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -229,13 +246,45 @@ CREATE TABLE `ice_cream` (
 -- Dumping data untuk tabel `ice_cream`
 --
 
-INSERT INTO `ice_cream` (`id`, `id_jenis`, `id_rasa`, `nama`, `harga`, `stok`, `created_at`, `updated_at`) VALUES
-(170, 40, 18, 'Ice Cream cup kecil pisang', 9000, 57, '2017-06-28 10:40:13', '2017-07-17 02:50:27'),
-(193, 40, 18, 'Ice Cream cup kecil pisang', 54, 20, '2017-07-08 02:45:58', '2017-07-17 02:36:11'),
-(194, 38, 17, 'Ice Cream stik cokelat', 3000, 151, '2017-07-15 21:11:57', '2017-07-17 03:30:33'),
-(195, 38, 18, 'Ice Cream stik pisang', 3000, 70, '2017-07-17 03:42:36', '2017-07-17 03:42:36'),
-(196, 38, 20, 'Ice Cream stik strawberry', 9000, 66, '2017-07-17 03:44:22', '2017-07-17 03:44:22'),
-(197, 40, 20, 'Ice Cream cup kecil strawberry', 6000, 93, '2017-07-17 03:51:26', '2017-07-17 03:52:59');
+INSERT INTO `ice_cream` (`id`, `id_jenis`, `id_rasa`, `nama`, `stok`, `jumlah_produksi`, `created_at`, `updated_at`) VALUES
+(1, 1, NULL, 'Ice Cream cup strawberry', NULL, 0, '2017-07-19 23:36:50', '2017-07-19 23:36:50'),
+(2, 1, NULL, 'Ice Cream cup strawberry', NULL, 0, '2017-07-19 23:38:17', '2017-07-19 23:38:17'),
+(3, 1, NULL, 'Ice Cream cup strawberry', NULL, 0, '2017-07-19 23:40:26', '2017-07-19 23:40:26'),
+(4, 1, NULL, 'Ice Cream cup strawberry', NULL, 0, '2017-07-19 23:43:00', '2017-07-19 23:43:00'),
+(5, 1, NULL, 'Ice Cream cup strawberry', NULL, 0, '2017-07-19 23:43:41', '2017-07-19 23:43:41'),
+(6, 1, NULL, 'Ice Cream cup sasasa', NULL, 0, '2017-07-19 23:45:06', '2017-07-19 23:45:06'),
+(7, 1, NULL, 'Ice Cream cup sasassa', NULL, 0, '2017-07-19 23:46:30', '2017-07-19 23:46:30'),
+(8, 1, NULL, 'Ice Cream cup sddssd', NULL, 0, '2017-07-19 23:47:14', '2017-07-19 23:47:14'),
+(9, 1, NULL, 'Ice Cream cup dasadas', NULL, 0, '2017-07-19 23:47:52', '2017-07-19 23:47:52'),
+(10, 1, NULL, 'Ice Cream cup dssd', NULL, 0, '2017-07-19 23:48:42', '2017-07-19 23:48:42'),
+(11, 1, NULL, 'Ice Cream cup vvbvbv', NULL, 0, '2017-07-19 23:49:43', '2017-07-19 23:49:43'),
+(12, 1, NULL, 'Ice Cream cup strawberry', NULL, 0, '2017-07-19 23:51:15', '2017-07-19 23:51:15'),
+(13, 1, NULL, 'Ice Cream cup cokelatt', NULL, 0, '2017-07-19 23:55:22', '2017-07-19 23:55:22'),
+(14, 1, NULL, 'Ice Cream cup strawberry', NULL, 0, '2017-07-19 23:56:20', '2017-07-19 23:56:20'),
+(15, 1, NULL, 'Ice Cream cup sasasasa', NULL, 0, '2017-07-19 23:57:11', '2017-07-19 23:57:11'),
+(16, 1, NULL, 'Ice Cream cup sasasasa', NULL, 0, '2017-07-19 23:58:46', '2017-07-19 23:58:46'),
+(17, 1, NULL, 'Ice Cream cup aasasa', NULL, 0, '2017-07-20 00:00:15', '2017-07-20 00:00:15'),
+(18, 1, NULL, 'Ice Cream cup vcvcv', NULL, 0, '2017-07-20 00:01:10', '2017-07-20 00:01:10'),
+(19, 1, NULL, 'Ice Cream cup sasasasa', NULL, 0, '2017-07-20 00:02:31', '2017-07-20 00:02:31'),
+(20, 1, NULL, 'Ice Cream cup sasasa', NULL, 0, '2017-07-20 00:03:07', '2017-07-20 00:03:07'),
+(21, 1, NULL, 'Ice Cream cup sasasaa', NULL, 0, '2017-07-20 00:03:52', '2017-07-20 00:03:52'),
+(22, 1, NULL, 'Ice Cream cup sfsfs', NULL, 0, '2017-07-20 00:05:15', '2017-07-20 00:05:15'),
+(23, 1, NULL, 'Ice Cream cup dadadaa', NULL, 0, '2017-07-20 00:06:03', '2017-07-20 00:06:03'),
+(24, 1, NULL, 'Ice Cream cup strawberry', NULL, 0, '2017-07-20 00:06:38', '2017-07-20 00:06:38'),
+(25, 1, 26, 'Ice Cream cup xzxzxz', NULL, 0, '2017-07-20 00:34:08', '2017-07-20 00:34:08'),
+(26, 1, 27, 'Ice Cream cup saaas', NULL, 0, '2017-07-20 00:34:37', '2017-07-20 00:34:37'),
+(27, 1, 28, 'Ice Cream cup sasasa', NULL, 0, '2017-07-20 00:35:56', '2017-07-20 00:35:56'),
+(28, 1, 29, 'Ice Cream cup sasasa', NULL, 0, '2017-07-20 00:37:00', '2017-07-20 00:37:00'),
+(29, 1, 30, 'Ice Cream cup sasa', NULL, 0, '2017-07-20 00:39:06', '2017-07-20 00:39:06'),
+(30, 1, 31, 'Ice Cream cup baru', NULL, 0, '2017-07-20 00:39:52', '2017-07-20 00:39:52'),
+(31, 1, 32, 'Ice Cream cup ddsds', 0, 0, '2017-07-20 00:43:19', '2017-07-20 00:43:19'),
+(32, 1, 33, 'Ice Cream cup pisang', 0, 0, '2017-07-20 01:04:53', '2017-07-20 01:04:53'),
+(33, 2, 33, 'Ice Cream stik pisang', 0, 0, '2017-07-20 01:04:53', '2017-07-20 01:04:53'),
+(34, 1, 34, 'Ice Cream cup qaqa', 0, 50, '2017-07-20 01:16:36', '2017-07-20 01:16:36'),
+(35, 2, 34, 'Ice Cream stik qaqa', 0, 50, '2017-07-20 01:16:36', '2017-07-20 01:16:36'),
+(36, 1, 35, 'Ice Cream cup fdfdfd', 0, 6, '2017-07-20 01:18:07', '2017-07-20 01:18:07'),
+(37, 1, 36, 'Ice Cream cup ffdfd', 0, 7, '2017-07-20 01:19:21', '2017-07-20 01:19:21'),
+(38, 1, 37, 'Ice Cream cup gfggff', 0, 7, '2017-07-20 01:21:23', '2017-07-20 01:21:23');
 
 -- --------------------------------------------------------
 
@@ -246,6 +295,7 @@ INSERT INTO `ice_cream` (`id`, `id_jenis`, `id_rasa`, `nama`, `harga`, `stok`, `
 CREATE TABLE `jenis` (
   `id` int(3) NOT NULL,
   `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `harga` int(10) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -254,9 +304,9 @@ CREATE TABLE `jenis` (
 -- Dumping data untuk tabel `jenis`
 --
 
-INSERT INTO `jenis` (`id`, `nama`, `created_at`, `updated_at`) VALUES
-(38, 'stik', '2017-06-02 14:28:36', '2017-06-02 14:28:36'),
-(40, 'cup kecil', '2017-06-28 09:19:49', '2017-06-28 09:20:05');
+INSERT INTO `jenis` (`id`, `nama`, `harga`, `created_at`, `updated_at`) VALUES
+(1, 'cup', 3000, '2017-07-19 23:30:43', '2017-07-19 23:30:43'),
+(2, 'stik', 9000, '2017-07-20 01:04:14', '2017-07-20 01:04:14');
 
 -- --------------------------------------------------------
 
@@ -424,14 +474,6 @@ CREATE TABLE `produksi` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data untuk tabel `produksi`
---
-
-INSERT INTO `produksi` (`id`, `id_es`, `id_users`, `kode_produksi`, `tgl`, `jumlah`, `created_at`, `updated_at`) VALUES
-(40, 194, 5, 'sasasa', '2017-07-11', 4, '2017-07-17 03:27:01', '2017-07-17 03:30:33'),
-(41, 197, 5, 'fggfgf', '2017-06-27', 87, '2017-07-17 03:52:58', '2017-07-17 03:52:58');
-
 -- --------------------------------------------------------
 
 --
@@ -450,11 +492,18 @@ CREATE TABLE `rasa` (
 --
 
 INSERT INTO `rasa` (`id`, `nama`, `created_at`, `updated_at`) VALUES
-(17, 'cokelat', '2017-06-02 01:55:43', '2017-06-28 09:44:37'),
-(18, 'pisang', '2017-06-02 01:55:47', '2017-06-02 01:55:47'),
-(19, 'vanilla', '2017-06-02 01:56:10', '2017-06-02 01:56:10'),
-(20, 'strawberry', '2017-06-28 09:21:11', '2017-06-28 09:21:11'),
-(21, 'baru', '2017-06-28 09:44:26', '2017-06-28 09:44:26');
+(26, 'xzxzxz', '2017-07-20 00:34:08', '2017-07-20 00:34:08'),
+(27, 'saaas', '2017-07-20 00:34:37', '2017-07-20 00:34:37'),
+(28, 'sasasa', '2017-07-20 00:35:56', '2017-07-20 00:35:56'),
+(29, 'sasasa', '2017-07-20 00:36:59', '2017-07-20 00:36:59'),
+(30, 'sasa', '2017-07-20 00:39:06', '2017-07-20 00:39:06'),
+(31, 'baru', '2017-07-20 00:39:51', '2017-07-20 00:39:51'),
+(32, 'ddsds', '2017-07-20 00:43:18', '2017-07-20 00:43:18'),
+(33, 'pisang', '2017-07-20 01:04:52', '2017-07-20 01:04:52'),
+(34, 'qaqa', '2017-07-20 01:16:36', '2017-07-20 01:16:36'),
+(35, 'fdfdfd', '2017-07-20 01:18:07', '2017-07-20 01:18:07'),
+(36, 'ffdfd', '2017-07-20 01:19:20', '2017-07-20 01:19:20'),
+(37, 'gfggff', '2017-07-20 01:21:23', '2017-07-20 01:21:23');
 
 -- --------------------------------------------------------
 
@@ -494,11 +543,10 @@ ALTER TABLE `bahan_baku`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `detail_bahan`
+-- Indexes for table `detail_es`
 --
-ALTER TABLE `detail_bahan`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_es` (`id_es`);
+ALTER TABLE `detail_es`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `detail_pembelian`
@@ -520,6 +568,12 @@ ALTER TABLE `detail_pemesanan`
 -- Indexes for table `detail_penjualan`
 --
 ALTER TABLE `detail_penjualan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `detail_rasa`
+--
+ALTER TABLE `detail_rasa`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -594,17 +648,17 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bahan_baku`
 --
 ALTER TABLE `bahan_baku`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `detail_bahan`
+-- AUTO_INCREMENT for table `detail_es`
 --
-ALTER TABLE `detail_bahan`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+ALTER TABLE `detail_es`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `detail_pembelian`
 --
 ALTER TABLE `detail_pembelian`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `detail_pemesanan`
 --
@@ -616,15 +670,20 @@ ALTER TABLE `detail_pemesanan`
 ALTER TABLE `detail_penjualan`
   MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
+-- AUTO_INCREMENT for table `detail_rasa`
+--
+ALTER TABLE `detail_rasa`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+--
 -- AUTO_INCREMENT for table `ice_cream`
 --
 ALTER TABLE `ice_cream`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 --
 -- AUTO_INCREMENT for table `jenis`
 --
 ALTER TABLE `jenis`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
@@ -649,12 +708,12 @@ ALTER TABLE `penjualan`
 -- AUTO_INCREMENT for table `produksi`
 --
 ALTER TABLE `produksi`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `rasa`
 --
 ALTER TABLE `rasa`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -663,12 +722,6 @@ ALTER TABLE `users`
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
-
---
--- Ketidakleluasaan untuk tabel `detail_bahan`
---
-ALTER TABLE `detail_bahan`
-  ADD CONSTRAINT `bahanes` FOREIGN KEY (`id_es`) REFERENCES `ice_cream` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `detail_pembelian`

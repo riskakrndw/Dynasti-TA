@@ -9,7 +9,7 @@ class Jenis extends Model
     protected $table = "jenis";
 
     protected $fillable = [
-    	'id', 'nama'
+    	'nama', 'harga',
     ];
 
     public function ice_cream(){

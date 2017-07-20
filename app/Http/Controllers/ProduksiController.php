@@ -17,6 +17,7 @@ class ProduksiController extends Controller
     public function index()
     {
     	$data = Produksi::all();
+        // dd($data);
     	return view('admin.produksi')->with('data', $data);
     }
 

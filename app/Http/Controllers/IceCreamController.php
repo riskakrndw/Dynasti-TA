@@ -18,7 +18,6 @@ class IceCreamController extends Controller
         $data = IceCream::all();
         $dataJenis = Jenis::get();
         $dataRasa = Rasa::get();
-        $dataBahan = DetailBahan::get();
         /*dd($data);*/
         if(Auth::user()->level == "manager"){
             return view('admin.ice_cream')->with('data', $data)->with('dataJenis', $dataJenis)->with('dataRasa', $dataRasa);
