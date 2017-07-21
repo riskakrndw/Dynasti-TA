@@ -24,6 +24,13 @@
     $("#example13").DataTable();
     $("#example14").DataTable();
     $("#example15").DataTable();
+
+    $("#example21").DataTable();
+    $("#example22").DataTable();
+    $("#example23").DataTable();
+    $("#example24").DataTable();
+    $("#example25").DataTable();
+
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,

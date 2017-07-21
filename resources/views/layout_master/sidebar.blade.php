@@ -38,7 +38,18 @@
               <li class="@yield("jual")"><a href="{{route('penjualan')}}"><i class="fa fa-list"></i> Data Penjualan</a></li>
             </ul>
           </li>
-          <li class="@yield("pesan")"><a href=""><i class="fa fa-calendar-plus-o"></i> <span>Pemesanan</span></a></li>
+          <li class="treeview @yield("pemesanan")">
+            <a href="#">
+              <i class="fa fa-cart-plus"></i> <span>Pemesanan</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="@yield("pesanan")"><a href="{{route('pemesanan')}}"><i class="fa fa-list"></i> Data Pemesanan</a></li>
+              <li class="@yield("produkpesanan")"><a href="{{route('produkpesanan')}}"><i class="fa fa-list"></i> Data Produk Pesanan</a></li>
+            </ul>
+          </li>
           <li class="@yield("produksi")"><a href="{{route('produksi')}}"><i class="fa fa-industry"></i> <span>Produksi</span></a></li>
           <li class="treeview @yield("laporan")">
             <a href="#">

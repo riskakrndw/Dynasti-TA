@@ -161,10 +161,24 @@ Route::group(['middleware' => 'levelManager'], function(){
 		/*menampilkan form tambah*/
 			Route::get('/manager/produksi/tambah', 'ProduksiController@tambah')->name('tambahProduksi');
 		/*melakukan create*/
-			Route::get('/manager/produksi/simpan/{ides}/{pengguna}/{kode}/{datepicker}/{jumlah}/{idbahan}', 'ProduksiController@store');
+			Route::get('/manager/produksi/simpan/{pengguna}/{kode}/{datepicker}', 'ProduksiController@store');
+			Route::get('/manager/produksi/simpan1/{ides}/{idproduksi}/{jumlahproduksi}', 'ProduksiController@store1');
+			Route::get('/manager/produksi/simpan2/{jumlah}/{idbahan}', 'ProduksiController@store2');
+
 		/*melakukan ubah*/
 			Route::get('/manager/produksi/edit/{id}', 'ProduksiController@showEdit');
 			Route::get('/manager/produksi/ubah/{idproduksi}/{ides}/{pengguna}/{kode}/{datepicker}/{jumlah}/{idbahan}', 'ProduksiController@ubah');
+
+	//PEMESANAN
+		/*menampilkan halaman produk pesanan*/
+			Route::get('/manager/produk-pesanan', 'PemesananController@index')->name('produkpesanan');
+		/*menampilkan halaman pemesanan*/
+			Route::get('/manager/pemesanan', 'PemesananController@index1')->name('pemesanan');
+		/*menampilkan form tambah*/
+			Route::get('/manager/pemesanan/tambah', 'PemesananController@tambah')->name('tambahPemesanan');
+		/*melakukan create*/
+			Route::get('/manager/pemesanan/simpan/{pengguna}/{kode}/{nama}/{alamat}/{telepon}/{datepicker}/{total}', 'PemesananController@store');
+			Route::get('/manager/pemesanan/simpan1/{idpesan}/{namaes}/{jumlah}/{subtotal}', 'PemesananController@store1');
 
 });
 	

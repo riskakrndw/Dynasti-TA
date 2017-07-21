@@ -10,13 +10,14 @@ use App\IceCream;
 use App\User;
 use App\Bahan;
 use App\DetailBahan;
+use App\DetailProduksi;
 
 class ProduksiController extends Controller
 {
 
     public function index()
     {
-    	$data = Produksi::all();
+    	$data = DetailProduksi::all();
         // dd($data);
     	return view('admin.produksi')->with('data', $data);
     }
@@ -32,29 +33,44 @@ class ProduksiController extends Controller
     	
     }
 
-    public function store($ides, $pengguna, $kode, $datepicker, $jumlah, $idbahan)
+    public function store($pengguna, $kode, $datepicker)
     {
 
         // dd($idbahan);
         $data = new Produksi;
-        $data->id_es = $ides;
         $data->id_users = $pengguna;
         $data->kode_produksi = $kode;
         $data->tgl = $datepicker;
-        $data->jumlah = $jumlah;
         $data->save();
 
+        return $data->id;
+    }
+
+    public function store1($ides, $idproduksi, $jumlahproduksi)
+    {
         $dataes = IceCream::find($ides);
-        $dataes->stok = $dataes->stok + $jumlah;
+        $dataes->stok = $dataes->stok + $jumlahproduksi;
         $dataes->save();   
 
+        $detailProduksi = new DetailProduksi;
+        $detailProduksi->id_es = $ides;
+        $detailProduksi->id_produksi = $idproduksi;
+        $detailProduksi->jumlah = $jumlahproduksi;
+        $detailProduksi->save();
+    }
+
+    public function store2($jumlah, $idbahan)
+    {
+        $i = 0; 
         $arr = explode(',', $idbahan); //mecah jadi array
+        $arrjumlah = explode(',', $jumlah);
         foreach ($arr as $bahan) {
             $databahan = Bahan::find($bahan);
             // dd($bahan);
-            $datadetail = DetailBahan::where('id_es', '=', $ides)->where('id_bahan', '=', $bahan)->first()->takaran;
-            $databahan->stok = $databahan->stok - $datadetail*$jumlah;
+            $databahan->stok = $databahan->stok - $arrjumlah[$i];
             $databahan->save();
+
+            $i++;
         }
     }
 

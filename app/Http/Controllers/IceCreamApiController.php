@@ -38,7 +38,7 @@ class IceCreamApiController extends Controller
         $hasil[] = $data->id;
         $hasil[] = $data->stok;
         $hasil[] = $data->nama;
-        $hasil[] = $data->harga;
+        $hasil[] = $data->jenis->harga;
         $hasil[] = $data->jenis->nama;
         $hasil[] = $data->rasa->nama;
         return $hasil;

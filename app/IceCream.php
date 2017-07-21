@@ -24,6 +24,10 @@ class IceCream extends Model
         return $this->hasMany('App\DetailBahan', 'id_es');
     }
 
+    public function detail_pemesanan(){
+        return $this->hasMany('App\DetailPemesanan', 'id_es');
+    }
+
     public function bahan(){
         return $this->belongsToMany('App\Bahan');
     }

@@ -1,10 +1,10 @@
 @extends('layout_master.master')
 
-@section("title", "Tambah Penjualan")
+@section("title", "Tambah Pemesanan")
 
-@section("jual", "active")
+@section("pesan", "active")
 
-@section("transaksi", "active")
+@section("pemesanan", "active")
 
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
@@ -24,8 +24,7 @@
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Transaksi</a></li>
-        <li><a href="#">Data Penjualan</a></li>
+        <li><a href="#">Data Pemesanan</a></li>
         <li class="active">Tambah</li>
       </ol>
     </section>
@@ -36,7 +35,7 @@
 
         
         <div class="col-md-12">
-          <a href="{{route('penjualan')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data penjualan </button></a>
+          <a href="{{route('pemesanan')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data penjualan </button></a>
         </div>   
 
         <!-- Tambah penjualan -->
@@ -44,7 +43,7 @@
             <br>
             <div class="box box-success">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Data Penjualan</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Data Pemesanan</h3></li>
               </ul>
 
               <!-- Form tambah penjualan -->
@@ -54,7 +53,7 @@
                     <input class="form-control" type="hidden" name="idPengguna" id="idPengguna" value="{{Auth::User()->id}}">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Kode Penjualan</label>
+                        <label>Kode Pemesanan</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
                           <input class="form-control" placeholder="Kode Penjualan" name="kode" id="kode">
@@ -72,13 +71,40 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Nama</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <input class="form-control" placeholder="Nama" name="nama" id="nama">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Telepon</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <input class="form-control" placeholder="Telepon" name="telepon" id="telepon">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Alamat</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <textarea class="form-control" placeholder="Alamat" name="alamat" id="alamat"></textarea>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 
               <!-- /Form tambah penjualan -->
 
               <hr id="garis">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Ice Cream yang terjual</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Ice Cream yang dipesan</h3></li>
               </ul>
 
               <!-- Data bahan -->
@@ -91,7 +117,7 @@
                   <input type="text" class="form-control" id="hargaEs" placeholder="Harga" disabled>
                 </div>
                 <div class="col-xs-3">
-                  <input type="text" class="form-control" id="jumlahEs" placeholder="Jumlah yang terjual" onKeyPress="return goodchars(event,'0123456789',this)">
+                  <input type="text" class="form-control" id="jumlahEs" placeholder="Jumlah yang dipesan" onKeyPress="return goodchars(event,'0123456789',this)">
                 </div>
                 <div class="col-xs-3">
                   <a href="javascript: void(0)"><button type="button" class="btn btn-sm btn-default btnTambahEs"><i class="fa  fa-plus "></i> Tambah Ice Cream </button></a>
@@ -99,7 +125,7 @@
               <!-- ./Data bahan -->
 
               <!-- tabel bahan -->
-                <div class="box-body table-responsive">
+                <div class="box-body table-responsive" style="width:99%; margin:auto;">
                   <br><br>
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
@@ -233,6 +259,7 @@
       $('#namaEs').change(function(){
         $.get('/dynasti/public/api/icecream/'+$('#namaEs').val(),
           function(hasil){
+            console.log(hasil)
             $('#idEs').val(hasil[0]);
             if($('#'+hasil[2].replace(/\s/g,'')).length){
               $('#stokEs').val(hasil[1]-$('#'+hasil[2].replace(/\s/g,'')).text());  
@@ -251,6 +278,9 @@
       $('#submit').on('click', function(){
         var kode = $('#kode').val();
         var pengguna = $('#idPengguna').val();
+        var nama = $('#nama').val();
+        var alamat = $('#alamat').val();
+        var telepon = $('#telepon').val();
         var datepicker = $('#datepicker').val();
         var bulan = new Date(datepicker).getMonth()+1;
         var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
@@ -286,7 +316,7 @@
           for (var i=0; i<arrData.length; i++){
             $.ajax({
               type: "GET",
-              url: "/dynasti/public/manager/penjualan/simpan1/"+idjual+"/"+arrData[i]['nama_es']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
+              url: "/dynasti/public/manager/pemesanan/simpan1/"+idjual+"/"+arrData[i]['nama_es']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
               success: function(result) {
                 /*console.log('berhasil');*/
               }
@@ -296,7 +326,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/dynasti/public/manager/penjualan/simpan/"+kode+"/"+pengguna+"/"+datepicker+"/"+total,
+            url: "/dynasti/public/manager/pemesanan/simpan/"+pengguna+"/"+kode+"/"+nama+"/"+alamat+"/"+telepon+"/"+datepicker+"/"+total,
             success: function(result) {
               idjual = result;
               /*console.log(idjual)*/
@@ -304,7 +334,7 @@
         }).done(a);
 
         $(document).ajaxStop(function(){
-          window.location="{{URL::to('manager/penjualan')}}";
+          window.location="{{URL::to('manager/pemesanan')}}";
         });
         
       });

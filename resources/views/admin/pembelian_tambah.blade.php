@@ -82,6 +82,7 @@
                 <li class="pull-left box-header"><h3 class="box-title">Bahan baku yang diperlukan</h3></li>
               </ul>
 
+              <div>
               <!-- Data bahan -->
                 <div class="col-xs-3">
                   <input type="hidden" class="form-control" id="namaBahan" placeholder="Nama Bahan">
@@ -100,9 +101,10 @@
                   <a href="javascript: void(0)"><button type="button" class="btn btn-sm btn-default btnTambahBahan"><i class="fa  fa-plus "></i> Tambah Bahan </button></a>
                 </div>
               <!-- ./Data bahan -->
+            </div>
 
               <!-- tabel bahan -->
-                <div class="box-body table-responsive">
+                <div class="box-body table-responsive" style="width:99%; margin:auto;" >
                   <br><br>
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>

@@ -49,7 +49,6 @@
                   {{csrf_field()}}
                   <div class="box-body">
                     <input type="hidden" name="idPengguna" id="idPengguna" value="{{ Auth::User()->id }}">
-                    <input class="form-control bb">
 
                     <div class="col-md-6">
                       <div class="form-group">
@@ -159,7 +158,9 @@
     var arr  = [];
     var arr2 = [];
     var idbahan = [];
+    var bahandipakai = [];
     var nomorBaris = 0;
+    var no;
 
     jQuery(document).ready(function() {
       var doc = $(document);
@@ -170,37 +171,47 @@
     
     });
 
-    $(document).on('change','#jumlahPro',function(){
+    $(document).on('change','.bb',function(){
       console.log('cek takan:'+arrTakaran)
-        var j=1;
-        for(var i = 0; i<arrTakaran.length; i++){
+      var j=0;
+         $('.total').each(function(){ 
+       
           var totalTakaran = 0; 
+          
           wh = false;
-          $('.total').each(function(){ 
-            var jumlahproduksi = $('#jumlahPro').attr('jmlproduksi'); //jumlah yang dihasilkan dalam 1 takaran
-            var jumlah = $('#jumlahPro').val(); //jumlah yang ingin diproduksi
-            console.log(String(jumlah)+String(arrTakaran[i])+String(jumlahproduksi))
-            var takaranjenis = parseFloat(jumlah) * (parseInt(arrTakaran[i]) / parseInt(jumlahproduksi)); //jumlah yg ingin diproduksi * takaran per bahan / jumlah yang dihasilkan dalam 1 takaran
-            var totalTakaran = parseFloat(takaranjenis);
+          for(var i = 1; i<=no; i++){
+            var jumlahproduksi = $('#jumlahPro'+i).attr('jmlproduksi'); //jumlah yang dihasilkan dalam 1 takaran
+            var jumlah = $('#jumlahPro'+i).val(); //jumlah yang ingin diproduksi
+            var takaranjenis = parseFloat(jumlah) * (parseInt(arrTakaran[j]) / parseInt(jumlahproduksi)); //jumlah yg ingin diproduksi * takaran per bahan / jumlah yang dihasilkan dalam 1 takaran
+             // console.log('totalTakaran :'+j+' '+totalTakaran)
 
-            console.log('jumlahproduksi : '+jumlahproduksi)
-            console.log('jumlah:'+jumlah) 
-            console.log('takaranJenis : '+takaranjenis)
-            console.log('totalTakaran :'+totalTakaran)
+            console.log('totalTakaran1 :'+totalTakaran)
+             console.log(totalTakaran + takaranjenis)
+            totalTakaran = totalTakaran + takaranjenis;
+            console.log('totalTakaran2 :'+totalTakaran)
+            // console.log('jumlahproduksi :'+jumlahproduksi)
+            // console.log('jumlah:'+jumlah) 
+            // console.log('takaranJenis : '+takaranjenis)
+            // console.log('arrTakaran : '+arrTakaran[j])
+            // console.log('totalTakaran :'+totalTakaran)
+            console.log('-------------------------');
             var total = $(this).text();
 
               if(w == 0)
               arr.push(total);
 
-              $(this).text(parseFloat(totalTakaran));
+              $(this).text(parseFloat(totalTakaran.toFixed(2)));
 
-              if((parseFloat(totalTakaran)) > arr2[i]){
+              bahandipakai[j] = totalTakaran.toFixed(2);
+
+              if((parseFloat(totalTakaran)) > arr2[j]){
                 wh = true;
-              }
+              } 
+          }
+          
+          j++;
 
-              i++;
-          })
-        }
+      })
 
         if(wh == true)
         {
@@ -245,11 +256,12 @@
 
         $.get('/dynasti/public/api/detail-jenis/'+$('#rasa').val(),
           function(data){
+            no = 0;
             $('#namaJenis').empty();
              $.each(data, function(index, data){
-              nomorBaris++
+              no++
                 $('#namaJenis').append('<div class="input-group">' + data[1] +
-                            '<input class="form-control bb" jmlproduksi="'+data[2]+'" placeholder="Jumlah Produksi" name="jumlah" min="1" type="number" id="jumlahPro">' +
+                            '<input class="form-control bb" jmlproduksi="'+data[2]+'" placeholder="Jumlah Produksi" name="jumlah" min="0" value="0" type="number" id="jumlahPro'+no+'" ides="'+data[0]+'">' +
                           '</div>');            
               console.log(data);
              })
@@ -274,17 +286,41 @@
         var rasa = $('#rasa').val();
         var jumlah = $('#jumlah').val();
         console.log(idbahan)
+
         $.ajax({
             type: "GET",
-            url: "/dynasti/public/manager/produksi/simpan/"+ides+"/"+pengguna+"/"+kode+"/"+datepicker+"/"+jumlah+"/"+idbahan,
+            url: "/dynasti/public/manager/produksi/simpan/"+pengguna+"/"+kode+"/"+datepicker,
             success: function(result) {
               console.log(result)
+             $('.bb').each(function(){ 
+
+                var ides = $(this).attr('ides');
+                var jumlah = $(this).val();
+                console.log(ides)
+                console.log(jumlah)
+
+                $.ajax({
+                    type: "GET",
+                    url: "/dynasti/public/manager/produksi/simpan1/"+ides+"/"+result+"/"+jumlah,
+                    success: function(result) {
+                      console.log(result)
+                    }
+                });
+              });
+
+              $.ajax({
+                type: "GET",
+                url: "/dynasti/public/manager/produksi/simpan2/"+bahandipakai+"/"+idbahan,
+                success: function(result) {
+                  console.log(result)
+                }
+              });
             }
         });
 
-        // $(document).ajaxStop(function(){
-        //   window.location="{{URL::to('manager/produksi')}}";
-        // });
+        $(document).ajaxStop(function(){
+          window.location="{{URL::to('manager/produksi')}}";
+        });
         
       });
     // });
