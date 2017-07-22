@@ -121,7 +121,7 @@
                         <tr id="tr{{$id}}">
                           <td>{{ $no++ }}</td>
                           <td>{{ $detail_jual->ice_cream->nama }}</td>
-                          <td>{{ $detail_jual->ice_cream->harga }}</td>
+                          <td>{{ $detail_jual->ice_cream->jenis->harga }}</td>
                           <!-- <td>{{ $detail_jual->ice_cream->rasa->nama }}</td>
                           <td>{{ $detail_jual->ice_cream->jenis->nama }}</td> -->
                           <td id="{{ $nama }}">{{ $detail_jual->jumlah }}</td>

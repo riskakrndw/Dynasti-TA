@@ -64,4 +64,50 @@ class PemesananController extends Controller
         $datadetail->subtotal = $subtotal;
         $datadetail->save();
     }
+
+    public function produkSiap($ides, $jumlahes, $iddetailpemesanan)
+    {
+
+        $data = IceCream::find($ides);
+        $cekstok;
+
+        if($data->stok >= $jumlahes){
+            $data->stok = $data->stok - $data->jumlahes;
+            $data->save();
+
+            $datadetail = DetailPemesanan::find($iddetailpemesanan);
+            $datadetail->status = "siap";
+            $datadetail->save();
+
+            $detailpesanan = DetailPemesanan::Where('id_pemesanan', '=', $datadetail->id_pemesanan)->where('status', '=', 'menunggu')->get();
+            // dd(count($detailpesanan));
+            if(count($detailpesanan) == 0)
+            {
+                $datapemesanan = Pemesanan::find($datadetail->id_pemesanan);
+                $datapemesanan->status = "siap";
+                $datapemesanan->save();
+                // dd($datapemesanan->status);
+            }
+
+            $cekstok = "cukup";
+        }else{
+            $cekstok = "tidak cukup";
+        }
+
+        return $cekstok;
+    }
+
+    public function pemesananSelesai($idpesanan)
+    {
+        $data = Pemesanan::find($idpesanan);
+        $data->status = "selesai";
+        $data->save();
+    }
+
+    public function show($id, $tipe)
+    {
+        $data = Pemesanan::find($id);
+        // dd($data);
+        return view('admin.pemesanan_detail')->with('data', $data)->with('tipe', $tipe);
+    }
 }

@@ -51,12 +51,13 @@
                   <table id="example21" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 10px">No</th>
-                        <th style="width: 100px">Kode Pemesanan</th>
-                        <th style="width: 100px">Tanggal</th>
-                        <th style="width: 100px">Nama</th>
-                        <th style="width: 150px">Alamat</th>
-                        <th style="width: 100px">Total</th>
+                        <th style="width: 20px">No</th>
+                        <th style="width: 110px">Kode Pemesanan</th>
+                        <th style="width: 70px">Tanggal</th>
+                        <th style="width: 80px">Status</th>
+                        <th style="width: 108px">Nama</th>
+                        <th style="width: 148px">Alamat</th>
+                        <th style="width: 76px">Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -66,11 +67,12 @@
                           <td>{{ $no++ }}</td>
                           <td>{{ $data->kode_pemesanan }}</td>
                           <td>{{ $data->tanggal }}</td>
+                          <td>{{ $data->status }}</td>
                           <td>{{ $data->nama }}</td>
                           <td>{{ $data->alamat }}</td>
                           <td>{{ $data->total }}</td>
                           <td>
-                           <a href="" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('manager/pemesanan/lihat/'.$data->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                            <a href="" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
                          </td>
                         </tr>
@@ -87,11 +89,11 @@
                     <thead>
                       <tr>
                         <th style="width: 10px">No</th>
-                        <th style="width: 100px">Kode Pemesanan</th>
-                        <th style="width: 100px">Tanggal</th>
-                        <th style="width: 100px">Nama</th>
-                        <th style="width: 150px">Alamat</th>
-                        <th style="width: 100px">Total</th>
+                        <th style="width: 25px">Kode Pemesanan</th>
+                        <th style="width: 50px">Tanggal</th>
+                        <th style="width: 50px">Nama</th>
+                        <th style="width: 75px">Alamat</th>
+                        <th style="width: 30px">Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -105,7 +107,7 @@
                           <td>{{ $data->alamat }}</td>
                           <td>{{ $data->total }}</td>
                           <td>
-                           <a href="" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('manager/pemesanan/lihat/'.$data->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach
@@ -121,11 +123,11 @@
                     <thead>
                       <tr>
                         <th style="width: 10px">No</th>
-                        <th style="width: 100px">Kode Pemesanan</th>
-                        <th style="width: 100px">Tanggal</th>
-                        <th style="width: 100px">Nama</th>
-                        <th style="width: 150px">Alamat</th>
-                        <th style="width: 100px">Total</th>
+                        <th style="width: 25px">Kode Pemesanan</th>
+                        <th style="width: 50px">Tanggal</th>
+                        <th style="width: 50px">Nama</th>
+                        <th style="width: 75px">Alamat</th>
+                        <th style="width: 30px">Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -139,7 +141,8 @@
                           <td>{{ $data->alamat }}</td>
                           <td>{{ $data->total }}</td>
                           <td>
-                           <a href="" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('manager/pemesanan/lihat/'.$data->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <button class="btn btn-sm btn-default btnStatusSelesai" id-pemesanan="{{ $data->id }}"><i class="fa fa-edit"></i> Selesai</button>
                          </td>
                         </tr>
                       @endforeach
@@ -155,11 +158,11 @@
                     <thead>
                       <tr>
                         <th style="width: 10px">No</th>
-                        <th style="width: 100px">Kode Pemesanan</th>
-                        <th style="width: 100px">Tanggal</th>
-                        <th style="width: 100px">Nama</th>
-                        <th style="width: 150px">Alamat</th>
-                        <th style="width: 100px">Total</th>
+                        <th style="width: 50px">Kode Pemesanan</th>
+                        <th style="width: 50px">Tanggal</th>
+                        <th style="width: 75px">Nama</th>
+                        <th style="width: 50px">Alamat</th>
+                        <th style="width: 50px">Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -173,7 +176,7 @@
                           <td>{{ $data->alamat }}</td>
                           <td>{{ $data->total }}</td>
                           <td>
-                           <a href="" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('manager/pemesanan/lihat/'.$data->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach
@@ -188,9 +191,11 @@
                     <thead>
                       <tr>
                         <th style="width: 10px">No</th>
-                        <th style="width: 200px">Kode Pemesanan</th>
-                        <th style="width: 200px">Tanggal</th>
-                        <th style="width: 200px">Total</th>
+                        <th style="width: 25px">Kode Pemesanan</th>
+                        <th style="width: 50px">Tanggal</th>
+                        <th style="width: 50px">Nama</th>
+                        <th style="width: 75px">Alamat</th>
+                        <th style="width: 30px">Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -214,7 +219,7 @@
                           <td>{{ $data->alamat }}</td>
                           <td>{{ $data->total }}</td>
                           <td>
-                           <a href="" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('manager/pemesanan/lihat/'.$data->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach
@@ -242,5 +247,24 @@
   <script src="{{url('dist/js/bootstrap-modalmanager.js')}}"></script>
   <script src="{{url('dist/js/bootstrap-modal.js')}}"></script>
   <script src="{{url('dist/js/validasinumeric.js')}}"></script>
+
+  <script type="text/javascript">
+
+    $('.btnStatusSelesai').click(function(){
+      var tr = $(this);
+      if(confirm('Apakah anda akan mengubah status menjadi selesai?') == true){
+        var idpesanan = $(this).attr('id-pemesanan');
+        $.ajax({
+          type: "GET",
+          url: "/dynasti/public/manager/pemesanan/selesai/"+idpesanan,
+          success: function(result) {
+            toastr.success("Status berhasil diubah menjadi siap");
+            tr.closest('tr').remove();
+          }
+        })
+      }
+      
+    });
+  </script>
 
 @endsection

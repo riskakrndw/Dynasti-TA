@@ -2,9 +2,14 @@
 
 @section("title", "Detail Penjualan")
 
-@section("jual", "active")
+@section("pemesanan", "active")
 
-@section("transaksi", "active")
+@if($tipe == "pemesanan")
+  @section("pesanan", "active")
+@elseif($tipe == "produkpesanan")
+  @section("produkpesanan", "active")
+@endif
+
 
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
@@ -20,10 +25,11 @@
 @endsection
 
 @section("content")
+
   <div class="content-wrapper">
     <section class="content-header">
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home </a></li>
         <li><a href="#"> Transaksi</a></li>
         <li><a href="#">Data Pembelian</a></li>
         <li class="active">Lihat Detail</li>
@@ -34,11 +40,16 @@
     <section class="content">
       <div class="row">
 
-        
-        <div class="col-md-12">
-          <a href="{{route('pembelian')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data pembelian </button></a>
-        </div>   
-
+        @if($tipe == "pemesanan")
+          <div class="col-md-12">
+            <a href="{{route('pemesanan')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data pemesanan </button></a>
+          </div> 
+        @elseif($tipe == "produkpesanan")
+          <div class="col-md-12">
+            <a href="{{route('produkpesanan')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data produk pesanan </button></a>
+          </div>
+        @endif
+          
         <!-- Tambah Es -->
           <div class="col-md-12">
             <br>
@@ -51,12 +62,13 @@
                 <form role="form" action="" method="">
                   {{csrf_field()}}
                   <div class="box-body">
+                    <input class="form-control" type="hidden" name="idPengguna" id="idPengguna" value="{{Auth::User()->id}}">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Kode Pembelian</label>
+                        <label>Kode Pemesanan</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Pembelian" name="kode" id="kode" value="{{ $data->kode_pembelian }}" disabled>
+                          <input class="form-control" placeholder="Kode Penjualan" name="kode" id="kode" value="{{ $data->kode_pemesanan }}" disabled>
                         </div>
                       </div>
                     </div>
@@ -67,7 +79,34 @@
                           <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" class="form-control pull-right" id="datepicker" value="{{ $data->tgl }}" disabled>
+                          <input type="text" class="form-control pull-right" id="datepicker" value="{{ $data->tanggal }}" disabled>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Nama</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <input class="form-control" placeholder="Nama" name="nama" id="nama" value="{{ $data->nama }}" disabled>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Telepon</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <input class="form-control" placeholder="Telepon" name="telepon" id="telepon" value="{{ $data->telepon }}" disabled>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Alamat</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <textarea class="form-control" placeholder="Alamat" name="alamat" id="alamat" disabled> {{ $data->alamat }} </textarea>
                         </div>
                       </div>
                     </div>
@@ -77,7 +116,7 @@
 
               <hr id="garis">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Bahan baku yang diperlukan</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Ice Cream yang dipesan</h3></li>
               </ul>
 
               <!-- tabel bahan -->
@@ -86,24 +125,34 @@
                     <thead>
                       <tr>
                         <th style="width:50px">No</th>
-                        <th style="width: 325px">Nama Bahan</th>
-                        <th style="width: 100px">Satuan</th>
-                        <th style="width: 200px">Harga</th>
-                        <th style="width: 175px">Jumlah</th>
+                        <th style="width: 200px">Nama Ice Cream</th>
+                        <th style="width: 175px">Harga</th>
+                        <th style="width: 100px">Status</th>
+                        <th style="width: 100px">Jumlah</th>
                         <th style="width: 250px">Subtotal</th>
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody id="type_container">
                       <?php $no=1; ?>
-                      @foreach($data->detail_beli as $detail_beli)
+                      @foreach($data->detail_pemesanan as $detail_pemesanan)
                         <?php $id = $no+1; ?>
                         <tr id="tr{{$id}}">
                           <td>{{ $no++ }}</td>
-                          <td>{{ $detail_beli->bahan->nama }}</td>
-                          <td>{{ $detail_beli->bahan->satuan }}</td>
-                          <td>{{ $detail_beli->bahan->harga }}</td>
-                          <td id="{{ $detail_beli->bahan->nama }}">{{ $detail_beli->jumlah }}</td>
-                          <td class="subTotal">{{ $detail_beli->subtotal }}</td>
+                          <td>{{ $detail_pemesanan->ice_cream->nama }}</td>
+                          <td>{{ $detail_pemesanan->ice_cream->jenis->harga }}</td>
+                          <td>{{ $detail_pemesanan->status }}</td>
+                          <td>{{ $detail_pemesanan->jumlah }}</td>
+                          <td>{{ $detail_pemesanan->subtotal }}</td>
+                          @if($detail_pemesanan->status == "menunggu")
+                            <td>
+                              <a class="btn btn-sm btn-default btnStatusSiap" id-es="{{ $detail_pemesanan->ice_cream->id }}" id-detail="{{ $detail_pemesanan->id }}" jumlah="{{ $detail_pemesanan->jumlah }}"><i class="fa fa-edit"></i> Siap</a>
+                            </td>
+                          @else
+                            <td>
+                              <a class="btn btn-sm btn-default btnStatusSiap" id-es="{{ $detail_pemesanan->ice_cream->id }}" id-detail="{{ $detail_pemesanan->id }}" jumlah="{{ $detail_pemesanan->jumlah }}" disabled><i class="fa fa-edit"></i> Siap</a>
+                            </td>
+                          @endif
                         </tr>
                       @endforeach
                     </tbody>
@@ -136,5 +185,31 @@
 <!-- dinamically add -->
   <script src="{{url('dist/js/jquery-1.8.2.min.js')}}" type="text/javascript" charset="utf8"></script>
   <script src="{{url('dist/js/select2/select2.js')}}"></script>
+
+  <script type="text/javascript">
+
+    $('.btnStatusSiap').click(function(){
+      if(confirm('Apakah anda akan mengubah status menjadi siap?') == true){
+        var ides = $(this).attr('id-es');
+        console.log(ides);
+        var jumlahes = $(this).attr('jumlah');
+        var iddetailpemesanan = $(this).attr('id-detail');
+        var tr = $(this);
+        $.ajax({
+          type: "GET",
+          url: "/dynasti/public/manager/pemesanan/detail/siap/"+ides+"/"+jumlahes+"/"+iddetailpemesanan,
+          success: function(result) {
+            if(result == "tidak cukup"){
+              alert("Stok tidak mencukupi");
+            }else{
+              toastr.success("Status berhasil diubah menjadi siap");
+              tr.attr('disabled',true);
+            }
+          }
+        })
+      }
+      
+    });
+  </script>
 
 @endsection

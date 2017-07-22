@@ -88,8 +88,6 @@
                         <th style="width:50px">No</th>
                         <th style="width: 200px">Nama Ice Cream</th>
                         <th style="width: 175px">Harga</th>
-                        <th style="width: 100px">Rasa</th>
-                        <th style="width: 100px">Jenis</th>
                         <th style="width: 100px">Jumlah</th>
                         <th style="width: 250px">Subtotal</th>
                       </tr>
@@ -101,9 +99,7 @@
                         <tr id="tr{{$id}}">
                           <td>{{ $no++ }}</td>
                           <td>{{ $detail_jual->ice_cream->nama }}</td>
-                          <td>{{ $detail_jual->ice_cream->harga }}</td>
-                          <td>{{ $detail_jual->ice_cream->rasa->nama }}</td>
-                          <td>{{ $detail_jual->ice_cream->jenis->nama }}</td>
+                          <td>{{ $detail_jual->ice_cream->jenis->harga }}</td>
                           <td id="{{ $detail_jual->ice_cream->nama }}">{{ $detail_jual->jumlah }}</td>
                           <td class="subTotal">{{ $detail_jual->subtotal }}</td>
                         </tr>

@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/print', function () {
+    return view('admin.printstokes');
+});
+
 Auth::routes();
 
 //forbidden
@@ -179,6 +183,18 @@ Route::group(['middleware' => 'levelManager'], function(){
 		/*melakukan create*/
 			Route::get('/manager/pemesanan/simpan/{pengguna}/{kode}/{nama}/{alamat}/{telepon}/{datepicker}/{total}', 'PemesananController@store');
 			Route::get('/manager/pemesanan/simpan1/{idpesan}/{namaes}/{jumlah}/{subtotal}', 'PemesananController@store1');
+		// ubah status pemesanan
+			Route::get('/manager/pemesanan/selesai/{idpesanan}', 'PemesananController@pemesananSelesai');
+		// ubah status detail pemesanan
+			Route::get('/manager/pemesanan/detail/siap/{ides}/{jumlahes}/{iddetailpemesanan}', 'PemesananController@produkSiap');
+		/*melakukan lihat detail*/
+			Route::get('/manager/pemesanan/lihat/{id}/{tipe}', 'PemesananController@show');
+
+
+	//PRINT LAPORAN
+		/*menampilkan halaman print laporan es*/
+			Route::get('/manager/laporan/es/print');
+
 
 });
 	

@@ -49,10 +49,11 @@
                   <table id="example1" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 10px">No</th>
-                        <th style="width: 100px">Kode Pemesanan</th>
+                        <th style="width: 20px">No</th>
+                        <th style="width: 120px">Kode Pemesanan</th>
                         <th style="width: 100px">Tanggal</th>
-                        <th style="width: 100px">Nama Ice Cream</th>
+                        <th style="width: 80px">Status</th>
+                        <th style="width: 180px">Nama Ice Cream</th>
                         <th style="width: 100px">Jumlah</th>
                         <th>Aksi</th>
                     </thead>
@@ -63,11 +64,12 @@
                           <td>{{ $no++ }}</td>
                           <td>{{ $data->pemesanan->kode_pemesanan }}</td>
                           <td>{{ $data->pemesanan->tanggal }}</td>
+                          <td>{{ $data->status }}</td>
                           <td>{{ $data->ice_cream->nama }}</td>
                           <td>{{ $data->jumlah }}</td>
                           <td>
-                           <a href="" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                           <a href="{{ url('manager/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                           <a href="{{ url('manager/pemesanan/lihat/'.$data->pemesanan->id.'/produkpesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('manager/pemesanan/edit/'.$data->pemesanan->id.'/produkpesanan') }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
                          </td>
                         </tr>
                       @endforeach
@@ -82,10 +84,10 @@
                     <thead>
                       <tr>
                         <th style="width: 10px">No</th>
-                        <th style="width: 100px">Kode Pemesanan</th>
-                        <th style="width: 100px">Tanggal</th>
-                        <th style="width: 100px">Nama Ice Cream</th>
-                        <th style="width: 100px">Jumlah</th>
+                        <th style="width: 25px">Kode Pemesanan</th>
+                        <th style="width: 50px">Tanggal</th>
+                        <th style="width: 80px">Nama Ice Cream</th>
+                        <th style="width: 20px">Jumlah</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -98,8 +100,8 @@
                           <td>{{ $data->ice_cream->nama }}</td>
                           <td>{{ $data->jumlah }}</td>
                           <td>
-                           <a href="" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                           <a href="{{ url('manager/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Siap</a>
+                           <a href="{{ url('manager/pemesanan/lihat/'.$data->pemesanan->id.'/produkpesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <button class="btn btn-sm btn-default btnStatusSiap" id-es="{{ $data->ice_cream->id }}" id-detail="{{ $data->id }}" jumlah="{{ $data->jumlah }}"><i class="fa fa-edit"></i> Siap</button>
                          </td>
                         </tr>
                       @endforeach
@@ -115,10 +117,10 @@
                     <thead>
                       <tr>
                         <th style="width: 10px">No</th>
-                        <th style="width: 100px">Kode Pemesanan</th>
-                        <th style="width: 100px">Tanggal</th>
-                        <th style="width: 100px">Nama</th>
-                        <th style="width: 100px">Jumlah</th>
+                        <th style="width: 25px">Kode Pemesanan</th>
+                        <th style="width: 50px">Tanggal</th>
+                        <th style="width: 80px">Nama Ice Cream</th>
+                        <th style="width: 20px">Jumlah</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -131,8 +133,7 @@
                           <td>{{ $data->ice_cream->nama }}</td>
                           <td>{{ $data->jumlah }}</td>
                           <td>
-                           <a href="" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                           <a href="{{ url('manager/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                           <a href="{{ url('manager/pemesanan/lihat/'.$data->pemesanan->id.'/produkpesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach
@@ -161,5 +162,31 @@
   <script src="{{url('dist/js/bootstrap-modalmanager.js')}}"></script>
   <script src="{{url('dist/js/bootstrap-modal.js')}}"></script>
   <script src="{{url('dist/js/validasinumeric.js')}}"></script>
+
+  <script type="text/javascript">
+
+    $('.btnStatusSiap').click(function(){
+      if(confirm('Apakah anda akan mengubah status menjadi siap?') == true){
+        var ides = $(this).attr('id-es');
+        console.log(ides);
+        var jumlahes = $(this).attr('jumlah');
+        var iddetailpemesanan = $(this).attr('id-detail');
+        var tr = $(this);
+        $.ajax({
+          type: "GET",
+          url: "/dynasti/public/manager/pemesanan/detail/siap/"+ides+"/"+jumlahes+"/"+iddetailpemesanan,
+          success: function(result) {
+            if(result == "tidak cukup"){
+              alert("Stok tidak mencukupi");
+            }else{
+              toastr.success("Status berhasil diubah menjadi siap");
+              tr.closest('tr').remove();
+            }
+          }
+        })
+      }
+      
+    });
+  </script>
 
 @endsection

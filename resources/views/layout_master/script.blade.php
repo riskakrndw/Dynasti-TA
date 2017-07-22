@@ -19,6 +19,8 @@
 <!-- page script -->
 <script>
   $(function () {
+    $(".example1").DataTable();
+
     $("#example1").DataTable();
     $("#example12").DataTable();
     $("#example13").DataTable();
