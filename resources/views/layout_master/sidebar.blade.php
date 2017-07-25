@@ -77,7 +77,7 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li class="@yield("beli")"><a href="{{route('pembelianKeu')}}"><i class="fa fa-list"></i> Data Pembelian</a></li>
+                <li class="@yield("beli")"><a href="{{route('pembelianKeu')}}"><i class="fa fa-list"></i> Data Pengadaan</a></li>
                 <li class="@yield("jual")"><a href="{{route('penjualanKeu')}}"><i class="fa fa-list"></i> Data Penjualan</a></li>
               </ul>
             </li>

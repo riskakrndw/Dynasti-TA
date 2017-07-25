@@ -38,7 +38,7 @@
         <!-- Data jual -->
         <div class="col-xs-12">
           <br>
-          <div class="box box-success">
+          <div class="box">
             <!-- header -->
               <div class="box-header">
                 <ul class="nav nav-tabs-custom">

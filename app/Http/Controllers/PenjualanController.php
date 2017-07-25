@@ -19,7 +19,7 @@ class PenjualanController extends Controller
             $data = Penjualan::all();
             return view('admin.penjualan')->with('data', $data);
         } elseif (Auth::user()->level == "keuangan"){
-            $data = Penjualan::where('id_users', Auth::user()->id)->get();
+            $data = Penjualan::all();
             return view('keuangan.penjualan')->with('data', $data);
         }
 

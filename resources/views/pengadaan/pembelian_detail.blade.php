@@ -2,7 +2,9 @@
 
 @section("title", "Tambah Ice Cream")
 
-@section("pembelianPeng", "active")
+@section("beli", "active")
+
+@section("transaksi", "active")
 
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
@@ -22,7 +24,8 @@
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Permintaan Pembelian</a></li>
+        <li><a href="#"> Transaksi</a></li>
+        <li><a href="#">Data Pembelian</a></li>
         <li class="active">Lihat Detail</li>
       </ol>
     </section>

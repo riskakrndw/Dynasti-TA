@@ -33,57 +33,52 @@
           <div class="col-md-12">
             <a href="{{route('tambahBeliKeu')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Pengadaan </button></a>
           </div>
-        <!-- /Tambah es -->        
 
-        <!-- Data es -->
-        <div class="col-xs-12">
-          <br>
-          <div class="box box-success">
-            <!-- header -->
-              <div class="box-header">
-                <ul class="nav nav-tabs-custom">
-                  <li class="pull-left box-header"><h3 class="box-title">Daftar Pengadaan</h3></li>
-                </ul>
-              </div>
-            <!-- /header -->
+          <div class="col-xs-12">
+            <br>
+            <div class="box">
+              <!-- header -->
+                <div class="box-header">
+                  <ul class="nav nav-tabs-custom">
+                    <li class="pull-left box-header"><h3 class="box-title">Daftar Pengadaan</h3></li>
+                  </ul>
+                </div>
+              <!-- /header -->
 
-            <!-- tabel es -->
-              <div class="box-body table-responsive">
-                <table id="example1" class="table table-bordered table-hover">
-                  <thead>
-                    <tr>
-                      <th style="width: 10px">No</th>
-                      <th style="width: 200px">Kode Pengadaan</th>
-                      <th style="width: 200px">Tanggal</th>
-                      <th style="width: 200px">Total</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $no=1; ?>
-                    @foreach($data as $data)
-                    <tr>
-                      <td>{{ $no++ }}</td>
-                      <td>{{ $data->kode_pembelian }}</td>
-                      <td>{{ $data->tgl }}</td>
-                      <td>{{ $data->total }}</td>
-                      <td>
-                        <a href="{{ url('keuangan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                        <a href="{{ url('keuangan/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
-                        <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
-                      </td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
-              </div>
-            <!-- /.tabel es -->
+              <!-- tabel jual -->
+                <div class="box-body table-responsive">
+                  <table id="example1" class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th style="width: 90px">No</th>
+                        <th style="width: 210px">Kode Pengadaan</th>
+                        <th style="width: 168px">Tanggal</th>
+                        <th style="width: 168px">Total</th>
+                        <th>Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php $no=1; ?>
+                      @foreach($data as $data)
+                      <tr>
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $data->kode_pembelian }}</td>
+                        <td>{{ $data->tgl }}</td>
+                        <td>{{ $data->total }}</td>
+                        <td>
+                          <a href="{{ url('manager/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                          <a href="{{ url('manager/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                          <!-- <a type="button" href="{{route('hapusPenjualan', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
+                        </td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              <!-- /.tabel jual -->
 
+            </div>
           </div>
-        </div>
-        <!-- /Data es -->
-
-
 
       </div>
     </section>

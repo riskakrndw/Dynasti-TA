@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Tambah Pembelian")
+@section("title", "Tambah Pengadaan")
 
 @section("beli", "active")
 
@@ -25,7 +25,7 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#"> Transaksi</a></li>
-        <li><a href="#">Data Pembelian</a></li>
+        <li><a href="#">Data Pengadaan</a></li>
         <li class="active">Tambah</li>
       </ol>
     </section>
@@ -36,15 +36,15 @@
 
         
         <div class="col-md-12">
-          <a href="{{route('pembelianKeu')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data pembelian </button></a>
+          <a href="{{route('pembelianKeu')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data pengadaan </button></a>
         </div>   
 
         <!-- Tambah pembelian -->
           <div class="col-md-12">
             <br>
-            <div class="box box-success">
+            <div class="box">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Data Pembelian</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Data Pengadaan</h3></li>
               </ul>
 
               <!-- Form tambah pembelian -->
@@ -55,10 +55,10 @@
                     <input class="form-control" type="hidden" name="status" id="status" value="">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Kode Pembelian</label>
+                        <label>Kode Pengadaan</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Pembelian" name="kode" id="kode">
+                          <input class="form-control" placeholder="Kode Pengadaan" name="kode" id="kode">
                         </div>
                       </div>
                     </div>
@@ -79,15 +79,19 @@
 
               <hr id="garis">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Bahan baku yang diperlukan</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Bahan baku yang dibeli</h3></li>
               </ul>
 
+              <div>
               <!-- Data bahan -->
-                <div class="col-xs-4">
+                <div class="col-xs-3">
                   <input type="hidden" class="form-control" id="namaBahan" placeholder="Nama Bahan">
                 </div>
+                <div class="col-xs-2">
+                  <input type="text" class="form-control" id="satuanBahan" placeholder="Satuan" disabled>
+                </div>
                 <input class="form-control" type="hidden" name="idBahan" id="idBahan" value="">
-                <div class="col-xs-3">
+                <div class="col-xs-2">
                   <input type="text" class="form-control" id="hargaBahan" placeholder="Harga" disabled>
                 </div>
                 <div class="col-xs-3">
@@ -97,15 +101,17 @@
                   <a href="javascript: void(0)"><button type="button" class="btn btn-sm btn-default btnTambahBahan"><i class="fa  fa-plus "></i> Tambah Bahan </button></a>
                 </div>
               <!-- ./Data bahan -->
+            </div>
 
               <!-- tabel bahan -->
-                <div class="box-body table-responsive">
+                <div class="box-body table-responsive" style="width:99%; margin:auto;" >
                   <br><br>
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
                       <tr>
                         <th style="width:50px">No</th>
                         <th style="width: 325px">Nama Bahan</th>
+                        <th style="width: 200px">Satuan</th>
                         <th style="width: 200px">Harga</th>
                         <th style="width: 175px">Jumlah</th>
                         <th style="width: 250px">Subtotal</th>
@@ -172,7 +178,8 @@
           $.get('/dynasti/public/api/namaBahan/'+$('#namaBahan').val(),
             function(hasil){
               
-              var nama = hasil;
+              var nama = hasil[0];
+              var satuan = $('#satuanBahan').val();
               var harga = $('#hargaBahan').val();
               var jumlah = $('#jumlahBahan').val();
               var total = $('#totalHarga').val();
@@ -190,11 +197,12 @@
               }
               else{
                 nomorBaris = nomorBaris + 1;
-                $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
               }
               $('#namaBahan').val('');
               $('#hargaBahan').val('');
               $('#jumlahBahan').val('');
+              $('#satuanBahan').val('');
 
               var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
               var totalHargaBaru = totalHargaLama + Subtotal;
@@ -230,6 +238,7 @@
           function(hasil){
             $('#idBahan').val(hasil.id);
             $('#hargaBahan').val(hasil.harga);
+            $('#satuanBahan').val(hasil.satuan);
           }
         ) //ngambil value nama
 
@@ -257,13 +266,15 @@
           var col3_value = currentRow.find("td:eq(3)").text();
           var col4_value = currentRow.find("td:eq(4)").text();
           var col5_value = currentRow.find("td:eq(5)").text();
+          var col6_value = currentRow.find("td:eq(6)").text();
 
           var obj={};
           obj.no = col0_value;
           obj.nama_bahan = col1_value;
-          obj.harga = col2_value;
-          obj.jumlah = col3_value;
-          obj.subtotal = col4_value;
+          obj.satuan = col2_value;
+          obj.harga = col3_value;
+          obj.jumlah = col4_value;
+          obj.subtotal = col5_value;
 
           arrData.push(obj);
         });

@@ -2,7 +2,9 @@
 
 @section("title", "Tambah Pembelian")
 
-@section("pembelianPeng", "active")
+@section("beli", "active")
+
+@section("transaksi", "active")
 
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
@@ -22,7 +24,8 @@
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Permintaan Pembelian</a></li>
+        <li><a href="#"> Transaksi</a></li>
+        <li><a href="#">Data Pembelian</a></li>
         <li class="active">Tambah</li>
       </ol>
     </section>
@@ -79,6 +82,7 @@
                 <li class="pull-left box-header"><h3 class="box-title">Bahan baku yang diperlukan</h3></li>
               </ul>
 
+              <div>
               <!-- Data bahan -->
                 <div class="col-xs-3">
                   <input type="hidden" class="form-control" id="namaBahan" placeholder="Nama Bahan">
@@ -97,9 +101,10 @@
                   <a href="javascript: void(0)"><button type="button" class="btn btn-sm btn-default btnTambahBahan"><i class="fa  fa-plus "></i> Tambah Bahan </button></a>
                 </div>
               <!-- ./Data bahan -->
+            </div>
 
               <!-- tabel bahan -->
-                <div class="box-body table-responsive">
+                <div class="box-body table-responsive" style="width:99%; margin:auto;" >
                   <br><br>
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
@@ -173,7 +178,7 @@
           $.get('/dynasti/public/api/namaBahan/'+$('#namaBahan').val(),
             function(hasil){
               
-              var nama = hasil;
+              var nama = hasil[0];
               var satuan = $('#satuanBahan').val();
               var harga = $('#hargaBahan').val();
               var jumlah = $('#jumlahBahan').val();

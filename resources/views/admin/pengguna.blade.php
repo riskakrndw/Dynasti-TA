@@ -27,7 +27,7 @@
 
         <!-- Tambah pengguna -->
           <div class="col-md-12">
-            <div class="box box-success">
+            <div class="box">
               <div class="box-header with-border">
                 <h3 class="box-title">Tambah Data Pengguna</h3>
 
@@ -94,7 +94,7 @@
 
         <!-- Data pengguna -->
           <div class="col-xs-12">
-            <div class="box box-success">
+            <div class="box">
 
               <!-- header -->
                 <div class="box-header">
@@ -133,8 +133,9 @@
                           <td>Bagian Pengadaan</td>
                         @endif
 
-                        <td>
+                        
                           @if( $data->level == 'manager')
+                            <td>
                             <div class="input-group-btn">
                               <button style="margin:10px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Ubah
                                 <span class="fa fa-caret-down"></span></button>
@@ -144,7 +145,9 @@
                                 <li><a class="btnEditSandi" data-toggle="modal" data-target="" data-password="{{$data->password}}">Ubah Kata Sandi</a></li>
                               </ul>
                             </div>
-                          @else  
+                            </td>
+                          @else
+                          <td>
                             <div class="input-group-btn">
                               <button style="margin:10px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Ubah
                                 <span class="fa fa-caret-down"></span></button>
@@ -154,10 +157,9 @@
                                 <li><a class="btnEditSandi" data-toggle="modal" data-target="" data-id="{{$data->id}}">Ubah Kata Sandi</a></li>
                               </ul>
                               <a type="button" href="{{route('hapusPengguna', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</a>
+                              </td>
                             </div>
                           @endif
-                          
-                        </td>
                       </tr>
                       @endforeach
                     </tbody>

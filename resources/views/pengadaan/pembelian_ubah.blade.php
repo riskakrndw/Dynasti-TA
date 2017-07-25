@@ -2,7 +2,9 @@
 
 @section("title", "Tambah Ice Cream")
 
-@section("pembelianPeng", "active")
+@section("beli", "active")
+
+@section("transaksi", "active")
 
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
@@ -22,7 +24,8 @@
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Permintaan Pembelian</a></li>
+        <li><a href="#"> Transaksi</a></li>
+        <li><a href="#">Pembelian</a></li>
         <li class="active">Ubah</li>
       </ol>
     </section>
@@ -99,7 +102,7 @@
               <!-- ./Data bahan -->
 
               <!-- tabel bahan -->
-                <div class="box-body table-responsive">
+                <div class="box-body table-responsive" style="width:99%; margin:auto;">
                   <br><br>
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
@@ -186,7 +189,7 @@
     
           $.get('/dynasti/public/api/namaBahan/'+$('#namaBahan').val(),
             function(hasil){
-              var nama = hasil;
+              var nama = hasil[0];
               var satuan = $('#satuanBahan').val();
               var harga = $('#hargaBahan').val();
               var jumlah = $('#jumlahBahan').val();

@@ -31,7 +31,7 @@
 
         <!-- Data bahan -->
         <div class="col-xs-12">
-          <div class="box box-success">
+          <div class="box">
 
             <!-- header -->
               <div class="box-header">
@@ -51,6 +51,7 @@
                       <th style="width: 110px">Satuan</th>
                       <th style="width: 180px">Harga Satuan</th>
                       <th style="width: 100px">Stok</th>
+                      <th style="width: 100px">Stok Minimal</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -62,6 +63,7 @@
                       <td>{{ $data->satuan }}</td>
                       <td>{{ $data->harga }}</td>
                       <td>{{ $data->stok }}</td>
+                      <td>{{ $data->stok_min }}</td>
                     </tr>
                     @endforeach
                   </tbody>

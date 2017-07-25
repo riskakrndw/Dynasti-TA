@@ -221,6 +221,7 @@ Route::group(['middleware' => 'levelManager'], function(){
 	
 
 Route::group(['middleware' => 'levelKeuangan'], function(){
+
 	//PEMBELIAN
 		/*menampilkan halaman pembelian*/
 			Route::get('/keuangan/pembelian', 'PembelianController@index')->name('pembelianKeu');
@@ -230,7 +231,7 @@ Route::group(['middleware' => 'levelKeuangan'], function(){
 			Route::get('/keuangan/pembelian/simpan/{kode}/{pengguna}/{datepicker}/{total}/{status}', 'PembelianController@store');
 			Route::get('/keuangan/pembelian/simpan1/{idbeli}/{namabahan}/{jumlah}/{subtotal}', 'PembelianController@store1');
 		/*melakukan delete*/
-			Route::get('/keuangan/pembelian/hapus/{id}', 'PembelianController@destroy')->name('hapusPembelianKeu');
+			Route::get('/keuangan/pembelian/hapus/{id}', 'PembelianController@destroy')->name('hapusPembelian');
 		/*melakukan lihat detail*/
 			Route::get('/keuangan/pembelian/lihat/{id}', 'PembelianController@show');
 		/*melakukan ubah*/
@@ -278,7 +279,7 @@ Route::group(['middleware' => 'levelPengadaan'], function(){
 		/*menampilkan halaman es*/
 			Route::get('/pengadaan/icecream', 'IceCreamController@index')->name('icecreampeng');
 
-	//PENGADAAN
+	//BAHAN
 		Route::get('/pengadaan/bahan', 'BahanController@index')->name('bahanpeng');
 });
 

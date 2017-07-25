@@ -32,7 +32,7 @@
         <!-- Data es -->
         <div class="col-xs-12">
           <br>
-          <div class="box box-success">
+          <div class="box">
             <!-- header -->
               <div class="box-header">
                 <ul class="nav nav-tabs-custom">
@@ -48,8 +48,6 @@
                     <tr>
                       <th style="width: 10px">No</th>
                       <th style="width: 300px">Nama Ice Cream</th>
-                      <!-- <th style="width: 100px">Rasa</th>
-                      <th style="width: 100px">Jenis</th> -->
                       <th style="width: 150px">Harga</th>
                       <th style="width: 100px">Stok</th>
                     </tr>
@@ -62,19 +60,7 @@
                       <td>{{ $no++ }}</td>
                       <td>{{ $data->nama }}</td>
 
-                     <!--  @if($data->id_rasa)
-                        <td>{{ $data->rasa->nama }}</td>
-                      @else
-                        <td>Rasa tidak ditemukan</td>
-                      @endif
-
-                      @if($data->id_jenis) 
-                        <td>{{ $data->jenis->nama }}</td>
-                      @else
-                        <td>Jenis tidak ditemukan</td>
-                      @endif -->
-
-                      <td>{{ $data->harga }}</td>
+                      <td>{{ $data->jenis->harga }}</td>
                       <td>{{ $data->stok }}</td>
                     </tr>
                     @endforeach
