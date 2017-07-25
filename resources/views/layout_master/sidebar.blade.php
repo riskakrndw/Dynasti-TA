@@ -97,7 +97,11 @@
               </ul>
             </li>
             <li class="@yield("pembelianPeng")"><a href="{{route('pembelianPeng')}}"><i class="fa  fa-cart-plus"></i> <span>Permintaan Pengadaan</span></a></li>
-        
+          
+          @elseif(Auth::user()->level == "produksi")
+            <li class="@yield("berandapro")"><a href="{{route('berandapro')}}"><i class="fa fa-home"></i> <span>Beranda</span></a></li>
+          <li class="@yield("produksipro")"><a href="{{route('produksiPro')}}"><i class="fa fa-industry"></i> <span>Produksi</span></a></li>
+
         @endif
       </ul>
     </section>

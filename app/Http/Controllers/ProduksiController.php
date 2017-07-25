@@ -18,11 +18,15 @@ class ProduksiController extends Controller
 
     public function index()
     {
-    	$data = Produksi::all();
-        // dd($data);
-        // dd($data[0]->detail_produksi);
-
-    	return view('admin.produksi')->with('data', $data);
+        
+        if(Auth::user()->level == "manager"){
+            $data = Produksi::all();
+            return view('admin.produksi')->with('data', $data);
+        } elseif (Auth::user()->level == "produksi"){
+            $data = Produksi::all();
+            return view('produksi.produksi')->with('data', $data);
+        }
+    	
     }
 
     public function tambah()
@@ -30,8 +34,9 @@ class ProduksiController extends Controller
         if(Auth::user()->level == "manager"){
             $dataIceCream = Produksi::get();
             return view('admin.produksi_tambah');
-        } elseif (Auth::user()->level == "keuangan"){
-           
+        } elseif (Auth::user()->level == "produksi"){
+            $dataIceCream = Produksi::get();
+            return view('produksi.produksi_tambah');
         } 
     	
     }
@@ -82,6 +87,9 @@ class ProduksiController extends Controller
         if(Auth::user()->level == "manager"){
             $data = Produksi::where('id', $id)->first();
             return view('admin.produksi_detail')->with('data', $data);
+        }   elseif (Auth::user()->level == "produksi"){
+            $data = Produksi::where('id', $id)->first();
+            return view('produksi.produksi_detail')->with('data', $data);
         }
         
     }
@@ -94,7 +102,10 @@ class ProduksiController extends Controller
             // dd($data->detail_produksi[0]->ice_cream->rasa->detail_rasa);
             return view('admin.produksi_ubah')->with('data', $data)->with('datadetail', $datadetail);
         } elseif (Auth::user()->level == "produksi"){
-            
+            $data = Produksi::where('id', $id)->first();
+            $datadetail = DetailRasa::where('id_rasa', '=', $data->detail_produksi[0]->ice_cream->id_rasa)->get();
+            // dd($data->detail_produksi[0]->ice_cream->rasa->detail_rasa);
+            return view('produksi.produksi_ubah')->with('data', $data)->with('datadetail', $datadetail);
         }
     }
 

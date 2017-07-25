@@ -2,7 +2,7 @@
 
 @section("title", "Tambah Produksi")
 
-@section("produksi", "active")
+@section("produksipro", "active")
 
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
@@ -33,7 +33,7 @@
 
         
         <div class="col-md-12">
-          <a href="{{route('produksi')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data penjualan </button></a>
+          <a href="{{route('produksiPro')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data penjualan </button></a>
         </div>   
 
         <!-- Tambah penjualan -->

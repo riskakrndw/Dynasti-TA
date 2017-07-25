@@ -51,7 +51,7 @@ Route::get('/api/detail-rasa/{id}', 'RasaApiController@showDetail')->name('apira
 //beranda
 Route::get('/manager/beranda', 'HomeController@index_manager')->name('beranda');
 Route::get('/keuangan/beranda', 'HomeController@index_keuangan')->name('berandakeu');
-Route::get('/produksi/beranda', 'HomeController@index')->name('berandapro');
+Route::get('/produksi/beranda', 'HomeController@index_produksi')->name('berandapro');
 Route::get('/pengadaan/beranda', 'HomeController@index_pengadaan')->name('berandapeng');
 
 //profil
@@ -283,9 +283,21 @@ Route::group(['middleware' => 'levelPengadaan'], function(){
 		Route::get('/pengadaan/bahan', 'BahanController@index')->name('bahanpeng');
 });
 
-//produksi
-	/*menampilkan halaman produksi*/
-		Route::get('/manager/produksi', 'ProduksiController@index')->name('produksi');
-
-/*//detailBahan
-Route::get('/icecream/tambahBahan/{id_bahan}/{id_es}/{takaran}', 'DetailBahanController@create')->name('tambahBahan');*/
+Route::group(['middleware' => 'levelProduksi'], function(){
+	//PRODUKSI
+		/*menampilkan halaman produksi*/
+			Route::get('/produksi/produksi', 'ProduksiController@index')->name('produksiPro');
+		/*menampilkan form tambah*/
+			Route::get('/produksi/produksi/tambah', 'ProduksiController@tambah')->name('tambahProduksiPro');
+		/*melakukan lihat detail*/
+			Route::get('/produksi/produksi/lihat/{id}', 'ProduksiController@show');
+		/*melakukan create*/
+			Route::get('/produksi/produksi/simpan/{pengguna}/{kode}/{datepicker}', 'ProduksiController@store');
+			Route::get('/produksi/produksi/simpan1/{ides}/{idproduksi}/{jumlahproduksi}', 'ProduksiController@store1');
+			Route::get('/produksi/produksi/simpan2/{jumlah}/{idbahan}', 'ProduksiController@store2');
+		// ubah modal
+			Route::post('/produksi/produksi/edit', 'ProduksiController@update');
+		/*melakukan ubah*/
+			Route::get('/produksi/produksi/edit/{id}', 'ProduksiController@showEdit');
+			Route::get('/produksi/produksi/ubah/{idproduksi}/{ides}/{pengguna}/{kode}/{datepicker}/{jumlah}/{idbahan}', 'ProduksiController@ubah');
+});

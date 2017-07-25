@@ -45,4 +45,9 @@ class HomeController extends Controller
     {
         return view('pengadaan.beranda');
     }
+
+    public function index_produksi()
+    {
+        return view('produksi.beranda');
+    }
 }
