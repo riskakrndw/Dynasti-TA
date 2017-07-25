@@ -23,9 +23,11 @@ class BahanApiController extends Controller
 
     public function reqNamaBahan($id)
     {
-        $data = Bahan::find($id)->nama;
+        $data = Bahan::find($id);
+        $hasil[0] = $data->nama;
+        $hasil[1] = $data->id;
 
-        return $data;
+        return $hasil;
     }
 
     public function show($id)

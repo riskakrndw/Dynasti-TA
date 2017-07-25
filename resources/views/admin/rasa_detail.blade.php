@@ -2,7 +2,7 @@
 
 @section("title", "Tambah Ice Cream")
 
-@section("es", "active")
+@section("rasa", "active")
 
 @section("master", "active")
 
@@ -24,8 +24,8 @@
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Data Master</a></li>
-        <li><a href="#">Ice Cream</a></li>
+        <li><a href="#"> Master Data</a></li>
+        <li><a href="#">Rasa</a></li>
         <li class="active">Lihat Detail</li>
       </ol>
     </section>
@@ -36,7 +36,7 @@
 
         
         <div class="col-md-12">
-          <a href="{{route('icecream')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data ice cream </button></a>
+          <a href="{{route('rasa')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data rasa </button></a>
         </div>   
 
         <!-- Tambah Es -->
@@ -64,10 +64,16 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <br>
-                        <label>Jenis</label><br>
+                        <label>Tersedia dalam jenis : </label><br>
+                        <?php
+                          $no = 1;
+                        ?>
                         @foreach($data->ice_cream as $dataJenis)
-                        <label>{{ $dataJenis->jenis->nama }}</label>
+                        <label>{{$no++}} . {{ $dataJenis->jenis->nama }}</label>
+                        <br>
+                        dalam 1 kali pembuatan menghasilkan:
                         <input class="form-control" disabled placeholder="{{ $dataJenis->jumlah_produksi }}">
+                        <br>
                         @endforeach
                       </div>
                     </div>

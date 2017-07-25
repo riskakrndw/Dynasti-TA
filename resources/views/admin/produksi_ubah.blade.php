@@ -69,24 +69,28 @@
                         </div>
                       </div>
                     </div>
-                    <input type="hidden" name="ides" id="ides" value="{{ $data->ice_cream->id }}">
+                    <input type="hidden" name="ides" id="ides" value="{{ $data->detail_produksi[0]->ice_cream->id }}">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Nama Ice Cream</label>
+                        <label>Rasa</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input type="hidden" class="form-control" id="namaEs" name="namaEs" placeholder="{{ $data->ice_cream->nama }}">
+                          <input type="hidden" class="form-control" id="rasa" name="rasa" placeholder="{{$data->detail_produksi[0]->ice_cream->rasa->nama}}" value="">
                         </div>
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Jumlah Produksi</label>
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Jumlah Produksi" name="jumlah" id="jumlah" onKeyPress="return goodchars(event,'0123456789',this)" value="{{ $data->jumlah }}">
-                        </div>
+                        <div id="namaJenis">
+                          @foreach($data->detail_produksi as $key=>$datadetail)
+                          <div class="input-group">
+                            <label>{{$datadetail->ice_cream->jenis->nama}}</label>
+                            <span class="input-group-addon"><i class="fa fa-font"></i></span><input class="form-control bb" jmlproduksi="{{ $datadetail->ice_cream->jumlah_produksi }}" placeholder="Jumlah Produksi" name="jumlah" min="0" value="{{$datadetail->jumlah}}" type="number" id="jumlahPro{{$key+1}}" ides="datadetail->id_es">
+                          </div>
+                          @endforeach
                       </div>
+                    </div>
                     </div>
                   </div>
                 
@@ -106,12 +110,12 @@
                         <th style="width: 250px">Nama Bahan</th>
                         <th style="width: 200px">Satuan</th>
                         <th style="width: 250px">Jumlah</th>
-                        <th style="display:none">Stok</th>
+                        <th>Stok</th>
                       </tr>
                     </thead>
                     <tbody id="type_container">
                       <?php $no=1; ?>
-                      @foreach($data->ice_cream->detail_bahan as $detailBahan)
+                      @foreach($data->detail_produksi[0]->ice_cream->rasa->detail_rasa as $detailBahan)
                       <?php
                         $id = $data->id;
                       ?>
@@ -120,7 +124,7 @@
                             <td>{{ $detailBahan->bahan->nama }}</td>
                             <td>{{ $detailBahan->bahan->satuan }}</td>
                             <td class="total">{{ $detailBahan->takaran }}</td>
-                            <td style="display:none">{{ $detailBahan->bahan->stok }}</td>
+                            <td>{{ $detailBahan->bahan->stok }}</td>
                           </tr>
                       @endforeach
                     </tbody>
@@ -168,8 +172,64 @@
     var w = 0;
     var arr  = [];
     var arr2 = [];
+    var arrTakaran = [];
     var idbahan = [];
+    var bahandipakai = [];
     var nomorBaris = 0;
+    var no='{{count($data->detail_produksi)}}';
+
+    function hitungbahan(){
+      console.log('cek takan:'+arrTakaran)
+      var j=0;
+         $('.total').each(function(){ 
+       
+          var totalTakaran = 0; 
+          
+          wh = false;
+          for(var i = 1; i<=no; i++){
+            var jumlahproduksi = $('#jumlahPro'+i).attr('jmlproduksi'); //jumlah yang dihasilkan dalam 1 takaran
+            var jumlah = $('#jumlahPro'+i).val(); //jumlah yang ingin diproduksi
+            var takaranjenis = parseFloat(jumlah) * (parseInt(arrTakaran[j]) / parseInt(jumlahproduksi)); //jumlah yg ingin diproduksi * takaran per bahan / jumlah yang dihasilkan dalam 1 takaran
+             // console.log('totalTakaran :'+j+' '+totalTakaran)
+
+            console.log('totalTakaran1 :'+totalTakaran)
+             console.log(totalTakaran + takaranjenis)
+            totalTakaran = totalTakaran + takaranjenis;
+            console.log('totalTakaran2 :'+totalTakaran)
+            console.log('jumlahproduksi :'+jumlahproduksi)
+            console.log('jumlah:'+jumlah) 
+            console.log('takaranJenis : '+takaranjenis)
+            console.log('arrTakaran : '+arrTakaran[j])
+            console.log('totalTakaran :'+totalTakaran)
+            console.log('-------------------------');
+            var total = $(this).text();
+
+              if(w == 0)
+              arr.push(total);
+
+              $(this).text(parseFloat(totalTakaran.toFixed(2)));
+
+              bahandipakai[j] = totalTakaran.toFixed(2);
+
+              if((parseFloat(totalTakaran)) > arr2[j]){
+                wh = true;
+              } 
+          }
+          
+          j++;
+
+      })
+
+        if(wh == true)
+        {
+          alert('ga bisa produksi')
+          $('#submit').attr('disabled',true);
+        }else{
+          $('#submit').attr('disabled',false);
+        }
+        w = 1
+        console.log(arr);
+    }
 
     jQuery(document).ready(function() {
       var doc = $(document);
@@ -177,114 +237,67 @@
       arr = [];
       arr2 = [];
 
-      @foreach($datadetail as $value)
+      
+
+      @foreach($data->detail_produksi[0]->ice_cream->rasa->detail_rasa as $value)
         idbahan.push({{$value->id_bahan}});
+        arrTakaran.push({{$value->takaran}});
         // console.log({{$value->id_bahan}})
       @endforeach
 
-      
+      hitungbahan();
 
-      var jumlah = $('#jumlah').val();
-        wh = false; // penanda kalau ada jumlah yg melebihi stok
-        if (jumlah <= 0){
-          alert('jumlah produksi minimal 1')
-        }else{
-          i = 0
-
-          $('.total').each(function(){
-            var total = $(this).text();
-
-              if(w == 0)
-              arr.push(total);
-
-              $(this).text(parseInt(arr[i])*jumlah);
-
-              console.log($(this).text())
-
-              if((arr[i]*jumlah) > arr2[i]){
-                wh = true;
-              }
-
-              i++;
-          });
-
-          if(wh == true)
-          {
-            alert('ga bisa produksi')
-            $('#submit').attr('disabled',true);
-          }else{
-            $('#submit').attr('disabled',false)
-          }
-          w = 1
-          console.log(arr);
-
-          //alert(total);
-        }
-
-      $('#jumlah').change(function(){
-        var jumlah = $('#jumlah').val();
-        wh = false; // penanda kalau ada jumlah yg melebihi stok
-        if (jumlah <= 0){
-          alert('jumlah produksi minimal 1')
-        }else{
-          i = 0
-
-          $('.total').each(function(){
-            var total = $(this).text();
-
-              if(w == 0)
-              arr.push(total);
-
-              $(this).text(parseInt(arr[i])*jumlah);
-
-              if((arr[i]*jumlah) > arr2[i]){
-                wh = true;
-              }
-
-              i++;
-          });
-
-          if(wh == true)
-          {
-            alert('ga bisa produksi')
-            $('#submit').attr('disabled',true);
-          }else{
-            $('#submit').attr('disabled',false)
-          }
-          w = 1
-          console.log(arr);
-
-          //alert(total);
-        }
-      });
-
+    });
+    $(document).on('change','.bb',function(){
+      hitungbahan();
+    })
       //menampilkan detail es
-      $('#namaEs').change(function(){
+      $('#rasa').change(function(){
         w = 0;
         arr2 = [];
         $('#type_container').html('');
         nomorBaris = 0;
 
-        $.get('/dynasti/public/api/icecream/'+$('#namaEs').val(),
+        $.get('/dynasti/public/api/rasa/'+$('#rasa').val(),
           function(hasil){
             $('#ides').val(hasil[0]);
             console.log("hasil : "+hasil);
           }
         )
 
-        $.get('/dynasti/public/api/detail-icecream/'+$('#namaEs').val(),
+        $.get('/dynasti/public/api/detail-rasa/'+$('#rasa').val(),
           function(data){
+            arrTakaran = [];
              $.each(data, function(index, data){
               idbahan.push(data.id); //ngambil id bahan
               nomorBaris++
-                $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td class="total">'+data.takaran+'</td><td style="display:none">'+data.stok+'</td></tr>');            
+                $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td id="total'+nomorBaris+'" class="total">'+"0"+'</td><td>'+data.stok+'</td></tr>');            
               console.log(data);
               arr2.push(data.stok);
+              arrTakaran.push(data.takaran);
              })
+             console.log(arr2)
+             console.log(arrTakaran)
           
           }
         ) //ngambil value nama
+
+        $.get('/dynasti/public/api/detail-jenis/'+$('#rasa').val(),
+          function(data){
+            no = 0;
+            $('#namaJenis').empty();
+             $.each(data, function(index, data){
+              no++
+                $('#namaJenis').append('<div class="input-group">' + data[1] +
+                            '<input class="form-control bb" jmlproduksi="'+data[2]+'" placeholder="Jumlah Produksi" name="jumlah" min="0" value="0" type="number" id="jumlahPro'+no+'" ides="'+data[0]+'">' +
+                          '</div>');            
+              console.log('data: '+data);
+             })
+          
+          }
+        )
       });
+      
 
       //save multi record to db
       $('#submit').on('click', function(){
@@ -295,16 +308,38 @@
         var bulan = new Date(datepicker).getMonth()+1;
         var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
         // console.log(bulan);
-        var namaEs = $('#namaEs').val();
+        var rasa = $('#rasa').val();
         var jumlah = $('#jumlah').val();
-
-        var idproduksi = {{ $data->id }};
+        console.log(idbahan)
 
         $.ajax({
             type: "GET",
-            url: "/dynasti/public/manager/produksi/ubah/"+idproduksi+"/"+ides+"/"+pengguna+"/"+kode+"/"+datepicker+"/"+jumlah+"/"+idbahan,
+            url: "/dynasti/public/manager/produksi/simpan/"+pengguna+"/"+kode+"/"+datepicker,
             success: function(result) {
-              console.log(idproduksi)
+              console.log(result)
+             $('.bb').each(function(){ 
+
+                var ides = $(this).attr('ides');
+                var jumlah = $(this).val();
+                console.log(ides)
+                console.log(jumlah)
+
+                $.ajax({
+                    type: "GET",
+                    url: "/dynasti/public/manager/produksi/simpan1/"+ides+"/"+result+"/"+jumlah,
+                    success: function(result) {
+                      console.log(result)
+                    }
+                });
+              });
+
+              $.ajax({
+                type: "GET",
+                url: "/dynasti/public/manager/produksi/simpan2/"+bahandipakai+"/"+idbahan,
+                success: function(result) {
+                  console.log(result)
+                }
+              });
             }
         });
 
@@ -313,21 +348,20 @@
         });
         
       });
-    });
   </script>
 
   <!-- script select 2 untuk nyari bahan -->
   <script>
     jQuery(document).ready(function($) {
         // trigger select2 for each untriggered select2 box
-        $("#namaEs").each(function (i, obj) {
+        $("#rasa").each(function (i, obj) {
           if (!$(obj).data("select2"))
           {
             $(obj).select2({
-              placeholder: "Nama Ice Cream",
+              placeholder: "Rasa",
               minimumInputLength: "1",
               ajax: {
-                url: "/dynasti/public/api/icecream",
+                url: "/dynasti/public/api/rasa",
                 dataType: 'json',
                 quietMillis: 250,
                 data: function (term, page) {
@@ -356,7 +390,7 @@
                 // the input tag has a value attribute preloaded that points to a preselected repository's id
                 // this function resolves that id attribute to an object that select2 can render
                 // using its formatResult renderer - that way the repository name is shown preselected
-                $.ajax("/dynasti/public/api/icecream" + '/' , {
+                $.ajax("/dynasti/public/api/rasa" + '/' , {
                   dataType: "json"
                 }).done(function(data) {
                   textField = "nama";

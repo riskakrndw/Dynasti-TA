@@ -110,7 +110,7 @@
                         <td>{{ $data->nama }}</td>
                         <td>{{ $data->harga }}</td>
                         <td>
-                          <button type="button" class="btn btn-sm btn-default btnEditJenis" data-toggle="modal" data-target="" data-id="{{$data->id}}" data-nama="{{$data->nama}}" <i class="fa fa-edit"></i> Ubah</button>
+                          <button type="button" class="btn btn-sm btn-default btnEditJenis" data-toggle="modal" data-target="" data-id="{{ $data->id }}" data-nama="{{ $data->nama }}" data-harga="{{ $data->harga }}"> <i class="fa fa-edit"></i> Ubah</button>
                           <a type="button" href="{{route('hapusJenis', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button>
                         </td>
                       </tr>
@@ -133,6 +133,11 @@
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-font"></i></span>
                       <input class="form-control" id="namaJenis" name="nama" placeholder="Nama Jenis" value="">
+                    </div>
+                    <label>Harga</label>
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                      <input class="form-control" id="hargaJenis" name="harga" placeholder="Harga" value="">
                     </div>
                     <input class="form-control" type="hidden" name="id" id="idJenis" value="">
                   </div>
@@ -167,6 +172,7 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $(".btnEditJenis").click(function(){
+        $('#hargaJenis').val($(this).data('harga'));
         $('#namaJenis').val($(this).data('nama'));
         $('#idJenis').val($(this).data('id'));
         $('#editJenis').modal('show');

@@ -50,6 +50,7 @@ class JenisController extends Controller
         
         $data = Jenis::find($request->id);
         $data->nama = $request->nama;
+        $data->harga = $request->harga;
         $data->save();
 
         $notification = array(

@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Jenis extends Model
 {
+
+    use SoftDeletes;
+    
     protected $table = "jenis";
 
     protected $fillable = [
@@ -13,7 +17,7 @@ class Jenis extends Model
     ];
 
     public function ice_cream(){
-    	return $this->hasMany('App\Icecream', 'id_jenis');
+    	return $this->hasMany('App\Icecream', 'id_jenis')->withTrashed();
     }
 
 }

@@ -24,8 +24,8 @@
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Data Master</a></li>
-        <li><a href="#">Ice Cream</a></li>
+        <li><a href="#"> Master Data</a></li>
+        <li><a href="#">Rasa</a></li>
         <li class="active">Tambah</li>
       </ol>
     </section>
@@ -36,7 +36,7 @@
 
         
         <div class="col-md-12">
-          <a href="{{route('icecream')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data ice cream </button></a>
+          <a href="{{route('rasa')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data rasa </button></a>
         </div>   
 
         <!-- Tambah Es -->
@@ -83,6 +83,7 @@
                           @endforeach
                       </div>
                     </div>
+                  </div>
                 
               <!-- /Form tambah es -->
 
@@ -168,7 +169,7 @@
     
           $.get('/dynasti/public/api/namaBahan/'+$('#namaBahan').val(),
             function(hasil){
-              var nama = hasil;
+              var nama = hasil[0];
               var satuan = $('#satuanBahan').val();
               var jumlah = $('#jumlahBahan').val();
               var namadb  = "#" + nama.replace(/\s/g,'');

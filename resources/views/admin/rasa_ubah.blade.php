@@ -1,10 +1,10 @@
 @extends('layout_master.master')
 
-@section("title", "Tambah Pembelian")
+@section("title", "Ubah Rasa")
 
-@section("beli", "active")
+@section("rasa", "active")
 
-@section("transaksi", "active")
+@section("master", "active")
 
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
@@ -24,9 +24,9 @@
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Transaksi</a></li>
-        <li><a href="#">Data Pembelian</a></li>
-        <li class="active">Tambah</li>
+        <li><a href="#"> Master Data</a></li>
+        <li><a href="#">Rasa</a></li>
+        <li class="active">Ubah</li>
       </ol>
     </section>
 
@@ -36,64 +36,70 @@
 
         
         <div class="col-md-12">
-          <a href="{{route('pembelian')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data pembelian </button></a>
+          <a href="{{route('rasa')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data rasa </button></a>
         </div>   
 
-        <!-- Tambah pembelian -->
+        <!-- Tambah Es -->
           <div class="col-md-12">
             <br>
             <div class="box box-success">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Data Pembelian</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Data Rasa</h3></li>
               </ul>
 
-              <!-- Form tambah pembelian -->
-                <form role="form" action="" method="">
+              <!-- Form tambah es -->
+                <form role="form" action="" method="POST">
                   {{csrf_field()}}
                   <div class="box-body">
-                    <input class="form-control" type="hidden" name="idPengguna" id="idPengguna" value="{{Auth::User()->id}}">
-                    <input class="form-control" type="hidden" name="status" id="status" value="">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                       <div class="form-group">
-                        <label>Kode Pembelian</label>
+                        <label>Nama</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Pembelian" name="kode" id="kode">
+
+                          <input class="form-control" placeholder="Nama" name="nama" id="nama" value="{{ $data->nama }}">
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                       <div class="form-group">
-                        <label>Tanggal</label>
-                        <div class="input-group date">
-                          <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                          </div>
-                          <input type="text" class="form-control pull-right" id="datepicker">
-                        </div>
+                        <label>Tersedia dalam jenis : </label>
+                          @foreach($dataJenis as $key=>$dataJenis)
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" name="checkjenis" class="checkjenis" data-id="{{ $dataJenis->id }}" id="jenis{{ $dataJenis->id }}" idjenis="{{$key}}">
+                                {{ $dataJenis->nama }}
+                                <br>
+                                <div id="showjenis{{$key}}" class="hide">
+                                dalam 1 kali pembuatan menghasilkan:
+                                  <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-font"></i></span>
+
+                                    <input class="form-control" placeholder="jumlah" name="jumlahProduksi" id="jumlahProduksi{{$dataJenis->id}}" data-id="jenis{{ $dataJenis->id }}">
+                                  </div>
+                                </div>
+                              </label>
+                            </div>
+                          @endforeach
                       </div>
                     </div>
                   </div>
                 
-              <!-- /Form tambah pembelian -->
+              <!-- /Form tambah es -->
 
               <hr id="garis">
               <ul class="nav nav-tabs-custom">
                 <li class="pull-left box-header"><h3 class="box-title">Bahan baku yang diperlukan</h3></li>
               </ul>
 
-              <div>
               <!-- Data bahan -->
-                <div class="col-xs-3">
+                <div class="col-xs-4">
                   <input type="hidden" class="form-control" id="namaBahan" placeholder="Nama Bahan">
                 </div>
-                <div class="col-xs-2">
+                <div class="col-xs-3">
                   <input type="text" class="form-control" id="satuanBahan" placeholder="Satuan" disabled>
                 </div>
                 <input class="form-control" type="hidden" name="idBahan" id="idBahan" value="">
-                <div class="col-xs-2">
-                  <input type="text" class="form-control" id="hargaBahan" placeholder="Harga" disabled>
-                </div>
                 <div class="col-xs-3">
                   <input type="text" class="form-control" id="jumlahBahan" placeholder="Jumlah yang dibutuhkan" onKeyPress="return goodchars(event,'0123456789',this)">
                 </div>
@@ -101,10 +107,9 @@
                   <a href="javascript: void(0)"><button type="button" class="btn btn-sm btn-default btnTambahBahan"><i class="fa  fa-plus "></i> Tambah Bahan </button></a>
                 </div>
               <!-- ./Data bahan -->
-            </div>
 
               <!-- tabel bahan -->
-                <div class="box-body table-responsive" style="width:99%; margin:auto;" >
+                <div class="box-body">
                   <br><br>
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
@@ -112,20 +117,31 @@
                         <th style="width:50px">No</th>
                         <th style="width: 325px">Nama Bahan</th>
                         <th style="width: 200px">Satuan</th>
-                        <th style="width: 200px">Harga</th>
                         <th style="width: 175px">Jumlah</th>
-                        <th style="width: 250px">Subtotal</th>
+                        <th style="display:none">id</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody id="type_container">
+                      <?php $no=1; ?>
+                      @foreach($data->detail_rasa as $detailRasa)
+                        <?php 
+                          $id = $no+1;
+                          $nama = str_replace(' ', '', $detailRasa->bahan->nama);
+                        ?>
+                        <tr id="tr{{$id}}">
+                          <td>{{ $no++ }}</td>
+                          <td>{{ $detailRasa->bahan->nama }}</td>
+                          <td>{{ $detailRasa->bahan->satuan }}</td>
+                          <td>{{ $detailRasa->takaran }}</td>
+                          <td style="display:none">{{ $detailRasa->bahan->id }}</td>
+                            <td class="col-md-3 control-label"><a class="remove-type pull-right" data-nama="{{ $nama }}" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td>
+                        </tr>
+                      @endforeach
                       
                     </tbody>
                   </table>
                   <br>
-
-                  <span>Total Harga</span>
-                  <input id="totalHarga" class="totalHarga" name="total" placeholder="0" value="0" disabled>
 
                   <div class="col-md-12">
                     <button type="button" class="btn btn-sm btn-primary pull-right" value="Submit" id="submit"><i class="fa fa-floppy-o"></i> Simpan </button>
@@ -136,7 +152,7 @@
             </div>
           </div>
           </form>
-        <!-- /Tambah pembelian -->
+        <!-- /Tambah es -->
         
       </div>
     </section>
@@ -155,21 +171,24 @@
 <!-- dinamically add -->
   <script src="{{url('dist/js/jquery-1.8.2.min.js')}}" type="text/javascript" charset="utf8"></script>
   <script src="{{url('dist/js/select2/select2.js')}}"></script>
-<!-- date -->
-  <script src="{{url('dist/js/bootstrap-datepicker.js')}}"></script>
 
 
   <!-- script tambah bahan baku -->
   <script>
-    //Date picker
-      $('#datepicker').datepicker({
-        autoclose: true,
-        format: "yyyy-mm-dd"
-      });
-
     var nomorBaris = 0;
+    var arridjenis = [];
+
     jQuery(document).ready(function() {
       var doc = $(document);
+
+      console.log("{{$data->ice_cream}}");
+      @foreach($data->ice_cream as $datajenis)
+        $('#jenis{{$datajenis->jenis->id}}').attr("checked", true);
+        $('#showjenis'+$('#jenis{{$datajenis->jenis->id}}').attr('idjenis')).removeClass('hide');
+        $('#jumlahProduksi{{$datajenis->jenis->id}}').val('{{ $datajenis->jumlah_produksi}}');
+        console.log("{{$datajenis->jenis->id}}");
+      @endforeach
+
       jQuery('.btnTambahBahan').die('click').live('click', function(e) {
         e.preventDefault();
         for(var i = 0; i<1; i++){
@@ -177,36 +196,23 @@
     
           $.get('/dynasti/public/api/namaBahan/'+$('#namaBahan').val(),
             function(hasil){
-              
               var nama = hasil[0];
+              var id = hasil[1];
               var satuan = $('#satuanBahan').val();
-              var harga = $('#hargaBahan').val();
               var jumlah = $('#jumlahBahan').val();
-              var total = $('#totalHarga').val();
-              var Subtotal = parseInt(harga) * parseInt(jumlah);
               var namadb  = "#" + nama.replace(/\s/g,'');
-              var namaSub = namadb + "subTotal";
               if ($(namadb).length){
                 prevVal = $(namadb).text();
                 newVal = parseInt(prevVal)+parseInt(jumlah);
                 $(namadb).text(newVal);
-
-                prevSub = $(namaSub).text();
-                newSub = parseInt(prevSub) + parseInt(jumlah) * parseInt(harga);
-                $(namaSub).text(newSub);
               }
               else{
                 nomorBaris = nomorBaris + 1;
-                $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td style="display:none">'+id+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
               }
               $('#namaBahan').val('');
-              $('#hargaBahan').val('');
               $('#jumlahBahan').val('');
               $('#satuanBahan').val('');
-
-              var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
-              var totalHargaBaru = totalHargaLama + Subtotal;
-              document.getElementById('totalHarga').value = totalHargaBaru;
             }
           )
         }
@@ -220,10 +226,6 @@
                 //var trID = jQuery(this).parents("tr").attr('id');
                 jQuery('#' + id).remove();
                 nomorBaris = nomorBaris - 1;
-                var deletedSubTotal = $(this).closest("tr").find(".subTotal").text();
-                var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
-                var totalHargaBaru = totalHargaLama - deletedSubTotal;
-                document.getElementById('totalHarga').value = totalHargaBaru;
                 
            // }
             return true;
@@ -237,74 +239,116 @@
         $.get('/dynasti/public/api/bahan/'+$('#namaBahan').val(),
           function(hasil){
             $('#idBahan').val(hasil.id);
-            $('#hargaBahan').val(hasil.harga);
             $('#satuanBahan').val(hasil.satuan);
           }
         ) //ngambil value nama
 
       });
 
+      $('.checkjenis').change(function(){
+        if(this.checked){
+          $('#showjenis'+$(this).attr('idjenis')).removeClass('hide');
+        }else{
+          $('#showjenis'+$(this).attr('idjenis')).addClass('hide');
+        }
+        console.log($(this).attr('idjenis'));
+      });
+
       //save multi record to db
       $('#submit').on('click', function(){
-        var kode = $('#kode').val();
-        var pengguna = $('#idPengguna').val();
-        var datepicker = $('#datepicker').val();
-        var bulan = new Date(datepicker).getMonth()+1;
-        var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
-        console.log(bulan);
+        var nama = $('#nama').val();
+        var listJenis = $('#listJenis').val();
+        var harga = $('#harga').val();
+        var listRasa = $('#listRasa').val();
+        var stok = $('#stok').val();
         var total = $('#totalHarga').val();
 
         var arrData=[];
+        var arridbahan = [];
 
         //loop over each table row (tr)
         $("#type_container tr").each(function(){
           var currentRow = $(this);
+
 
           var col0_value = currentRow.find("td:eq(0)").text();
           var col1_value = currentRow.find("td:eq(1)").text();
           var col2_value = currentRow.find("td:eq(2)").text();
           var col3_value = currentRow.find("td:eq(3)").text();
           var col4_value = currentRow.find("td:eq(4)").text();
-          var col5_value = currentRow.find("td:eq(5)").text();
-          var col6_value = currentRow.find("td:eq(6)").text();
 
           var obj={};
           obj.no = col0_value;
           obj.nama_bahan = col1_value;
+          obj.jumlah = col3_value;
           obj.satuan = col2_value;
-          obj.harga = col3_value;
-          obj.jumlah = col4_value;
-          obj.subtotal = col5_value;
+          arridbahan.push(col4_value);
 
           arrData.push(obj);
         });
-  
-        var idbeli;
-        var status;
- 
-        function a(){
-          for (var i=0; i<arrData.length; i++){
+        
+
+          $('input:checkbox[name=checkjenis]:checked').each(function(){
+            var idjenis = $(this).attr('data-id')
+            console.log('jenis:' + idjenis)
             $.ajax({
-              type: "GET",
-              url: "/dynasti/public/manager/pembelian/simpan1/"+idbeli+"/"+arrData[i]['nama_bahan']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
+              type: "POST",
+              url: "http://localhost:8081/dynasti/public/manager/rasa/ubah2",
+              data: 'idrasa= {{$data->id}}' + '& idjenis=' + idjenis + '& jumlah_produksi=' + $('#jumlahProduksi'+ idjenis).val()  + '& _token='+"{{csrf_token()}}",
               success: function(result) {
-                console.log('berhasil');
+              }
+            });
+          })
+          
+
+          for (var i=0; i<arrData.length; i++){
+            console.log(arrData[i]['jumlah'])
+            $.ajax({
+              type: "POST",
+              url: "http://localhost:8081/dynasti/public/manager/rasa/ubah1",
+              data: 'idrasa= {{$data->id}}' + '& nama_bahan=' + arrData[i]['nama_bahan'] + '& takaran =' + arrData[i]['jumlah'] +'& _token='+"{{csrf_token()}}",
+              success: function(result) {
               }
             });
           }
-        };
 
-        $.ajax({
-            type: "GET",
-            url: "/dynasti/public/manager/pembelian/simpan/"+kode+"/"+pengguna+"/"+datepicker+"/"+total+"/"+status,
-            success: function(result) {
-              idbeli = result;
-              console.log(idbeli)
-            }
-        }).done(a);
+          console.log('{{$data->id}}')
+         $.ajax({
+              type: "POST",
+              url: "http://localhost:8081/dynasti/public/manager/rasa/ubah",
+              data:'id= {{$data->id}}' + '& nama=' + $('#nama').val() +'& _token='+"{{csrf_token()}}",
+              success: function(result) {
+                $('input:checkbox[name=checkjenis]:checked').each(function(){
+                  var idjenis = $(this).attr('data-id')
+                  arridjenis.push(idjenis);
+                })
+              }
+          }).done(a);
+
+
+        function a(){
+          console.log(arridjenis);
+         $.ajax({
+              type: "POST",
+              url: "http://localhost:8081/dynasti/public/manager/rasa/hapusDetailRasa",
+              data: 'idrasa= {{$data->id}}' + '& idbahan=' + arridbahan + '& _token='+"{{csrf_token()}}",
+              success: function(result) {
+               console.log(result);
+              }
+          });
+
+         $.ajax({
+              type: "POST",
+              url: "http://localhost:8081/dynasti/public/manager/rasa/hapusEs",
+              data: 'idrasa= {{$data->id}}' + '& idjenis=' + arridjenis + '& _token='+"{{csrf_token()}}",
+              success: function(result) {
+               console.log(result);
+              }
+          });
+        }
 
         $(document).ajaxStop(function(){
-          window.location="{{URL::to('manager/pembelian')}}";
+          window.location="{{URL::to('manager/rasa')}}";
         });
         
       });

@@ -52,22 +52,21 @@
                       <th style="width: 10px">No</th>
                       <th style="width: 125px">Kode Produksi</th>
                       <th style="width: 150px">Tanggal</th>
-                      <th style="width: 350px">Nama Ice Cream</th>
-                      <th style="width: 100px">Jumlah</th>
+                      <th style="width: 350px">Rasa</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php $no=1; ?>
-                    @foreach($data as $data)
+                    @foreach($data as $datapro)
                     <tr>
                       <td>{{ $no++ }}</td>
-                      <td>{{ $data->produksi->kode_produksi }}</td>
-                      <td>{{ $data->produksi->tgl }}</td>
-                      <td>{{ $data->ice_cream->nama }}</td>
-                      <td>{{ $data->jumlah }}</td>
+                      <td>{{ $datapro->kode_produksi }}</td>
+                      <td>{{ $datapro->tgl }}</td>
+                      <td>{{ $datapro->detail_produksi[0]->ice_cream->rasa->nama }}</td>
                       <td>
-                        <a href="{{ url('manager/produksi/edit/'.$data->id) }}" class="btn btn-sm btn-default"><i class="fa fa-edit"></i> Ubah</a>
+                          <button type="button" class="btn btn-sm btn-default btnEditPro" data-toggle="modal" data-target="" data-kode="{{ $datapro->kode_produksi }}" data-tanggal="{{ $datapro->tgl }}"> <i class="fa fa-edit"></i> Ubah</button>
+                        <a href="{{ url('manager/produksi/lihat/'.$datapro->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                       </td>
                     </tr>
                     @endforeach
@@ -80,7 +79,37 @@
         </div>
         <!-- /Data produksi -->
 
+        <!-- Modal edit jenis -->
+          <div id="editPro" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Ubah Data Jenis</h4>
+            </div>
+            <div class="modal-body modal-primary">
+              <form role="form" action="{{url('manager/jenis/edit')}}" method="POST">
+              {{csrf_field()}}
+              <label>Kode Produksi</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                <input class="form-control" id="kodepro" name="kodepro" placeholder="Kode Produksi" value="">
+              </div>
+              <label>Tanggal</label>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="datepicker" name="datepicker">
+                </div>
+              <input class="form-control" type="hidden" name="id" id="idJenis" value="">
+            </div>
+            <div class="modal-footer">
+              <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
+              <button type="submit" class="btn btn-primary">Simpan</button>
 
+            </div>
+          </form>
+          </div>
+        <!-- /Modal edit jenis -->
 
       </div>
     </section>
@@ -95,5 +124,26 @@
   <script src="{{url('dist/js/bootstrap-modalmanager.js')}}"></script>
   <script src="{{url('dist/js/bootstrap-modal.js')}}"></script>
   <script src="{{url('dist/js/validasinumeric.js')}}"></script>
+<!-- date -->
+  <script src="{{url('dist/js/bootstrap-datepicker.js')}}"></script>
+
+  <script type="text/javascript">
+    //Date picker
+      $('#datepicker').datepicker({
+        autoclose: true,
+        format: "yyyy-mm-dd"
+      });
+  </script>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $(".btnEditPro").click(function(){
+        $('#kodepro').val($(this).data('kode'));
+        $('#datepicker').val($(this).data('tanggal'));
+        $('#editPro').modal('show');
+      });
+    });
+
+  </script>
 
 @endsection

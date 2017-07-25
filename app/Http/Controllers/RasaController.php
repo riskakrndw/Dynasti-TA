@@ -124,12 +124,104 @@ class RasaController extends Controller
         return view('admin.rasa_detail')->with(compact('dataJenis', $dataJenis, 'data', $data));
     }
 
-    
-
-    public function edit($id)
+    public function showEdit($id)
     {
-        $data = Rasa::find($id);
+        $dataJenis = Jenis::get();
+        $dataEs = IceCream::get();
+        $data = Rasa::where('id', $id)->first();
+        // dd($data);
+        return view('admin.rasa_ubah')->with('data', $data)->with(compact('dataJenis', $dataJenis, 'dataEs', $dataEs));
     }
+
+    public function edit(Request $request)
+    {
+        $this->validate($request, [
+            'nama' => 'required|min:2|max:50',
+        ]);
+
+        $data = Rasa::find($request->id);
+        $data->nama = $request->nama;
+        $data->save();
+
+        return $data->id;
+    }
+
+    public function edit1(Request $request)
+    {
+        /*$this->validate($request, [
+            'nama' => 'required|min:2|max:50',
+            'harga' => 'required|min:2|max:50',
+            'stok' => 'required|min:2|max:50',
+            'total' => 'required',
+            'jumlahProduksi' => 'required|max:10',
+        ]);*/   
+
+        $idbahan = Bahan::where('nama', '=', $request->nama_bahan)->first();
+        $datadetail = DetailRasa::where('id_rasa', '=', $request->idrasa)->where('id_bahan', '=', $idbahan->id)->first();
+
+        if(count($datadetail) == 0){
+            $datadetail = new DetailRasa;
+            $datadetail->id_rasa = $request->idrasa;
+            $datadetail->id_bahan = $idbahan['id'];
+        }
+
+        $datadetail->takaran = $request->takaran_;
+        $datadetail->save();
+    }
+
+    public function edit2(Request $request)
+    {
+        /*$this->validate($request, [
+            'nama' => 'required|min:2|max:50',
+            'harga' => 'required|min:2|max:50',
+            'stok' => 'required|min:2|max:50',
+            'total' => 'required',
+            'jumlahProduksi' => 'required|max:10',
+        ]);*/   
+
+        $rasa=Rasa::find($request->idrasa);
+        $jenis=Jenis::find($request->idjenis);
+
+        $data = IceCream::withTrashed()->where('id_rasa', '=', $request->idrasa)->where('id_jenis', '=', $request->idjenis)->first();
+
+        if (count($data) == 0) {
+            $data = new IceCream;
+            $data->id_jenis = $request->idjenis;
+            $data->id_rasa = $request->idrasa;
+        }else{
+            if($data->deleted_at != "NULL"){
+                $data->restore();
+                $data->stok = 0;
+            }
+        }
+
+        $nama='Ice Cream '.$jenis->nama.' '.$rasa->nama;        
+        $data->nama = $nama;
+        $data->jumlah_produksi = $request->jumlah_produksi;
+        $data->save();
+
+        return $rasa;
+    }
+
+    public function hapusDetailRasa(Request $request)
+    {
+
+        $arr = explode(',', $request->idbahan); //mecah jadi array
+        $data = DetailRasa::where('id_rasa', '=', $request->idrasa)->whereNotIn('id_bahan', $arr);
+        $data->delete();
+        
+        return $request->idrasa;
+    }
+
+    public function hapusEs(Request $request)
+    {
+
+        $arr = explode(',', $request->idjenis); //mecah jadi array
+        $data = IceCream::where('id_rasa', '=', $request->idrasa)->whereNotIn('id_jenis', $arr);
+        $data->delete();
+    }
+
+
 
     public function update(Request $request)
     {

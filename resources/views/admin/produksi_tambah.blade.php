@@ -189,11 +189,11 @@
              console.log(totalTakaran + takaranjenis)
             totalTakaran = totalTakaran + takaranjenis;
             console.log('totalTakaran2 :'+totalTakaran)
-            // console.log('jumlahproduksi :'+jumlahproduksi)
-            // console.log('jumlah:'+jumlah) 
-            // console.log('takaranJenis : '+takaranjenis)
-            // console.log('arrTakaran : '+arrTakaran[j])
-            // console.log('totalTakaran :'+totalTakaran)
+            console.log('jumlahproduksi :'+jumlahproduksi)
+            console.log('jumlah:'+jumlah) 
+            console.log('takaranJenis : '+takaranjenis)
+            console.log('arrTakaran : '+arrTakaran[j])
+            console.log('totalTakaran :'+totalTakaran)
             console.log('-------------------------');
             var total = $(this).text();
 
@@ -240,6 +240,7 @@
 
         $.get('/dynasti/public/api/detail-rasa/'+$('#rasa').val(),
           function(data){
+            arrTakaran = [];
              $.each(data, function(index, data){
               idbahan.push(data.id); //ngambil id bahan
               nomorBaris++
@@ -263,7 +264,7 @@
                 $('#namaJenis').append('<div class="input-group">' + data[1] +
                             '<input class="form-control bb" jmlproduksi="'+data[2]+'" placeholder="Jumlah Produksi" name="jumlah" min="0" value="0" type="number" id="jumlahPro'+no+'" ides="'+data[0]+'">' +
                           '</div>');            
-              console.log(data);
+              console.log('data: '+data);
              })
           
           }

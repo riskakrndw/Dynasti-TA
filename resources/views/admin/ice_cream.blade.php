@@ -20,7 +20,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Data Master</a></li>
+        <li><a href="#"> Master Data</a></li>
         <li class="active">Ice Cream</li>
       </ol>
     </section>
@@ -58,18 +58,6 @@
                       
                       <td>{{ $no++ }}</td>
                       <td>{{ $data->nama }}</td>
-
-                     <!--  @if($data->id_rasa)
-                        <td>{{ $data->rasa->nama }}</td>
-                      @else
-                        <td>Rasa tidak ditemukan</td>
-                      @endif
-
-                      @if($data->id_jenis) 
-                        <td>{{ $data->jenis->nama }}</td>
-                      @else
-                        <td>Jenis tidak ditemukan</td>
-                      @endif -->
 
                       <td>{{ $data->jenis->harga }}</td>
                       <td>{{ $data->stok }}</td>

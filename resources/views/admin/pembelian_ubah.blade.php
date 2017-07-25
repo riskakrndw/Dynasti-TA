@@ -189,7 +189,7 @@
     
           $.get('/dynasti/public/api/namaBahan/'+$('#namaBahan').val(),
             function(hasil){
-              var nama = hasil;
+              var nama = hasil[0];
               var satuan = $('#satuanBahan').val();
               var harga = $('#hargaBahan').val();
               var jumlah = $('#jumlahBahan').val();

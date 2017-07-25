@@ -104,10 +104,71 @@ class PemesananController extends Controller
         $data->save();
     }
 
+    public function updateJumlah($iddetail, $jumlahes)
+    {
+        $data = DetailPemesanan::find($iddetail);
+        $data->jumlah = $jumlahes;
+       
+        
+        $datapemesanan = Pemesanan::find($data->id_pemesanan);
+        $datapemesanan->total = $datapemesanan->total - $data->subtotal + ($data->ice_cream->jenis->harga * $jumlahes);
+
+        $data->subtotal = $data->ice_cream->jenis->harga * $jumlahes;
+
+        $datapemesanan->save();
+
+        $data->save();
+
+        $hasil[0] = $data->subtotal;
+        $hasil[1] = $datapemesanan->total;
+
+        return $hasil;
+    }
+
     public function show($id, $tipe)
     {
         $data = Pemesanan::find($id);
         // dd($data);
         return view('admin.pemesanan_detail')->with('data', $data)->with('tipe', $tipe);
+    }
+
+    public function ubah($id_beli, $kode, $pengguna, $datepicker, $total, $status)
+    {
+        $data = Pembelian::find($id_beli);
+        $data->kode_pembelian = $kode;
+        $data->id_users = $pengguna;
+        $data->tgl = $datepicker;
+        $data->total = $total;
+        if(Auth::user()->level == "manager"){
+            $data->status = "berhasil";
+        } elseif (Auth::user()->level == "keuangan"){
+            $data->status = "berhasil";
+        } elseif (Auth::user()->level == "pengadaan"){
+            $data->status = "menunggu";
+        }
+        $data->save();
+
+        return $data->id;
+    }
+
+    public function ubah1($id_pembelian, $id_detailbeli, $namabahan, $jumlah, $subtotal)
+    {
+        $idbahan = Bahan::where('nama', '=', $namabahan)->first()->id;
+        $datadetail = DetailPembelian::find($id_detailpembelian);
+        $datadetail->id_pembelian = $id_pembelian;
+        $datadetail->id = $id_detailbeli;
+        $datadetail->id_bahan = $idbahan;
+        $datadetail->jumlah = $jumlah;
+        $datadetail->subtotal = $subtotal;
+        $datadetail->save();
+    }
+
+    public function showEdit($id)
+    {
+        if(Auth::user()->level == "manager"){
+            $data = Pemesanan::where('id', $id)->first();
+            return view('admin.pemesanan_ubah')->with('data', $data);
+        }
+        
     }
 }

@@ -34,6 +34,7 @@ Route::get('/api/namaBahan/{id}', 'BahanApiController@reqNamaBahan')->name('apin
 
 //apiicecream
 Route::get('/api/icecream', 'IceCreamApiController@index')->name('apiicecream');
+Route::get('/api/icecreamin', 'IceCreamApiController@indexin')->name('apiicecreamin');
 Route::get('/api/icecream/{id}', 'IceCreamApiController@show')->name('apiicecreamshow');
 Route::get('/api/detail-icecream/{id}', 'IceCreamApiController@showDetail')->name('apiicecreamshowdetail');
 Route::get('/api/namaIceCream/{id}', 'IceCreamApiController@reqNamaIceCream')->name('apinamaicecream');
@@ -73,19 +74,28 @@ Route::get('/manager/jenis/hapus/{id}', 'JenisController@destroy')->name('hapusJ
 Route::post('/manager/jenis/edit', 'JenisController@update');
 
 //rasa
-Route::get('/manager/rasa', 'RasaController@index')->name('rasa');
-Route::post('/manager/rasa/simpan', 'RasaController@store');
-Route::get('/manager/rasa/hapus/{id}', 'RasaController@destroy')->name('hapusRasa');
-Route::post('/manager/rasa/edit', 'RasaController@update');
-/*menampilkan form tambah*/
-	Route::get('/manager/rasa/tambah', 'RasaController@tambah')->name('tambahRasa');
-/*melakukan create*/
+	Route::get('/manager/rasa', 'RasaController@index')->name('rasa');
 	Route::post('/manager/rasa/simpan', 'RasaController@store');
-	Route::post('/manager/rasa/simpan1', 'RasaController@store1');
-	Route::post('/manager/rasa/simpan2', 'RasaController@store2');
-	Route::post('/manager/rasa/simpan3', 'RasaController@store3');
-/*melakukan lihat detail*/
-	Route::get('/manager/rasa/lihat/{id}', 'RasaController@show');
+	Route::get('/manager/rasa/hapus/{id}', 'RasaController@destroy')->name('hapusRasa');
+	Route::post('/manager/rasa/edit', 'RasaController@update');
+	/*menampilkan form tambah*/
+		Route::get('/manager/rasa/tambah', 'RasaController@tambah')->name('tambahRasa');
+	/*melakukan create*/
+		Route::post('/manager/rasa/simpan', 'RasaController@store');
+		Route::post('/manager/rasa/simpan1', 'RasaController@store1');
+		Route::post('/manager/rasa/simpan2', 'RasaController@store2');
+		Route::post('/manager/rasa/simpan3', 'RasaController@store3');
+	/*melakukan lihat detail*/
+		Route::get('/manager/rasa/lihat/{id}', 'RasaController@show');
+	/*melakukan ubah*/
+		Route::get('/manager/rasa/edit/{id}', 'RasaController@showEdit');
+	/*melakukan ubah*/
+		Route::post('/manager/rasa/hapusDetailRasa', 'RasaController@hapusDetailRasa')->name('hapusDetailRasa');
+		Route::post('/manager/rasa/hapusEs', 'RasaController@hapusEs')->name('hapusEs');
+		Route::get('/manager/rasa/edit/{id}', 'RasaController@showEdit');
+		Route::post('/manager/rasa/ubah', 'RasaController@edit');
+		Route::post('/manager/rasa/ubah1', 'RasaController@edit1');
+		Route::post('/manager/rasa/ubah2', 'RasaController@edit2');
 
 
 Route::group(['middleware' => 'levelManager'], function(){
@@ -164,11 +174,12 @@ Route::group(['middleware' => 'levelManager'], function(){
 			Route::get('/manager/produksi', 'ProduksiController@index')->name('produksi');
 		/*menampilkan form tambah*/
 			Route::get('/manager/produksi/tambah', 'ProduksiController@tambah')->name('tambahProduksi');
+		/*melakukan lihat detail*/
+			Route::get('/manager/produksi/lihat/{id}', 'ProduksiController@show');
 		/*melakukan create*/
 			Route::get('/manager/produksi/simpan/{pengguna}/{kode}/{datepicker}', 'ProduksiController@store');
 			Route::get('/manager/produksi/simpan1/{ides}/{idproduksi}/{jumlahproduksi}', 'ProduksiController@store1');
 			Route::get('/manager/produksi/simpan2/{jumlah}/{idbahan}', 'ProduksiController@store2');
-
 		/*melakukan ubah*/
 			Route::get('/manager/produksi/edit/{id}', 'ProduksiController@showEdit');
 			Route::get('/manager/produksi/ubah/{idproduksi}/{ides}/{pengguna}/{kode}/{datepicker}/{jumlah}/{idbahan}', 'ProduksiController@ubah');
@@ -189,6 +200,12 @@ Route::group(['middleware' => 'levelManager'], function(){
 			Route::get('/manager/pemesanan/detail/siap/{ides}/{jumlahes}/{iddetailpemesanan}', 'PemesananController@produkSiap');
 		/*melakukan lihat detail*/
 			Route::get('/manager/pemesanan/lihat/{id}/{tipe}', 'PemesananController@show');
+		/*melakukan ubah*/
+			Route::get('/manager/pemesanan/edit/{id}', 'PemesananController@showEdit');
+			Route::get('/manager/pemesanan/ubah/{idproduksi}/{ides}/{pengguna}/{kode}/{datepicker}/{jumlah}/{idbahan}', 'PemesananController@ubah');
+		// melakukan update jumlah
+			Route::get('/manager/pemesanan/update/{iddetail}/{jumlahes}', 'PemesananController@updateJumlah');
+
 
 
 	//PRINT LAPORAN

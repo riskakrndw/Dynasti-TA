@@ -19,7 +19,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Data Master</a></li>
+        <li><a href="#"> Master Data</a></li>
         <li class="active">Rasa</li>
       </ol>
     </section>
@@ -53,7 +53,7 @@
                     <thead>
                       <tr>
                         <th style="width: 50px">No</th>
-                        <th style="width: 700px">Nama Rasa</th>
+                        <th style="width: 500px">Nama Rasa</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
@@ -65,7 +65,7 @@
                         <td>{{ $data->nama }}</td>
                         <td>
                           <a href="{{ url('manager/rasa/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                          <button type="button" class="btn btn-sm btn-default btnEditRasa" data-toggle="modal" data-target="" data-id="{{$data->id}}" data-nama="{{$data->nama}}" <i class="fa fa-edit"></i> Ubah</button>
+                          <a type="button" href="{{ url('manager/rasa/edit/'.$data->id) }}" class="btn btn-sm btn-default"> <i class="fa fa-edit"></i> Ubah</a>
                           <a type="button" href="{{route('hapusRasa', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button>
                         </td>
                       </tr>
@@ -116,16 +116,5 @@
  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script> -->
   <script src="{{url('dist/js/bootstrap-modalmanager.js')}}"></script>
   <script src="{{url('dist/js/bootstrap-modal.js')}}"></script>
-
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $(".btnEditRasa").click(function(){
-        $('#namaRasa').val($(this).data('nama'));
-        $('#idRasa').val($(this).data('id'));
-        $('#editRasa').modal('show');
-      });
-    });
-
-  </script>
 
 @endsection

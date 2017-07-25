@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Rasa;
+use App\Jenis;
+use App\IceCream;
 use Illuminate\Support\Facades\DB;
 
 class RasaApiController extends Controller
@@ -50,10 +52,11 @@ class RasaApiController extends Controller
 
     public function showJenis($id)
     {
-        $data = Rasa::find($id);
+        $idjenis = Jenis::select('id')->get();
+        $data = IceCream::where('id_rasa', '=', $id)->whereIn('id_jenis', $idjenis)->get();
 
         $hasil = array();
-        foreach ($data->ice_cream as $key=>$value) {
+        foreach ($data as $key=>$value) {
             $hasil[$key][0]=$value->id;
             $hasil[$key][1]=$value->jenis->nama;
             $hasil[$key][2]=$value->jumlah_produksi;

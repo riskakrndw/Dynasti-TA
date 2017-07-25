@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\IceCream;
 use App\DetailBahan;
+use App\Pemesanan;
 use Illuminate\Support\Facades\DB;
 
 class IceCreamApiController extends Controller
@@ -21,6 +22,21 @@ class IceCreamApiController extends Controller
     	}
 
     	return $results;
+    }
+
+    public function indexin(Request $request)
+    {
+        $search_term = $request->input('q');
+        $page = $request->input('page');
+
+        $idjenis = Jenis::select('id')->get();
+        if($search_term){
+            $results = IceCream::where('nama', 'LIKE', '%'.$search_term.'%')->whereIn('id_jenis', $idjenis)->paginate(10);
+        }else{
+            $results = IceCream::whereIn('id_jenis', $idjenis)->paginate(10);
+        }
+
+        return $results;
     }
 
     public function reqNamaIceCream($id)
@@ -52,4 +68,6 @@ class IceCreamApiController extends Controller
                 ->get();
         return $data;
     }
+
+
 }

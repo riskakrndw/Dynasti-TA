@@ -20,7 +20,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Data Master</a></li>
+        <li><a href="#"> Master Data</a></li>
         <li class="active">Bahan Baku</li>
       </ol>
     </section>

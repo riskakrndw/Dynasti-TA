@@ -73,7 +73,7 @@
                           <td>{{ $data->total }}</td>
                           <td>
                            <a href="{{ url('manager/pemesanan/lihat/'.$data->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
-                           <a href="" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                           <a href="{{ url('manager/pemesanan/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
                          </td>
                         </tr>
                       @endforeach

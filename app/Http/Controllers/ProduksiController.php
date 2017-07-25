@@ -10,6 +10,7 @@ use App\IceCream;
 use App\User;
 use App\Bahan;
 use App\DetailBahan;
+use App\DetailRasa;
 use App\DetailProduksi;
 
 class ProduksiController extends Controller
@@ -17,8 +18,9 @@ class ProduksiController extends Controller
 
     public function index()
     {
-    	$data = DetailProduksi::all();
+    	$data = Produksi::all();
         // dd($data);
+        // dd($data[0]->detail_produksi);
     	return view('admin.produksi')->with('data', $data);
     }
 
@@ -74,44 +76,21 @@ class ProduksiController extends Controller
         }
     }
 
-    public function edit($id)
+    public function show($id)
     {
-        $data = Produksi::find($id);
-    }
-
-    public function ubah($id_produksi, $ides, $pengguna, $kode, $datepicker, $jumlah, $idbahan)
-    {
-        $data = Produksi::find($id_produksi);
-        
-
-        $dataes = IceCream::find($ides);
-        $dataes->stok = $dataes->stok - $data->jumlah + $jumlah;
-        $dataes->save();   
-
-        $arr = explode(',', $idbahan); //mecah jadi array
-        foreach ($arr as $bahan) {
-            $databahan = Bahan::find($bahan);
-            // dd($bahan);
-            $datadetail = DetailBahan::where('id_es', '=', $ides)->where('id_bahan', '=', $bahan)->first()->takaran;
-            $databahan->stok = $databahan->stok + $data->jumlah * $datadetail - $datadetail * $jumlah;
-            $databahan->save();
+        if(Auth::user()->level == "manager"){
+            $data = Produksi::where('id', $id)->first();
+            return view('admin.produksi_detail')->with('data', $data);
         }
-
-        $data->id_es = $ides;
-        $data->id_users = $pengguna;
-        $data->kode_produksi = $kode;
-        $data->tgl = $datepicker;
-        $data->jumlah = $jumlah;
-        $data->save();
-
+        
     }
 
     public function showEdit($id)
     {
         if(Auth::user()->level == "manager"){
             $data = Produksi::where('id', $id)->first();
-            $datadetail = DetailBahan::where('id_es', '=', $data->id_es)->select('id_bahan')->get();
-            // dd($datadetail);
+            $datadetail = DetailRasa::where('id_rasa', '=', $data->detail_produksi[0]->ice_cream->id_rasa)->get();
+            // dd($data->detail_produksi[0]->ice_cream->rasa->detail_rasa);
             return view('admin.produksi_ubah')->with('data', $data)->with('datadetail', $datadetail);
         } elseif (Auth::user()->level == "produksi"){
             

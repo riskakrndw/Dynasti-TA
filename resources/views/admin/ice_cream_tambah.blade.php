@@ -24,7 +24,7 @@
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Data Master</a></li>
+        <li><a href="#"> Master Data</a></li>
         <li><a href="#">Ice Cream</a></li>
         <li class="active">Tambah</li>
       </ol>
