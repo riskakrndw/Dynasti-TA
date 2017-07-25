@@ -34,7 +34,7 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li class="@yield("beli")"><a href="{{route('pembelian')}}"><i class="fa fa-list"></i> Data Pembelian</a></li>
+              <li class="@yield("beli")"><a href="{{route('pembelian')}}"><i class="fa fa-list"></i> Data Pengadaan</a></li>
               <li class="@yield("jual")"><a href="{{route('penjualan')}}"><i class="fa fa-list"></i> Data Penjualan</a></li>
             </ul>
           </li>
@@ -59,10 +59,10 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li class="@yield("lapbeli")"><a href="#"><i class="fa fa-file"></i> Laporan Pembelian</a></li>
+              <li class="@yield("lapbeli")"><a href="#"><i class="fa fa-file"></i> Laporan Pengadaan</a></li>
               <li class="@yield("lapjual")"><a href="#"><i class="fa fa-file"></i> Laporan Penjualan</a></li>
-              <li class="@yield("lapstok")"><a href="#"><i class="fa fa-file"></i> Laporan Stok Barang</a></li>
-              <li class="@yield("lapuntungrugi")"><a href="#"><i class="fa fa-file"></i> Laporan Untung Rugi</a></li>
+              <li class="@yield("lapstokes")"><a href="#"><i class="fa fa-file"></i> Laporan Stok Ice Cream</a></li>
+              <li class="@yield("lapstokbahan")"><a href="#"><i class="fa fa-file"></i> Laporan Stok Bahan Baku</a></li>
             </ul>
           </li>
           <li class="@yield("user")"><a href="{{route('pengguna')}}"><i class="fa  fa-user-plus"></i> <span>Data Pengguna</span></a></li>

@@ -32,7 +32,7 @@
         <!-- Tambah Jenis -->
           <div class="col-md-12">
             <br>
-            <div class="box box-success">
+            <div class="box">
               <div class="box-header with-border">
                 <h3 class="box-title">Tambah Data Bahan Baku</h3>
 
@@ -68,7 +68,7 @@
                         @endif
                       </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                       <div class="form-group">
                         <label>Harga Satuan</label>
                         <div class="input-group">
@@ -92,9 +92,21 @@
                         @endif
                       </div>
                     </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Stok Minimal</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
+                          <input class="form-control" placeholder="Stok Minimal" name="stok_min" onKeyPress="return goodchars(event,'0123456789',this)">
+                        </div>
+                        @if($errors->has('stok_min'))
+                          <span class="help-block">Harus diisi</span>
+                        @endif
+                      </div>
+                    </div>
                     <div class="box-footer pull-right">
                       <br>
-                      <button type="submit" class="btn btn-primary">Tambah</button>
+                      <button type="submit" class="btn btn-primary"><i class="fa fa-plus"> Tambah</i></button>
                     </div>
                   </div>
                 </form>
@@ -105,7 +117,7 @@
 
         <!-- Data bahan -->
         <div class="col-xs-12">
-          <div class="box box-success">
+          <div class="box">
 
             <!-- header -->
               <div class="box-header">
@@ -121,10 +133,11 @@
                   <thead>
                     <tr>
                       <th style="width: 30px">No</th>
-                      <th style="width: 250px">Nama Bahan</th>
-                      <th style="width: 110px">Satuan</th>
+                      <th style="width: 180px">Nama Bahan</th>
+                      <th style="width: 80px">Satuan</th>
                       <th style="width: 180px">Harga Satuan</th>
-                      <th style="width: 100px">Stok</th>
+                      <th style="width: 80px">Stok</th>
+                      <th style="width: 80px">Stok Minimal</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -137,8 +150,9 @@
                       <td>{{ $data->satuan }}</td>
                       <td>{{ $data->harga }}</td>
                       <td>{{ $data->stok }}</td>
+                      <td>{{ $data->stok_min }}</td>
                       <td>
-                        <button type="button" class="btn btn-sm btn-default btnEditBahan" data-toggle="modal" data-target="" data-id="{{$data->id}}" data-nama="{{$data->nama}}" data-satuan="{{$data->satuan}}" data-harga="{{$data->harga}}" data-stok="{{$data->stok}}"<i class="fa fa-edit"></i> Ubah</button>
+                        <button type="button" class="btn btn-sm btn-default btnEditBahan" data-toggle="modal" data-target="" data-id="{{$data->id}}" data-nama="{{$data->nama}}" data-satuan="{{$data->satuan}}" data-harga="{{$data->harga}}" data-stok="{{$data->stok}}" data-stokmin="{{$data->stok_min}}"><i class="fa fa-edit"></i> Ubah</button>
                         <a type="button" href="{{route('hapusBahan', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button>
                       </td>
                     </tr>
@@ -192,6 +206,15 @@
                   @if($errors->has('stok'))
                     <span class="help-block">Harus diisi</span>
                   @endif
+                  <br>
+                  <label>Stok Minimal</label>
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
+                    <input class="form-control" placeholder="Stok Minimal" id="stok_min" name="stok_min" onKeyPress="return goodchars(event,'0123456789',this)">
+                  </div>
+                  @if($errors->has('stok'))
+                    <span class="help-block">Harus diisi</span>
+                  @endif
                   <input class="form-control" type="hidden" name="id" id="idBahan" value="">
                 </div>
                 <div class="modal-footer">
@@ -228,6 +251,7 @@
         $('#satuanBahan').val($(this).data('satuan'));
         $('#hargaBahan').val($(this).data('harga'));
         $('#stokBahan').val($(this).data('stok'));
+        $('#stok_min').val($(this).data('stokmin'));
         $('#idBahan').val($(this).data('id'));
         $('#editBahan').modal('show');
       });

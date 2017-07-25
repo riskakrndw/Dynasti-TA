@@ -17,7 +17,7 @@ class Rasa extends Model
     ];
 
     public function ice_cream(){
-    	return $this->hasMany('App\Icecream', 'id_rasa');
+    	return $this->hasMany('App\Icecream', 'id_rasa')->withTrashed();
     }
 
     public function detail_rasa(){

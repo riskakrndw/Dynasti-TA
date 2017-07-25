@@ -65,7 +65,7 @@
                       <td>{{ $datapro->tgl }}</td>
                       <td>{{ $datapro->detail_produksi[0]->ice_cream->rasa->nama }}</td>
                       <td>
-                          <button type="button" class="btn btn-sm btn-default btnEditPro" data-toggle="modal" data-target="" data-kode="{{ $datapro->kode_produksi }}" data-tanggal="{{ $datapro->tgl }}"> <i class="fa fa-edit"></i> Ubah</button>
+                          <button type="button" class="btn btn-sm btn-default btnEditPro" data-toggle="modal" data-target="" data-id="{{ $datapro->id }}" data-kode="{{ $datapro->kode_produksi }}" data-tanggal="{{ $datapro->tgl }}"> <i class="fa fa-edit"></i> Ubah</button>
                         <a href="{{ url('manager/produksi/lihat/'.$datapro->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                       </td>
                     </tr>
@@ -86,7 +86,7 @@
               <h4 class="modal-title">Ubah Data Jenis</h4>
             </div>
             <div class="modal-body modal-primary">
-              <form role="form" action="{{url('manager/jenis/edit')}}" method="POST">
+              <form role="form" action="{{url('manager/produksi/edit')}}" method="POST">
               {{csrf_field()}}
               <label>Kode Produksi</label>
               <div class="input-group">
@@ -100,7 +100,7 @@
                   </div>
                   <input type="text" class="form-control pull-right" id="datepicker" name="datepicker">
                 </div>
-              <input class="form-control" type="hidden" name="id" id="idJenis" value="">
+              <input class="form-control" type="hidden" name="id" id="idpro" value="">
             </div>
             <div class="modal-footer">
               <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
@@ -138,6 +138,7 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $(".btnEditPro").click(function(){
+        $('#idpro').val($(this).data('id'));
         $('#kodepro').val($(this).data('kode'));
         $('#datepicker').val($(this).data('tanggal'));
         $('#editPro').modal('show');

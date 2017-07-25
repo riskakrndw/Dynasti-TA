@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\IceCream;
+use App\Rasa;
 use App\DetailBahan;
 use App\Pemesanan;
 use Illuminate\Support\Facades\DB;
@@ -49,14 +50,17 @@ class IceCreamApiController extends Controller
     public function show($id)
     {
         /*return IceCream::find($id);*/
-        $data = IceCream::find($id);
+        $data = IceCream::withTrashed()->find($id);
         $hasil = array();
         $hasil[] = $data->id;
         $hasil[] = $data->stok;
         $hasil[] = $data->nama;
         $hasil[] = $data->jenis->harga;
         $hasil[] = $data->jenis->nama;
-        $hasil[] = $data->rasa->nama;
+
+        $hasil[] = Rasa::withTrashed()
+                ->join('ice_cream', 'ice_cream.id_rasa', '=', 'rasa.id')
+                ->where('rasa.id', '=', $data->id_rasa)->first();
         return $hasil;
     }
 

@@ -21,6 +21,7 @@ class ProduksiController extends Controller
     	$data = Produksi::all();
         // dd($data);
         // dd($data[0]->detail_produksi);
+
     	return view('admin.produksi')->with('data', $data);
     }
 
@@ -95,6 +96,21 @@ class ProduksiController extends Controller
         } elseif (Auth::user()->level == "produksi"){
             
         }
+    }
+
+    public function update(Request $request)
+    {
+        
+        $data = Produksi::find($request->id);
+        $data->kode_produksi = $request->kodepro;
+        $data->tgl = $request->datepicker;
+        $data->save();
+
+        $notification = array(
+            'message' => 'Data berhasil diubah',
+            'alert-type' => 'info'
+        );
+        return redirect()->back()->with($notification);
     }
 
     public function destroy(Request $request, $id)

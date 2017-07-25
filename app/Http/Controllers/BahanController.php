@@ -61,6 +61,7 @@ class BahanController extends Controller
         $data->harga = $request->harga;
         $data->stok = $request->stok;
         $data->satuan = $request->satuan;
+        $data->stok_min = $request->stok_min;
         $data->save();
 
         $notification = array(
@@ -106,6 +107,7 @@ class BahanController extends Controller
         $data->harga = $request->harga;
         $data->stok = $request->stok;
         $data->satuan = $request->satuan;
+        $data->stok_min = $request->stok_min;
         $data->save();
 
         $notification = array(

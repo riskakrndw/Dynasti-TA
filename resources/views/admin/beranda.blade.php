@@ -115,37 +115,36 @@
           <!-- /.Left col -->
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
 
-          <div class="col-lg-4">
-          <section class="connectedSortable">
-            <!-- info pemesanan -->
-              <div class="box">
-                <div class="nav-tabs-custom">
-                  <ul class="nav nav-tabs pull-right">
-                    <li class="pull-left header"><i class="fa fa-info-circle"></i> Ice Cream Terlaku</li>
-                  </ul>
-                  <div class="tab-content">
-                    <table id="example1" class="table table-bordered table-hover">
-                      <thead>
-                        <tr>
-                          <th style="width: 100px">No</th>
-                          <th style="width: 500px">Nama</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>Ice Cream Vanilla</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <a href="#" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+
+          <!-- <div class="col-lg-4">
+            <section class="connectedSortable">
+                <div class="box">
+                  <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs pull-right">
+                      <li class="pull-left header"><i class="fa fa-info-circle"></i> Ice Cream Terlaku</li>
+                    </ul>
+                    <div class="tab-content">
+                      <table id="example1" class="table table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th style="width: 100px">No</th>
+                            <th style="width: 500px">Nama</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>1</td>
+                            <td>Ice Cream Vanilla</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <a href="#" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            <!-- /.info pemesanan -->
-          </section>
-        </div>
-          <!-- right col -->
+            </section>
+          </div> -->
+
         </div>
       <!-- / info -->
       

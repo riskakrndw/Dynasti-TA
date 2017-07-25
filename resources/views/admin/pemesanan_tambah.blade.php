@@ -192,10 +192,6 @@
       var doc = $(document);
       jQuery('.btnTambahEs').die('click').live('click', function(e) {
         e.preventDefault();
-        if(parseInt($('#jumlahEs').val()) > parseInt($('#stokEs').val())){
-          alert("stok tidak mencukupi");
-        }
-        else{
           for(var i = 0; i<1; i++){
             var type_div = 'teams_'+jQuery.now();
       
@@ -232,7 +228,6 @@
               }
             )
           }
-        }
       });
   
       jQuery(".remove-type").die('click').live('click', function (e) {

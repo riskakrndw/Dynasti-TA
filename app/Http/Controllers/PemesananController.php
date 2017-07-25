@@ -27,7 +27,7 @@ class PemesananController extends Controller
         $datasiap = Pemesanan::where('status', '=', 'siap')->get();
         $dataselesai = Pemesanan::where('status', '=', 'selesai')->get();
         $databatal = Pemesanan::where('status', '=', 'batal')->get();
-        // dd($data);
+        // dd($databatal);
     	return view('admin.pemesanan')->with('data', $data)->with('datamenunggu', $datamenunggu)->with('datasiap', $datasiap)->with('dataselesai', $dataselesai)->with('databatal', $databatal);
     }
 
@@ -132,13 +132,17 @@ class PemesananController extends Controller
         return view('admin.pemesanan_detail')->with('data', $data)->with('tipe', $tipe);
     }
 
-    public function ubah($id_beli, $kode, $pengguna, $datepicker, $total, $status)
+    public function ubah($id_pesan, $pengguna, $kode, $nama, $alamat, $telepon, $datepicker, $total)
     {
-        $data = Pembelian::find($id_beli);
-        $data->kode_pembelian = $kode;
+        $data = Pemesanan::find($id_pesan);
         $data->id_users = $pengguna;
-        $data->tgl = $datepicker;
+        $data->kode_pemesanan = $kode;
+        $data->nama = $nama;
+        $data->alamat = $alamat;
+        $data->telepon = $telepon;
+        $data->tanggal = $datepicker;
         $data->total = $total;
+        $data->status = $status;
         if(Auth::user()->level == "manager"){
             $data->status = "berhasil";
         } elseif (Auth::user()->level == "keuangan"){
@@ -151,12 +155,12 @@ class PemesananController extends Controller
         return $data->id;
     }
 
-    public function ubah1($id_pembelian, $id_detailbeli, $namabahan, $jumlah, $subtotal)
+    public function ubah1($id_pemesanan, $id_detailpesan, $namabahan, $jumlah, $subtotal)
     {
         $idbahan = Bahan::where('nama', '=', $namabahan)->first()->id;
-        $datadetail = DetailPembelian::find($id_detailpembelian);
+        $datadetail = DetailRasa::find($id_detailpemesanan);
         $datadetail->id_pembelian = $id_pembelian;
-        $datadetail->id = $id_detailbeli;
+        $datadetail->id = $id_detailpesan;
         $datadetail->id_bahan = $idbahan;
         $datadetail->jumlah = $jumlah;
         $datadetail->subtotal = $subtotal;

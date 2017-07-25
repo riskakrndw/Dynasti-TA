@@ -185,7 +185,7 @@
                 </div>
               </div>
 
-              <div class="tab-pane" id="gagal">
+              <div class="tab-pane" id="batal">
                 <div class="box-body table-responsive">
                   <table id="example25" class="table table-bordered table-hover">
                     <thead>
@@ -199,27 +199,17 @@
                         <th>Aksi</th>
                     </thead>
                     <tbody>
-                        <tr>
-                        <th style="width: 10px">No</th>
-                        <th style="width: 100px">Kode Pemesanan</th>
-                        <th style="width: 100px">Tanggal</th>
-                        <th style="width: 100px">Nama</th>
-                        <th style="width: 150px">Alamat</th>
-                        <th style="width: 100px">Total</th>
-                        <th>Aksi</th>
-                    </thead>
-                    <tbody>
                       <?php $no=1; ?>
-                      @foreach($databatal as $data)
+                      @foreach($databatal as $datas)
                         <tr>
                           <td>{{ $no++ }}</td>
-                          <td>{{ $data->kode_pemesanan }}</td>
-                          <td>{{ $data->tanggal }}</td>
-                          <td>{{ $data->nama }}</td>
-                          <td>{{ $data->alamat }}</td>
-                          <td>{{ $data->total }}</td>
+                          <td>{{ $datas->kode_pemesanan }}</td>
+                          <td>{{ $datas->tanggal }}</td>
+                          <td>{{ $datas->nama }}</td>
+                          <td>{{ $datas->alamat }}</td>
+                          <td>{{ $datas->total }}</td>
                           <td>
-                           <a href="{{ url('manager/pemesanan/lihat/'.$data->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('manager/pemesanan/lihat/'.$datas->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach

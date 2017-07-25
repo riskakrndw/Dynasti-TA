@@ -23,7 +23,7 @@ class IceCream extends Model
     }
 
     public function rasa(){
-    	return $this->belongsTo('App\Rasa', 'id_rasa');
+    	return $this->belongsTo('App\Rasa', 'id_rasa')->withTrashed();
     }
 
     public function detail_bahan(){

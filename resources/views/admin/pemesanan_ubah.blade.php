@@ -98,8 +98,22 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Status</label>
+                        <div class="input-group">
+                          <select data-placeholder="pilih status" class="form-control" name="" id="$data->id">
+                            <option value="menunggu" @if ($data->status == "menunggu") {{'selected'}} @endif>Menunggu</option>
+                            <option value="siap" @if ($data->status == "siap") {{'selected'}} @endif>Siap</option>
+                            <option value="selesai" @if ($data->status == "selesai") {{'selected'}} @endif>Selesai</option>
+                            <option value="batal" @if ($data->status == "batal") {{'selected'}} @endif>Batal</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 
+
               <!-- /Form tambah penjualan -->
 
               <hr id="garis">
@@ -220,10 +234,6 @@
       var doc = $(document);
       jQuery('.btnTambahEs').die('click').live('click', function(e) {
         e.preventDefault();
-        if(parseInt($('#jumlahEs').val()) > parseInt($('#stokEs').val())){
-          alert("stok tidak mencukupi");
-        }
-        else{
           for(var i = 0; i<1; i++){
             var type_div = 'teams_'+jQuery.now();
       
@@ -260,7 +270,6 @@
               }
             )
           }
-        }
       });
   
       jQuery(".remove-type").die('click').live('click', function (e) {
@@ -372,7 +381,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/dynasti/public/manager/pemesanan/simpan/"+pengguna+"/"+kode+"/"+nama+"/"+alamat+"/"+telepon+"/"+datepicker+"/"+total,
+            url: "/dynasti/public/manager/pemesanan/simpan/"+pengguna+"/"+kode+"/"+nama+"/"+alamat+"/"+telepon+"/"+datepicker+"/"+total+"/"+status,
             success: function(result) {
               idjual = result;
               /*console.log(idjual)*/

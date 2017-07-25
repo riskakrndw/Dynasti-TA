@@ -85,6 +85,21 @@ class IceCreamController extends Controller
     public function edit($id)
     {
         $data = IceCream::find($id);
+
+    }
+
+    public function update(Request $request)
+    {
+        
+        $data = IceCream::find($request->id);
+        $data->stok = $request->stok;
+        $data->save();
+
+        $notification = array(
+            'message' => 'Data berhasil diubah',
+            'alert-type' => 'info'
+        );
+        return redirect()->back()->with($notification);
     }
 
     public function ubah(Request $request)

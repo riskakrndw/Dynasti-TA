@@ -116,6 +116,8 @@ Route::group(['middleware' => 'levelManager'], function(){
 			Route::get('/manager/icecream/edit/{id}', 'IceCreamController@showEdit');
 			Route::post('/manager/icecream/ubah', 'IceCreamController@ubah');
 			Route::post('/manager/icecream/ubah1', 'IceCreamController@ubah1');
+		// ubah stok
+			Route::post('/manager/icecream/edit', 'IceCreamController@update');
 
 	//BAHAN
 		Route::get('/manager/bahan', 'BahanController@index')->name('bahan');
@@ -180,6 +182,8 @@ Route::group(['middleware' => 'levelManager'], function(){
 			Route::get('/manager/produksi/simpan/{pengguna}/{kode}/{datepicker}', 'ProduksiController@store');
 			Route::get('/manager/produksi/simpan1/{ides}/{idproduksi}/{jumlahproduksi}', 'ProduksiController@store1');
 			Route::get('/manager/produksi/simpan2/{jumlah}/{idbahan}', 'ProduksiController@store2');
+		// ubah modal
+			Route::post('/manager/produksi/edit', 'ProduksiController@update');
 		/*melakukan ubah*/
 			Route::get('/manager/produksi/edit/{id}', 'ProduksiController@showEdit');
 			Route::get('/manager/produksi/ubah/{idproduksi}/{ides}/{pengguna}/{kode}/{datepicker}/{jumlah}/{idbahan}', 'ProduksiController@ubah');

@@ -79,18 +79,21 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                       <div class="form-group">
-                        <label>Jumlah Produksi</label>
-                        <div id="namaJenis">
-                          @foreach($data->detail_produksi as $key=>$datadetail)
-                          <div class="input-group">
-                            <label>{{$datadetail->ice_cream->jenis->nama}}</label>
-                            <span class="input-group-addon"><i class="fa fa-font"></i></span><input class="form-control bb" jmlproduksi="{{ $datadetail->ice_cream->jumlah_produksi }}" placeholder="Jumlah Produksi" name="jumlah" min="0" value="{{$datadetail->jumlah}}" type="number" id="jumlahPro{{$key+1}}" ides="datadetail->id_es" disabled>
-                          </div>
-                          @endforeach
+                        <br>
+                        <label>Jumlah produksi </label><br>
+                        <?php
+                          $no = 1;
+                        ?>
+                        @foreach($data->detail_produksi as $key=>$datadetail)
+                        <label>{{$no++}} . {{$datadetail->ice_cream->jenis->nama}}</label>
+                        <br>
+                        dalam 1 kali pembuatan menghasilkan:
+                        <input class="form-control bb" jmlproduksi="{{ $datadetail->ice_cream->jumlah_produksi }}" placeholder="Jumlah Produksi" name="jumlah" min="0" value="{{$datadetail->jumlah}}" id="jumlahPro{{$key+1}}" ides="datadetail->id_es" disabled>
+                        <br>
+                        @endforeach
                       </div>
-                    </div>
                     </div>
                   </div>
                 
