@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 22 Jul 2017 pada 04.35
+-- Generation Time: 03 Agu 2017 pada 06.27
 -- Versi Server: 10.1.19-MariaDB
 -- PHP Version: 5.6.24
 
@@ -32,6 +32,7 @@ CREATE TABLE `bahan_baku` (
   `harga` int(10) NOT NULL,
   `stok` float NOT NULL,
   `satuan` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stok_min` float NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -40,10 +41,11 @@ CREATE TABLE `bahan_baku` (
 -- Dumping data untuk tabel `bahan_baku`
 --
 
-INSERT INTO `bahan_baku` (`id`, `nama`, `harga`, `stok`, `satuan`, `created_at`, `updated_at`) VALUES
-(1, 'air', 5000, 63.66, 'ml', '2017-07-19 23:33:49', '2017-07-21 02:45:01'),
-(2, 'garam', 9000, 60, 'gr', '2017-07-19 23:34:20', '2017-07-19 23:34:20'),
-(3, 'susu cair', 8000, 89.84, 'ml', '2017-07-20 05:05:57', '2017-07-21 02:45:01');
+INSERT INTO `bahan_baku` (`id`, `nama`, `harga`, `stok`, `satuan`, `stok_min`, `created_at`, `updated_at`) VALUES
+(1, 'air', 5000, 79.85, 'ml', 20, '2017-07-19 23:33:49', '2017-07-26 20:53:58'),
+(2, 'garam', 9000, 64.89, 'gr', 50, '2017-07-19 23:34:20', '2017-07-24 10:57:40'),
+(3, 'susu cair', 8000, 97.34, 'ml', 50, '2017-07-20 05:05:57', '2017-07-26 20:53:58'),
+(4, 'susu bubuk', 250, 10, 'gr', 20, '2017-07-25 08:26:29', '2017-07-25 09:04:09');
 
 --
 -- Trigger `bahan_baku`
@@ -104,7 +106,13 @@ CREATE TABLE `detail_pembelian` (
 
 INSERT INTO `detail_pembelian` (`id`, `id_pembelian`, `id_bahan`, `jumlah`, `subtotal`, `created_at`, `updated_at`) VALUES
 (1, 20, 1, 4, 20000, '2017-07-21 03:36:34', '2017-07-21 03:36:34'),
-(2, 20, 2, 4, 36000, '2017-07-21 03:36:34', '2017-07-21 03:36:34');
+(2, 20, 2, 4, 36000, '2017-07-21 03:36:34', '2017-07-21 03:36:34'),
+(5, 21, 1, 8, 40000, '2017-07-24 08:09:08', '2017-07-24 08:09:08'),
+(6, 21, 3, 5, 40000, '2017-07-24 08:09:08', '2017-07-24 08:09:08'),
+(7, 21, 2, 5, 45000, '2017-07-24 08:09:08', '2017-07-24 08:09:08'),
+(9, 22, 1, 5, 25000, '2017-07-25 10:33:27', '2017-07-25 10:33:27'),
+(10, 22, 3, 4, 32000, '2017-07-25 10:33:27', '2017-07-25 10:33:27'),
+(11, 23, 1, 4, 20000, '2017-07-25 11:31:03', '2017-07-25 11:31:03');
 
 --
 -- Trigger `detail_pembelian`
@@ -142,8 +150,8 @@ CREATE TABLE `detail_pemesanan` (
 --
 
 INSERT INTO `detail_pemesanan` (`id`, `id_pemesanan`, `id_es`, `jumlah`, `subtotal`, `status`, `created_at`, `updated_at`) VALUES
-(1, '4', 43, 4, 12000, 'menunggu', '2017-07-21 04:59:23', '2017-07-21 04:59:23'),
-(2, '5', 44, 4, 16000, 'menunggu', '2017-07-21 05:00:11', '2017-07-21 05:00:11');
+(19, '29', 43, 6, 12000, 'menunggu', '2017-07-30 23:29:24', '2017-07-30 23:33:47'),
+(20, '30', 44, 4, 16000, 'menunggu', '2017-07-30 23:30:29', '2017-07-30 23:30:29');
 
 -- --------------------------------------------------------
 
@@ -166,11 +174,12 @@ CREATE TABLE `detail_penjualan` (
 --
 
 INSERT INTO `detail_penjualan` (`id`, `id_penjualan`, `id_es`, `jumlah`, `subtotal`, `created_at`, `updated_at`) VALUES
-(8, '15', 170, 8, 72000, '2017-06-29 10:45:50', '2017-06-29 10:45:50'),
-(10, '16', 170, 10, 90000, '2017-07-05 22:12:57', '2017-07-05 22:12:57'),
-(12, '17', 170, 8, 72000, '2017-07-05 23:33:30', '2017-07-05 23:33:30'),
-(13, '12', 170, 15, 135000, '2017-07-06 21:04:33', '2017-07-06 21:04:33'),
-(14, '18', 170, 4, 36000, '2017-07-06 21:05:03', '2017-07-06 21:05:03');
+(15, '19', 44, 6, 24000, '2017-07-22 07:49:14', '2017-07-22 07:49:14'),
+(17, '20', 56, 5, 20000, '2017-07-24 08:10:43', '2017-07-24 08:10:43'),
+(18, '20', 43, 4, 8000, '2017-07-24 08:10:43', '2017-07-24 08:10:43'),
+(19, '21', 43, 9, 18000, '2017-07-24 08:13:47', '2017-07-24 08:13:47'),
+(21, '22', 43, 5, 10000, '2017-07-25 10:55:36', '2017-07-25 10:55:36'),
+(22, '22', 44, 2, 8000, '2017-07-25 10:55:36', '2017-07-25 10:55:36');
 
 --
 -- Trigger `detail_penjualan`
@@ -215,7 +224,10 @@ INSERT INTO `detail_produksi` (`id`, `id_produksi`, `id_es`, `jumlah`, `created_
 (7, 8, 44, 1, '2017-07-21 02:43:42', '2017-07-21 02:43:42'),
 (8, 8, 45, 1, '2017-07-21 02:43:42', '2017-07-21 02:43:42'),
 (9, 9, 44, 1, '2017-07-21 02:45:01', '2017-07-21 02:45:01'),
-(10, 9, 45, 1, '2017-07-21 02:45:01', '2017-07-21 02:45:01');
+(10, 9, 45, 1, '2017-07-21 02:45:01', '2017-07-21 02:45:01'),
+(11, 10, 57, 1, '2017-07-24 10:57:40', '2017-07-24 10:57:40'),
+(12, 11, 43, 3, '2017-07-25 12:17:15', '2017-07-25 12:17:15'),
+(13, 12, 43, 12, '2017-07-26 20:53:58', '2017-07-26 20:53:58');
 
 -- --------------------------------------------------------
 
@@ -239,8 +251,10 @@ CREATE TABLE `detail_rasa` (
 INSERT INTO `detail_rasa` (`id`, `id_rasa`, `id_bahan`, `takaran`, `created_at`, `updated_at`) VALUES
 (41, 40, 3, 10, '2017-07-20 05:26:30', '2017-07-20 05:26:30'),
 (42, 40, 1, 5, '2017-07-20 05:26:30', '2017-07-20 05:26:30'),
-(43, 41, 3, 5, '2017-07-20 21:33:07', '2017-07-20 21:33:07'),
-(44, 41, 1, 10, '2017-07-21 04:52:02', '2017-07-20 21:33:07');
+(56, 44, 1, 4, '2017-07-24 07:47:07', '2017-07-24 07:47:07'),
+(58, 44, 2, 8, '2017-07-24 08:31:59', '2017-07-24 08:31:59'),
+(59, 45, 1, 5, '2017-07-24 20:06:50', '2017-07-24 20:06:50'),
+(60, 45, 3, 5, '2017-07-24 20:07:22', '2017-07-24 20:07:22');
 
 -- --------------------------------------------------------
 
@@ -256,17 +270,26 @@ CREATE TABLE `ice_cream` (
   `stok` int(10) DEFAULT '0',
   `jumlah_produksi` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data untuk tabel `ice_cream`
 --
 
-INSERT INTO `ice_cream` (`id`, `id_jenis`, `id_rasa`, `nama`, `stok`, `jumlah_produksi`, `created_at`, `updated_at`) VALUES
-(43, 1, 40, 'Ice Cream cup kecil matcha', 100, 100, '2017-07-20 05:26:30', '2017-07-20 05:26:30'),
-(44, 3, 41, 'Ice Cream cup besar vanila', 7, 150, '2017-07-20 21:33:07', '2017-07-21 02:45:01'),
-(45, 1, 41, 'Ice Cream cup kecil vanila', 7, 100, '2017-07-20 21:33:07', '2017-07-21 02:45:01');
+INSERT INTO `ice_cream` (`id`, `id_jenis`, `id_rasa`, `nama`, `stok`, `jumlah_produksi`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(43, 1, 40, 'Ice Cream cup kecil matcha', 100, 100, '2017-07-20 05:26:30', '2017-07-26 20:53:58', NULL),
+(44, 3, 41, 'Ice Cream cup besar vanila', -1, 150, '2017-07-20 21:33:07', '2017-07-21 02:45:01', NULL),
+(45, 1, 41, 'Ice Cream cup kecil vanila', 7, 100, '2017-07-20 21:33:07', '2017-07-21 02:45:01', NULL),
+(46, 1, 42, 'Ice Cream cup kecil pisang', 0, 100, '2017-07-24 03:17:57', '2017-07-24 03:17:57', NULL),
+(47, 2, 42, 'Ice Cream stik pisang', 10, 150, '2017-07-24 03:17:57', '2017-07-24 22:33:57', NULL),
+(56, 3, 44, 'Ice Cream cup besar strawberry', 90, 800, '2017-07-24 07:50:54', '2017-07-24 22:34:10', NULL),
+(57, 2, 44, 'Ice Cream stik strawberry', 1, 70, '2017-07-24 07:50:54', '2017-07-24 10:57:40', NULL),
+(58, 1, 44, 'Ice Cream cup kecil strawberry', 0, 80, '2017-07-24 08:31:59', '2017-07-24 08:38:57', '2017-07-24 08:38:57'),
+(59, 2, 45, 'Ice Cream stik vanila', 0, 100, '2017-07-24 20:06:50', '2017-07-24 20:06:50', NULL),
+(60, 3, 45, 'Ice Cream cup besar vanila', 30, 80, '2017-07-24 20:06:50', '2017-07-25 09:19:10', NULL),
+(61, 1, 45, 'Ice Cream cup kecil vanila', 0, 90, '2017-07-24 20:06:51', '2017-07-24 20:07:23', '2017-07-24 20:07:23');
 
 -- --------------------------------------------------------
 
@@ -279,17 +302,18 @@ CREATE TABLE `jenis` (
   `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `harga` int(10) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data untuk tabel `jenis`
 --
 
-INSERT INTO `jenis` (`id`, `nama`, `harga`, `created_at`, `updated_at`) VALUES
-(1, 'cup kecil', 3000, '2017-07-19 23:30:43', '2017-07-20 05:02:50'),
-(2, 'stik', 9000, '2017-07-20 01:04:14', '2017-07-20 01:04:14'),
-(3, 'cup besar', 4000, '2017-07-20 05:03:03', '2017-07-20 05:03:03');
+INSERT INTO `jenis` (`id`, `nama`, `harga`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'cup kecil', 2000, '2017-07-19 23:30:43', '2017-07-24 00:52:35', NULL),
+(2, 'stik', 9000, '2017-07-20 01:04:14', '2017-07-20 01:04:14', NULL),
+(3, 'cup besar', 4000, '2017-07-20 05:03:03', '2017-07-24 09:15:32', NULL);
 
 -- --------------------------------------------------------
 
@@ -356,25 +380,10 @@ CREATE TABLE `pembelian` (
 --
 
 INSERT INTO `pembelian` (`id`, `id_users`, `kode_pembelian`, `total`, `status`, `tgl`, `created_at`, `updated_at`) VALUES
-(2, 5, 'saassscs', 1606905, 'berhasil', '2017-06-01', '2017-06-29 02:11:42', '2017-06-29 02:35:43'),
-(3, 5, 'dadsad', 72000, 'berhasil', '2017-06-13', '2017-06-29 11:18:16', '2017-07-06 02:44:34'),
-(4, 5, 'qqq', 9000, 'berhasil', '2017-07-11', '2017-07-02 09:16:54', '2017-07-02 09:16:54'),
-(5, 5, 'xaxaax', 136362, 'berhasil', '2017-07-26', '2017-07-02 09:45:15', '2017-07-02 09:45:15'),
-(6, 5, 'mandnda', 21853816, 'berhasil', '2017-07-11', '2017-07-05 21:50:36', '2017-07-05 21:50:59'),
-(7, 6, 'keu', 2272725, 'berhasil', '2017-07-04', '2017-07-05 22:08:41', '2017-07-05 22:08:41'),
-(8, 5, 'wawaw', 40000, 'berhasil', '2017-07-03', '2017-07-05 23:07:00', '2017-07-05 23:07:00'),
-(9, 5, 'asa', 44000, 'berhasil', '2017-07-18', '2017-07-06 02:39:30', '2017-07-06 02:39:30'),
-(10, 5, 'barubgt', 32000, 'berhasil', '2017-07-19', '2017-07-06 02:47:54', '2017-07-06 02:47:54'),
-(11, 5, 'AAAAAAA', 80000, 'berhasil', '2017-07-04', '2017-07-06 02:49:44', '2017-07-06 02:49:44'),
-(12, 5, 'BBBBBB', 44000, 'berhasil', '2017-07-04', '2017-07-06 02:50:55', '2017-07-06 02:50:55'),
-(13, 5, 'CCCCCCCCCCC', 32000, 'berhasil', '2017-07-08', '2017-07-06 02:51:26', '2017-07-06 02:51:26'),
-(14, 5, 'DDDDDDDDDDD', 40000, 'berhasil', '2017-07-12', '2017-07-06 02:54:01', '2017-07-06 02:54:01'),
-(15, 5, 'wawa', 32000, 'berhasil', '2017-07-05', '2017-07-06 04:28:08', '2017-07-06 04:28:08'),
-(16, 8, 'wrw', 64000, 'berhasil', '2017-07-11', '2017-07-06 04:48:13', '2017-07-07 02:45:16'),
-(17, 5, 'ZZZZ', 1850180, 'berhasil', '2017-07-05', '2017-07-06 21:00:31', '2017-07-06 21:01:08'),
-(18, 9, 'keuangan', 32000, 'berhasil', '2017-07-04', '2017-07-07 03:00:11', '2017-07-07 03:00:11'),
-(19, 8, 'wwewaae', 32000, 'gagal', '2017-07-11', '2017-07-07 03:46:16', '2017-07-07 07:51:37'),
-(20, 5, 'sdas', 56000, 'berhasil', '2017-07-11', '2017-07-21 03:36:34', '2017-07-21 03:36:34');
+(20, 5, 'sdas', 56000, 'berhasil', '2017-07-11', '2017-07-21 03:36:34', '2017-07-21 03:36:34'),
+(21, 5, 'popopopo', 125000, 'berhasil', '2017-07-19', '2017-07-24 08:08:38', '2017-07-24 08:09:07'),
+(22, 9, 'dari keu1', 57000, 'berhasil', '2017-07-27', '2017-07-25 10:30:45', '2017-07-25 10:33:26'),
+(23, 8, 'dari u', 20000, 'berhasil', '2017-07-13', '2017-07-25 11:31:02', '2017-07-25 11:32:09');
 
 --
 -- Trigger `pembelian`
@@ -402,19 +411,17 @@ CREATE TABLE `pemesanan` (
   `total` int(10) NOT NULL,
   `status` enum('menunggu','siap','selesai','batal') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'menunggu',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data untuk tabel `pemesanan`
 --
 
-INSERT INTO `pemesanan` (`id`, `id_users`, `kode_pemesanan`, `nama`, `alamat`, `telepon`, `tanggal`, `total`, `status`, `created_at`, `updated_at`) VALUES
-(1, 5, 'dsfsdfs', 'ssda', 'sdfsd', '43', '2017-07-18', 12000, 'menunggu', '2017-07-21 04:53:32', '2017-07-21 04:53:32'),
-(2, 5, 'sfsfsfss', 'asdas', 'sadad', '322', '2017-07-19', 12000, 'menunggu', '2017-07-21 04:55:09', '2017-07-21 04:55:09'),
-(3, 5, 'adasdada', 'sadada', 'dada', '33', '2017-07-13', 12000, 'menunggu', '2017-07-21 04:57:29', '2017-07-21 04:57:29'),
-(4, 5, 'sdffsdsd', 'saada', 'dadad', '3222', '2017-07-11', 12000, 'menunggu', '2017-07-21 04:59:22', '2017-07-21 04:59:22'),
-(5, 5, 'ewqeqwq', 'sadasda', 'ssad', '2324', '2017-07-05', 16000, 'menunggu', '2017-07-21 05:00:10', '2017-07-21 05:00:10');
+INSERT INTO `pemesanan` (`id`, `id_users`, `kode_pemesanan`, `nama`, `alamat`, `telepon`, `tanggal`, `total`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(29, 5, 'qqq', 'aaa', 'sda', '222', '2017-07-13', 12000, 'menunggu', '2017-07-30 23:29:23', '2017-07-30 23:33:47', NULL),
+(30, 5, 'dss', 'dss', 'asa', '33', '2017-07-08', 16000, 'menunggu', '2017-07-30 23:30:28', '2017-07-30 23:30:28', NULL);
 
 -- --------------------------------------------------------
 
@@ -437,11 +444,10 @@ CREATE TABLE `penjualan` (
 --
 
 INSERT INTO `penjualan` (`id`, `id_users`, `kode_penjualan`, `tgl`, `total`, `created_at`, `updated_at`) VALUES
-(12, 5, 'axaxe', '2017-06-07', 135000, '2017-06-28 11:03:45', '2017-07-06 21:04:32'),
-(15, 6, 'qqqss', '2017-06-07', 72000, '2017-06-29 10:40:51', '2017-06-29 10:45:49'),
-(16, 6, 'keu', '2017-07-11', 90000, '2017-07-05 22:12:43', '2017-07-05 22:12:56'),
-(17, 6, 'dddd', '2017-07-04', 72000, '2017-07-05 23:33:13', '2017-07-05 23:33:30'),
-(18, 5, 'wwawa', '2017-07-03', 36000, '2017-07-06 21:05:02', '2017-07-06 21:05:02');
+(19, 5, 'baru', '2017-07-19', 24000, '2017-07-22 07:49:13', '2017-07-22 07:49:13'),
+(20, 5, 'popoopo', '2017-07-11', 28000, '2017-07-24 08:10:12', '2017-07-24 08:10:42'),
+(21, 5, 'hjhj', '2017-07-11', 18000, '2017-07-24 08:13:47', '2017-07-24 08:13:47'),
+(22, 9, 'dari keu1', '2017-07-28', 18000, '2017-07-25 10:54:43', '2017-07-25 10:55:35');
 
 --
 -- Trigger `penjualan`
@@ -472,15 +478,14 @@ CREATE TABLE `produksi` (
 --
 
 INSERT INTO `produksi` (`id`, `id_users`, `kode_produksi`, `tgl`, `created_at`, `updated_at`) VALUES
-(1, 5, 'dde', '2017-07-19', '2017-07-21 02:31:50', '2017-07-21 02:31:50'),
-(2, 5, 'aas', '2017-07-04', '2017-07-21 02:33:25', '2017-07-21 02:33:25'),
-(3, 5, 'AASSS', '2017-07-25', '2017-07-21 02:35:20', '2017-07-21 02:35:20'),
-(4, 5, 'assa', '2017-07-26', '2017-07-21 02:36:50', '2017-07-21 02:36:50'),
-(5, 5, 'ssa', '2017-07-27', '2017-07-21 02:37:53', '2017-07-21 02:37:53'),
+(5, 5, 'www', '2017-07-26', '2017-07-21 02:37:53', '2017-07-25 09:32:16'),
 (6, 5, 'aas', '2017-07-25', '2017-07-21 02:40:16', '2017-07-21 02:40:16'),
 (7, 5, 'sssa', '2017-07-26', '2017-07-21 02:42:10', '2017-07-21 02:42:10'),
 (8, 5, 'baru', '2017-07-11', '2017-07-21 02:43:41', '2017-07-21 02:43:41'),
-(9, 5, 'aasa', '2017-07-12', '2017-07-21 02:45:00', '2017-07-21 02:45:00');
+(9, 5, 'aasa', '2017-07-12', '2017-07-21 02:45:00', '2017-07-21 02:45:00'),
+(10, 5, 'awww', '2017-07-31', '2017-07-24 10:57:39', '2017-07-24 22:30:10'),
+(11, 10, 'dari keu1', '2017-07-28', '2017-07-25 12:17:14', '2017-07-25 12:17:44'),
+(12, 5, 'iuj', '2017-07-04', '2017-07-26 20:53:58', '2017-07-26 20:53:58');
 
 -- --------------------------------------------------------
 
@@ -492,16 +497,21 @@ CREATE TABLE `rasa` (
   `id` int(3) NOT NULL,
   `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data untuk tabel `rasa`
 --
 
-INSERT INTO `rasa` (`id`, `nama`, `created_at`, `updated_at`) VALUES
-(40, 'matcha', '2017-07-20 05:26:30', '2017-07-20 05:26:30'),
-(41, 'vanila', '2017-07-20 21:33:06', '2017-07-20 21:33:06');
+INSERT INTO `rasa` (`id`, `nama`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(40, 'matcha', '2017-07-20 05:26:30', '2017-07-20 05:26:30', NULL),
+(41, 'vanila1', '2017-07-20 21:33:06', '2017-07-24 20:05:47', '2017-07-24 20:05:47'),
+(42, 'pisang11', '2017-07-24 03:17:55', '2017-07-24 20:05:56', '2017-07-24 20:05:56'),
+(43, 'pisang', '2017-07-24 03:17:59', '2017-07-24 20:06:03', '2017-07-24 20:06:03'),
+(44, 'strawberry', '2017-07-24 06:27:58', '2017-07-24 07:50:54', NULL),
+(45, 'vanila', '2017-07-24 20:06:49', '2017-07-24 20:06:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -525,10 +535,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `level`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(5, 'maulana rizki', 'manager', 'riskim', '$2y$10$yn0O9MHvhOW5TpZXJHRsoeOBAokFDuB/tYavYWS.mLjyRzTO.i4ly', 'zvf1MPNalIfqMgUcsNFifuP89Iwop2kitsNDpmgF8uUfp95mw2AgOntInEDw', '2017-06-20 04:21:13', '2017-06-21 22:59:23'),
-(6, 'Riska kurnia', 'keuangan', 'riskakrndw', '$2y$10$B9tEVI9yS6Y4t5/y397xiOpFQYiWO8r3Pt.5tcggPacjKF6JoooBa', '8x1VPb52qMRBrob4A5GCVioBzjRfuZucV7uRmwFoDiPn43ds4mAyABuJOfmg', '2017-06-29 03:14:50', '2017-06-29 03:14:50'),
-(8, 'wawawa', 'pengadaan', 'pengadaan', '$2y$10$XxJJZnWQGxd4QnnGCalO.O1yCvGLNmSOAw1YhjkZAxuksVG2grE0u', 'CveXvUNc2naLi0gl4GdDIeozBBp4o7ovR2Fg3sE98W5UecPs4VlY8Has7PRk', '2017-07-06 02:59:30', '2017-07-06 02:59:30'),
-(9, 'wewewewe', 'keuangan', 'keuangan', '$2y$10$dEWNqJ.8RoVMTP0bqxx7aumEUDEY/N/AvoQ.ckc4n4WMdFfK4F8PW', 'RnHHGnHILNtKi6JlzI6yNTcDoIjKssxvri5LjdDu7jDhTNDMBhehheCIBq2D', '2017-07-07 02:57:09', '2017-07-07 02:57:09');
+(5, 'maulana rizki', 'manager', 'riskim', '$2y$10$yn0O9MHvhOW5TpZXJHRsoeOBAokFDuB/tYavYWS.mLjyRzTO.i4ly', '8HZj0h943HHTX7zLF3UPeook2dGITed8ktIzNUtHSC5wf4i4GELNInapGJL8', '2017-06-20 04:21:13', '2017-06-21 22:59:23'),
+(6, 'Riska kurnia', 'keuangan', 'keuangan1', '$2y$10$B9tEVI9yS6Y4t5/y397xiOpFQYiWO8r3Pt.5tcggPacjKF6JoooBa', 'oOzd8uKagMsNRNbR9iDzrQobFDPPf3ewpXS00x6Qutf2JKNwFUghB30ojthW', '2017-06-29 03:14:50', '2017-07-25 09:45:08'),
+(8, 'wawawa', 'pengadaan', 'pengadaan1', '$2y$10$XxJJZnWQGxd4QnnGCalO.O1yCvGLNmSOAw1YhjkZAxuksVG2grE0u', 'qrBCHPONown2S8e7PtSUJj0hCEVH8DJhUwJ4yJoeKOVclJg85nIasERxntsA', '2017-07-06 02:59:30', '2017-07-25 09:45:22'),
+(9, 'wewewewe', 'keuangan', 'keuangan', '$2y$10$dEWNqJ.8RoVMTP0bqxx7aumEUDEY/N/AvoQ.ckc4n4WMdFfK4F8PW', 'CYO3wrx6cVZPFceJtEFMf9x98oQ7vgYi3UWL8MLbqC97XIasUpr3N2XX3JoD', '2017-07-07 02:57:09', '2017-07-07 02:57:09'),
+(10, 'qqq', 'produksi', 'produksi', '$2y$10$0k/.aEMtLDremkbXA7CfCOgLjNxe9YP4nttjmQ0/p9mvX/VG7Zp22', NULL, '2017-07-25 11:40:12', '2017-07-25 11:40:12');
 
 --
 -- Indexes for dumped tables
@@ -652,7 +663,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bahan_baku`
 --
 ALTER TABLE `bahan_baku`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `detail_es`
 --
@@ -662,32 +673,32 @@ ALTER TABLE `detail_es`
 -- AUTO_INCREMENT for table `detail_pembelian`
 --
 ALTER TABLE `detail_pembelian`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `detail_pemesanan`
 --
 ALTER TABLE `detail_pemesanan`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `detail_penjualan`
 --
 ALTER TABLE `detail_penjualan`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `detail_produksi`
 --
 ALTER TABLE `detail_produksi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `detail_rasa`
 --
 ALTER TABLE `detail_rasa`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 --
 -- AUTO_INCREMENT for table `ice_cream`
 --
 ALTER TABLE `ice_cream`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 --
 -- AUTO_INCREMENT for table `jenis`
 --
@@ -702,32 +713,32 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `penjualan`
 --
 ALTER TABLE `penjualan`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `produksi`
 --
 ALTER TABLE `produksi`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `rasa`
 --
 ALTER TABLE `rasa`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --

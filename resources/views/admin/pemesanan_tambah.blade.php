@@ -305,13 +305,13 @@
           arrData.push(obj);
         });
   
-        var idjual;
+        var idpesan;
  
         function a(){
           for (var i=0; i<arrData.length; i++){
             $.ajax({
               type: "GET",
-              url: "/dynasti/public/manager/pemesanan/simpan1/"+idjual+"/"+arrData[i]['nama_es']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
+              url: "/dynasti/public/manager/pemesanan/simpan1/"+idpesan+"/"+arrData[i]['nama_es']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
               success: function(result) {
                 /*console.log('berhasil');*/
               }
@@ -323,7 +323,7 @@
             type: "GET",
             url: "/dynasti/public/manager/pemesanan/simpan/"+pengguna+"/"+kode+"/"+nama+"/"+alamat+"/"+telepon+"/"+datepicker+"/"+total,
             success: function(result) {
-              idjual = result;
+              idpesan = result;
               /*console.log(idjual)*/
             }
         }).done(a);

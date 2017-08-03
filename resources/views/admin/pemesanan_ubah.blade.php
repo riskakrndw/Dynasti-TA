@@ -102,7 +102,7 @@
                       <div class="form-group">
                         <label>Status</label>
                         <div class="input-group">
-                          <select data-placeholder="pilih status" class="form-control" name="" id="$data->id">
+                          <select data-placeholder="pilih status" class="form-control" name="" id="pilihstatus">
                             <option value="menunggu" @if ($data->status == "menunggu") {{'selected'}} @endif>Menunggu</option>
                             <option value="siap" @if ($data->status == "siap") {{'selected'}} @endif>Siap</option>
                             <option value="selesai" @if ($data->status == "selesai") {{'selected'}} @endif>Selesai</option>
@@ -150,6 +150,7 @@
                         <th style="width: 100px">Status</th>
                         <th style="width: 100px">Jumlah</th>
                         <th style="width: 250px">Subtotal</th>
+                        <th style="display:none">id</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
@@ -170,6 +171,7 @@
                             @endif
                           </td>
                           <td id="subtotal{{ $detail_pemesanan->id }}">{{ $detail_pemesanan->subtotal }}</td>
+                          <td style="display:none">{{ $detail_pemesanan->id_es }}</td>
                           @if($detail_pemesanan->status == "menunggu")
                             <td>
                               <a class="btn btn-sm btn-default btnUbahDetail" id-es="{{ $detail_pemesanan->ice_cream->id }}" id-detail="{{ $detail_pemesanan->id }}" jumlah="{{ $detail_pemesanan->jumlah }}"><i class="fa fa-edit"></i> Ubah</a>
@@ -336,6 +338,7 @@
         var nama = $('#nama').val();
         var alamat = $('#alamat').val();
         var telepon = $('#telepon').val();
+        var status = $('#pilihstatus').val();
         var datepicker = $('#datepicker').val();
         var bulan = new Date(datepicker).getMonth()+1;
         var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
@@ -343,6 +346,7 @@
         var total = $('#totalHarga').val();
 
         var arrData=[];
+        var arriddetailpesan = [];
 
         //loop over each table row (tr)
         $("#type_container tr").each(function(){
@@ -352,45 +356,59 @@
           var col1_value = currentRow.find("td:eq(1)").text();
           var col2_value = currentRow.find("td:eq(2)").text();
           var col3_value = currentRow.find("td:eq(3)").text();
-          var col4_value = currentRow.find("td:eq(4)").text();
+          var col4_value = currentRow.find("td:eq(4)").find("input").val();
           var col5_value = currentRow.find("td:eq(5)").text();
 
           var obj={};
           obj.no = col0_value;
           obj.nama_es = col1_value;
           obj.harga = col2_value;
-          obj.jumlah = col3_value;
-          obj.subtotal = col4_value;
+          obj.status = col3_value;
+          obj.jumlah = col4_value;
+          obj.subtotal = col5_value;
 
+
+          arriddetailpesan.push(col4_value);
           arrData.push(obj);
         });
   
-        var idjual;
- 
+        var idpesan;
+
         function a(){
+         $.ajax({
+              type: "POST",
+              url: "http://localhost:8081/dynasti/public/manager/rasa/hapusDetailPemesanan",
+              data: 'idpesan= {{$data->id}}' + '& iddetailpesan=' + arriddetailpesan + '& _token='+"{{csrf_token()}}",
+              success: function(result) {
+               console.log(result);
+              }
+          })
+        };
+ 
           for (var i=0; i<arrData.length; i++){
+            console.log(arrData[i]['jumlah']);
+            console.log(arrData[i]['subtotal']);
             $.ajax({
               type: "GET",
-              url: "/dynasti/public/manager/pemesanan/simpan1/"+idjual+"/"+arrData[i]['nama_es']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
+              url: "/dynasti/public/manager/pemesanan/ubah1/"+arrData[i]['nama_es']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
               success: function(result) {
-                /*console.log('berhasil');*/
+                console.log("saaaa");
               }
             });
           }
-        };
 
         $.ajax({
             type: "GET",
-            url: "/dynasti/public/manager/pemesanan/simpan/"+pengguna+"/"+kode+"/"+nama+"/"+alamat+"/"+telepon+"/"+datepicker+"/"+total+"/"+status,
+            url: "/dynasti/public/manager/pemesanan/ubah/"+pengguna+"/"+kode+"/"+nama+"/"+alamat+"/"+telepon+"/"+datepicker+"/"+total+"/"+status,
             success: function(result) {
-              idjual = result;
+              idpesan = result;
               /*console.log(idjual)*/
             }
         }).done(a);
 
-        $(document).ajaxStop(function(){
-          window.location="{{URL::to('manager/pemesanan')}}";
-        });
+        // $(document).ajaxStop(function(){
+        //   window.location="{{URL::to('manager/pemesanan')}}";
+        // });
         
       });
     });

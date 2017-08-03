@@ -155,16 +155,41 @@ class PemesananController extends Controller
         return $data->id;
     }
 
-    public function ubah1($id_pemesanan, $id_detailpesan, $namabahan, $jumlah, $subtotal)
+    public function ubah1($ides, $jumlah, $subtotal)
     {
-        $idbahan = Bahan::where('nama', '=', $namabahan)->first()->id;
-        $datadetail = DetailRasa::find($id_detailpemesanan);
-        $datadetail->id_pembelian = $id_pembelian;
-        $datadetail->id = $id_detailpesan;
-        $datadetail->id_bahan = $idbahan;
-        $datadetail->jumlah = $jumlah;
-        $datadetail->subtotal = $subtotal;
-        $datadetail->save();
+        /*$this->validate($request, [
+            'nama' => 'required|min:2|max:50',
+            'harga' => 'required|min:2|max:50',
+            'stok' => 'required|min:2|max:50',
+            'total' => 'required',
+            'jumlahProduksi' => 'required|max:10',
+        ]);*/   
+
+        $data = DetailPemesanan::withTrashed()->where('id_es', '=', $ides)->first();
+
+        if (count($data) == 0) {
+            $data = new DetailPemesanan;
+            $data->id_es = $ides;
+        }else{
+            if($data->deleted_at != "NULL"){
+                $data->restore();
+            }
+
+        }
+       
+        $data->jumlah = $jumlah;
+        $data->subtotal = $subtotal;
+        $data->save();
+
+        return $rasa;
+    }
+
+    public function hapusDetailPemesanan(Request $request)
+    {
+
+        $arr = explode(',', $request->iddetailpesan); //mecah jadi array
+        $data = Pemesanan::where('id_pemesanan', '=', $request->idpesan)->whereNotIn('id_es', $arr);
+        $data->delete();
     }
 
     public function showEdit($id)
