@@ -132,7 +132,7 @@ class PemesananController extends Controller
         return view('admin.pemesanan_detail')->with('data', $data)->with('tipe', $tipe);
     }
 
-    public function ubah($id_pesan, $pengguna, $kode, $nama, $alamat, $telepon, $datepicker, $total)
+    public function ubah($id_pesan, $pengguna, $kode, $nama, $alamat, $telepon, $datepicker, $total, $status)
     {
         $data = Pemesanan::find($id_pesan);
         $data->id_users = $pengguna;
