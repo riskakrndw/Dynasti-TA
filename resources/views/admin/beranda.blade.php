@@ -147,6 +147,91 @@
 
         </div>
       <!-- / info -->
+
+
+      <div class="row">      
+        <div class="col-md-12">
+          <script src="{{url('Highcharts/code/highcharts.js')}}"></script>
+          <script src="{{url('Highcharts/code/modules/exporting.js')}}"></script>
+          <div id="container" style="min-width: 300px; height: 400px; margin: 0 auto">
+
+
+
+          <script type="text/javascript">
+
+      Highcharts.chart('container', {
+          chart: {
+              type: 'column'
+          },
+          title: {
+              text: 'Jumlah Penjualan Berdasarkan Bulan'
+          },
+          subtitle: {
+              text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+          },
+          xAxis: {
+              // type: 'category',
+              // labels: {
+              //     rotation: -45,
+              //     style: {
+              //         fontSize: '13px',
+              //         fontFamily: 'Verdana, sans-serif'
+              //     }
+              // }
+              categories: [
+              @php ($i = 0)
+              @foreach ($data as $row)
+                @php ($i++)
+                 @if($i > 1)
+                 {{ "," }}
+                 @endif
+                 {!!"'".$row->bulan."'"!!}
+              @endforeach
+              ]
+          },
+          yAxis: {
+              min: 0,
+              title: {
+                  text: 'Jumlah'
+              }
+          },
+          legend: {
+              enabled: false
+          },
+          tooltip: {
+              pointFormat: 'Jumlah Penjualan: <b>{point.y:.1f} millions</b>'
+          },
+          series: [{
+              name: 'JUmlah',
+              data: [
+                @php ($i = 0)
+              @foreach ($data as $row)
+                @php ($i++)
+                 @if($i > 1)
+                 {{ "," }}
+                 @endif
+                 {!! $row->total_penjualan !!}
+              @endforeach  
+              ],
+              // dataLabels: {
+              //     enabled: true,
+              //     rotation: -90,
+              //     color: '#FFFFFF',
+              //     align: 'right',
+              //     format: '{point.y:.1f}', // one decimal
+              //     y: 10, // 10 pixels down from the top
+              //     style: {
+              //         fontSize: '13px',
+              //         fontFamily: 'Verdana, sans-serif'
+              //     }
+              // }
+          }]
+      });
+          </script>
+          </div>
+        </div>
+      </div>
+
       
     </section>
     <!-- /. main content -->

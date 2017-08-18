@@ -129,7 +129,7 @@ class RasaController extends Controller
         $dataJenis = Jenis::get();
         $dataEs = IceCream::get();
         $data = Rasa::where('id', $id)->first();
-        // dd($data);
+        // dd($data->ice_cream);
         return view('admin.rasa_ubah')->with('data', $data)->with(compact('dataJenis', $dataJenis, 'dataEs', $dataEs));
     }
 

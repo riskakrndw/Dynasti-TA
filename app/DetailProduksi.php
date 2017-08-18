@@ -17,6 +17,6 @@ class DetailProduksi extends Model
     }
 
     public function ice_cream(){
-    	return $this->belongsTo('App\IceCream', 'id_es');
+    	return $this->belongsTo('App\IceCream', 'id_es')->withTrashed();
     }
 }

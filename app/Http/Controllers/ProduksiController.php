@@ -21,6 +21,7 @@ class ProduksiController extends Controller
         
         if(Auth::user()->level == "manager"){
             $data = Produksi::all();
+            // dd($data->ice_cream);
             return view('admin.produksi')->with('data', $data);
         } elseif (Auth::user()->level == "produksi"){
             $data = Produksi::all();

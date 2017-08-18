@@ -68,7 +68,7 @@
                         <?php
                           $no = 1;
                         ?>
-                        @foreach($data->ice_cream as $dataJenis)
+                        @foreach($data->ice_cream_notrashed as $dataJenis)
                         <label>{{$no++}} . {{ $dataJenis->jenis->nama }}</label>
                         <br>
                         dalam 1 kali pembuatan menghasilkan:

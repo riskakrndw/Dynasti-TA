@@ -16,7 +16,19 @@ Route::get('/', function () {
 });
 
 Route::get('/print', function () {
-    return view('admin.printstokes');
+    return view('admin.print_stok_es');
+});
+
+Route::get('/printbahan', function () {
+    return view('admin.print_stok_bahan');
+});
+
+Route::get('/printpengadaan', function () {
+    return view('admin.print_pengadaan');
+});
+
+Route::get('/printpenjualan', function () {
+    return view('admin.print_penjualan');
 });
 
 Auth::routes();
@@ -38,6 +50,7 @@ Route::get('/api/icecreamin', 'IceCreamApiController@indexin')->name('apiicecrea
 Route::get('/api/icecream/{id}', 'IceCreamApiController@show')->name('apiicecreamshow');
 Route::get('/api/detail-icecream/{id}', 'IceCreamApiController@showDetail')->name('apiicecreamshowdetail');
 Route::get('/api/namaIceCream/{id}', 'IceCreamApiController@reqNamaIceCream')->name('apinamaicecream');
+Route::get('/api/arraynamaIceCream/{id}/{jumlah}', 'IceCreamApiController@arrayNamaIceCream')->name('apiarraynamaicecream');
 
 
 //apirasa
@@ -208,16 +221,20 @@ Route::group(['middleware' => 'levelManager'], function(){
 			Route::post('/manager/pemesanan/hapusDetailPemesanan', 'PemesananController@hapusDetailPemesanan')->name('hapusDetailPemesanan');
 		/*melakukan ubah*/
 			Route::get('/manager/pemesanan/edit/{id}', 'PemesananController@showEdit');
-			Route::get('/manager/pemesanan/ubah/{pengguna}/{kode}/{nama}/{alamat}/{telepon}/{datepicker}/{total}/{status}', 'PemesananController@ubah');
-			Route::get('/manager/pemesanan/ubah1/{namaes}/{jumlah}/{subtotal}', 'PemesananController@ubah1');
+			Route::get('/manager/pemesanan/ubah/{id_pesan}/{pengguna}/{kode}/{nama}/{alamat}/{telepon}/{datepicker}/{total}/{status}', 'PemesananController@ubah');
+			Route::get('/manager/pemesanan/ubah1/{id_pemesanan}/{namaes}/{jumlah}/{subtotal}', 'PemesananController@ubah1');
 		// melakukan update jumlah
 			Route::get('/manager/pemesanan/update/{iddetail}/{jumlahes}', 'PemesananController@updateJumlah');
 
 
 
 	//PRINT LAPORAN
+		/*menampilkan halaman print laporan pembelian*/
+			Route::get('/manager/laporan/pengadaan', 'LaporanController@laporanPembelian')->name('laporanPembelian');
+		/*menampilkan halaman print laporan penjualan*/
+			Route::get('/manager/laporan/penjualan', 'LaporanController@laporanPenjualan')->name('laporanPenjualan');
 		/*menampilkan halaman print laporan es*/
-			Route::get('/manager/laporan/es/print');
+			Route::get('/manager/laporan/ice', 'LaporanController@laporanEs')->name('laporanEs');
 
 
 });

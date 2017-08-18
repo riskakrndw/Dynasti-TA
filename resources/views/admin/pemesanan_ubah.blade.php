@@ -157,7 +157,9 @@
                     <tbody id="type_container">
                       <?php $no=1; ?>
                       @foreach($data->detail_pemesanan as $detail_pemesanan)
-                        <?php $id = $no+1; ?>
+                        <?php $id = $no+1; 
+                          $nama = str_replace(' ', '', $detail_pemesanan->ice_cream->nama);
+                        ?>
                         <tr id="tr{{$id}}">
                           <td>{{ $no++ }}</td>
                           <td>{{ $detail_pemesanan->ice_cream->nama }}</td>
@@ -165,20 +167,23 @@
                           <td>{{ $detail_pemesanan->status }}</td>
                           <td>
                             @if($detail_pemesanan->status == "menunggu")
-                            <input type="number" class="nunggupemesanan" id-detail="{{ $detail_pemesanan->id }}" value="{{ $detail_pemesanan->jumlah }}" min="1" style="width: 50px;">
+                            <input type="number" class="nunggupemesanan" nama="{{ $nama }}" harga = "{{ $detail_pemesanan->ice_cream->jenis->harga }}" value="{{ $detail_pemesanan->jumlah }}" min="1" style="width: 50px;">
                             @else
                             <input type="number" value="{{ $detail_pemesanan->jumlah }}" min="1" style="width: 50px;" disabled>
                             @endif
                           </td>
-                          <td id="subtotal{{ $detail_pemesanan->id }}">{{ $detail_pemesanan->subtotal }}</td>
+                          <td id="{{ $nama }}subTotal">{{ $detail_pemesanan->subtotal }}</td>
                           <td style="display:none">{{ $detail_pemesanan->id_es }}</td>
                           @if($detail_pemesanan->status == "menunggu")
                             <td>
-                              <a class="btn btn-sm btn-default btnUbahDetail" id-es="{{ $detail_pemesanan->ice_cream->id }}" id-detail="{{ $detail_pemesanan->id }}" jumlah="{{ $detail_pemesanan->jumlah }}"><i class="fa fa-edit"></i> Ubah</a>
+                              <a class="btn btn-sm btn-default btnUbahDetail" id-es="{{ $detail_pemesanan->ice_cream->id }}" id-detail="{{ $detail_pemesanan->id }}" jumlah="{{ $detail_pemesanan->jumlah }}"><i class="fa fa-edit"></i> Siap</a>
+                              <a class="remove-type btn btn-sm btn-default" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a>
                             </td>
+
                           @else
                             <td>
-                              <a class="btn btn-sm btn-default btnUbahDetail" id-es="{{ $detail_pemesanan->ice_cream->id }}" id-detail="{{ $detail_pemesanan->id }}" jumlah="{{ $detail_pemesanan->jumlah }}" disabled><i class="fa fa-edit"></i> Ubah</a>
+                              <a class="btn btn-sm btn-default btnUbahDetail" id-es="{{ $detail_pemesanan->ice_cream->id }}" id-detail="{{ $detail_pemesanan->id }}" jumlah="{{ $detail_pemesanan->jumlah }}" disabled><i class="fa fa-edit"></i> Siap</a>
+                              <a class="remove-type btn btn-sm btn-default" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)" disabled><i class="glyphicon glyphicon-trash"></i></a>
                             </td>
                           @endif
                         </tr>
@@ -239,9 +244,11 @@
           for(var i = 0; i<1; i++){
             var type_div = 'teams_'+jQuery.now();
       
-            $.get('/dynasti/public/api/namaIceCream/'+$('#idEs').val(),
+            $.get('/dynasti/public/api/arraynamaIceCream/'+$('#idEs').val()+'/'+$('#jumlahEs').val(),
               function(hasil){
-                var nama = hasil;
+                var nama = hasil[1];
+                var ides = hasil[0];
+                var status = hasil[2];
                 var harga = $('#hargaEs').val();
                 var jumlah = $('#jumlahEs').val();
                 var total = $('#totalHarga').val();
@@ -249,9 +256,10 @@
                 var namadb  = "#" + nama.replace(/\s/g,'');
                 var namaSub = namadb + "subTotal";
                 if ($(namadb).length){
-                  prevVal = $(namadb).text();
+                  prevVal = $(namadb + ' .nunggupemesanan').val();
+                  console.log(prevVal);
                   newVal = parseInt(prevVal)+parseInt(jumlah);
-                  $(namadb).text(newVal);
+                  $(namadb + ' .nunggupemesanan').val(newVal);
 
                   prevSub = $(namaSub).text();
                   newSub = parseInt(prevSub) + parseInt(jumlah) * parseInt(harga);
@@ -259,7 +267,8 @@
                 }
                 else{
                   nomorBaris = nomorBaris + 1;
-                $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                  $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td>'+status+'</td><td id='+nama.replace(/\s/g,'')+'><input type="number" class="nunggupemesanan" nama="'+nama.replace(/\s/g,'')+'" harga="'+harga+'" value="'+jumlah+'" min="1" style="width: 50px;"></td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td style="display:none">'+ides+'</td><td class="col-md-3 control-label"><a class="btn btn-sm btn-default btnUbahDetail" id-es="'+ides+'" jumlah="{{ $detail_pemesanan->jumlah }}" disabled><i class="fa fa-edit"></i> Siap</a>
+                              <a class="remove-type btn btn-sm btn-default" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)" disabled><i class="glyphicon glyphicon-trash"></i></a></td></tr>');
                 }
                 $('#namaEs').val('');
                 $('#hargaEs').val('');
@@ -296,19 +305,25 @@
 
       $('.nunggupemesanan').change(function(){
 
-        var iddetail = $(this).attr('id-detail');
-        var jumlah = $(this).val();
+        var namaes = $(this).attr('nama');
+        var jumlah = parseInt($(this).val());
+        var harga = parseInt($(this).attr('harga'));
+        var subTotalLama = parseInt($('#'+namaes+'subTotal').text());
+        $('#'+namaes+'subTotal').text(jumlah*harga);
+        var subTotalBaru = parseInt($('#'+namaes+'subTotal').text());
+        $('#totalHarga').val(parseInt($('#totalHarga').val()) + subTotalBaru - subTotalLama);
 
-        $.ajax({
-            type: "GET",
-            url: "/dynasti/public/manager/pemesanan/update/"+iddetail+"/"+jumlah,
-            success: function(result) {
-              $('#subtotal'+iddetail).text(result[0]);
-              $('#totalHarga').val(result[1]);
-              console.log(result[1]);
-              toastr.success("Jumlah ice cream berhasil diubah");
-            }
-        })
+
+      });
+
+      $(document).on('change','.nunggupemesanan',function(){
+        var namaes = $(this).attr('nama');
+        var jumlah = parseInt($(this).val());
+        var harga = parseInt($(this).attr('harga'));
+        var subTotalLama = parseInt($('#'+namaes+'subTotal').text());
+        $('#'+namaes+'subTotal').text(jumlah*harga);
+        var subTotalBaru = parseInt($('#'+namaes+'subTotal').text());
+        $('#totalHarga').val(parseInt($('#totalHarga').val()) + subTotalBaru - subTotalLama);
 
       });
 
@@ -358,6 +373,7 @@
           var col3_value = currentRow.find("td:eq(3)").text();
           var col4_value = currentRow.find("td:eq(4)").find("input").val();
           var col5_value = currentRow.find("td:eq(5)").text();
+          var col6_value = currentRow.find("td:eq(6)").text();
 
           var obj={};
           obj.no = col0_value;
@@ -366,6 +382,7 @@
           obj.status = col3_value;
           obj.jumlah = col4_value;
           obj.subtotal = col5_value;
+          obj.ides = col6_value;
 
 
           arriddetailpesan.push(col4_value);
@@ -390,7 +407,7 @@
             console.log(arrData[i]['subtotal']);
             $.ajax({
               type: "GET",
-              url: "/dynasti/public/manager/pemesanan/ubah1/"+arrData[i]['nama_es']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
+              url: "/dynasti/public/manager/pemesanan/ubah1/{{$data->id}}/"+arrData[i]['ides']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
               success: function(result) {
                 console.log("saaaa");
               }
@@ -399,7 +416,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/dynasti/public/manager/pemesanan/ubah/"+pengguna+"/"+kode+"/"+nama+"/"+alamat+"/"+telepon+"/"+datepicker+"/"+total+"/"+status,
+            url: "/dynasti/public/manager/pemesanan/ubah/{{$data->id}}/"+pengguna+"/"+kode+"/"+nama+"/"+alamat+"/"+telepon+"/"+datepicker+"/"+total+"/"+status,
             success: function(result) {
               idpesan = result;
               /*console.log(idjual)*/

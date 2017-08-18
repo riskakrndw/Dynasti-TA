@@ -18,39 +18,33 @@
 
         <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px">
             <tr>
-                <td style="font-size:35px;" align="center">Laporan Stok Ice Cream </td>
+                <td style="font-size:35px;" align="center">Laporan Penjualan </td>
             </tr>
         </table>
 
         <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px">
             <tr>
-                <td style="font-size:20px;">Bulan : </td>
+                <td style="font-size:20px;">Dari tanggal : Sampai tanggal : </td>
             </tr>
         </table>
 
         <br><br>
 
          <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px; " id="dataTables-example" border="1">
-            <thead>
-                <center>
-                    <tr>
-                   
-                        <th rowspan="2" style="text-align: center; height:50px; width: 80px"> No </th>
-                        <th rowspan="2" style="text-align: center; height:50px; width: 500px">Nama Ice Cream</th>
-                        <th rowspan="2" style="text-align: center; height:50px; width: 300px">Stok</th>
-                       
-                    </tr>
-                </center>
+          <thead>
+              <tr>
+                <th style="width: 5px">No</th>
+                <th style="width: 25px">Kode Penjualan</th>
+                <th style="width: 50px">Tanggal</th>
+                <th style="width: 50px">Total</th>
             </thead>
-
             <tbody>
-                 
                 <tr>
-                    <td style="text-align: center; height:35px;">1. </td>
-                    <td style="text-align: center;height:35px;"></td>
-                    <td style="text-align: center;height:35px;"></td>
+                  <td>1.</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
-
             </tbody>
         </table>
 

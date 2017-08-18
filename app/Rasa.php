@@ -20,6 +20,10 @@ class Rasa extends Model
     	return $this->hasMany('App\Icecream', 'id_rasa')->withTrashed();
     }
 
+    public function ice_cream_notrashed(){
+        return $this->hasMany('App\Icecream', 'id_rasa');
+    }
+
     public function detail_rasa(){
     	return $this->hasMany('App\DetailRasa', 'id_rasa');
     }

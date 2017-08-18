@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Penjualan extends Model
 {
@@ -22,5 +23,9 @@ class Penjualan extends Model
 
 	public function users(){
         return $this->belongsTo('App\User', 'id_users');
+    }
+
+    public static function getJumlahPenjualan(){
+    	return DB::select(DB::raw("select MONTHNAME(tgl) as bulan, sum(total) as total_penjualan FROM penjualan group by bulan ASc"));
     }
 }

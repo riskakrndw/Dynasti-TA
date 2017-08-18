@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use App\Pembelian;
+use App\Penjualan;
 use App\Bahan;
 use App\IceCream;
 
@@ -18,11 +19,13 @@ class HomeController extends Controller
 
     public function index_manager()
     {
+        //$data = Penjualan::get();
+        $data = Penjualan::getJumlahPenjualan();
         $jumlahpermintaan = Pembelian::where('status', '=', 'menunggu')->count();
         $totalstokbahan = Bahan::where('stok', '<', 'stok_min')->count();
         $totalstokes = IceCream::where('stok', '<', '100')->count();
         // dd($datapengadaan);
-        return view('admin.beranda')->with('jumlahpermintaan', $jumlahpermintaan)->with('totalstokbahan', $totalstokbahan)->with('totalstokes', $totalstokes);
+        return view('admin.beranda')->with('jumlahpermintaan', $jumlahpermintaan)->with('totalstokbahan', $totalstokbahan)->with('totalstokes', $totalstokes)->with('data', $data);
     }
 
     public function stokBahan(){

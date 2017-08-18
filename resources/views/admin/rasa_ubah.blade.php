@@ -182,7 +182,7 @@
       var doc = $(document);
 
       console.log("{{$data->ice_cream}}");
-      @foreach($data->ice_cream as $datajenis)
+      @foreach($data->ice_cream_notrashed as $datajenis)
         $('#jenis{{$datajenis->jenis->id}}').attr("checked", true);
         $('#showjenis'+$('#jenis{{$datajenis->jenis->id}}').attr('idjenis')).removeClass('hide');
         $('#jumlahProduksi{{$datajenis->jenis->id}}').val('{{ $datajenis->jumlah_produksi}}');

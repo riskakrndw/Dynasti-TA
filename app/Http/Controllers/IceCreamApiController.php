@@ -47,6 +47,18 @@ class IceCreamApiController extends Controller
         return $data;
     }
 
+    public function arrayNamaIceCream($id, $jumlah)
+    {
+        $data = IceCream::find($id);
+
+        $hasil = array();
+        $hasil[] = $data->id;
+        $hasil[] = $data->nama;
+        $hasil[] = "menunggu"; 
+
+        return $hasil;
+    }
+
     public function show($id)
     {
         /*return IceCream::find($id);*/

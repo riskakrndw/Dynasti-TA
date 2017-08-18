@@ -143,19 +143,12 @@ class PemesananController extends Controller
         $data->tanggal = $datepicker;
         $data->total = $total;
         $data->status = $status;
-        if(Auth::user()->level == "manager"){
-            $data->status = "berhasil";
-        } elseif (Auth::user()->level == "keuangan"){
-            $data->status = "berhasil";
-        } elseif (Auth::user()->level == "pengadaan"){
-            $data->status = "menunggu";
-        }
         $data->save();
 
         return $data->id;
     }
 
-    public function ubah1($ides, $jumlah, $subtotal)
+    public function ubah1($id_pemesanan, $ides, $jumlah, $subtotal)
     {
         /*$this->validate($request, [
             'nama' => 'required|min:2|max:50',
@@ -164,11 +157,12 @@ class PemesananController extends Controller
             'total' => 'required',
             'jumlahProduksi' => 'required|max:10',
         ]);*/   
-
+    
         $data = DetailPemesanan::withTrashed()->where('id_es', '=', $ides)->first();
 
         if (count($data) == 0) {
             $data = new DetailPemesanan;
+            $data->id_pemesanan = $id_pemesanan;
             $data->id_es = $ides;
         }else{
             if($data->deleted_at != "NULL"){
