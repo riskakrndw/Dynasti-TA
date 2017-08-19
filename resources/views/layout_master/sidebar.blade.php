@@ -62,7 +62,7 @@
               <li class="@yield("lapbeli")"><a href="{{route('laporanPembelian')}}"><i class="fa fa-file"></i> Laporan Pengadaan</a></li>
               <li class="@yield("lapjual")"><a href="{{route('laporanPenjualan')}}"><i class="fa fa-file"></i> Laporan Penjualan</a></li>
               <li class="@yield("lapstokes")"><a href="{{route('laporanEs')}}"><i class="fa fa-file"></i> Laporan Stok Ice Cream</a></li>
-              <li class="@yield("lapstokbahan")"><a href="#"><i class="fa fa-file"></i> Laporan Stok Bahan Baku</a></li>
+              <li class="@yield("lapstokbahan")"><a href="{{route('laporanBahan')}}"><i class="fa fa-file"></i> Laporan Stok Bahan Baku</a></li>
             </ul>
           </li>
           <li class="@yield("user")"><a href="{{route('pengguna')}}"><i class="fa  fa-user-plus"></i> <span>Data Pengguna</span></a></li>

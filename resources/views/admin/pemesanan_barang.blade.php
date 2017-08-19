@@ -94,7 +94,7 @@
                       <?php $no=1; ?>
                       @foreach($datamenunggu as $data)
                         <tr>
-                          <td>{{ $no++ }}</td>
+                          <td class="number">{{ $no++ }}</td>
                           <td>{{ $data->pemesanan->kode_pemesanan }}</td>
                           <td>{{ $data->pemesanan->tanggal }}</td>
                           <td>{{ $data->ice_cream->nama }}</td>
@@ -181,12 +181,20 @@
             }else{
               toastr.success("Status berhasil diubah menjadi siap");
               tr.closest('tr').remove();
+              AutoNumber();
             }
           }
         })
       }
       
     });
+
+    function AutoNumber()
+    {
+      $('#example22 tbody tr').each(function (i) {
+        $(this).find('.number').text(i+1);
+      });
+    }
   </script>
 
 @endsection

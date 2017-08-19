@@ -2,7 +2,7 @@
 
 @section("title", "Laporan Penjualan")
 
-@section("lapstokes", "active")
+@section("lapstokbahan", "active")
 
 @section("laporan", "active")
 
@@ -28,7 +28,7 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#"> Beranda</a></li>
-        <li class="active">Stok Ice Cream</li>
+        <li class="active">Stok Bahan Baku</li>
       </ol>
     </section>
 
@@ -36,7 +36,7 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
-          <a href=""><button type="button" class="btn .btn-lg btn-primary"><i class="fa  fa-print "></i> Cetak </button></a>
+          <a href="{{url('printbahan')}}" target="_blank" class="btn .btn-lg btn-primary"><i class="fa  fa-print "></i> Cetak</a>
         </div>
 
         <!-- Data es -->
@@ -46,7 +46,7 @@
             <!-- header -->
               <div class="box-header">
                 <ul class="nav nav-tabs-custom">
-                  <li class="pull-left box-header"><h3 class="box-title">Daftar Ice Cream</h3></li>
+                  <li class="pull-left box-header"><h3 class="box-title">Daftar Bahan Baku</h3></li>
                 </ul>
               </div>
             <!-- /header -->
@@ -56,8 +56,9 @@
                 <table id="example1" class="table table-bordered table-hover">
                   <thead>
                     <tr>
-                      <th style="width: 10px">No</th>
-                      <th style="width: 300px">Nama Ice Cream</th>
+                      <th style="width: 30px">No</th>
+                      <th style="width: 300px">Nama Bahan</th>
+                      <th style="width: 300px">Satuan</th>
                       <th style="width: 100px">Stok</th>
                     </tr>
                   </thead>
@@ -67,6 +68,7 @@
                     <tr>
                       <td>{{ $no++ }}</td>
                       <td>{{ $data->nama }}</td>
+                      <td>{{ $data->satuan }}</td>
                       <td>{{ $data->stok }}</td>
                     </tr>
                     @endforeach

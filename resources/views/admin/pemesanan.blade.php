@@ -16,7 +16,7 @@
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Data Produk Pesanan
+        Data Pemesanan
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -31,7 +31,7 @@
 
         <!-- Tambah es -->
           <div class="col-md-12">
-            <a href="{{route('tambahPemesanan')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Pengadaan </button></a>
+            <a href="{{route('tambahPemesanan')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Pemesanan </button></a>
           </div>
 
         <!-- /Tambah es -->        

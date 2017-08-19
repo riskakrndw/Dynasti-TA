@@ -47,7 +47,8 @@
                   </ul>
                 </div>
               <!-- /header -->
-
+              
+              <input type="hidden" value="{{csrf_token()}}" id="token" name="_token">
               <div class="box-body">
                 <div class="col-xs-12">
                   <label>Dari Tanggal</label>
@@ -55,7 +56,7 @@
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="datepicker">
+                    <input type="text" name="tgl_a" class="form-control pull-right" id="datepicker">
                   </div>
                 </div>
                 <div class="col-xs-12">
@@ -65,19 +66,49 @@
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="datepicker1">
+                    <input type="text" name="tgl_b" class="form-control pull-right" id="datepicker1">
                   </div>
                 </div>
                 <div class="col-xs-12">
-                <br>
-                  <button type="submit" class="btn btn-primary btnCetak">Cetak</button>
+                  <br>
+                  <button id="cari" class="btn btn-primary btnCetak"><i class="fa  fa-search "></i> Cari</button>
+                  <a href="#" class="btn btn-primary btnCetak"><i class="fa  fa-print "></i> Cetak</a>
                 </div>
-              </div>
+              </div> 
 
             </div>
           </div>
         <!-- /Data jenis -->
 
+      </div>
+
+      <div class="row">
+
+        <!-- Data es -->
+        <div class="col-xs-12">
+          <br>
+          <div class="box">
+
+            <!-- tabel es -->
+              <div class="box-body table-responsive">
+                <table id="example1" class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th style="width: 90px">No</th>
+                      <th style="width: 210px">Kode Penjualan</th>
+                      <th style="width: 168px">Tanggal</th>
+                      <th style="width: 168px">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody id="penjualan">
+                  </tbody>
+                </table>
+              </div>
+            <!-- /.tabel es -->
+
+          </div>
+        </div>
+        <!-- /Data es -->
       </div>
 
     </section>
@@ -110,6 +141,25 @@
         autoclose: true,
         format: "yyyy-mm-dd"
       });
+
+      $("#cari").click(function(){
+        var tgl_a=$("#datepicker").val();
+        var tgl_b=$("#datepicker1").val();
+        var token=$("#token").val();
+
+        var link="{{url('lappenjualan')}}";
+        $.ajax({
+          type:"post",
+          url:link,
+          data:{"tgl_a":tgl_a,"tgl_b":tgl_b,"_token":token},
+          success:function(data){
+            $("#penjualan").empty()
+            $.each(data, function(k, v) {
+              $("#penjualan").append("<tr><td>"+v.tgl+"</td><td>"+v.kode_penjualan+"</td><td>"+v.tgl+"</td><td>"+v.total+"</td></tr>");
+            });
+          }
+        })
+      })
   </script>
 
 

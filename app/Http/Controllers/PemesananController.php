@@ -87,6 +87,17 @@ class PemesananController extends Controller
                 $datapemesanan->status = "siap";
                 $datapemesanan->save();
                 // dd($datapemesanan->status);
+
+                // nyoba untuk auto pindah tabs
+                // $hasil = array();
+                // $hasil[] = $datapemesanan->id;
+                // $hasil[] = $datapemesanan->kode_pemesanan;
+                // $hasil[] = $datapemesanan->tanggal;
+                // $hasil[] = $datapemesanan->detail_pemesanan->id_es;
+                // $hasil[] = $datapemesanan->detail_pemesanan->jumlah;
+                // dd($hasil);
+                // /nyoba untuk auto pindah tabs
+
             }
 
             $cekstok = "cukup";
@@ -95,6 +106,7 @@ class PemesananController extends Controller
         }
 
         return $cekstok;
+        // return $hasil;
     }
 
     public function pemesananSelesai($idpesanan)

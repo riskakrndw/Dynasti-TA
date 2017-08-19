@@ -21,30 +21,32 @@
                 <td style="font-size:35px;" align="center">Laporan Pengadaan </td>
             </tr>
         </table>
-
         <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px">
             <tr>
-                <td style="font-size:20px;">Dari tanggal : Sampai tanggal : </td>
+                <td style="font-size:20px;">Dari tanggal : {{date('d F Y',strtotime($tgl_a))}} - Sampai tanggal : {{date('d F Y',strtotime($tgl_b))}}</td>
             </tr>
         </table>
 
         <br><br>
 
          <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px; " id="dataTables-example" border="1">
-          <thead>
-              <tr>
-                <th style="width: 5px">No</th>
-                <th style="width: 25px">Kode Pengadaan</th>
-                <th style="width: 50px">Tanggal</th>
-                <th style="width: 50px">Total</th>
+            <thead>
+                <tr>
+                    <th style="width: 5px">No</th>
+                    <th style="width: 25px">Kode Pengadaan</th>
+                    <th style="width: 50px">Tanggal</th>
+                    <th style="width: 50px">Total</th>
+                </tr>
             </thead>
             <tbody>
-                <tr>
-                  <td>1.</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
+                @foreach($data as $v)
+                    <tr>
+                        <td></td>
+                        <td>{{$v->kode_pembelian}}</td>
+                        <td>{{$v->tgl}}</td>
+                        <td>{{$v->total}}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
 
@@ -66,11 +68,11 @@
       
     </body>
 
-    <script src="{{ asset('vendor/adminlte/plugins/jQuery/jquery-2.2.3.min.js') }}" type="text/javascript"></script>
+  <script src="{{url('dist/js/jquery-1.8.2.min.js')}}" type="text/javascript" charset="utf8"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             window.print();
-         setTimeout(window.close, 0);
+            setTimeout(window.close, 0);
         })
     </script>
 </html>

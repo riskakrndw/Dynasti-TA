@@ -32,11 +32,12 @@
 
          <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px; " id="dataTables-example" border="1">
           <thead>
-              <tr>
-                <th style="width: 5px">No</th>
-                <th style="width: 25px">Kode Penjualan</th>
-                <th style="width: 50px">Tanggal</th>
-                <th style="width: 50px">Total</th>
+                <tr>
+                    <th style="width: 5px">No</th>
+                    <th style="width: 25px">Kode Penjualan</th>
+                    <th style="width: 50px">Tanggal</th>
+                    <th style="width: 50px">Total</th>
+                </tr>
             </thead>
             <tbody>
                 <tr>

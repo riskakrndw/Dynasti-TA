@@ -35,15 +35,19 @@
             <tr>
               <th style="width: 10px">No</th>
               <th style="width: 300px">Nama Bahan</th>
+              <th style="width: 200px">Satuan</th>
               <th style="width: 100px">Stok</th>
             </tr>
           </thead>
           <tbody>
+            @foreach($data as $v)
             <tr>
               <td style="text-align: center; height:35px;">1</td>
-              <td style="text-align: center; height:35px;"></td>
-              <td></td>
+              <td style="text-align: center; height:35px;">{{$v->nama}}</td>
+              <td style="text-align: center; height:35px;">{{$v->satuan}}</td>
+              <td>{{$v->stok}}</td>
             </tr>
+            @endforeach
           </tbody>
         </table>
 

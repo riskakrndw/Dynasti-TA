@@ -77,7 +77,7 @@
       <!-- info -->
         <div class="row">
           <!-- Left col -->
-          <div class="col-lg-8">
+          <div class="col-md-12">
             <section class="connectedSortable">
               <!-- info pemesanan -->
                 <div class="box">
@@ -90,20 +90,18 @@
                         <thead>
                           <tr>
                             <th style="width: 10px">No</th>
-                            <th style="width: 200px">Nama</th>
+                            <th style="width: 200px">Kode Pemesanan</th>
                             <th style="width: 200px">Tanggal</th>
-                            <th>Aksi</th>
                           </tr>
                         </thead>
                         <tbody>
+                          @foreach($pemesanan as $v)
                           <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                              <a href="" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                            </td>
+                            <td>{{ $v->kode_pemesanan }}</td>
+                            <td>{{ $v->kode_pemesanan }}</td>
+                            <td>{{ $v->tanggal }}</td>
                           </tr>
+                          @endforeach
                         </tbody>
                       </table>
                     </div>
@@ -112,38 +110,6 @@
               <!-- /.info pemesanan -->
             </section>
           </div>
-          <!-- /.Left col -->
-          <!-- right col (We are only adding the ID to make the widgets sortable)-->
-
-
-          <!-- <div class="col-lg-4">
-            <section class="connectedSortable">
-                <div class="box">
-                  <div class="nav-tabs-custom">
-                    <ul class="nav nav-tabs pull-right">
-                      <li class="pull-left header"><i class="fa fa-info-circle"></i> Ice Cream Terlaku</li>
-                    </ul>
-                    <div class="tab-content">
-                      <table id="example1" class="table table-bordered table-hover">
-                        <thead>
-                          <tr>
-                            <th style="width: 100px">No</th>
-                            <th style="width: 500px">Nama</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>Ice Cream Vanilla</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <a href="#" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-            </section>
-          </div> -->
 
         </div>
       <!-- / info -->

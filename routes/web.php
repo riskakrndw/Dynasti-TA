@@ -19,13 +19,9 @@ Route::get('/print', function () {
     return view('admin.print_stok_es');
 });
 
-Route::get('/printbahan', function () {
-    return view('admin.print_stok_bahan');
-});
+Route::get('/printbahan', 'LaporanController@cetakbahan');
 
-Route::get('/printpengadaan', function () {
-    return view('admin.print_pengadaan');
-});
+Route::get('/printpengadaan/{tgl_a}/{tgl_b}', 'LaporanController@cetakpengadaan');
 
 Route::get('/printpenjualan', function () {
     return view('admin.print_penjualan');
@@ -235,6 +231,11 @@ Route::group(['middleware' => 'levelManager'], function(){
 			Route::get('/manager/laporan/penjualan', 'LaporanController@laporanPenjualan')->name('laporanPenjualan');
 		/*menampilkan halaman print laporan es*/
 			Route::get('/manager/laporan/ice', 'LaporanController@laporanEs')->name('laporanEs');
+		/*menampilkan halaman print laporan es*/
+			Route::get('/manager/laporan/bahan', 'LaporanController@laporanBahan')->name('laporanBahan');
+
+			Route::post('lappenjualan','LaporanController@lappenjualan');
+			Route::post('lappengadaan','LaporanController@lappengadaan');
 
 
 });
