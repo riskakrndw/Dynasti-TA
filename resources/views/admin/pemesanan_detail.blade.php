@@ -130,7 +130,6 @@
                         <th style="width: 100px">Status</th>
                         <th style="width: 100px">Jumlah</th>
                         <th style="width: 250px">Subtotal</th>
-                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody id="type_container">
@@ -144,15 +143,6 @@
                           <td>{{ $detail_pemesanan->status }}</td>
                           <td>{{ $detail_pemesanan->jumlah }}</td>
                           <td>{{ $detail_pemesanan->subtotal }}</td>
-                          @if($detail_pemesanan->status == "menunggu")
-                            <td>
-                              <a class="btn btn-sm btn-default btnStatusSiap" id-es="{{ $detail_pemesanan->ice_cream->id }}" id-detail="{{ $detail_pemesanan->id }}" jumlah="{{ $detail_pemesanan->jumlah }}"><i class="fa fa-edit"></i> Siap</a>
-                            </td>
-                          @else
-                            <td>
-                              <a class="btn btn-sm btn-default btnStatusSiap" id-es="{{ $detail_pemesanan->ice_cream->id }}" id-detail="{{ $detail_pemesanan->id }}" jumlah="{{ $detail_pemesanan->jumlah }}" disabled><i class="fa fa-edit"></i> Siap</a>
-                            </td>
-                          @endif
                         </tr>
                       @endforeach
                     </tbody>

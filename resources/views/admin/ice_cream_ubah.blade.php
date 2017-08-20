@@ -288,20 +288,16 @@
         var didConfirm = confirm("Are you sure You want to delete");
         if (didConfirm == true) {
             var id = jQuery(this).attr('data-id');
-            //if (id == 0) {
-                //var trID = jQuery(this).parents("tr").attr('id');
                 
-                var jmltr = $('#type_container').children().length;
-                // console.log(jmltr);
-                // console.log($(this).closest('tr').attr('no'));
-                for(var i = parseInt($(this).closest('tr').attr('no'))+1; i<=jmltr; i++){
-                  
-                  $('#no'+i).text($('#no'+i).text() - 1);
-                  $('#no'+i).attr('id', $('#no'+i).text() - 1);
+            var jmltr = $('#type_container').children().length;
+            for(var i = parseInt($(this).closest('tr').attr('no'))+1; i<=jmltr; i++){
+              
+              $('#no'+i).text($('#no'+i).text() - 1);
+              $('#no'+i).attr('id', $('#no'+i).text() - 1);
 
-                }
-                jQuery('#' + id).remove();
-                nomorBaris = nomorBaris - 1;
+            }
+            jQuery('#' + id).remove();
+            nomorBaris = nomorBaris - 1;
                 
            // }
             return true;

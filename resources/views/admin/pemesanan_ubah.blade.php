@@ -73,7 +73,7 @@
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Nama</label>
+                        <label>Nama</label> 
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
                           <input class="form-control" placeholder="Nama" name="nama" id="nama" value="{{ $data->nama }}">
@@ -95,19 +95,6 @@
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
                           <textarea class="form-control" placeholder="Alamat" name="alamat" id="alamat">{{ $data->alamat }}</textarea>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>Status</label>
-                        <div class="input-group">
-                          <select data-placeholder="pilih status" class="form-control" name="" id="pilihstatus">
-                            <option value="menunggu" @if ($data->status == "menunggu") {{'selected'}} @endif>Menunggu</option>
-                            <option value="siap" @if ($data->status == "siap") {{'selected'}} @endif>Siap</option>
-                            <option value="selesai" @if ($data->status == "selesai") {{'selected'}} @endif>Selesai</option>
-                            <option value="batal" @if ($data->status == "batal") {{'selected'}} @endif>Batal</option>
-                          </select>
                         </div>
                       </div>
                     </div>
@@ -155,13 +142,15 @@
                       </tr>
                     </thead>
                     <tbody id="type_container">
-                      <?php $no=1; ?>
+                      <?php $no=0; ?>
                       @foreach($data->detail_pemesanan as $detail_pemesanan)
-                        <?php $id = $no+1; 
+                        <?php 
+                          $id = $no+1;
+                          $no++; 
                           $nama = str_replace(' ', '', $detail_pemesanan->ice_cream->nama);
                         ?>
-                        <tr id="tr{{$id}}">
-                          <td>{{ $no++ }}</td>
+                        <tr id="tr{{$no}}">
+                          <td>{{ $no }}</td>
                           <td>{{ $detail_pemesanan->ice_cream->nama }}</td>
                           <td>{{ $detail_pemesanan->ice_cream->jenis->harga }}</td>
                           <td>{{ $detail_pemesanan->status }}</td>
@@ -172,17 +161,15 @@
                             <input type="number" value="{{ $detail_pemesanan->jumlah }}" min="1" style="width: 50px;" disabled>
                             @endif
                           </td>
-                          <td id="{{ $nama }}subTotal">{{ $detail_pemesanan->subtotal }}</td>
+                          <td id="{{ $nama }}subTotal" class="subTotal">{{ $detail_pemesanan->subtotal }}</td>
                           <td style="display:none">{{ $detail_pemesanan->id_es }}</td>
                           @if($detail_pemesanan->status == "menunggu")
                             <td>
-                              <a class="btn btn-sm btn-default btnUbahDetail" id-es="{{ $detail_pemesanan->ice_cream->id }}" id-detail="{{ $detail_pemesanan->id }}" jumlah="{{ $detail_pemesanan->jumlah }}"><i class="fa fa-edit"></i> Siap</a>
                               <a class="remove-type btn btn-sm btn-default" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a>
                             </td>
 
                           @else
                             <td>
-                              <a class="btn btn-sm btn-default btnUbahDetail" id-es="{{ $detail_pemesanan->ice_cream->id }}" id-detail="{{ $detail_pemesanan->id }}" jumlah="{{ $detail_pemesanan->jumlah }}" disabled><i class="fa fa-edit"></i> Siap</a>
                               <a class="remove-type btn btn-sm btn-default" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)" disabled><i class="glyphicon glyphicon-trash"></i></a>
                             </td>
                           @endif
@@ -236,7 +223,7 @@
         format: "yyyy-mm-dd"
       });
 
-    var nomorBaris = 0;
+    var nomorBaris = {{$no}};
     jQuery(document).ready(function() {
       var doc = $(document);
       jQuery('.btnTambahEs').die('click').live('click', function(e) {
@@ -267,8 +254,8 @@
                 }
                 else{
                   nomorBaris = nomorBaris + 1;
-                  $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td>'+status+'</td><td id='+nama.replace(/\s/g,'')+'><input type="number" class="nunggupemesanan" nama="'+nama.replace(/\s/g,'')+'" harga="'+harga+'" value="'+jumlah+'" min="1" style="width: 50px;"></td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td style="display:none">'+ides+'</td><td class="col-md-3 control-label"><a class="btn btn-sm btn-default btnUbahDetail" id-es="'+ides+'" jumlah="{{ $detail_pemesanan->jumlah }}" disabled><i class="fa fa-edit"></i> Siap</a>
-                              <a class="remove-type btn btn-sm btn-default" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)" disabled><i class="glyphicon glyphicon-trash"></i></a></td></tr>');
+                  $('#type_container').append('<tr id="tr'+nomorBaris+'" no="'+nomorBaris+'"><td id="no'+nomorBaris+'">'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td>'+status+'</td><td id='+nama.replace(/\s/g,'')+'><input type="number" class="nunggupemesanan" nama="'+nama.replace(/\s/g,'')+'" harga="'+harga+'" value="'+jumlah+'" min="1" style="width: 50px;"></td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td style="display:none">'+ides+'</td><td class="col-md-3 control-label"> '+
+                         '     <a class="remove-type btn btn-sm btn-default" targetDiv="" data-id="tr'+nomorBaris+'" href="javascript: void(0)" ><i class="glyphicon glyphicon-trash"></i></a></td></tr>');
                 }
                 $('#namaEs').val('');
                 $('#hargaEs').val('');
@@ -287,13 +274,24 @@
         var didConfirm = confirm("Are you sure You want to delete");
         if (didConfirm == true) {
             var id = jQuery(this).attr('data-id');
-            //if (id == 0) {
-                //var trID = jQuery(this).parents("tr").attr('id');
+
+            var jmltr = $('#type_container').children().length;
+            for(var i = parseInt($(this).closest('tr').attr('no'))+1; i<=jmltr; i++){
+              
+              $('#no'+i).text($('#no'+i).text() - 1);
+              $('#no'+i).attr('id', $('#no'+i).text() - 1);
+
+            }
+
                 jQuery('#' + id).remove();
                 nomorBaris = nomorBaris - 1;
                 var deletedSubTotal = $(this).closest("tr").find(".subTotal").text();
                 var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
                 var totalHargaBaru = totalHargaLama - deletedSubTotal;
+
+                console.log("deletedSubTotal : " + deletedSubTotal);
+                console.log("totalHargaLama : " + totalHargaLama);
+                console.log("totalHargaBaru : " + totalHargaBaru);
                 document.getElementById('totalHarga').value = totalHargaBaru;
                 
            // }
@@ -305,6 +303,7 @@
 
       $('.nunggupemesanan').change(function(){
 
+        console.log("lll");
         var namaes = $(this).attr('nama');
         var jumlah = parseInt($(this).val());
         var harga = parseInt($(this).attr('harga'));
@@ -385,7 +384,7 @@
           obj.ides = col6_value;
 
 
-          arriddetailpesan.push(col4_value);
+          arriddetailpesan.push(col6_value);
           arrData.push(obj);
         });
   
@@ -394,10 +393,10 @@
         function a(){
          $.ajax({
               type: "POST",
-              url: "http://localhost:8081/dynasti/public/manager/rasa/hapusDetailPemesanan",
-              data: 'idpesan= {{$data->id}}' + '& iddetailpesan=' + arriddetailpesan + '& _token='+"{{csrf_token()}}",
+              url: "http://localhost:8081/dynasti/public/manager/pemesanan/hapusDetailPemesanan",
+              data: 'idpesan= {{$data->id}}' + '& ides=' + arriddetailpesan + '& _token='+"{{csrf_token()}}",
               success: function(result) {
-               console.log(result);
+               console.log("arriddetailpesan : " + arriddetailpesan);
               }
           })
         };
@@ -409,23 +408,23 @@
               type: "GET",
               url: "/dynasti/public/manager/pemesanan/ubah1/{{$data->id}}/"+arrData[i]['ides']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
               success: function(result) {
-                console.log("saaaa");
+                console.log("{{$data->id}}");
               }
             });
           }
 
         $.ajax({
             type: "GET",
-            url: "/dynasti/public/manager/pemesanan/ubah/{{$data->id}}/"+pengguna+"/"+kode+"/"+nama+"/"+alamat+"/"+telepon+"/"+datepicker+"/"+total+"/"+status,
+            url: "/dynasti/public/manager/pemesanan/ubah/{{$data->id}}/"+pengguna+"/"+kode+"/"+nama+"/"+alamat+"/"+telepon+"/"+datepicker+"/"+total,
             success: function(result) {
               idpesan = result;
               /*console.log(idjual)*/
             }
         }).done(a);
 
-        // $(document).ajaxStop(function(){
-        //   window.location="{{URL::to('manager/pemesanan')}}";
-        // });
+        $(document).ajaxStop(function(){
+          window.location="{{URL::to('manager/pemesanan')}}";
+        });
         
       });
     });

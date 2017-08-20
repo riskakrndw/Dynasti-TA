@@ -69,7 +69,6 @@
                           <td>{{ $data->jumlah }}</td>
                           <td>
                            <a href="{{ url('manager/pemesanan/lihat/'.$data->pemesanan->id.'/produkpesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
-                           <a href="{{ url('manager/pemesanan/edit/'.$data->pemesanan->id.'/produkpesanan') }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
                          </td>
                         </tr>
                       @endforeach

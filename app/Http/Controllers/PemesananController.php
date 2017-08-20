@@ -144,7 +144,7 @@ class PemesananController extends Controller
         return view('admin.pemesanan_detail')->with('data', $data)->with('tipe', $tipe);
     }
 
-    public function ubah($id_pesan, $pengguna, $kode, $nama, $alamat, $telepon, $datepicker, $total, $status)
+    public function ubah($id_pesan, $pengguna, $kode, $nama, $alamat, $telepon, $datepicker, $total)
     {
         $data = Pemesanan::find($id_pesan);
         $data->id_users = $pengguna;
@@ -154,13 +154,12 @@ class PemesananController extends Controller
         $data->telepon = $telepon;
         $data->tanggal = $datepicker;
         $data->total = $total;
-        $data->status = $status;
         $data->save();
 
         return $data->id;
     }
 
-    public function ubah1($id_pemesanan, $ides, $jumlah, $subtotal)
+    public function ubah1($pemesanan_id, $ides, $jumlah, $subtotal)
     {
         /*$this->validate($request, [
             'nama' => 'required|min:2|max:50',
@@ -170,11 +169,11 @@ class PemesananController extends Controller
             'jumlahProduksi' => 'required|max:10',
         ]);*/   
     
-        $data = DetailPemesanan::withTrashed()->where('id_es', '=', $ides)->first();
+        $data = DetailPemesanan::withTrashed()->where('id_es', '=', $ides)->where('id_pemesanan', '=', $pemesanan_id)->first();
 
         if (count($data) == 0) {
             $data = new DetailPemesanan;
-            $data->id_pemesanan = $id_pemesanan;
+            $data->id_pemesanan = $pemesanan_id;
             $data->id_es = $ides;
         }else{
             if($data->deleted_at != "NULL"){
@@ -187,14 +186,14 @@ class PemesananController extends Controller
         $data->subtotal = $subtotal;
         $data->save();
 
-        return $rasa;
+        return $data;
     }
 
     public function hapusDetailPemesanan(Request $request)
     {
 
-        $arr = explode(',', $request->iddetailpesan); //mecah jadi array
-        $data = Pemesanan::where('id_pemesanan', '=', $request->idpesan)->whereNotIn('id_es', $arr);
+        $arr = explode(',', $request->ides); //mecah jadi array
+        $data = DetailPemesanan::where('id_pemesanan', '=', $request->idpesan)->whereNotIn('id_es', $arr);
         $data->delete();
     }
 
