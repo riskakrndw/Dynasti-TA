@@ -44,11 +44,16 @@ class LaporanController extends Controller
 
     public function cetakpengadaan($tgl_a,$tgl_b){
         $data=Pembelian::whereBetween('tgl',[$tgl_a,$tgl_b])->get();
-         return view('admin.print_pengadaan')->with('data',$data)->with('tgl_a',$tgl_a)->with('tgl_b',$tgl_b);
+        return view('admin.print_pengadaan')->with('data',$data)->with('tgl_a',$tgl_a)->with('tgl_b',$tgl_b);
+    }
+
+    public function cetakpenjualan($tgl_a,$tgl_b){
+        $data=Penjualan::whereBetween('tgl',[$tgl_a,$tgl_b])->get();
+        return view('admin.print_penjualan')->with('data',$data)->with('tgl_a',$tgl_a)->with('tgl_b',$tgl_b);
     }
 
     public function cetakbahan(){
          $data = Bahan::all();
-    return view('admin.print_stok_bahan')->with('data', $data);;
+        return view('admin.print_stok_bahan')->with('data', $data);;
     }
 }

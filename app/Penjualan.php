@@ -25,7 +25,13 @@ class Penjualan extends Model
         return $this->belongsTo('App\User', 'id_users');
     }
 
-    public static function getJumlahPenjualan(){
-    	return DB::select(DB::raw("select MONTHNAME(tgl) as bulan, sum(total) as total_penjualan FROM penjualan group by bulan ASc"));
+    public static function getTahun(){
+    	return DB::select(DB::raw("select YEAR(tgl) as tahun FROM penjualan group by tahun"));
     }
+
+    public static function getJumlahPenjualan(){
+    	return DB::select(DB::raw("select MONTHNAME(tgl) as bulan, sum(total) as total_penjualan FROM penjualan WHERE YEAR(tgl)=2017 group by bulan ASc"));
+    }
+
+
 }

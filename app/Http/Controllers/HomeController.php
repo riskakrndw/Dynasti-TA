@@ -10,6 +10,7 @@ use App\Penjualan;
 use App\Bahan;
 use App\IceCream;
 use Carbon\Carbon;
+
 class HomeController extends Controller
 {
     
@@ -26,11 +27,21 @@ class HomeController extends Controller
         $pemesanan=Pemesanan::whereBetween('tanggal',[Carbon::now(),$sesudah])->get();
 
         $data = Penjualan::getJumlahPenjualan();
+        $tahun = Penjualan::getTahun();
+
+        $thn=\Route::current()->parameter('tahun');
+        if($thn){
+            $th=DB::SELECT('select MONTHNAME(tgl) as bulan, sum(total) as total_penjualan FROM penjualan WHERE YEAR(tgl)=$thn group by bulan ASc');
+        }else{
+
+            $th=DB::SELECT('select MONTHNAME(tgl) as bulan, sum(total) as total_penjualan FROM penjualan WHERE YEAR(tgl)=YEAR(curdate()) group by bulan ASC');
+        }
+
         $jumlahpermintaan = Pembelian::where('status', '=', 'menunggu')->count();
         $totalstokbahan = count(DB::select("select * from bahan_baku where stok < stok_min"));
         $totalstokes = IceCream::where('stok', '<', '100')->count();
         // dd($datapengadaan);
-        return view('admin.beranda')->with('jumlahpermintaan', $jumlahpermintaan)->with('totalstokbahan', $totalstokbahan)->with('totalstokes', $totalstokes)->with('data', $data)->with('pemesanan', $pemesanan);
+        return view('admin.beranda')->with('jumlahpermintaan', $jumlahpermintaan)->with('totalstokbahan', $totalstokbahan)->with('totalstokes', $totalstokes)->with('data', $data)->with('tahun', $tahun)->with('pemesanan', $pemesanan)->with('th', $th);
     }
 
     public function stokBahan(){

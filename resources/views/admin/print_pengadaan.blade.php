@@ -3,45 +3,46 @@
         <center>
             <table text-align="center" style="margin-top:40px">
                 <tr>
-                    <td align="center" rowspan="5" style="width: 6em"><img src="{{url('dist/img/logo.jpeg')}}" class="img-circle" width="90px" height="110px" /></td>
+                    <td align="center" rowspan="5" style="width: 8em"><img src="{{url('dist/img/logo.jpeg')}}" class="img-circle" width="100px" height="120px" /></td>
                 </tr>
-                <tr><td align="center" style="font-size:20px;"><b>Dynasti Ice Cream</b></td></tr>
-                <tr><td align="center"style="font-size:20px;"><b></b></td></tr>
-                <tr><td align="center">Komplek Paledang Indah MB RT 08 Rw 11 </td></tr>
-                <tr><td align="center">Ds. Bojongkunci, Kec. Pameungpeuk, Kab. Bandung </td></tr>   
+                <tr><td align="center" style="font-size:33px;"><b>Dynasti Ice Cream</b></td></tr>
+                <tr><td align="center" style="font-size:18px;"><b></b></td></tr>
+                <tr><td align="center" style="font-size:18px;">Komplek Paledang Indah MB RT 08 Rw 11 </td></tr>
+                <tr><td align="center" style="font-size:18px;">Ds. Bojongkunci, Kec. Pameungpeuk, Kab. Bandung </td></tr>   
             </table>
 
-            <hr size="3px" style="width:85%;" />
+            <hr size="3px" style="width:95%;" />
         </center>
 
         <br>
 
         <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px">
             <tr>
-                <td style="font-size:35px;" align="center">Laporan Pengadaan </td>
+                <td style="font-size:25px;" align="center">Laporan Pengadaan </td>
             </tr>
         </table>
         <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px">
             <tr>
-                <td style="font-size:20px;">Dari tanggal : {{date('d F Y',strtotime($tgl_a))}} - Sampai tanggal : {{date('d F Y',strtotime($tgl_b))}}</td>
+                <td style="font-size:15px;" align="center">Periode : {{date('d F Y',strtotime($tgl_a))}} - {{date('d F Y',strtotime($tgl_b))}}</td>
             </tr>
         </table>
 
-        <br><br>
+        <br>
 
          <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px; " id="dataTables-example" border="1">
             <thead>
-                <tr>
-                    <th style="width: 5px">No</th>
-                    <th style="width: 25px">Kode Pengadaan</th>
-                    <th style="width: 50px">Tanggal</th>
-                    <th style="width: 50px">Total</th>
+                <tr style="font-size:18px;">
+                    <th style="width: 50px">No</th>
+                    <th style="width: 190px">Kode Pengadaan</th>
+                    <th style="width: 20px">Tanggal</th>
+                    <th style="width: 180px">Total</th>
                 </tr>
             </thead>
             <tbody>
+                <?php $no=1; ?>
                 @foreach($data as $v)
                     <tr>
-                        <td></td>
+                        <td align="center">{{ $no++ }}</td>
                         <td>{{$v->kode_pembelian}}</td>
                         <td>{{$v->tgl}}</td>
                         <td>{{$v->total}}</td>

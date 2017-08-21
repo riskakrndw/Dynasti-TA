@@ -15,18 +15,6 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/print', function () {
-    return view('admin.print_stok_es');
-});
-
-Route::get('/printbahan', 'LaporanController@cetakbahan');
-
-Route::get('/printpengadaan/{tgl_a}/{tgl_b}', 'LaporanController@cetakpengadaan');
-
-Route::get('/printpenjualan', function () {
-    return view('admin.print_penjualan');
-});
-
 Auth::routes();
 
 //forbidden
@@ -236,6 +224,15 @@ Route::group(['middleware' => 'levelManager'], function(){
 
 			Route::post('lappenjualan','LaporanController@lappenjualan');
 			Route::post('lappengadaan','LaporanController@lappengadaan');
+
+			Route::get('/print', function () {
+			    return view('admin.print_stok_es');
+			});
+
+			Route::get('/printbahan', 'LaporanController@cetakbahan');
+
+			Route::get('/manager/laporan/printpengadaan/{tgl_a}/{tgl_b}', 'LaporanController@cetakpengadaan');
+			Route::get('/manager/laporan/printpenjualan/{tgl_a}/{tgl_b}', 'LaporanController@cetakpenjualan');
 
 
 });

@@ -35,84 +35,66 @@
     <!-- Main content -->
     <section class="content">
       <div class="row">
-
-        <!-- Data jenis -->
-          <div class="col-xs-12">
-            <div class="box">
-
-              <!-- header -->
-                <div class="box-header">
-                  <ul class="nav nav-tabs-custom">
-                    <li class="pull-left box-header"><h3 class="box-title">Laporan Pengadaan</h3></li>
-                  </ul>
-                </div>
-              <!-- /header -->
-
-              <input type="hidden" value="{{csrf_token()}}" id="token" name="_token">
-              <div class="box-body">
-                <div class="col-xs-12">
-                  <label>Dari Tanggal</label>
-                  <div class="input-group date">
-                    <div class="input-group-addon">
-                      <i class="fa fa-calendar"></i>
-                    </div>
-                    <input type="text" name="tgl_a" class="form-control pull-right" id="datepicker">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <ul class="nav nav-tabs-custom">
+                <li class="pull-left box-header"><h3 class="box-title">Laporan Pengadaan</h3></li>
+              </ul>
+            </div>
+            <input type="hidden" value="{{csrf_token()}}" id="token" name="_token">
+            <div class="box-body">
+              <div class="col-xs-12">
+                <label>Dari Tanggal</label>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
                   </div>
+                  <input type="text" name="tgl_a" class="form-control pull-right" id="datepicker">
                 </div>
-                <div class="col-xs-12">
+              </div>
+              <div class="col-xs-12">
                 <br>
-                  <label>Sampai Tanggal</label>
-                  <div class="input-group date">
-                    <div class="input-group-addon">
-                      <i class="fa fa-calendar"></i>
-                    </div>
-                    <input type="text" name="tgl_b" class="form-control pull-right" id="datepicker1">
+                <label>Sampai Tanggal</label>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
                   </div>
+                  <input type="text" name="tgl_b" class="form-control pull-right" id="datepicker1">
                 </div>
-                <div class="col-xs-12">
-                  <br>
-                  <button id="cari" class="btn btn-primary btnCetak"><i class="fa  fa-search "></i> Cari</button>
-                  <a href="#" id="cetak" class="btn btn-primary btnCetak"><i class="fa  fa-print "></i> Cetak</a>
-                </div>
+              </div>
+              <div class="col-xs-12">
+                <br>
+                <button id="cari" class="btn btn-primary btnCetak"><i class="fa  fa-search "></i> Cari</button>
+                <a href="#" id="cetak" class="btn btn-primary btnCetak"><i class="fa  fa-print "></i> Cetak</a>
               </div>
             </div>
           </div>
-        <!-- /Data jenis -->
-
+        </div>
       </div>
 
-
       <div class="row">
-
-        <!-- Data es -->
         <div class="col-xs-12">
           <br>
           <div class="box">
-
-            <!-- tabel es -->
-              <div class="box-body table-responsive">
-                <table id="example1" class="table table-bordered table-hover">
-                  <thead>
-                    <tr>
-                      <th style="width: 90px">No</th>
-                      <th style="width: 210px">Kode Pengadaan</th>
-                      <th style="width: 168px">Tanggal</th>
-                      <th style="width: 168px">Total</th>
-                    </tr>
-                  </thead>
-                  <tbody id="pengadaan">
-                  </tbody>
-                </table>
-              </div>
-            <!-- /.tabel es -->
-
+            <div class="box-body table-responsive">
+              <table id="example1" class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th style="width: 30px">No</th>
+                    <th style="width: 210px">Kode Pengadaan</th>
+                    <th style="width: 168px">Tanggal</th>
+                    <th style="width: 168px">Total</th>
+                  </tr>
+                </thead>
+                <tbody id="pengadaan">
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-        <!-- /Data es -->
       </div>
-
     </section>
-    <!-- /. main content -->
   </div>
 @endsection
 
@@ -141,15 +123,15 @@
         autoclose: true,
         format: "yyyy-mm-dd"
       });
-
   </script>
+
   <script>
     $(document).ready(function(){
-      
       $("#cari").click(function(){
-      var tgl_a=$("#datepicker").val();
-      var tgl_b=$("#datepicker1").val();
-      var token=$("#token").val();
+        var nomorBaris = 0;
+        var tgl_a=$("#datepicker").val();
+        var tgl_b=$("#datepicker1").val();
+        var token=$("#token").val();
 
         var link="{{url('lappengadaan')}}";
         $.ajax({
@@ -159,18 +141,14 @@
           success:function(data){
             $("#pengadaan").empty();
             $.each(data, function(k, v) {
-              $("#pengadaan").append("<tr><td>"+v.tgl+"</td><td>"+v.kode_pembelian+"</td><td>"+v.tgl+"</td><td>"+v.total+"</td></tr>");
+              nomorBaris = nomorBaris + 1;
+              $("#pengadaan").append("<tr><td align='center'>"+nomorBaris+"</td><td>"+v.kode_pembelian+"</td><td>"+v.tgl+"</td><td>"+v.total+"</td></tr>");
             });
 
-            $("#cetak").attr("href", "{{url('printpengadaan')}}/"+tgl_a+'/'+tgl_b).attr('target','_blank');;
+            $("#cetak").attr("href", "{{url('manager/laporan/printpengadaan')}}/"+tgl_a+'/'+tgl_b).attr('target','_blank');;
           }
         })
       })
-
-
     })
-
   </script>
-
-
 @endsection
