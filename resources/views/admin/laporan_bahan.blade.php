@@ -23,7 +23,7 @@
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Stok Ice Cream
+        Stok Bahan Baku
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -36,7 +36,7 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
-          <a href="{{url('printbahan')}}" target="_blank" class="btn .btn-lg btn-primary"><i class="fa  fa-print "></i> Cetak</a>
+          <a href="#" id="cetak" class="btn .btn-lg btn-primary"><i class="fa  fa-print "></i> Cetak</a>
         </div>
 
         <!-- Data es -->
@@ -104,17 +104,7 @@
   <script src="{{url('dist/js/bootstrap-datepicker.js')}}"></script>
 
   <script>
-    //Date picker
-      $('#datepicker').datepicker({
-        autoclose: true,
-        format: "yyyy-mm-dd"
-      });
-
-      $('#datepicker1').datepicker({
-        autoclose: true,
-        format: "yyyy-mm-dd"
-      });
+    $("#cetak").attr("href", "{{url('manager/laporan/printbahan')}}").attr('target','_blank');;
   </script>
-
 
 @endsection

@@ -120,10 +120,10 @@
           <div class="box">
             <br>
             <div class="col-md-3">
-              <select class="form-control select2" style="width: 100%;" name="tahun" id="tahun">
+              <select class="form-control select2" style="width: 100%;" name="tahun" id="pilihTahun">
                 <option disabled="disabled" selected="selected" value="0">Pilih Tahun</option>
                 @foreach($tahun as $t)
-                  <option value="{{ $t->tahun }}">{{ $t->tahun }}</option>
+                  <option value="{{ $t->tahun }}" url="/tahun={{$t->tahun}}">{{ $t->tahun }}</option>
                 @endforeach
               </select>
             </div>  
@@ -200,6 +200,16 @@
                         // }
                     }]
                 });
+              </script>
+
+              <script>
+                $('#pilihTahun').change(function(){
+
+                  var url= "/dynasti/public/manager/beranda/tahun="+$(this).val();
+                  console.log(url);
+                  window.location = url;  
+                });
+
               </script>
             </div>
           </div>

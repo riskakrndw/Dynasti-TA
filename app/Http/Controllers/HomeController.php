@@ -31,7 +31,7 @@ class HomeController extends Controller
 
         $thn=\Route::current()->parameter('tahun');
         if($thn){
-            $th=DB::SELECT('select MONTHNAME(tgl) as bulan, sum(total) as total_penjualan FROM penjualan WHERE YEAR(tgl)=$thn group by bulan ASc');
+            $th=DB::SELECT('select MONTHNAME(tgl) as bulan, sum(total) as total_penjualan FROM penjualan WHERE YEAR(tgl)='.$thn.' group by bulan ASc');
         }else{
 
             $th=DB::SELECT('select MONTHNAME(tgl) as bulan, sum(total) as total_penjualan FROM penjualan WHERE YEAR(tgl)=YEAR(curdate()) group by bulan ASC');

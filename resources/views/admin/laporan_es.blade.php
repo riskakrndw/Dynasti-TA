@@ -36,7 +36,7 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
-          <a href=""><button type="button" class="btn .btn-lg btn-primary"><i class="fa  fa-print "></i> Cetak </button></a>
+          <a href="" id="cetak"><button type="button" class="btn .btn-lg btn-primary"><i class="fa  fa-print "></i> Cetak </button></a>
         </div>
 
         <!-- Data es -->
@@ -102,17 +102,7 @@
   <script src="{{url('dist/js/bootstrap-datepicker.js')}}"></script>
 
   <script>
-    //Date picker
-      $('#datepicker').datepicker({
-        autoclose: true,
-        format: "yyyy-mm-dd"
-      });
-
-      $('#datepicker1').datepicker({
-        autoclose: true,
-        format: "yyyy-mm-dd"
-      });
+    $("#cetak").attr("href", "{{url('manager/laporan/printice')}}").attr('target','_blank');;
   </script>
-
 
 @endsection

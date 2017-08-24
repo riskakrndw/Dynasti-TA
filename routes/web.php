@@ -47,6 +47,8 @@ Route::get('/api/detail-rasa/{id}', 'RasaApiController@showDetail')->name('apira
 
 //beranda
 Route::get('/manager/beranda', 'HomeController@index_manager')->name('beranda');
+Route::get('/manager/beranda/tahun={tahun}', 'HomeController@index_manager');
+
 Route::get('/keuangan/beranda', 'HomeController@index_keuangan')->name('berandakeu');
 Route::get('/produksi/beranda', 'HomeController@index_produksi')->name('berandapro');
 Route::get('/pengadaan/beranda', 'HomeController@index_pengadaan')->name('berandapeng');
@@ -213,24 +215,17 @@ Route::group(['middleware' => 'levelManager'], function(){
 
 
 	//PRINT LAPORAN
-		/*menampilkan halaman print laporan pembelian*/
+		/*menampilkan halaman print laporan*/
 			Route::get('/manager/laporan/pengadaan', 'LaporanController@laporanPembelian')->name('laporanPembelian');
-		/*menampilkan halaman print laporan penjualan*/
 			Route::get('/manager/laporan/penjualan', 'LaporanController@laporanPenjualan')->name('laporanPenjualan');
-		/*menampilkan halaman print laporan es*/
 			Route::get('/manager/laporan/ice', 'LaporanController@laporanEs')->name('laporanEs');
-		/*menampilkan halaman print laporan es*/
 			Route::get('/manager/laporan/bahan', 'LaporanController@laporanBahan')->name('laporanBahan');
 
 			Route::post('lappenjualan','LaporanController@lappenjualan');
 			Route::post('lappengadaan','LaporanController@lappengadaan');
 
-			Route::get('/print', function () {
-			    return view('admin.print_stok_es');
-			});
-
-			Route::get('/printbahan', 'LaporanController@cetakbahan');
-
+			Route::get('/manager/laporan/printbahan', 'LaporanController@cetakbahan');
+			Route::get('/manager/laporan/printice', 'LaporanController@cetakes');
 			Route::get('/manager/laporan/printpengadaan/{tgl_a}/{tgl_b}', 'LaporanController@cetakpengadaan');
 			Route::get('/manager/laporan/printpenjualan/{tgl_a}/{tgl_b}', 'LaporanController@cetakpenjualan');
 

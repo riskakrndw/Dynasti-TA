@@ -3,22 +3,22 @@
         <center>
             <table text-align="center" style="margin-top:40px">
                 <tr>
-                    <td align="center" rowspan="5" style="width: 6em"><img src="{{url('dist/img/logo.jpeg')}}" class="img-circle" width="90px" height="110px" /></td>
+                    <td align="center" rowspan="5" style="width: 8em"><img src="{{url('dist/img/logo.jpeg')}}" class="img-circle" width="100px" height="120px" /></td>
                 </tr>
                 <tr><td align="center" style="font-size:33px;"><b>Dynasti Ice Cream</b></td></tr>
                 <tr><td align="center" style="font-size:18px;"><b></b></td></tr>
                 <tr><td align="center" style="font-size:18px;">Komplek Paledang Indah MB RT 08 Rw 11 </td></tr>
-                <tr><td align="center" style="font-size:18px;">Ds. Bojongkunci, Kec. Pameungpeuk, Kab. Bandung </td></tr>  
+                <tr><td align="center" style="font-size:18px;">Ds. Bojongkunci, Kec. Pameungpeuk, Kab. Bandung </td></tr>   
             </table>
 
-            <hr size="3px" style="width:85%;" />
+            <hr size="3px" style="width:95%;" />
         </center>
 
         <br>
 
         <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px">
             <tr>
-                <td style="font-size:35px;" align="center">Laporan Penjualan </td>
+                <td style="font-size:25px;" align="center">Laporan Penjualan </td>
             </tr>
         </table>
         <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px">
@@ -69,11 +69,11 @@
       
     </body>
 
-    <script src="{{ asset('vendor/adminlte/plugins/jQuery/jquery-2.2.3.min.js') }}" type="text/javascript"></script>
+  <script src="{{url('dist/js/jquery-1.8.2.min.js')}}" type="text/javascript" charset="utf8"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             window.print();
-         setTimeout(window.close, 0);
+            setTimeout(window.close, 0);
         })
     </script>
 </html>

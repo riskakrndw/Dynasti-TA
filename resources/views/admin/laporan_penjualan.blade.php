@@ -68,7 +68,7 @@
                 <button id="cari" class="btn btn-primary btnCetak"><i class="fa  fa-search "></i> Cari</button>
                 <a href="#" id="cetak" class="btn btn-primary btnCetak"><i class="fa  fa-print "></i> Cetak</a>
               </div>
-            </div> 
+            </div>
           </div>
         </div>
       </div>
@@ -133,7 +133,7 @@
         var tgl_b=$("#datepicker1").val();
         var token=$("#token").val();
 
-        var link="{{url('lappenjualan')}}";
+        var link="{{url('lappengadaan')}}";
         $.ajax({
           type:"post",
           url:link,
