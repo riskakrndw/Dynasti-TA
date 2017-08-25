@@ -32,7 +32,7 @@
         <!-- Data es -->
         <div class="col-xs-12">
           <br>
-          <div class="box box-success">
+          <div class="box">
             <!-- header -->
               <div class="box-header">
                 <ul class="nav nav-tabs-custom">
@@ -46,10 +46,10 @@
                 <table id="example1" class="table table-bordered table-hover">
                   <thead>
                     <tr>
-                      <th style="width: 10px">No</th>
-                      <th style="width: 200px">Kode Pengadaan</th>
-                      <th style="width: 200px">Tanggal</th>
-                      <th style="width: 200px">Total</th>
+                      <th style="width: 30px">No</th>
+                      <th style="width: 250px">Kode Pengadaan</th>
+                      <th style="width: 100px">Tanggal</th>
+                      <th style="width: 150px">Total</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -63,17 +63,19 @@
                       <td>{{ $data->total }}</td>
                       <td>
                         <a href="{{ url('manager/konfirmasi/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                        <br><br>
                         <form method="post" action="{{ url('manager/konfirmasi/ubah') }}">
                           {{csrf_field()}}
                           <input class="form-control" type="hidden" name="id" id="id" value="{{ $data->id }}">
                           <input class="form-control" type="hidden" name="status" value="berhasil">
                           <button type="submit" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-check"></i> Terima</button>
                         </form>
+                        <br>
                         <form method="post" action="{{ url('manager/konfirmasi/ubah') }}">
                           {{csrf_field()}}
                           <input class="form-control" type="hidden" name="id" id="id" value="{{ $data->id }}">
                           <input class="form-control" type="hidden" name="status" value="gagal">
-                          <button type="submit" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-remove"></i> Tolak</button>
+                          <button type="submit" class="btn btn-sm btn-danger btnEditEs"><i class="fa fa-remove"></i> Tolak</button>
                         </form>
                         <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
                       </td>
