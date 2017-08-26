@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Tambah Ice Cream")
+@section("title", "Detail Data Rasa")
 
 @section("rasa", "active")
 
@@ -23,9 +23,9 @@
   <div class="content-wrapper">
     <section class="content-header">
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Master Data</a></li>
-        <li><a href="#">Rasa</a></li>
+        <li><a href="{{route('beranda')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a> Master Data</a></li>
+        <li><a href="{{route('rasa')}}">Data Rasa</a></li>
         <li class="active">Lihat Detail</li>
       </ol>
     </section>
@@ -42,7 +42,7 @@
         <!-- Tambah Es -->
           <div class="col-md-12">
             <br>
-            <div class="box box-success">
+            <div class="box">
               <ul class="nav nav-tabs-custom">
                 <li class="pull-left box-header"><h3 class="box-title">Data Rasa</h3></li>
               </ul>

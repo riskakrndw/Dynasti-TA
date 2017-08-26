@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Tambah Penjualan")
+@section("title", "Tambah Data Penjualan")
 
 @section("jual", "active")
 
@@ -24,8 +24,8 @@
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Transaksi</a></li>
-        <li><a href="#">Data Penjualan</a></li>
+        <li><a> Transaksi</a></li>
+        <li><a href="{{route('penjualan')}}">Data Penjualan</a></li>
         <li class="active">Tambah</li>
       </ol>
     </section>
@@ -42,7 +42,7 @@
         <!-- Tambah penjualan -->
           <div class="col-md-12">
             <br>
-            <div class="box box-success">
+            <div class="box">
               <ul class="nav nav-tabs-custom">
                 <li class="pull-left box-header"><h3 class="box-title">Data Penjualan</h3></li>
               </ul>
@@ -52,7 +52,7 @@
                   {{csrf_field()}}
                   <div class="box-body">
                     <input class="form-control" type="hidden" name="idPengguna" id="idPengguna" value="{{Auth::User()->id}}">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                       <div class="form-group">
                         <label>Tanggal</label>
                         <div class="input-group date">
@@ -69,7 +69,7 @@
 
               <hr id="garis">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Ice Cream yang terjual</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Daftar Ice Cream</h3></li>
               </ul>
 
               <!-- Data bahan -->

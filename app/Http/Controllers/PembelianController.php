@@ -67,7 +67,7 @@ class PembelianController extends Controller
         }
         $data->save();
 
-        $data->kode_penjualan = $data->kode_penjualan . $data->id;
+        $data->kode_pembelian = $data->kode_pembelian . $data->id;
         $data->save();
 
         return $data->id;

@@ -29,25 +29,40 @@
 
         <br>
 
-         <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px; " id="dataTables-example" border="1">
+        <table align="center" style="width:100%;border-collapse: collapse; margin-top:10px; " id="dataTables-example" border="1">
             <thead>
-                <tr style="font-size:18px;">
-                    <th style="width: 50px">No</th>
-                    <th style="width: 190px">Kode Pengadaan</th>
-                    <th style="width: 20px">Tanggal</th>
-                    <th style="width: 180px">Total</th>
+                <tr style="font-size:18px; height:50px;">
+                    <th style="width: 50px;">No</th>
+                    <th style="width: 130px">Kode</th>
+                    <th style="width: 120px">Tanggal</th>
+                    <th style="width: 180px" colspan="4">Daftar Bahan Baku</th>
                 </tr>
             </thead>
             <tbody>
                 <?php $no=1; ?>
-                @foreach($data as $v)
+                @foreach($data as $q=>$v)
                     <tr>
-                        <td align="center">{{ $no++ }}</td>
-                        <td>{{$v->kode_pembelian}}</td>
-                        <td>{{$v->tgl}}</td>
-                        <td>{{$v->total}}</td>
+                        <td align="center" rowspan="{{ count($v->detail_beli)+1 }}">{{ $q+1 }}</td>
+                        <td rowspan="{{ count($v->detail_beli)+1 }}">{{$v->kode_pembelian}}</td>
+                        <td align="center" rowspan="{{ count($v->detail_beli)+1 }}">{{$v->tgl}}</td>
+                        <th style="width: 120px">Nama Bahan</th>
+                        <th style="width: 120px">Harga</th>
+                        <th style="width: 80px">Jumlah</th>
+                        <th style="width: 120px">Subtotal</th>
                     </tr>
+                    @foreach($v->detail_beli as $x)
+                        <tr>
+                            <td>{{$x->bahan->nama}}</td>
+                            <td align="center">Rp {{ number_format($x->bahan->harga,2,",","." ) }}</td>
+                            <td align="center">{{$x->jumlah}}</td>
+                            <td align="center">Rp {{ number_format($x->subtotal,2,",","." ) }}</td>
+                        </tr>
+                    @endforeach
                 @endforeach
+                <tr style="font-size:18px; height:30px;">
+                    <td align="center" colspan="6">Total</td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
 

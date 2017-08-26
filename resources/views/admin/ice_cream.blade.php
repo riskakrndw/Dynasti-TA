@@ -19,9 +19,9 @@
         Data Ice Cream
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Master Data</a></li>
-        <li class="active">Ice Cream</li>
+        <li><a href="{{route('beranda')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a> Master Data</a></li>
+        <li class="active">Data Ice Cream</li>
       </ol>
     </section>
 
@@ -31,7 +31,7 @@
 
         <!-- Data es -->
         <div class="col-xs-12">
-          <div class="box box-success">
+          <div class="box">
             <!-- header -->
               <div class="box-header">
                 <ul class="nav nav-tabs-custom">
@@ -60,7 +60,7 @@
                       <td>{{ $no++ }}</td>
                       <td>{{ $data->nama }}</td>
 
-                      <td>{{ $data->jenis->harga }}</td>
+                      <td>Rp {{ number_format($data->jenis->harga,2,",","." ) }}</td>
                       <td>{{ $data->stok }}</td>
                       <td> 
                         <button type="button" class="btn btn-sm btn-default btnEditStok" data-toggle="modal" data-target="" data-id="{{ $data->id }}" data-stok="{{ $data->stok }}"> <i class="fa fa-edit"></i> Ubah Stok</button>

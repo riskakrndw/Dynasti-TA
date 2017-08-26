@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Bahan Baku")
+@section("title", "Data Bahan Baku")
 
 @section("bahan", "active")
 
@@ -19,9 +19,9 @@
         Data Bahan Baku
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Master Data</a></li>
-        <li class="active">Bahan Baku</li>
+        <li><a href="{{route('beranda')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a> Master Data</a></li>
+        <li class="active">Data Bahan Baku</li>
       </ol>
     </section>
 
@@ -44,7 +44,7 @@
                 <form role="form" action="{{url('manager/bahan/simpan')}}" method="POST" id="formID">
                   {{csrf_field()}}
                   <div class="box-body">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                       <div class="form-group">
                         <label>Nama Bahan</label>
                         <div class="input-group">
@@ -68,12 +68,13 @@
                         @endif
                       </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                       <div class="form-group">
                         <label>Harga Satuan</label>
                         <div class="input-group">
-                          <span class="input-group-addon"><i><b>$</b></i></span>
+                          <span class="input-group-addon">Rp</span>
                           <input class="form-control" placeholder="Harga Satuan" name="harga" type="text" onKeyPress="return goodchars(event,'0123456789',this)">
+                            <span class="input-group-addon">,00</span>
                         </div>
                         @if($errors->has('harga'))
                           <span class="help-block">Harus diisi</span>
@@ -135,9 +136,9 @@
                       <th style="width: 30px">No</th>
                       <th style="width: 180px">Nama Bahan</th>
                       <th style="width: 80px">Satuan</th>
-                      <th style="width: 180px">Harga Satuan</th>
+                      <th style="width: 120px">Harga Satuan</th>
                       <th style="width: 80px">Stok</th>
-                      <th style="width: 80px">Stok Minimal</th>
+                      <th style="width: 90px">Stok Minimal</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -148,7 +149,7 @@
                       <td>{{ $no++ }}</td>
                       <td>{{ $data->nama }}</td>
                       <td>{{ $data->satuan }}</td>
-                      <td>{{ $data->harga }}</td>
+                      <td>Rp {{ number_format($data->harga,2,",","." ) }}</td>
                       <td>{{ $data->stok }}</td>
                       <td>{{ $data->stok_min }}</td>
                       <td>
@@ -189,10 +190,11 @@
                     <span class="help-block">Harus diisi</span>
                   @endif
                   <br>
-                  <label>Harga</label>
+                  <label>Harga Satuan</label>
                   <div class="input-group">
-                    <span class="input-group-addon"><i><b>$</b></i></span>
+                          <span class="input-group-addon">Rp</span>
                     <input class="form-control" placeholder="Harga Satuan" id="hargaBahan" name="harga" type="text" onKeyPress="return goodchars(event,'0123456789',this)">
+                            <span class="input-group-addon">,00</span>
                   </div>
                   @if($errors->has('harga'))
                     <span class="help-block">Harus diisi</span>

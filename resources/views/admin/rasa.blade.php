@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Rasa")
+@section("title", "Data Rasa")
 
 @section("rasa", "active")
 
@@ -18,9 +18,9 @@
         Data Rasa
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Master Data</a></li>
-        <li class="active">Rasa</li>
+        <li><a href="{{route('beranda')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a> Master Data</a></li>
+        <li class="active"> Data Rasa</li>
       </ol>
     </section>
 
@@ -37,7 +37,7 @@
         <!-- Data rasa -->
           <div class="col-xs-12">
             <br>
-            <div class="box box-success">
+            <div class="box">
 
               <!-- header -->
                 <div class="box-header">

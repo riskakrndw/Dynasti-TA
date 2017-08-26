@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Tambah Ice Cream")
+@section("title", "Tambah Data Rasa")
 
 @section("rasa", "active")
 
@@ -23,9 +23,9 @@
   <div class="content-wrapper">
     <section class="content-header">
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Master Data</a></li>
-        <li><a href="#">Rasa</a></li>
+        <li><a href="{{route('beranda')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a> Master Data</a></li>
+        <li><a href="{{route('rasa')}}">Data Rasa</a></li>
         <li class="active">Tambah</li>
       </ol>
     </section>
@@ -42,7 +42,7 @@
         <!-- Tambah Es -->
           <div class="col-md-12">
             <br>
-            <div class="box box-success">
+            <div class="box">
               <ul class="nav nav-tabs-custom">
                 <li class="pull-left box-header"><h3 class="box-title">Data Rasa</h3></li>
               </ul>
@@ -73,9 +73,8 @@
                             <div id="showjenis{{$key}}" class="hide">
                             dalam 1 kali pembuatan menghasilkan:
                               <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-font"></i></span>
-
-                                <input class="form-control" placeholder="jumlah" name="jumlahProduksi" id="jumlahProduksi{{$key}}">
+                                <span class="input-group-addon"><i class="fa fa-plus"></i></span>
+                                <input class="form-control" placeholder="Jumlah" name="jumlahProduksi" id="jumlahProduksi{{$key}}" onKeyPress="return goodchars(event,'0123456789',this)">
                               </div>
                             </div>
                           </label>
@@ -101,7 +100,7 @@
                 </div>
                 <input class="form-control" type="hidden" name="idBahan" id="idBahan" value="">
                 <div class="col-xs-3">
-                  <input type="text" class="form-control" id="jumlahBahan" placeholder="Jumlah yang dibutuhkan" onKeyPress="return goodchars(event,'0123456789',this)">
+                  <input type="text" class="form-control" id="jumlahBahan" placeholder="Jumlah yang Dibutuhkan" onKeyPress="return goodchars(event,'0123456789',this)">
                 </div>
                 <div class="col-xs-2">
                   <a href="javascript: void(0)"><button type="button" class="btn btn-sm btn-default btnTambahBahan"><i class="fa  fa-plus "></i> Tambah Bahan </button></a>

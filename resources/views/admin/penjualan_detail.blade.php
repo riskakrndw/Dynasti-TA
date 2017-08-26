@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Detail Penjualan")
+@section("title", "Detail Data Penjualan")
 
 @section("jual", "active")
 
@@ -23,9 +23,9 @@
   <div class="content-wrapper">
     <section class="content-header">
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Transaksi</a></li>
-        <li><a href="#">Data Penjualan</a></li>
+        <li><a href="{{route('beranda')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href=""> Transaksi</a></li>
+        <li><a href="{{route('penjualan')}}">Data Penjualan</a></li>
         <li class="active">Lihat Detail</li>
       </ol>
     </section>
@@ -42,7 +42,7 @@
         <!-- Tambah jual -->
           <div class="col-md-12">
             <br>
-            <div class="box box-success">
+            <div class="box">
               <ul class="nav nav-tabs-custom">
                 <li class="pull-left box-header"><h3 class="box-title">Data Penjualan</h3></li>
               </ul>
@@ -77,7 +77,7 @@
 
               <hr id="garis">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Daftar ice cream yang dijual</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Daftar Ice Cream</h3></li>
               </ul>
 
               <!-- tabel es -->
@@ -99,9 +99,9 @@
                         <tr id="tr{{$id}}">
                           <td>{{ $no++ }}</td>
                           <td>{{ $detail_jual->ice_cream->nama }}</td>
-                          <td>{{ $detail_jual->ice_cream->jenis->harga }}</td>
+                          <td>Rp {{ number_format($detail_jual->ice_cream->jenis->harga,2,",","." ) }}</td>
                           <td id="{{ $detail_jual->ice_cream->nama }}">{{ $detail_jual->jumlah }}</td>
-                          <td class="subTotal">{{ $detail_jual->subtotal }}</td>
+                          <td class="subTotal">Rp {{ number_format($detail_jual->subtotal,2,",","." ) }}</td>
                         </tr>
                       @endforeach
                     </tbody>
@@ -109,7 +109,7 @@
                   <br>
 
                   <span>Total Harga</span>
-                  <input id="totalHarga" class="totalHarga" name="total" placeholder="0" value="{{ $data->total }}" disabled>
+                  <input id="totalHarga" class="totalHarga" name="total" placeholder="0" value="Rp {{ number_format($data->total,2,",","." ) }}" disabled>
 
                 </div>
               <!-- /.tabel es -->

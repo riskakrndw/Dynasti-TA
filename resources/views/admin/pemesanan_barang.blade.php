@@ -20,7 +20,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Transaksi</a></li>
+        <li><a href="#"> Pemesanan</a></li>
         <li class="active">Data Produk Pesanan</li>
       </ol>
     </section>
@@ -28,11 +28,6 @@
     <!-- Main content -->
     <section class="content">
       <div class="row">
-
-        <!-- Tambah es -->
-          <!-- <div class="col-md-12">
-            <a href="{{route('tambahPemesanan')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Pengadaan </button></a>
-          </div> -->
 
         <!-- /Tambah es -->        
         <div class="col-md-12">

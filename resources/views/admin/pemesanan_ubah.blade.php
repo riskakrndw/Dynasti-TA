@@ -2,7 +2,7 @@
 
 @section("title", "Ubah Pemesanan")
 
-@section("pesan", "active")
+@section("pesanan", "active")
 
 @section("pemesanan", "active")
 
@@ -24,6 +24,7 @@
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Pemesanan</a></li>
         <li><a href="#">Data Pemesanan</a></li>
         <li class="active">Ubah</li>
       </ol>
@@ -41,7 +42,7 @@
         <!-- Tambah penjualan -->
           <div class="col-md-12">
             <br>
-            <div class="box box-success">
+            <div class="box">
               <ul class="nav nav-tabs-custom">
                 <li class="pull-left box-header"><h3 class="box-title">Data Pemesanan</h3></li>
               </ul>
@@ -55,7 +56,7 @@
                       <div class="form-group">
                         <label>Kode Pemesanan</label>
                         <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
                           <input class="form-control" placeholder="Kode Penjualan" name="kode" id="kode" value="{{ $data->kode_pemesanan }}" disabled>
                         </div>
                       </div>
@@ -84,7 +85,7 @@
                       <div class="form-group">
                         <label>Telepon</label>
                         <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                           <input class="form-control" placeholder="Telepon" name="telepon" id="telepon" value="{{ $data->telepon }}">
                         </div>
                       </div>
@@ -93,7 +94,7 @@
                       <div class="form-group">
                         <label>Alamat</label>
                         <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <span class="input-group-addon"><i class="fa fa-home"></i></span>
                           <textarea class="form-control" placeholder="Alamat" name="alamat" id="alamat">{{ $data->alamat }}</textarea>
                         </div>
                       </div>

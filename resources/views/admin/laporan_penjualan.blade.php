@@ -133,7 +133,7 @@
         var tgl_b=$("#datepicker1").val();
         var token=$("#token").val();
 
-        var link="{{url('lappengadaan')}}";
+        var link="{{url('lappenjualan')}}";
         $.ajax({
           type:"post",
           url:link,

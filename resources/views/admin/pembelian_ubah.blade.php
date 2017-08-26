@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Tambah Ice Cream")
+@section("title", "Ubah Data Pengadaan")
 
 @section("beli", "active")
 
@@ -23,9 +23,9 @@
   <div class="content-wrapper">
     <section class="content-header">
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{{route('beranda')}}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#"> Transaksi</a></li>
-        <li><a href="#">Pembelian</a></li>
+        <li><a href="{{route('pembelian')}}">Data Pengadaan</a></li>
         <li class="active">Ubah</li>
       </ol>
     </section>
@@ -36,13 +36,13 @@
 
         
         <div class="col-md-12">
-          <a href="{{route('pembelian')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman detail pembelian </button></a>
+          <a href="{{route('pembelian')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data pengadaan </button></a>
         </div>   
 
         <!-- Tambah Pembelian -->
           <div class="col-md-12">
             <br>
-            <div class="box box-success">
+            <div class="box">
               <ul class="nav nav-tabs-custom">
                 <li class="pull-left box-header"><h3 class="box-title">Data Pembelian</h3></li>
               </ul>
@@ -55,7 +55,7 @@
                     <input class="form-control" type="hidden" name="status" id="status" value="">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Kode Pembelian</label>
+                        <label>Kode Pengadaan</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
                           <input class="form-control" placeholder="Kode Pembelian" name="kode" id="kode" value="{{ $data->kode_pembelian }}" disabled>
@@ -79,7 +79,7 @@
 
               <hr id="garis">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Bahan baku yang diperlukan</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Daftar Bahan Baku</h3></li>
               </ul>
 
               <!-- Data bahan -->
@@ -130,7 +130,7 @@
                           <td>{{ $detail_beli->bahan->harga }}</td>
                           <td id="{{ $nama }}">{{ $detail_beli->jumlah }}</td>
                           <td id="{{ $nama }}subTotal" class="subTotal">{{ $detail_beli->subtotal }}</td>
-                          <td class="col-md-3 control-label"><a class="remove-type pull-right" data-nama="{{ $nama }}" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td>
+                          <td class="col-md-3 control-label"><a class="remove-type" data-nama="{{ $nama }}" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td>
                         </tr>
                       @endforeach
                     </tbody>
@@ -208,7 +208,7 @@
               }
               else{
                 nomorBaris = nomorBaris + 1;
-                $('#type_container').append('<tr id="'+type_div+'" no="'+nomorBaris+'"><td id="no'+nomorBaris+'">'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-nama="'+nama.replace(/\s/g,'')+'" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                $('#type_container').append('<tr id="'+type_div+'" no="'+nomorBaris+'"><td id="no'+nomorBaris+'">'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type" targetDiv="" data-nama="'+nama.replace(/\s/g,'')+'" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
               }
               $('#namaBahan').val('');
               $('#hargaBahan').val('');

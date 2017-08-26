@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Detail Penjualan")
+@section("title", "Detail Pemesanan")
 
 @section("pemesanan", "active")
 
@@ -30,8 +30,8 @@
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home </a></li>
-        <li><a href="#"> Transaksi</a></li>
-        <li><a href="#">Data Pembelian</a></li>
+        <li><a href="#">Pemesanan</a></li>
+        <li><a href="#">Data Pemesanan</a></li>
         <li class="active">Lihat Detail</li>
       </ol>
     </section>
@@ -53,9 +53,9 @@
         <!-- Tambah Es -->
           <div class="col-md-12">
             <br>
-            <div class="box box-success">
+            <div class="box">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Data Pembelian</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Data Pemesanan</h3></li>
               </ul>
 
               <!-- Form tambah es -->
@@ -67,7 +67,7 @@
                       <div class="form-group">
                         <label>Kode Pemesanan</label>
                         <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
                           <input class="form-control" placeholder="Kode Penjualan" name="kode" id="kode" value="{{ $data->kode_pemesanan }}" disabled>
                         </div>
                       </div>
@@ -96,7 +96,7 @@
                       <div class="form-group">
                         <label>Telepon</label>
                         <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                           <input class="form-control" placeholder="Telepon" name="telepon" id="telepon" value="{{ $data->telepon }}" disabled>
                         </div>
                       </div>
@@ -105,7 +105,7 @@
                       <div class="form-group">
                         <label>Alamat</label>
                         <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <span class="input-group-addon"><i class="fa fa-home"></i></span>
                           <textarea class="form-control" placeholder="Alamat" name="alamat" id="alamat" disabled> {{ $data->alamat }} </textarea>
                         </div>
                       </div>
@@ -116,7 +116,7 @@
 
               <hr id="garis">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Ice Cream yang dipesan</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Daftar Ice Cream</h3></li>
               </ul>
 
               <!-- tabel bahan -->
@@ -139,10 +139,10 @@
                         <tr id="tr{{$id}}">
                           <td>{{ $no++ }}</td>
                           <td>{{ $detail_pemesanan->ice_cream->nama }}</td>
-                          <td>{{ $detail_pemesanan->ice_cream->jenis->harga }}</td>
+                          <td>Rp {{ number_format($detail_pemesanan->ice_cream->jenis->harga,2,",","." ) }}</td>
                           <td>{{ $detail_pemesanan->status }}</td>
                           <td>{{ $detail_pemesanan->jumlah }}</td>
-                          <td>{{ $detail_pemesanan->subtotal }}</td>
+                          <td>Rp {{ number_format($detail_pemesanan->subtotal,2,",","." ) }}</td>
                         </tr>
                       @endforeach
                     </tbody>
@@ -150,7 +150,7 @@
                   <br>
 
                   <span>Total Harga</span>
-                  <input id="totalHarga" class="totalHarga" name="total" placeholder="0" value="{{ $data->total }}" disabled>
+                  <input id="totalHarga" class="totalHarga" name="total" placeholder="0" value="Rp {{ number_format($data->total,2,",","." ) }}" disabled>
 
                 </div>
               <!-- /.tabel bahan -->

@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Admin | Beranda")
+@section("title", "Beranda")
 
 @section("beranda", "active")
 
@@ -10,7 +10,6 @@
     <section class="content-header">
       <h1>
         Beranda
-        <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>

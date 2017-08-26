@@ -126,14 +126,14 @@ class BahanController extends Controller
     public function destroy(Request $request, $id)
     {
         
-        $detail = DetailPembelian::where('id_bahan', $id)->get();
-        foreach ($detail as $value) {
-            $pembelian = Pembelian::find($value->id_pembelian);
-            $pembelian->total = $pembelian->total - $value->subtotal;
-            $pembelian->save();
-        }
+        // $detail = DetailPembelian::where('id_bahan', $id)->get();
+        // foreach ($detail as $value) {
+        //     $pembelian = Pembelian::find($value->id_pembelian);
+        //     $pembelian->total = $pembelian->total - $value->subtotal;
+        //     $pembelian->save();
+        // }
 
-        DetailPembelian::where('id_bahan', $id)->delete();
+        // DetailPembelian::where('id_bahan', $id)->delete();
         $data = Bahan::where('id', $id)->delete();
 
         $notification = array(

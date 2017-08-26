@@ -2,7 +2,7 @@
 
 @section("title", "Tambah Pemesanan")
 
-@section("pesan", "active")
+@section("pesanan", "active")
 
 @section("pemesanan", "active")
 
@@ -24,6 +24,7 @@
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Pemesanan</a></li>
         <li><a href="#">Data Pemesanan</a></li>
         <li class="active">Tambah</li>
       </ol>
@@ -35,13 +36,13 @@
 
         
         <div class="col-md-12">
-          <a href="{{route('pemesanan')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data penjualan </button></a>
+          <a href="{{route('pemesanan')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data pemesanan </button></a>
         </div>   
 
         <!-- Tambah penjualan -->
           <div class="col-md-12">
             <br>
-            <div class="box box-success">
+            <div class="box">
               <ul class="nav nav-tabs-custom">
                 <li class="pull-left box-header"><h3 class="box-title">Data Pemesanan</h3></li>
               </ul>
@@ -75,7 +76,7 @@
                       <div class="form-group">
                         <label>Telepon</label>
                         <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                           <input class="form-control" placeholder="Telepon" name="telepon" id="telepon" onKeyPress="return goodchars(event,'0123456789',this)">
                         </div>
                       </div>
@@ -84,7 +85,7 @@
                       <div class="form-group">
                         <label>Alamat</label>
                         <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <span class="input-group-addon"><i class="fa fa-home"></i></span>
                           <textarea class="form-control" placeholder="Alamat" name="alamat" id="alamat"></textarea>
                         </div>
                       </div>
@@ -95,7 +96,7 @@
 
               <hr id="garis">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Ice Cream yang dipesan</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Daftar Ice Cream</h3></li>
               </ul>
 
               <!-- Data bahan -->
