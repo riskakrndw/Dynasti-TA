@@ -42,14 +42,17 @@ class ProduksiController extends Controller
     	
     }
 
-    public function store($pengguna, $kode, $datepicker)
+    public function store($pengguna, $datepicker)
     {
 
         // dd($idbahan);
         $data = new Produksi;
         $data->id_users = $pengguna;
-        $data->kode_produksi = $kode;
+        $data->kode_produksi = 'PRO/' . $datepicker . '/';
         $data->tgl = $datepicker;
+        $data->save();
+        
+        $data->kode_produksi = $data->kode_produksi . $data->id;
         $data->save();
 
         return $data->id;
@@ -114,7 +117,7 @@ class ProduksiController extends Controller
     {
         
         $data = Produksi::find($request->id);
-        $data->kode_produksi = $request->kodepro;
+        $data->kode_produksi = 'PRO/' . $request->datepicker . '/' . $request->id;
         $data->tgl = $request->datepicker;
         $data->save();
 

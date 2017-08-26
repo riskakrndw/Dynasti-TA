@@ -96,9 +96,9 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($pemesanan as $v)
+                        @foreach($pemesanan as $q=>$v)
                         <tr>
-                          <td>{{ $v->kode_pemesanan }}</td>
+                          <td>{{$q+1}}</td>
                           <td>{{ $v->kode_pemesanan }}</td>
                           <td>{{ $v->tanggal }}</td>
                         </tr>
@@ -112,99 +112,6 @@
         </div>
       </div>
 
-      <<!-- div class="row">
-        <div class="col-md-12">
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title"><i class="fa fa-bar-chart"></i> Grafik Penjualan</h3>
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <div class="box-body">
-              <div class="row">
-                <br>
-                <div class="col-md-3">
-                  <select class="form-control select2" style="width: 100%;" name="tahun" id="pilihTahun">
-                    <option disabled="disabled" selected="selected" value="0">Pilih Tahun</option>
-                    @foreach($tahun as $t)
-                      <option value="{{ $t->tahun }}" url="/tahun={{$t->tahun}}">{{ $t->tahun }}</option>
-                    @endforeach
-                  </select>
-                <br>
-                </div>
-                <div class="col-md-12">
-                  <script src="{{url('Highcharts/code/highcharts.js')}}"></script>
-                  <script src="{{url('Highcharts/code/modules/exporting.js')}}"></script>
-                  <div id="container" style="min-width: 300px; height: 400px; margin: 0 auto">
-                    <script type="text/javascript">
-
-                      Highcharts.chart('container', {
-                          chart: {
-                              type: 'line'
-                          },
-                          title: {
-                              text: 'Jumlah Penjualan pada Tahun ....'
-                          },
-                          subtitle: {
-                          },
-                          xAxis: {
-                              categories: [
-                              @php ($i = 0)
-                              @foreach ($data as $row)
-                                @php ($i++)
-                                 @if($i > 1)
-                                 {{ "," }}
-                                 @endif
-                                 {!!"'".$row->bulan."'"!!}
-                              @endforeach
-                              ],
-                              title: {
-                                  text: 'Bulan'
-                              }
-                          },
-                          yAxis: {
-                              min: 0,
-                              title: {
-                                  text: 'Jumlah'
-                              }
-                          },
-                          legend: {
-                              enabled: false
-                          },
-                          tooltip: {
-                              pointFormat: 'Jumlah Penjualan: <b>{point.y:.1f} millions</b>'
-                          },
-                          series: [{
-                              name: 'JUmlah',
-                              data: [
-                                @php ($i = 0)
-                              @foreach ($data as $row)
-                                @php ($i++)
-                                 @if($i > 1)
-                                 {{ "," }}
-                                 @endif
-                                 {!! $row->total_penjualan !!}
-                              @endforeach  
-                              ],
-                          }]
-                      });
-                    </script>
-
-                    <script>
-                      $('#pilihTahun').change(function(){
-                        var url= "/dynasti/public/manager/beranda/tahun="+$(this).val();
-                        console.log(url);
-                        window.location = url;  
-                      });
-                    </script>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
 
       <div class="row">
         <div class="col-md-12">

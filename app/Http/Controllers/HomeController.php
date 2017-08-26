@@ -23,8 +23,10 @@ class HomeController extends Controller
     {
         //$data = Penjualan::get();
 
-        $sesudah=Carbon::now()->addDays(3);
-        $pemesanan=Pemesanan::whereBetween('tanggal',[Carbon::now(),$sesudah])->orderBy('tanggal', 'desc')->get();
+        $sesudah=Carbon::now()->addDays(10);
+        $pemesanan=Pemesanan::whereBetween('tanggal',[Carbon::now(),$sesudah])->orderBy('tanggal', 'asc')->get();
+
+        // dd($pemesanan);
 
         $data = Penjualan::getJumlahPenjualan();
         $tahun = Penjualan::getTahun();

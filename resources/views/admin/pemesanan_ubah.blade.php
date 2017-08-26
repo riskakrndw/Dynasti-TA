@@ -56,7 +56,7 @@
                         <label>Kode Pemesanan</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Penjualan" name="kode" id="kode" value="{{ $data->kode_pemesanan }}">
+                          <input class="form-control" placeholder="Kode Penjualan" name="kode" id="kode" value="{{ $data->kode_pemesanan }}" disabled>
                         </div>
                       </div>
                     </div>
@@ -415,7 +415,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/dynasti/public/manager/pemesanan/ubah/{{$data->id}}/"+pengguna+"/"+kode+"/"+nama+"/"+alamat+"/"+telepon+"/"+datepicker+"/"+total,
+            url: "/dynasti/public/manager/pemesanan/ubah/{{$data->id}}/"+pengguna+"/"+nama+"/"+alamat+"/"+telepon+"/"+datepicker+"/"+total,
             success: function(result) {
               idpesan = result;
               /*console.log(idjual)*/

@@ -51,10 +51,10 @@ class PembelianController extends Controller
         
     }
 
-    public function store($kode, $pengguna, $datepicker, $total, $status)
+    public function store($pengguna, $datepicker, $total)
     {
         $data = new Pembelian;
-        $data->kode_pembelian = $kode;
+        $data->kode_pembelian = 'BL/' . $datepicker . '/';
         $data->id_users = $pengguna;
         $data->tgl = $datepicker;
         $data->total = $total;
@@ -65,6 +65,9 @@ class PembelianController extends Controller
         } elseif (Auth::user()->level == "pengadaan"){
             $data->status = "menunggu";
         }
+        $data->save();
+
+        $data->kode_penjualan = $data->kode_penjualan . $data->id;
         $data->save();
 
         return $data->id;
@@ -87,10 +90,10 @@ class PembelianController extends Controller
 
     }
 
-    public function ubah($id_beli, $kode, $pengguna, $datepicker, $total, $status)
+    public function ubah($id_beli, $pengguna, $datepicker, $total, $status)
     {
         $data = Pembelian::find($id_beli);
-        $data->kode_pembelian = $kode;
+        $data->kode_pembelian = 'BL/' . $datepicker . '/' . $data->id;
         $data->id_users = $pengguna;
         $data->tgl = $datepicker;
         $data->total = $total;

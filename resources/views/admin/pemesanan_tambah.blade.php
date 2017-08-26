@@ -51,23 +51,14 @@
                   {{csrf_field()}}
                   <div class="box-body">
                     <input class="form-control" type="hidden" name="idPengguna" id="idPengguna" value="{{Auth::User()->id}}">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Kode Pemesanan</label>
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Penjualan" name="kode" id="kode">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                       <div class="form-group">
                         <label>Tanggal</label>
                         <div class="input-group date">
                           <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" class="form-control pull-right" id="datepicker">
+                          <input type="text" class="form-control pull-right" id="datepicker" placeholder="Tanggal Pemesanan">
                         </div>
                       </div>
                     </div>
@@ -85,7 +76,7 @@
                         <label>Telepon</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Telepon" name="telepon" id="telepon">
+                          <input class="form-control" placeholder="Telepon" name="telepon" id="telepon" onKeyPress="return goodchars(event,'0123456789',this)">
                         </div>
                       </div>
                     </div>
@@ -321,7 +312,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/dynasti/public/manager/pemesanan/simpan/"+pengguna+"/"+kode+"/"+nama+"/"+alamat+"/"+telepon+"/"+datepicker+"/"+total,
+            url: "/dynasti/public/manager/pemesanan/simpan/"+pengguna+"/"+nama+"/"+alamat+"/"+telepon+"/"+datepicker+"/"+total,
             success: function(result) {
               idpesan = result;
               /*console.log(idjual)*/

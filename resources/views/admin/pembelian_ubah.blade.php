@@ -58,7 +58,7 @@
                         <label>Kode Pembelian</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Pembelian" name="kode" id="kode" value="{{ $data->kode_pembelian }}" >
+                          <input class="form-control" placeholder="Kode Pembelian" name="kode" id="kode" value="{{ $data->kode_pembelian }}" disabled>
                         </div>
                       </div>
                     </div>
@@ -315,7 +315,7 @@
         
           $.ajax({
               type: "GET",
-              url: "/dynasti/public/manager/pembelian/ubah/"+idbeli+"/"+kode+"/"+pengguna+"/"+datepicker+"/"+total+"/"+status,
+              url: "/dynasti/public/manager/pembelian/ubah/"+idbeli+"/"+pengguna+"/"+datepicker+"/"+total+"/"+status,
               success: function(result) {
 
               }

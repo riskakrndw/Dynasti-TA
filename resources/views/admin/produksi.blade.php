@@ -91,7 +91,7 @@
               <label>Kode Produksi</label>
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                <input class="form-control" id="kodepro" name="kodepro" placeholder="Kode Produksi" value="">
+                <input class="form-control" id="kodepro" name="kodepro" placeholder="Kode Produksi" value="" disabled>
               </div>
               <label>Tanggal</label>
                 <div class="input-group date">

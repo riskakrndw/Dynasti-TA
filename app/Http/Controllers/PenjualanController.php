@@ -38,13 +38,16 @@ class PenjualanController extends Controller
     	
     }
 
-    public function store($kode, $pengguna, $datepicker, $total)
+    public function store($pengguna, $datepicker, $total)
     {
         $data = new Penjualan;
-        $data->kode_penjualan = $kode;
+        $data->kode_penjualan = 'JL/' . $datepicker . '/';
         $data->id_users = $pengguna;
         $data->tgl = $datepicker;
         $data->total = $total;
+        $data->save();
+        
+        $data->kode_penjualan = $data->kode_penjualan . $data->id;
         $data->save();
 
         return $data->id;
@@ -66,10 +69,10 @@ class PenjualanController extends Controller
     	$data = Penjualan::find($id);
     }
 
-    public function ubah($id_jual, $kode, $pengguna, $datepicker, $total)
+    public function ubah($id_jual, $pengguna, $datepicker, $total)
     {
     	$data = Penjualan::find($id_jual);
-    	$data->kode_penjualan = $kode;
+        $data->kode_penjualan = 'JL/' . $datepicker . '/' . $data->id;
         $data->id_users = $pengguna;
     	$data->tgl = $datepicker;
     	$data->total = $total;

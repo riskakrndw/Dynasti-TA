@@ -49,17 +49,7 @@
                   {{csrf_field()}}
                   <div class="box-body">
                     <input type="hidden" name="idPengguna" id="idPengguna" value="{{ Auth::User()->id }}">
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Kode Produksi</label>
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Produksi" name="kode" id="kode">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                       <div class="form-group">
                         <label>Tanggal</label>
                         <div class="input-group date">
@@ -290,7 +280,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/dynasti/public/manager/produksi/simpan/"+pengguna+"/"+kode+"/"+datepicker,
+            url: "/dynasti/public/manager/produksi/simpan/"+pengguna+"/"+datepicker,
             success: function(result) {
               console.log(result)
              $('.bb').each(function(){ 

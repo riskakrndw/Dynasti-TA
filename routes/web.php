@@ -130,7 +130,7 @@ Route::group(['middleware' => 'levelManager'], function(){
 		/*menampilkan form tambah*/
 			Route::get('/manager/pembelian/tambah', 'PembelianController@tambah')->name('tambahBeli');
 		/*melakukan create*/
-			Route::get('/manager/pembelian/simpan/{kode}/{pengguna}/{datepicker}/{total}/{status}', 'PembelianController@store');
+			Route::get('/manager/pembelian/simpan/{pengguna}/{datepicker}/{total}', 'PembelianController@store');
 			Route::get('/manager/pembelian/simpan1/{idbeli}/{namabahan}/{jumlah}/{subtotal}', 'PembelianController@store1');
 		/*melakukan delete*/
 			Route::get('/manager/pembelian/hapus/{id}', 'PembelianController@destroy')->name('hapusPembelian');
@@ -139,7 +139,7 @@ Route::group(['middleware' => 'levelManager'], function(){
 		/*melakukan ubah*/
 			Route::get('/manager/pembelian/hapusDetailPembelian/{id}', 'PembelianController@hapusDetailPembelian')->name('hapusDetailPembelian');
 			Route::get('/manager/pembelian/edit/{id}', 'PembelianController@showEdit');
-			Route::get('/manager/pembelian/ubah/{id_beli}/{kode}/{pengguna}/{datepicker}/{total}/{status}', 'PembelianController@ubah');
+			Route::get('/manager/pembelian/ubah/{id_beli}/{pengguna}/{datepicker}/{total}/{status}', 'PembelianController@ubah');
 
 	//PERMINTAAN
 			Route::get('/manager/konfirmasi', 'PembelianController@konfirmasi')->name('konfirmasi');
@@ -159,7 +159,7 @@ Route::group(['middleware' => 'levelManager'], function(){
 		/*menampilkan form tambah*/
 			Route::get('/manager/penjualan/tambah', 'PenjualanController@tambah')->name('tambahJual');
 		/*melakukan create*/
-			Route::get('/manager/penjualan/simpan/{kode}/{pengguna}/{datepicker}/{total}', 'PenjualanController@store');
+			Route::get('/manager/penjualan/simpan/{pengguna}/{datepicker}/{total}', 'PenjualanController@store');
 			Route::get('/manager/penjualan/simpan1/{idjual}/{namaes}/{jumlah}/{subtotal}', 'PenjualanController@store1');
 		/*melakukan delete*/
 			Route::get('/manager/penjualan/hapus/{id}', 'PenjualanController@destroy')->name('hapusPenjualan');
@@ -168,7 +168,7 @@ Route::group(['middleware' => 'levelManager'], function(){
 		/*melakukan ubah*/
 			Route::get('/manager/penjualan/hapusDetailPenjualan/{id}', 'PenjualanController@hapusDetailPenjualan')->name('hapusDetailPenjualan');
 			Route::get('/manager/penjualan/edit/{id}', 'PenjualanController@showEdit');
-			Route::get('/manager/penjualan/ubah/{id_jual}/{kode}/{pengguna}/{datepicker}/{total}', 'PenjualanController@ubah');
+			Route::get('/manager/penjualan/ubah/{id_jual}/{pengguna}/{datepicker}/{total}', 'PenjualanController@ubah');
 
 	//PRODUKSI
 		/*menampilkan halaman produksi*/
@@ -178,7 +178,7 @@ Route::group(['middleware' => 'levelManager'], function(){
 		/*melakukan lihat detail*/
 			Route::get('/manager/produksi/lihat/{id}', 'ProduksiController@show');
 		/*melakukan create*/
-			Route::get('/manager/produksi/simpan/{pengguna}/{kode}/{datepicker}', 'ProduksiController@store');
+			Route::get('/manager/produksi/simpan/{pengguna}/{datepicker}', 'ProduksiController@store');
 			Route::get('/manager/produksi/simpan1/{ides}/{idproduksi}/{jumlahproduksi}', 'ProduksiController@store1');
 			Route::get('/manager/produksi/simpan2/{jumlah}/{idbahan}', 'ProduksiController@store2');
 		// ubah modal
@@ -195,7 +195,7 @@ Route::group(['middleware' => 'levelManager'], function(){
 		/*menampilkan form tambah*/
 			Route::get('/manager/pemesanan/tambah', 'PemesananController@tambah')->name('tambahPemesanan');
 		/*melakukan create*/
-			Route::get('/manager/pemesanan/simpan/{pengguna}/{kode}/{nama}/{alamat}/{telepon}/{datepicker}/{total}', 'PemesananController@store');
+			Route::get('/manager/pemesanan/simpan/{pengguna}/{nama}/{alamat}/{telepon}/{datepicker}/{total}', 'PemesananController@store');
 			Route::get('/manager/pemesanan/simpan1/{idpesan}/{namaes}/{jumlah}/{subtotal}', 'PemesananController@store1');
 		// ubah status pemesanan
 			Route::get('/manager/pemesanan/selesai/{idpesanan}', 'PemesananController@pemesananSelesai');
@@ -207,7 +207,7 @@ Route::group(['middleware' => 'levelManager'], function(){
 			Route::post('/manager/pemesanan/hapusDetailPemesanan', 'PemesananController@hapusDetailPemesanan')->name('hapusDetailPemesanan');
 		/*melakukan ubah*/
 			Route::get('/manager/pemesanan/edit/{id}', 'PemesananController@showEdit');
-			Route::get('/manager/pemesanan/ubah/{id_pesan}/{pengguna}/{kode}/{nama}/{alamat}/{telepon}/{datepicker}/{total}', 'PemesananController@ubah');
+			Route::get('/manager/pemesanan/ubah/{id_pesan}/{pengguna}/{nama}/{alamat}/{telepon}/{datepicker}/{total}', 'PemesananController@ubah');
 			Route::get('/manager/pemesanan/ubah1/{pemesanan_id}/{namaes}/{jumlah}/{subtotal}', 'PemesananController@ubah1');
 		// melakukan update jumlah
 			Route::get('/manager/pemesanan/update/{iddetail}/{jumlahes}', 'PemesananController@updateJumlah');

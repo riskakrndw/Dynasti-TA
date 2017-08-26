@@ -54,15 +54,6 @@
                     <input class="form-control" type="hidden" name="idPengguna" id="idPengguna" value="{{Auth::User()->id}}">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Kode Penjualan</label>
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Penjualan" name="kode" id="kode">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
                         <label>Tanggal</label>
                         <div class="input-group date">
                           <div class="input-group-addon">
@@ -296,7 +287,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/dynasti/public/manager/penjualan/simpan/"+kode+"/"+pengguna+"/"+datepicker+"/"+total,
+            url: "/dynasti/public/manager/penjualan/simpan/"+pengguna+"/"+datepicker+"/"+total,
             success: function(result) {
               idjual = result;
               /*console.log(idjual)*/

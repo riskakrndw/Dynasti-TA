@@ -39,16 +39,19 @@ class PemesananController extends Controller
     	
     }
 
-    public function store($pengguna, $kode, $nama, $alamat, $telepon, $datepicker, $total)
+    public function store($pengguna, $nama, $alamat, $telepon, $datepicker, $total)
     {
         $data = new Pemesanan;
         $data->id_users = $pengguna;
-        $data->kode_pemesanan = $kode;
+        $data->kode_pemesanan = 'PSN/' . $datepicker . '/';
         $data->nama = $nama;
         $data->alamat = $alamat;
         $data->telepon = $telepon;
         $data->tanggal = $datepicker;
         $data->total = $total;
+        $data->save();
+        
+        $data->kode_pemesanan = $data->kode_pemesanan . $data->id;
         $data->save();
 
         return $data->id;
@@ -144,11 +147,11 @@ class PemesananController extends Controller
         return view('admin.pemesanan_detail')->with('data', $data)->with('tipe', $tipe);
     }
 
-    public function ubah($id_pesan, $pengguna, $kode, $nama, $alamat, $telepon, $datepicker, $total)
+    public function ubah($id_pesan, $pengguna, $nama, $alamat, $telepon, $datepicker, $total)
     {
         $data = Pemesanan::find($id_pesan);
         $data->id_users = $pengguna;
-        $data->kode_pemesanan = $kode;
+        $data->kode_pemesanan = 'PSN/' . $datepicker . '/' . $data->id;
         $data->nama = $nama;
         $data->alamat = $alamat;
         $data->telepon = $telepon;

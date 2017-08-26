@@ -55,15 +55,6 @@
                     <input class="form-control" type="hidden" name="status" id="status" value="">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Kode Pembelian</label>
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Pembelian" name="kode" id="kode">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
                         <label>Tanggal</label>
                         <div class="input-group date">
                           <div class="input-group-addon">
@@ -296,7 +287,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/dynasti/public/manager/pembelian/simpan/"+kode+"/"+pengguna+"/"+datepicker+"/"+total+"/"+status,
+            url: "/dynasti/public/manager/pembelian/simpan/"+pengguna+"/"+datepicker+"/"+total,
             success: function(result) {
               idbeli = result;
               console.log(idbeli)
