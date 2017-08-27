@@ -18,7 +18,7 @@
 
         <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px">
             <tr>
-                <td style="font-size:25px;" align="center">Laporan Penjualan </td>
+                <td style="font-size:25px;" align="center">Laporan Pemesanan </td>
             </tr>
         </table>
         <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px">
@@ -33,8 +33,8 @@
             <thead>
                 <tr style="font-size:18px; height:50px;">
                     <th style="width: 50px;">No</th>
-                    <th style="width: 130px">Kode</th>
-                    <th style="width: 120px">Tanggal</th>
+                    <th style="width: 120px">Kode</th>
+                    <th style="width: 100px">Tanggal</th>
                     <th style="width: 180px" colspan="4">Daftar Ice Cream</th>
                 </tr>
             </thead>
@@ -42,15 +42,15 @@
                 <?php $no=1; ?>
                 @foreach($data as $q=>$v)
                     <tr>
-                        <td align="center" rowspan="{{ count($v->detail_jual)+1 }}">{{ $q+1 }}</td>
-                        <td rowspan="{{ count($v->detail_jual)+1 }}">{{$v->kode_penjualan}}</td>
-                        <td align="center" rowspan="{{ count($v->detail_jual)+1 }}">{{$v->tgl}}</td>
+                        <td align="center" rowspan="{{ count($v->detail_pemesanan)+1 }}">{{ $q+1 }}</td>
+                        <td rowspan="{{ count($v->detail_pemesanan)+1 }}">{{$v->kode_pemesanan}}</td>
+                        <td align="center" rowspan="{{ count($v->detail_pemesanan)+1 }}">{{$v->tanggal}}</td>
                         <th style="width: 190px">Nama</th>
-                        <th style="width: 120px">Harga</th>
-                        <th style="width: 80px">Jumlah</th>
-                        <th style="width: 120px">Subtotal</th>
+                        <th style="width: 100px">Harga</th>
+                        <th style="width: 70px">Jumlah</th>
+                        <th style="width: 100px">Subtotal</th>
                     </tr>
-                    @foreach($v->detail_jual as $x)
+                    @foreach($v->detail_pemesanan as $x)
                         <tr>
                             <td>{{$x->ice_cream->nama}}</td>
                             <td align="center">Rp {{ number_format($x->ice_cream->jenis->harga,2,",","." ) }}</td>

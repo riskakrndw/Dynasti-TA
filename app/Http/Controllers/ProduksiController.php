@@ -30,6 +30,13 @@ class ProduksiController extends Controller
     	
     }
 
+    public function index1()
+    {
+        $data = DetailProduksi::all();
+        // dd($data);
+        return view('admin.produksi_barang')->with('data', $data);
+    }
+
     public function tambah()
     {
         if(Auth::user()->level == "manager"){
@@ -86,14 +93,14 @@ class ProduksiController extends Controller
         }
     }
 
-    public function show($id)
+    public function show($id, $tipe)
     {
         if(Auth::user()->level == "manager"){
             $data = Produksi::where('id', $id)->first();
-            return view('admin.produksi_detail')->with('data', $data);
+            return view('admin.produksi_detail')->with('data', $data)->with('tipe', $tipe);
         }   elseif (Auth::user()->level == "produksi"){
             $data = Produksi::where('id', $id)->first();
-            return view('produksi.produksi_detail')->with('data', $data);
+            return view('produksi.produksi_detail')->with('data', $data)->with('tipe', $tipe);
         }
         
     }

@@ -2,6 +2,8 @@
 
 @section("title", "Tambah Data Produksi")
 
+@section("dataproduksi", "active")
+
 @section("produksi", "active")
 
 @section("moreasset")

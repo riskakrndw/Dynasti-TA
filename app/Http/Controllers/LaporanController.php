@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Penjualan;
 use App\Pembelian;
+use App\Pemesanan;
+use App\Produksi;
 use App\IceCream;
 use App\Bahan;
 
@@ -38,6 +40,36 @@ class LaporanController extends Controller
     public function cetakpenjualan($tgl_a,$tgl_b){
         $data=Penjualan::whereBetween('tgl',[$tgl_a,$tgl_b])->get();
         return view('admin.print_penjualan')->with('data',$data)->with('tgl_a',$tgl_a)->with('tgl_b',$tgl_b);
+    }
+    
+    public function laporanPemesanan()
+    {
+        return view('admin.laporan_pemesanan')->with('eror','null');
+    }
+
+    public function lappemesanan(Request $request){
+        $data=Pemesanan::whereBetween('tanggal',[$request->tgl_a,$request->tgl_b])->get();
+        return $data;
+    }
+
+    public function cetakpemesanan($tgl_a,$tgl_b){
+        $data=Pemesanan::whereBetween('tanggal',[$tgl_a,$tgl_b])->get();
+        return view('admin.print_pemesanan')->with('data',$data)->with('tgl_a',$tgl_a)->with('tgl_b',$tgl_b);
+    }
+
+    public function laporanProduksi()
+    {
+        return view('admin.laporan_produksi')->with('eror','null');
+    }
+
+    public function lapproduksi(Request $request){
+        $data=Produksi::whereBetween('tgl',[$request->tgl_a,$request->tgl_b])->get();
+        return $data;
+    }
+
+    public function cetakproduksi($tgl_a,$tgl_b){
+        $data=Produksi::whereBetween('tgl',[$tgl_a,$tgl_b])->get();
+        return view('admin.print_produksi')->with('data',$data)->with('tgl_a',$tgl_a)->with('tgl_b',$tgl_b);
     }
 
     public function laporanEs()

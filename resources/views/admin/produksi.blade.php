@@ -2,6 +2,8 @@
 
 @section("title", "Data Produksi")
 
+@section("dataproduksi", "active")
+
 @section("produksi", "active")
 
 @section("moreasset")
@@ -65,8 +67,8 @@
                       <td>{{ $datapro->tgl }}</td>
                       <td>{{ $datapro->detail_produksi[0]->ice_cream->rasa->nama }}</td>
                       <td>
-                          <button type="button" class="btn btn-sm btn-default btnEditPro" data-toggle="modal" data-target="" data-id="{{ $datapro->id }}" data-kode="{{ $datapro->kode_produksi }}" data-tanggal="{{ $datapro->tgl }}"> <i class="fa fa-edit"></i> Ubah</button>
-                        <a href="{{ url('manager/produksi/lihat/'.$datapro->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                        <button type="button" class="btn btn-sm btn-default btnEditPro" data-toggle="modal" data-target="" data-id="{{ $datapro->id }}" data-kode="{{ $datapro->kode_produksi }}" data-tanggal="{{ $datapro->tgl }}"> <i class="fa fa-edit"></i> Ubah</button>
+                        <a href="{{ url('manager/produksi/lihat/'.$datapro->id.'/dataproduksi') }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                       </td>
                     </tr>
                     @endforeach

@@ -1,6 +1,18 @@
 @extends('layout_master.master')
 
-@section("title", "Detail Data Produksi")
+
+
+@if($tipe == "dataproduksi")
+  @section("title", "Detail Data Produksi")
+@elseif($tipe == "produkproduksi")
+  @section("title", "Detail Data Produk Produksi")
+@endif
+
+@if($tipe == "dataproduksi")
+  @section("dataproduksi", "active")
+@elseif($tipe == "produkproduksi")
+  @section("produkproduksi", "active")
+@endif
 
 @section("produksi", "active")
 
@@ -21,9 +33,16 @@
   <div class="content-wrapper">
     <section class="content-header">
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Data Produksi</a></li>
-        <li class="active">Detail</li>
+        @if($tipe == "dataproduksi")
+          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li><a href="#">Data Produksi</a></li>
+          <li class="active">Detail</li>
+        @elseif($tipe == "produkproduksi")
+          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li><a href="#">Data Produk Produksi</a></li>
+          <li class="active">Detail</li>
+        @endif
+        
       </ol>
     </section>
 
@@ -31,10 +50,15 @@
     <section class="content">
       <div class="row">
 
-        
-        <div class="col-md-12">
-          <a href="{{route('produksi')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data produksi </button></a>
-        </div>   
+        @if($tipe == "dataproduksi")
+          <div class="col-md-12">
+            <a href="{{route('produksi')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data produksi </button></a>
+          </div> 
+        @elseif($tipe == "produkproduksi")
+          <div class="col-md-12">
+            <a href="{{route('produkproduksi')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data produk produksi </button></a>
+          </div>
+        @endif
 
         <!-- Tambah penjualan -->
           <div class="col-md-12">

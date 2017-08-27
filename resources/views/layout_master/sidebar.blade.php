@@ -50,7 +50,18 @@
               <li class="@yield("produkpesanan")"><a href="{{route('produkpesanan')}}"><i class="fa fa-list"></i> Data Produk Pesanan</a></li>
             </ul>
           </li>
-          <li class="@yield("produksi")"><a href="{{route('produksi')}}"><i class="fa fa-industry"></i> <span>Produksi</span></a></li>
+          <li class="treeview @yield("produksi")">
+            <a href="#">
+              <i class="fa fa-cart-plus"></i> <span>Produksi</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="@yield("dataproduksi")"><a href="{{route('produksi')}}"><i class="fa fa-list"></i> Data Produksi</a></li>
+              <li class="@yield("produkproduksi")"><a href="{{route('produkproduksi')}}"><i class="fa fa-list"></i> Data Produk Produksi</a></li>
+            </ul>
+          </li>
           <li class="treeview @yield("laporan")">
             <a href="#">
               <i class="fa fa-folder"></i> <span>Laporan</span>
@@ -61,6 +72,8 @@
             <ul class="treeview-menu">
               <li class="@yield("lapbeli")"><a href="{{route('laporanPembelian')}}"><i class="fa fa-file"></i> Laporan Pengadaan</a></li>
               <li class="@yield("lapjual")"><a href="{{route('laporanPenjualan')}}"><i class="fa fa-file"></i> Laporan Penjualan</a></li>
+              <li class="@yield("lappesan")"><a href="{{route('laporanPemesanan')}}"><i class="fa fa-file"></i> Laporan Pemesanan</a></li>
+              <li class="@yield("lappro")"><a href="{{route('laporanProduksi')}}"><i class="fa fa-file"></i> Laporan Produksi</a></li>
               <li class="@yield("lapstokes")"><a href="{{route('laporanEs')}}"><i class="fa fa-file"></i> Laporan Stok Ice Cream</a></li>
               <li class="@yield("lapstokbahan")"><a href="{{route('laporanBahan')}}"><i class="fa fa-file"></i> Laporan Stok Bahan Baku</a></li>
             </ul>

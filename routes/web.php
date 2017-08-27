@@ -173,10 +173,12 @@ Route::group(['middleware' => 'levelManager'], function(){
 	//PRODUKSI
 		/*menampilkan halaman produksi*/
 			Route::get('/manager/produksi', 'ProduksiController@index')->name('produksi');
+		/*menampilkan halaman produk produksi*/
+			Route::get('/manager/produk-produksi', 'ProduksiController@index1')->name('produkproduksi');
 		/*menampilkan form tambah*/
 			Route::get('/manager/produksi/tambah', 'ProduksiController@tambah')->name('tambahProduksi');
 		/*melakukan lihat detail*/
-			Route::get('/manager/produksi/lihat/{id}', 'ProduksiController@show');
+			Route::get('/manager/produksi/lihat/{id}/{tipe}', 'ProduksiController@show');
 		/*melakukan create*/
 			Route::get('/manager/produksi/simpan/{pengguna}/{datepicker}', 'ProduksiController@store');
 			Route::get('/manager/produksi/simpan1/{ides}/{idproduksi}/{jumlahproduksi}', 'ProduksiController@store1');
@@ -218,16 +220,22 @@ Route::group(['middleware' => 'levelManager'], function(){
 		/*menampilkan halaman print laporan*/
 			Route::get('/manager/laporan/pengadaan', 'LaporanController@laporanPembelian')->name('laporanPembelian');
 			Route::get('/manager/laporan/penjualan', 'LaporanController@laporanPenjualan')->name('laporanPenjualan');
+			Route::get('/manager/laporan/pemesanan', 'LaporanController@laporanPemesanan')->name('laporanPemesanan');
+			Route::get('/manager/laporan/produksi', 'LaporanController@laporanProduksi')->name('laporanProduksi');
 			Route::get('/manager/laporan/ice', 'LaporanController@laporanEs')->name('laporanEs');
 			Route::get('/manager/laporan/bahan', 'LaporanController@laporanBahan')->name('laporanBahan');
 
 			Route::post('lappenjualan','LaporanController@lappenjualan');
 			Route::post('lappengadaan','LaporanController@lappengadaan');
+			Route::post('lappemesanan','LaporanController@lappemesanan');
+			Route::post('lapproduksi','LaporanController@lapproduksi');
 
 			Route::get('/manager/laporan/printbahan', 'LaporanController@cetakbahan');
 			Route::get('/manager/laporan/printice', 'LaporanController@cetakes');
 			Route::get('/manager/laporan/printpengadaan/{tgl_a}/{tgl_b}', 'LaporanController@cetakpengadaan');
 			Route::get('/manager/laporan/printpenjualan/{tgl_a}/{tgl_b}', 'LaporanController@cetakpenjualan');
+			Route::get('/manager/laporan/printpemesanan/{tgl_a}/{tgl_b}', 'LaporanController@cetakpemesanan');
+			Route::get('/manager/laporan/printproduksi/{tgl_a}/{tgl_b}', 'LaporanController@cetakproduksi');
 
 
 });

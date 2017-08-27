@@ -18,7 +18,7 @@
 
         <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px">
             <tr>
-                <td style="font-size:25px;" align="center">Laporan Penjualan </td>
+                <td style="font-size:25px;" align="center">Laporan Produksi </td>
             </tr>
         </table>
         <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px">
@@ -35,34 +35,28 @@
                     <th style="width: 50px;">No</th>
                     <th style="width: 130px">Kode</th>
                     <th style="width: 120px">Tanggal</th>
-                    <th style="width: 180px" colspan="4">Daftar Ice Cream</th>
+                    <th style="width: 180px" colspan="3">Daftar Ice Cream</th>
                 </tr>
             </thead>
             <tbody>
                 <?php $no=1; ?>
                 @foreach($data as $q=>$v)
                     <tr>
-                        <td align="center" rowspan="{{ count($v->detail_jual)+1 }}">{{ $q+1 }}</td>
-                        <td rowspan="{{ count($v->detail_jual)+1 }}">{{$v->kode_penjualan}}</td>
-                        <td align="center" rowspan="{{ count($v->detail_jual)+1 }}">{{$v->tgl}}</td>
+                        <td align="center" rowspan="{{ count($v->detail_produksi)+1 }}">{{ $q+1 }}</td>
+                        <td rowspan="{{ count($v->detail_produksi)+1 }}">{{$v->kode_produksi}}</td>
+                        <td align="center" rowspan="{{ count($v->detail_produksi)+1 }}">{{$v->tgl}}</td>
                         <th style="width: 190px">Nama</th>
                         <th style="width: 120px">Harga</th>
                         <th style="width: 80px">Jumlah</th>
-                        <th style="width: 120px">Subtotal</th>
                     </tr>
-                    @foreach($v->detail_jual as $x)
+                    @foreach($v->detail_produksi as $x)
                         <tr>
                             <td>{{$x->ice_cream->nama}}</td>
                             <td align="center">Rp {{ number_format($x->ice_cream->jenis->harga,2,",","." ) }}</td>
                             <td align="center">{{$x->jumlah}}</td>
-                            <td align="center">Rp {{ number_format($x->subtotal,2,",","." ) }}</td>
                         </tr>
                     @endforeach
                 @endforeach
-                <tr style="font-size:18px; height:30px;">
-                    <td align="center" colspan="6">Total</td>
-                    <td></td>
-                </tr>
             </tbody>
         </table>
 
