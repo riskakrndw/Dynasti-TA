@@ -1,5 +1,13 @@
 <html>
     <body>
+
+        <style type="text/css">
+          .row{
+            background-color: #ff851b;
+            -webkit-print-color-adjust: exact;
+          }
+        </style>
+
         <center>
             <table text-align="center" style="margin-top:40px">
                 <tr>
@@ -37,7 +45,7 @@
             <?php $no=1; ?>
             @foreach($data as $v)
               @if($v->stok < $v->stok_min)
-                <tr style="background-color:#ff851b;">
+                <tr class = "row" style="background-color:#ff851b;">
                 <td style="height:30px; text-align:center">{{ $no++ }}</td>
                 <td style="height:30px;">{{$v->nama}}</td>
                 <td style="height:30px; text-align:center">{{$v->satuan}}</td>

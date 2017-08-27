@@ -61,7 +61,7 @@
                 @endforeach
                 <tr style="font-size:18px; height:30px;">
                     <td align="center" colspan="6">Total</td>
-                    <td></td>
+                    <td>{{ $totalpengadaan }}</td>
                 </tr>
             </tbody>
         </table>

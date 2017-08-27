@@ -24,7 +24,8 @@ class LaporanController extends Controller
 
     public function cetakpengadaan($tgl_a,$tgl_b){
         $data=Pembelian::whereBetween('tgl',[$tgl_a,$tgl_b])->orderBy('tgl', 'asc')->get();
-        return view('admin.print_pengadaan')->with('data',$data)->with('tgl_a',$tgl_a)->with('tgl_b',$tgl_b);
+        $totalpengadaan = sum(DB::select("select total from pembelian"));
+        return view('admin.print_pengadaan')->with('data',$data)->with('tgl_a',$tgl_a)->with('tgl_b',$tgl_b)->with('totalpengadaan', $totalpengadaan);
     }
 
     public function laporanPenjualan()

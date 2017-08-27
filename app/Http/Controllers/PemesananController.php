@@ -13,20 +13,20 @@ class PemesananController extends Controller
 {
     public function index()
     {
-    	$data = DetailPemesanan::all();
-        $datamenunggu = DetailPemesanan::where('status', '=', 'menunggu')->orderBy('tanggal', 'asc')->get();
-        $datasiap = DetailPemesanan::where('status', '=', 'siap')->get();
+    	$data = DetailPemesanan::orderBy('id', 'desc')->get();
+        $datamenunggu = DetailPemesanan::where('status', '=', 'menunggu')->orderBy('updated_at', 'asc')->get();
+        $datasiap = DetailPemesanan::where('status', '=', 'siap')->orderBy('updated_at', 'desc')->get();
         // dd($data);
     	return view('admin.pemesanan_barang')->with('data', $data)->with('datamenunggu', $datamenunggu)->with('datasiap', $datasiap);
     }
 
     public function index1()
     {
-    	$data = Pemesanan::all();
+    	$data = Pemesanan::orderBy('updated_at', 'desc')->get();
         $datamenunggu = Pemesanan::where('status', '=', 'menunggu')->orderBy('tanggal', 'asc')->get();
         $datasiap = Pemesanan::where('status', '=', 'siap')->orderBy('tanggal', 'asc')->get();
-        $dataselesai = Pemesanan::where('status', '=', 'selesai')->get();
-        $databatal = Pemesanan::where('status', '=', 'batal')->get();
+        $dataselesai = Pemesanan::where('status', '=', 'selesai')->orderBy('updated_at', 'desc')->get();
+        $databatal = Pemesanan::where('status', '=', 'batal')->orderBy('updated_at', 'desc')->get();
         // dd($databatal);
     	return view('admin.pemesanan')->with('data', $data)->with('datamenunggu', $datamenunggu)->with('datasiap', $datasiap)->with('dataselesai', $dataselesai)->with('databatal', $databatal);
     }
