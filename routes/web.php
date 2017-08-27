@@ -121,7 +121,7 @@ Route::group(['middleware' => 'levelManager'], function(){
 	//BAHAN
 		Route::get('/manager/bahan', 'BahanController@index')->name('bahan');
 		Route::post('/manager/bahan/simpan', 'BahanController@store');
-		Route::get('/manager/bahan/hapus/{id}', 'BahanController@destroy')->name('hapusBahan');
+		Route::get('/manager/bahan/hapus/{id}', 'BahanController@hapus')->name('hapusBahan');
 		Route::post('/manager/bahan/edit', 'BahanController@update');
 
 	//PEMBELIAN
@@ -210,7 +210,7 @@ Route::group(['middleware' => 'levelManager'], function(){
 		/*melakukan ubah*/
 			Route::get('/manager/pemesanan/edit/{id}', 'PemesananController@showEdit');
 			Route::get('/manager/pemesanan/ubah/{id_pesan}/{pengguna}/{nama}/{alamat}/{telepon}/{datepicker}/{total}', 'PemesananController@ubah');
-			Route::get('/manager/pemesanan/ubah1/{pemesanan_id}/{namaes}/{jumlah}/{subtotal}', 'PemesananController@ubah1');
+			Route::get('/manager/pemesanan/ubah1/{pemesanan_id}/{namaes}/{jumlah}/{status}/{subtotal}', 'PemesananController@ubah1');
 		// melakukan update jumlah
 			Route::get('/manager/pemesanan/update/{iddetail}/{jumlahes}', 'PemesananController@updateJumlah');
 

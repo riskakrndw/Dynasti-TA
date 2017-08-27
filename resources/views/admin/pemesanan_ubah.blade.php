@@ -154,15 +154,15 @@
                           <td>{{ $no }}</td>
                           <td>{{ $detail_pemesanan->ice_cream->nama }}</td>
                           <td>{{ $detail_pemesanan->ice_cream->jenis->harga }}</td>
-                          <td>{{ $detail_pemesanan->status }}</td>
-                          <td>
+                          <td id="{{$nama}}status{{$detail_pemesanan->status}}">{{ $detail_pemesanan->status }}</td>
+                          <td id="{{$nama}}{{$detail_pemesanan->status}}">
                             @if($detail_pemesanan->status == "menunggu")
                             <input type="number" class="nunggupemesanan" nama="{{ $nama }}" harga = "{{ $detail_pemesanan->ice_cream->jenis->harga }}" value="{{ $detail_pemesanan->jumlah }}" min="1" style="width: 50px;">
                             @else
                             <input type="number" value="{{ $detail_pemesanan->jumlah }}" min="1" style="width: 50px;" disabled>
                             @endif
                           </td>
-                          <td id="{{ $nama }}subTotal" class="subTotal">{{ $detail_pemesanan->subtotal }}</td>
+                          <td id="{{ $nama }}subTotal{{$detail_pemesanan->status}}" class="subTotal">{{ $detail_pemesanan->subtotal }}</td>
                           <td style="display:none">{{ $detail_pemesanan->id_es }}</td>
                           @if($detail_pemesanan->status == "menunggu")
                             <td>
@@ -242,20 +242,21 @@
                 var total = $('#totalHarga').val();
                 var Subtotal = parseInt(harga) * parseInt(jumlah);
                 var namadb  = "#" + nama.replace(/\s/g,'');
-                var namaSub = namadb + "subTotal";
-                if ($(namadb).length){
-                  prevVal = $(namadb + ' .nunggupemesanan').val();
+                var namaSub = namadb + "subTotalmenunggu";
+                if ($(namadb+'menunggu').length){
+                  prevVal = $(namadb+'menunggu' + ' .nunggupemesanan').val();
                   console.log(prevVal);
                   newVal = parseInt(prevVal)+parseInt(jumlah);
-                  $(namadb + ' .nunggupemesanan').val(newVal);
+                  $(namadb+'menunggu' + ' .nunggupemesanan').val(newVal);
 
                   prevSub = $(namaSub).text();
                   newSub = parseInt(prevSub) + parseInt(jumlah) * parseInt(harga);
                   $(namaSub).text(newSub);
+                  
                 }
                 else{
                   nomorBaris = nomorBaris + 1;
-                  $('#type_container').append('<tr id="tr'+nomorBaris+'" no="'+nomorBaris+'"><td id="no'+nomorBaris+'">'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td>'+status+'</td><td id='+nama.replace(/\s/g,'')+'><input type="number" class="nunggupemesanan" nama="'+nama.replace(/\s/g,'')+'" harga="'+harga+'" value="'+jumlah+'" min="1" style="width: 50px;"></td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td style="display:none">'+ides+'</td><td class="col-md-3 control-label"> '+
+                  $('#type_container').append('<tr id="tr'+nomorBaris+'" no="'+nomorBaris+'"><td id="no'+nomorBaris+'">'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'statusmenunggu'+'>'+status+'</td><td id='+nama.replace(/\s/g,'')+'menunggu'+'><input type="number" class="nunggupemesanan" nama="'+nama.replace(/\s/g,'')+'" harga="'+harga+'" value="'+jumlah+'" min="1" style="width: 50px;"></td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotalmenunggu'+'>'+Subtotal+'</td><td style="display:none">'+ides+'</td><td class="col-md-3 control-label"> '+
                          '     <a class="remove-type btn btn-sm btn-default" targetDiv="" data-id="tr'+nomorBaris+'" href="javascript: void(0)" ><i class="glyphicon glyphicon-trash"></i></a></td></tr>');
                 }
                 $('#namaEs').val('');
@@ -308,9 +309,9 @@
         var namaes = $(this).attr('nama');
         var jumlah = parseInt($(this).val());
         var harga = parseInt($(this).attr('harga'));
-        var subTotalLama = parseInt($('#'+namaes+'subTotal').text());
-        $('#'+namaes+'subTotal').text(jumlah*harga);
-        var subTotalBaru = parseInt($('#'+namaes+'subTotal').text());
+        var subTotalLama = parseInt($('#'+namaes+'subTotalmenunggu').text());
+        $('#'+namaes+'subTotalmenunggu').text(jumlah*harga);
+        var subTotalBaru = parseInt($('#'+namaes+'subTotalmenunggu').text());
         $('#totalHarga').val(parseInt($('#totalHarga').val()) + subTotalBaru - subTotalLama);
 
 
@@ -320,9 +321,9 @@
         var namaes = $(this).attr('nama');
         var jumlah = parseInt($(this).val());
         var harga = parseInt($(this).attr('harga'));
-        var subTotalLama = parseInt($('#'+namaes+'subTotal').text());
-        $('#'+namaes+'subTotal').text(jumlah*harga);
-        var subTotalBaru = parseInt($('#'+namaes+'subTotal').text());
+        var subTotalLama = parseInt($('#'+namaes+'subTotalmenunggu').text());
+        $('#'+namaes+'subTotalmenunggu').text(jumlah*harga);
+        var subTotalBaru = parseInt($('#'+namaes+'subTotalmenunggu').text());
         $('#totalHarga').val(parseInt($('#totalHarga').val()) + subTotalBaru - subTotalLama);
 
       });
@@ -407,7 +408,7 @@
             console.log(arrData[i]['subtotal']);
             $.ajax({
               type: "GET",
-              url: "/dynasti/public/manager/pemesanan/ubah1/{{$data->id}}/"+arrData[i]['ides']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
+              url: "/dynasti/public/manager/pemesanan/ubah1/{{$data->id}}/"+arrData[i]['ides']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['status']+"/"+arrData[i]['subtotal'],
               success: function(result) {
                 console.log("{{$data->id}}");
               }

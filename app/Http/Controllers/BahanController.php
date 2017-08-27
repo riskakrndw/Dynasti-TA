@@ -6,6 +6,7 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Bahan;
 use App\Pembelian;
+use App\Jenis;
 use App\DetailPembelian;
 
 class BahanController extends Controller
@@ -134,6 +135,18 @@ class BahanController extends Controller
         // }
 
         // DetailPembelian::where('id_bahan', $id)->delete();
+        $data = Bahan::where('id', $id)->delete();
+
+        $notification = array(
+            'message' => 'Data berhasil dihapus',
+            'alert-type' => 'error'
+        );
+        return redirect()->back()->with($notification);
+
+    }
+
+    public function hapus(Request $request, $id)
+    {
         $data = Bahan::where('id', $id)->delete();
 
         $notification = array(

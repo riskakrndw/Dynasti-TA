@@ -162,7 +162,7 @@ class PemesananController extends Controller
         return $data->id;
     }
 
-    public function ubah1($pemesanan_id, $ides, $jumlah, $subtotal)
+    public function ubah1($pemesanan_id, $ides, $jumlah, $status, $subtotal)
     {
         /*$this->validate($request, [
             'nama' => 'required|min:2|max:50',
@@ -172,24 +172,58 @@ class PemesananController extends Controller
             'jumlahProduksi' => 'required|max:10',
         ]);*/   
     
-        $data = DetailPemesanan::withTrashed()->where('id_es', '=', $ides)->where('id_pemesanan', '=', $pemesanan_id)->first();
+        if($status == "menunggu"){
+            $data = DetailPemesanan::withTrashed()->where('id_es', '=', $ides)->where('id_pemesanan', '=', $pemesanan_id)->get();
 
-        if (count($data) == 0) {
-            $data = new DetailPemesanan;
-            $data->id_pemesanan = $pemesanan_id;
-            $data->id_es = $ides;
-        }else{
-            if($data->deleted_at != "NULL"){
-                $data->restore();
+            if (count($data) == 0 || $data->status = "siap" && count($data) == 1) {
+                $datadetail = new DetailPemesanan;
+                $datadetail->id_pemesanan = $pemesanan_id;
+                $datadetail->id_es = $ides;
+                $datadetail->jumlah = $jumlah;
+                $datadetail->subtotal = $subtotal;
+                $datadetail->save();
+            }elseif(count($data) > 1){
+                $cek = false;
+                $index;
+                foreach ($data as $key => $value) {
+                    if($value->status == "menunggu"){
+                        $cek = true;
+                        $index = $key;
+                        break;
+                    }
+                }
+                if($cek == false){
+                    $datadetail = new DetailPemesanan;
+                    $datadetail->id_pemesanan = $pemesanan_id;
+                    $datadetail->id_es = $ides;
+                    $datadetail->jumlah = $jumlah;
+                    $datadetail->subtotal = $subtotal;
+                    $datadetail->save();
+                }
+                else{
+                    $datadetail = $data[$index];
+                    $datadetail->jumlah = $jumlah;
+                    $datadetail->subtotal = $subtotal;
+                    $datadetail->save();
+                }
+            }else{
+                $datadetail = DetailPemesanan::withTrashed()->where('id_es', '=', $ides)->where('id_pemesanan', '=', $pemesanan_id)->first();
+
+                if($datadetail->deleted_at != "NULL"){
+                    $datadetail->restore();
+                }
+
+                $datadetail->jumlah = $jumlah;
+                $datadetail->subtotal = $subtotal;
+                $datadetail->save();
             }
+           
+            
 
+            return $data;
         }
-       
-        $data->jumlah = $jumlah;
-        $data->subtotal = $subtotal;
-        $data->save();
-
-        return $data;
+    
+        
     }
 
     public function hapusDetailPemesanan(Request $request)
