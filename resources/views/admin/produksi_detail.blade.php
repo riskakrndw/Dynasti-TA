@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Tambah Produksi")
+@section("title", "Detail Data Produksi")
 
 @section("produksi", "active")
 
@@ -23,7 +23,7 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Data Produksi</a></li>
-        <li class="active">Tambah</li>
+        <li class="active">Detail</li>
       </ol>
     </section>
 
@@ -33,13 +33,13 @@
 
         
         <div class="col-md-12">
-          <a href="{{route('produksi')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data penjualan </button></a>
+          <a href="{{route('produksi')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data produksi </button></a>
         </div>   
 
         <!-- Tambah penjualan -->
           <div class="col-md-12">
             <br>
-            <div class="box box-success">
+            <div class="box">
               <ul class="nav nav-tabs-custom">
                 <li class="pull-left box-header"><h3 class="box-title">Data Produksi</h3></li>
               </ul>
@@ -53,7 +53,7 @@
                       <div class="form-group">
                         <label>Kode Produksi</label>
                         <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
                           <input class="form-control" placeholder="Kode Produksi" name="kode" id="kode" value="{{ $data->kode_produksi }}" disabled>
                         </div>
                       </div>
@@ -101,7 +101,7 @@
 
               <hr id="garis">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Daftar bahan yang diperlukan</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Daftar Bahan Baku</h3></li>
               </ul>
 
                 <div class="box-body table-responsive">

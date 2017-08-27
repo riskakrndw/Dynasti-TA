@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Produksi")
+@section("title", "Data Produksi")
 
 @section("produksi", "active")
 
@@ -17,7 +17,7 @@
         Data Produksi
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{{route('beranda')}}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Data Produksi</li>
       </ol>
     </section>
@@ -83,16 +83,17 @@
           <div id="editPro" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title">Ubah Data Jenis</h4>
+              <h4 class="modal-title">Ubah Data Produksi</h4>
             </div>
             <div class="modal-body modal-primary">
               <form role="form" action="{{url('manager/produksi/edit')}}" method="POST">
               {{csrf_field()}}
               <label>Kode Produksi</label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
                 <input class="form-control" id="kodepro" name="kodepro" placeholder="Kode Produksi" value="" disabled>
               </div>
+              <br>
               <label>Tanggal</label>
                 <div class="input-group date">
                   <div class="input-group-addon">

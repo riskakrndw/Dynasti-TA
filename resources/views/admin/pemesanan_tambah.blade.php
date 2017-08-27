@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Tambah Pemesanan")
+@section("title", "Tambah Data Pemesanan")
 
 @section("pesanan", "active")
 
@@ -23,9 +23,9 @@
   <div class="content-wrapper">
     <section class="content-header">
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Pemesanan</a></li>
-        <li><a href="#">Data Pemesanan</a></li>
+        <li><a href="{{route('beranda')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a>Pemesanan</a></li>
+        <li><a href="{{route('pemesanan')}}">Data Pemesanan</a></li>
         <li class="active">Tambah</li>
       </ol>
     </section>
