@@ -1,5 +1,13 @@
 <html>
     <body>
+
+        <style type="text/css">
+          .row{
+            background-color: #ff851b;
+            -webkit-print-color-adjust: exact;
+          }
+        </style>
+
         <center>
             <table text-align="center" style="margin-top:40px">
                 <tr>
@@ -32,10 +40,10 @@
         <table align="center" style="width:100%;border-collapse: collapse; margin-top:10px; " id="dataTables-example" border="1">
             <thead>
                 <tr style="font-size:18px; height:50px;">
-                    <th style="width: 50px;">No</th>
-                    <th style="width: 120px">Kode</th>
-                    <th style="width: 100px">Tanggal</th>
-                    <th style="width: 180px" colspan="4">Daftar Ice Cream</th>
+                    <th class = "row" style="width: 50px; background-color:#bdc3c7;">No</th>
+                    <th class = "row" style="width: 120px; background-color:#bdc3c7;">Kode</th>
+                    <th class = "row" style="width: 100px; background-color:#bdc3c7;">Tanggal</th>
+                    <th class = "row" style="width: 180px; background-color:#bdc3c7;" colspan="4">Daftar Ice Cream</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,10 +53,10 @@
                         <td align="center" rowspan="{{ count($v->detail_pemesanan)+1 }}">{{ $q+1 }}</td>
                         <td rowspan="{{ count($v->detail_pemesanan)+1 }}">{{$v->kode_pemesanan}}</td>
                         <td align="center" rowspan="{{ count($v->detail_pemesanan)+1 }}">{{$v->tanggal}}</td>
-                        <th style="width: 190px">Nama</th>
-                        <th style="width: 100px">Harga</th>
-                        <th style="width: 70px">Jumlah</th>
-                        <th style="width: 100px">Subtotal</th>
+                        <th class = "row" style="width: 110px; background-color:#ecf0f1;">Nama</th>
+                        <th class = "row" style="width: 90px; background-color:#ecf0f1;">Harga</th>
+                        <th class = "row" style="width: 60px; background-color:#ecf0f1;">Jumlah</th>
+                        <th class = "row" style="width: 120px; background-color:#ecf0f1;">Subtotal</th>
                     </tr>
                     @foreach($v->detail_pemesanan as $x)
                         <tr>
@@ -61,7 +69,7 @@
                 @endforeach
                 <tr style="font-size:18px; height:30px;">
                     <td align="center" colspan="6">Total</td>
-                    <td></td>
+                    <td>Rp {{ number_format($totalpemesanan,2,",","." ) }}</td>
                 </tr>
             </tbody>
         </table>

@@ -1,5 +1,13 @@
 <html>
     <body>
+
+        <style type="text/css">
+          .row{
+            background-color: #ff851b;
+            -webkit-print-color-adjust: exact;
+          }
+        </style>
+
         <center>
             <table text-align="center" style="margin-top:40px">
                 <tr>
@@ -32,10 +40,10 @@
         <table align="center" style="width:100%;border-collapse: collapse; margin-top:10px; " id="dataTables-example" border="1">
             <thead>
                 <tr style="font-size:18px; height:50px;">
-                    <th style="width: 50px;">No</th>
-                    <th style="width: 130px">Kode</th>
-                    <th style="width: 120px">Tanggal</th>
-                    <th style="width: 180px" colspan="3">Daftar Ice Cream</th>
+                    <th class = "row" style="width: 50px; background-color:#bdc3c7;">No</th>
+                    <th class = "row" style="width: 150px; background-color:#bdc3c7;">Kode</th>
+                    <th class = "row" style="width: 120px; background-color:#bdc3c7;">Tanggal</th>
+                    <th class = "row" style="width: 180px; background-color:#bdc3c7;" colspan="3">Daftar Ice Cream</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,9 +53,9 @@
                         <td align="center" rowspan="{{ count($v->detail_produksi)+1 }}">{{ $q+1 }}</td>
                         <td rowspan="{{ count($v->detail_produksi)+1 }}">{{$v->kode_produksi}}</td>
                         <td align="center" rowspan="{{ count($v->detail_produksi)+1 }}">{{$v->tgl}}</td>
-                        <th style="width: 190px">Nama</th>
-                        <th style="width: 120px">Harga</th>
-                        <th style="width: 80px">Jumlah</th>
+                        <th class = "row" style="width: 190px; background-color:#ecf0f1;">Nama</th>
+                        <th class = "row" style="width: 120px; background-color:#ecf0f1;">Harga</th>
+                        <th class = "row" style="width: 80px; background-color:#ecf0f1;">Jumlah</th>
                     </tr>
                     @foreach($v->detail_produksi as $x)
                         <tr>

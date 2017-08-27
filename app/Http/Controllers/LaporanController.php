@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use App\Penjualan;
@@ -24,7 +25,7 @@ class LaporanController extends Controller
 
     public function cetakpengadaan($tgl_a,$tgl_b){
         $data=Pembelian::whereBetween('tgl',[$tgl_a,$tgl_b])->orderBy('tgl', 'asc')->get();
-        $totalpengadaan = sum(DB::select("select total from pembelian"));
+        $totalpengadaan = DB::table('pembelian')->sum('total');
         return view('admin.print_pengadaan')->with('data',$data)->with('tgl_a',$tgl_a)->with('tgl_b',$tgl_b)->with('totalpengadaan', $totalpengadaan);
     }
 
@@ -40,7 +41,8 @@ class LaporanController extends Controller
 
     public function cetakpenjualan($tgl_a,$tgl_b){
         $data=Penjualan::whereBetween('tgl',[$tgl_a,$tgl_b])->orderBy('tgl', 'asc')->get();
-        return view('admin.print_penjualan')->with('data',$data)->with('tgl_a',$tgl_a)->with('tgl_b',$tgl_b);
+        $totalpenjualan = DB::table('penjualan')->sum('total');
+        return view('admin.print_penjualan')->with('data',$data)->with('tgl_a',$tgl_a)->with('tgl_b',$tgl_b)->with('totalpenjualan', $totalpenjualan);
     }
     
     public function laporanPemesanan()
@@ -55,7 +57,8 @@ class LaporanController extends Controller
 
     public function cetakpemesanan($tgl_a,$tgl_b){
         $data=Pemesanan::whereBetween('tanggal',[$tgl_a,$tgl_b])->orderBy('tanggal', 'asc')->get();
-        return view('admin.print_pemesanan')->with('data',$data)->with('tgl_a',$tgl_a)->with('tgl_b',$tgl_b);
+        $totalpemesanan = DB::table('pemesanan')->sum('total');
+        return view('admin.print_pemesanan')->with('data',$data)->with('tgl_a',$tgl_a)->with('tgl_b',$tgl_b)->with('totalpemesanan', $totalpemesanan);
     }
 
     public function laporanProduksi()
