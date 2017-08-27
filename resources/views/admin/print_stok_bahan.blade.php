@@ -36,12 +36,21 @@
           <tbody>
             <?php $no=1; ?>
             @foreach($data as $v)
-            <tr>
-              <td style="height:30px; text-align:center">{{ $no++ }}</td>
-              <td style="height:30px;">{{$v->nama}}</td>
-              <td style="height:30px; text-align:center">{{$v->satuan}}</td>
-              <td style="height:30px; text-align:center">{{$v->stok}}</td>
-            </tr>
+              @if($v->stok < $v->stok_min)
+                <tr style="background-color:#ff851b;">
+                <td style="height:30px; text-align:center">{{ $no++ }}</td>
+                <td style="height:30px;">{{$v->nama}}</td>
+                <td style="height:30px; text-align:center">{{$v->satuan}}</td>
+                <td style="height:30px; text-align:center">{{$v->stok}}</td>
+                </tr>
+              @else
+                <tr>
+                <td style="height:30px; text-align:center">{{ $no++ }}</td>
+                <td style="height:30px;">{{$v->nama}}</td>
+                <td style="height:30px; text-align:center">{{$v->satuan}}</td>
+                <td style="height:30px; text-align:center">{{$v->stok}}</td>
+                </tr>
+              @endif
             @endforeach
           </tbody>
         </table>

@@ -14,7 +14,7 @@ class PemesananController extends Controller
     public function index()
     {
     	$data = DetailPemesanan::all();
-        $datamenunggu = DetailPemesanan::where('status', '=', 'menunggu')->get();
+        $datamenunggu = DetailPemesanan::where('status', '=', 'menunggu')->orderBy('tanggal', 'asc')->get();
         $datasiap = DetailPemesanan::where('status', '=', 'siap')->get();
         // dd($data);
     	return view('admin.pemesanan_barang')->with('data', $data)->with('datamenunggu', $datamenunggu)->with('datasiap', $datasiap);
@@ -23,8 +23,8 @@ class PemesananController extends Controller
     public function index1()
     {
     	$data = Pemesanan::all();
-        $datamenunggu = Pemesanan::where('status', '=', 'menunggu')->get();
-        $datasiap = Pemesanan::where('status', '=', 'siap')->get();
+        $datamenunggu = Pemesanan::where('status', '=', 'menunggu')->orderBy('tanggal', 'asc')->get();
+        $datasiap = Pemesanan::where('status', '=', 'siap')->orderBy('tanggal', 'asc')->get();
         $dataselesai = Pemesanan::where('status', '=', 'selesai')->get();
         $databatal = Pemesanan::where('status', '=', 'batal')->get();
         // dd($databatal);

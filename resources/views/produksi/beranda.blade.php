@@ -23,7 +23,7 @@
       <!-- Alert Success -->
         <div class="callout callout-info">
           <h4>Halo {{Auth::user()->name}}!</h4>
-          <p>Selamat Datang di Halaman Bagian Pengadaan</p>
+          <p>Selamat Datang di Halaman Bagian Produksi</p>
         </div>
       <!-- /Alert Success -->
 

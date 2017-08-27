@@ -64,11 +64,19 @@
                   <tbody>
                     <?php $no=1; ?>
                     @foreach($data as $data)
-                    <tr>
-                      <td>{{ $no++ }}</td>
-                      <td>{{ $data->nama }}</td>
-                      <td>{{ $data->stok }}</td>
-                    </tr>
+                      @if($data->stok < 100)
+                        <tr style="background-color:#ff851b;">
+                          <td>{{ $no++ }}</td>
+                          <td>{{ $data->nama }}</td>
+                          <td>{{ $data->stok }}</td>
+                        </tr>
+                      @else
+                        <tr>
+                          <td>{{ $no++ }}</td>
+                          <td>{{ $data->nama }}</td>
+                          <td>{{ $data->stok }}</td>
+                        </tr>
+                      @endif
                     @endforeach
                   </tbody>
                 </table>

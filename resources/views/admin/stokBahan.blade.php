@@ -57,12 +57,12 @@
                   <tbody>
                     <?php $no=1; ?>
                     @foreach($data as $data)
-                    <tr>
-                      <td>{{ $no++ }}</td>
-                      <td>{{ $data->nama }}</td>
-                      <td>{{ $data->satuan }}</td>
-                      <td>{{ $data->stok }}</td>
-                    </tr>
+                      <tr>
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $data->nama }}</td>
+                        <td>{{ $data->satuan }}</td>
+                        <td>{{ $data->stok }}</td>
+                      </tr>
                     @endforeach
                   </tbody>
                 </table>

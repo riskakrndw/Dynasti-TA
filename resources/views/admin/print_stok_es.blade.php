@@ -35,11 +35,20 @@
           <tbody>
             <?php $no=1; ?>
             @foreach($data as $v)
-            <tr>
-              <td style="text-align: center; height:35px;">{{ $no++ }}</td>
-              <td style="height:35px;">{{$v->nama}}</td>
-              <td style="text-align: center; height:35px;">{{$v->stok}}</td>
-            </tr>
+            
+            @if($v->stok < 100)
+                <tr style="background-color:#ff851b;">
+                  <td style="text-align: center; height:35px;">{{ $no++ }}</td>
+                  <td style="height:35px;">{{$v->nama}}</td>
+                  <td style="text-align: center; height:35px;">{{$v->stok}}</td>
+                </tr>
+              @else
+                <tr>
+                  <td style="text-align: center; height:35px;">{{ $no++ }}</td>
+                  <td style="height:35px;">{{$v->nama}}</td>
+                  <td style="text-align: center; height:35px;">{{$v->stok}}</td>
+                </tr>
+              @endif
             @endforeach
           </tbody>
         </table>
