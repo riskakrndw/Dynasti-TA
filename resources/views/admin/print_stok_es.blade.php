@@ -34,10 +34,10 @@
 
          <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px; " id="dataTables-example" border="1">
           <thead>
-            <tr>
-              <th style="width: 10px">No</th>
-              <th style="width: 300px">Nama Ice Cream</th>
-              <th style="width: 100px">Stok</th>
+            <tr style="height:50px;">
+              <th class = "row" style="width: 10px; background-color:#bdc3c7;">No</th>
+              <th class = "row" style="width: 300px; background-color:#bdc3c7;">Nama Ice Cream</th>
+              <th class = "row" style="width: 100px; background-color:#bdc3c7;">Stok</th>
             </tr>
           </thead>
           <tbody>
@@ -45,7 +45,7 @@
             @foreach($data as $v)
             
             @if($v->stok < 100)
-                <tr class="row" style="background-color:#ff851b;">
+                <tr class="row" style="background-color:#e74c3c;">
                   <td style="text-align: center; height:35px;">{{ $no++ }}</td>
                   <td style="height:35px;">{{$v->nama}}</td>
                   <td style="text-align: center; height:35px;">{{$v->stok}}</td>

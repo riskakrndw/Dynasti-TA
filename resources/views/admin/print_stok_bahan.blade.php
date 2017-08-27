@@ -34,18 +34,18 @@
 
          <table align="center" style="width:85%;border-collapse: collapse; margin-top:10px; " id="dataTables-example" border="1">
           <thead>
-            <tr style="height:35px;">
-              <th style="width: 50px">No</th>
-              <th style="width: 300px">Nama Bahan</th>
-              <th style="width: 100px">Satuan</th>
-              <th style="width: 100px">Stok</th>
+            <tr style="height:50px;">
+              <th class = "row" style="width: 50px; background-color:#bdc3c7;">No</th>
+              <th class = "row" style="width: 300px; background-color:#bdc3c7;">Nama Bahan</th>
+              <th class = "row" style="width: 100px; background-color:#bdc3c7;">Satuan</th>
+              <th class = "row" style="width: 100px; background-color:#bdc3c7;">Stok</th>
             </tr>
           </thead>
           <tbody>
             <?php $no=1; ?>
             @foreach($data as $v)
               @if($v->stok < $v->stok_min)
-                <tr class = "row" style="background-color:#ff851b;">
+                <tr class = "row" style="background-color:#e74c3c;">
                 <td style="height:30px; text-align:center">{{ $no++ }}</td>
                 <td style="height:30px;">{{$v->nama}}</td>
                 <td style="height:30px; text-align:center">{{$v->satuan}}</td>
