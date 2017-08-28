@@ -108,6 +108,7 @@
                           <td>{{ $data->total }}</td>
                           <td>
                            <a href="{{ url('manager/pemesanan/lihat/'.$data->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <button class="btn btn-sm btn-danger btnStatusBatal" id-pemesanan="{{ $data->id }}"><i class="fa fa-close"></i> Batal</button>
                          </td>
                         </tr>
                       @endforeach
@@ -239,7 +240,6 @@
   <script src="{{url('dist/js/validasinumeric.js')}}"></script>
 
   <script type="text/javascript">
-
     $('.btnStatusSelesai').click(function(){
       var tr = $(this);
       if(confirm('Apakah anda akan mengubah status menjadi selesai?') == true){
@@ -253,8 +253,23 @@
           }
         })
       }
-      
     });
+
+    $('.btnStatusBatal').click(function(){
+      var tr = $(this);
+      if(confirm('Apakah anda akan membatalkan pemesanan?') == true){
+        var idpesanan = $(this).attr('id-pemesanan');
+        $.ajax({
+          type: "GET",
+          url: "/dynasti/public/manager/pemesanan/batal/"+idpesanan,
+          success: function(result) {
+            toastr.success("Status berhasil dibatalkan");
+            tr.closest('tr').remove();
+          }
+        })
+      }
+    });
+    
   </script>
 
 @endsection

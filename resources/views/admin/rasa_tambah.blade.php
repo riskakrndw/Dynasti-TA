@@ -48,7 +48,7 @@
               </ul>
 
               <!-- Form tambah es -->
-                <form role="form" action="" method="POST">
+                <form role="form" action="" method="POST" onsubmit="return Validate()" name="vform">
                   {{csrf_field()}}
                   <div class="box-body">
                     <div class="col-md-12">
@@ -56,30 +56,30 @@
                         <label>Nama</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-
                           <input class="form-control" placeholder="Nama" name="nama" id="nama">
                         </div>
+                        <span class="help-block val_error" id="nama_error" style="color:red;"></span>
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Tersedia dalam jenis : </label>
-                          @foreach($dataJenis as $key=>$dataJenis)
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" name="checkjenis" class="checkjenis" id="{{ $dataJenis->id }}" idjenis="{{$key}}">
-                            {{ $dataJenis->nama }}
-                            <br>
-                            <div id="showjenis{{$key}}" class="hide">
-                            dalam 1 kali pembuatan menghasilkan:
-                              <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-plus"></i></span>
-                                <input class="form-control" placeholder="Jumlah" name="jumlahProduksi" id="jumlahProduksi{{$key}}" onKeyPress="return goodchars(event,'0123456789',this)">
+                        @foreach($dataJenis as $key=>$dataJenis)
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" name="checkjenis" class="checkjenis" id="{{ $dataJenis->id }}" idjenis="{{$key}}">
+                              {{ $dataJenis->nama }}
+                              <br>
+                              <div id="showjenis{{$key}}" class="hide">
+                              dalam 1 kali pembuatan menghasilkan:
+                                <div class="input-group">
+                                  <span class="input-group-addon"><i class="fa fa-plus"></i></span>
+                                  <input class="form-control" placeholder="Jumlah" name="jumlahProduksi" id="jumlahProduksi{{$key}}" onKeyPress="return goodchars(event,'0123456789',this)">
+                                </div>
                               </div>
-                            </div>
-                          </label>
-                        </div>
-                          @endforeach
+                            </label>
+                          </div>
+                        @endforeach
                       </div>
                     </div>
                   </div>
@@ -93,14 +93,16 @@
 
               <!-- Data bahan -->
                 <div class="col-xs-4">
-                  <input type="hidden" class="form-control" id="namaBahan" placeholder="Nama Bahan">
+                  <input type="hidden" class="form-control" id="namaBahan" placeholder="Nama Bahan" name="namabahan">
+                  <span class="help-block val_error" id="namabahan_error" style="color:red;"></span>
                 </div>
                 <div class="col-xs-3">
                   <input type="text" class="form-control" id="satuanBahan" placeholder="Satuan" disabled>
                 </div>
                 <input class="form-control" type="hidden" name="idBahan" id="idBahan" value="">
                 <div class="col-xs-3">
-                  <input type="text" class="form-control" id="jumlahBahan" placeholder="Jumlah yang Dibutuhkan" onKeyPress="return goodchars(event,'0123456789',this)">
+                  <input type="text" class="form-control" id="jumlahBahan" name="jumlahbahan" placeholder="Jumlah yang Dibutuhkan" onKeyPress="return goodchars(event,'0123456789',this)">
+                  <span class="help-block val_error" id="jumlahbahan_error" style="color:red;"></span>
                 </div>
                 <div class="col-xs-2">
                   <a href="javascript: void(0)"><button type="button" class="btn btn-sm btn-default btnTambahBahan"><i class="fa  fa-plus "></i> Tambah Bahan </button></a>
@@ -155,6 +157,38 @@
   <script src="{{url('dist/js/jquery-1.8.2.min.js')}}" type="text/javascript" charset="utf8"></script>
   <script src="{{url('dist/js/select2/select2.js')}}"></script>
 
+  <script type="text/javascript">
+
+    //getting all input object
+      var nama = document.forms["vform"]["nama"];
+
+    //getting all error display object
+      var nama_error = document.getElementById("nama_error");
+
+    //setting all event listener
+      nama.addEventListener("blur", namaVerify, true);
+
+    //validation function
+      function Validate(){
+        
+        if(nama.value == ""){
+          nama.style.border = "1px solid red";
+          nama_error.textContent = "Nama harus diisi";
+          nama.focus();
+          return false;
+        }
+
+        //event handler function
+
+          function namaVerify(){
+            if(nama.value != ""){
+              nama.style.border = "1px solid #5E6E66";
+              nama_error.innerHTML = "";
+              return true;
+            }
+          }
+      }
+  </script>
 
   <!-- script tambah bahan baku -->
   <script>
@@ -227,71 +261,74 @@
 
       //save multi record to db
       $('#submit').on('click', function(){
-        var nama = $('#nama').val();
-        var listJenis = $('#listJenis').val();
-        var harga = $('#harga').val();
-        var listRasa = $('#listRasa').val();
-        var stok = $('#stok').val();
-        var total = $('#totalHarga').val();
+        if(Validate()){
+          var nama = $('#nama').val();
+          var listJenis = $('#listJenis').val();
+          var harga = $('#harga').val();
+          var listRasa = $('#listRasa').val();
+          var stok = $('#stok').val();
+          var total = $('#totalHarga').val();
 
-        var arrData=[];
+          var arrData=[];
 
-        //loop over each table row (tr)
-        $("#type_container tr").each(function(){
-          var currentRow = $(this);
+          //loop over each table row (tr)
+          $("#type_container tr").each(function(){
+            var currentRow = $(this);
 
-          var col0_value = currentRow.find("td:eq(0)").text();
-          var col1_value = currentRow.find("td:eq(1)").text();
-          var col2_value = currentRow.find("td:eq(2)").text();
-          var col3_value = currentRow.find("td:eq(3)").text();
+            var col0_value = currentRow.find("td:eq(0)").text();
+            var col1_value = currentRow.find("td:eq(1)").text();
+            var col2_value = currentRow.find("td:eq(2)").text();
+            var col3_value = currentRow.find("td:eq(3)").text();
 
-          var obj={};
-          obj.no = col0_value;
-          obj.nama_bahan = col1_value;
-          obj.jumlah = col3_value;
-          obj.satuan = col2_value;
+            var obj={};
+            obj.no = col0_value;
+            obj.nama_bahan = col1_value;
+            obj.jumlah = col3_value;
+            obj.satuan = col2_value;
 
-          arrData.push(obj);
-        });
-        
-        function a(){
-
-          $('input:checkbox[name=checkjenis]:checked').each(function(){
-            var idjenis = $(this).attr('idjenis')
-            $.ajax({
-              type: "POST",
-              url: "http://localhost:8081/dynasti/public/manager/rasa/simpan2",
-              data:'idjenis=' + $(this).attr('id') + '& jumlah_produksi=' + $('#jumlahProduksi'+ idjenis).val()  + '& _token='+"{{csrf_token()}}",
-              success: function(result) {
-              }
-            });
-          })
+            arrData.push(obj);
+          });
           
+          function a(){
 
-          for (var i=0; i<arrData.length; i++){
-            console.log(arrData[i]['jumlah'])
-            $.ajax({
-              type: "POST",
-              url: "http://localhost:8081/dynasti/public/manager/rasa/simpan1",
-              data:'nama_bahan=' + arrData[i]['nama_bahan'] + '& takaran =' + arrData[i]['jumlah'] +'& _token='+"{{csrf_token()}}",
-              success: function(result) {
-              }
-            });
-          }
-        };
+            $('input:checkbox[name=checkjenis]:checked').each(function(){
+              var idjenis = $(this).attr('idjenis')
+              $.ajax({
+                type: "POST",
+                url: "http://localhost:8081/dynasti/public/manager/rasa/simpan2",
+                data:'idjenis=' + $(this).attr('id') + '& jumlah_produksi=' + $('#jumlahProduksi'+ idjenis).val()  + '& _token='+"{{csrf_token()}}",
+                success: function(result) {
+                }
+              });
+            })
+            
 
-         $.ajax({
-              type: "POST",
-              url: "http://localhost:8081/dynasti/public/manager/rasa/simpan",
-              data:'nama=' + $('#nama').val() +'& _token='+"{{csrf_token()}}",
-              success: function(result) {
-                console.log(result);
-              }
-          }).done(a);
+            for (var i=0; i<arrData.length; i++){
+              console.log(arrData[i]['jumlah'])
+              $.ajax({
+                type: "POST",
+                url: "http://localhost:8081/dynasti/public/manager/rasa/simpan1",
+                data:'nama_bahan=' + arrData[i]['nama_bahan'] + '& takaran =' + arrData[i]['jumlah'] +'& _token='+"{{csrf_token()}}",
+                success: function(result) {
+                }
+              });
+            }
+          };
 
-        $(document).ajaxStop(function(){
-          window.location="{{URL::to('manager/rasa')}}";
-        });
+           $.ajax({
+                type: "POST",
+                url: "http://localhost:8081/dynasti/public/manager/rasa/simpan",
+                data:'nama=' + $('#nama').val() +'& _token='+"{{csrf_token()}}",
+                success: function(result) {
+                  console.log(result);
+                }
+            }).done(a);
+
+          $(document).ajaxStop(function(){
+            window.location="{{URL::to('manager/rasa')}}";
+          });
+        }
+        
         
       });
     });

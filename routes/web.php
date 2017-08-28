@@ -201,6 +201,7 @@ Route::group(['middleware' => 'levelManager'], function(){
 			Route::get('/manager/pemesanan/simpan1/{idpesan}/{namaes}/{jumlah}/{subtotal}', 'PemesananController@store1');
 		// ubah status pemesanan
 			Route::get('/manager/pemesanan/selesai/{idpesanan}', 'PemesananController@pemesananSelesai');
+			Route::get('/manager/pemesanan/batal/{idpesanan}', 'PemesananController@pemesananBatal');
 		// ubah status detail pemesanan
 			Route::get('/manager/pemesanan/detail/siap/{ides}/{jumlahes}/{iddetailpemesanan}', 'PemesananController@produkSiap');
 		/*melakukan lihat detail*/

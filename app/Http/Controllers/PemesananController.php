@@ -119,6 +119,13 @@ class PemesananController extends Controller
         $data->save();
     }
 
+    public function pemesananBatal($idpesanan)
+    {
+        $data = Pemesanan::find($idpesanan);
+        $data->status = "batal";
+        $data->save();
+    }
+
     public function updateJumlah($iddetail, $jumlahes)
     {
         $data = DetailPemesanan::find($iddetail);

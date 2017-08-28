@@ -48,7 +48,7 @@
               </ul>
 
               <!-- Form tambah es -->
-                <form role="form" action="" method="POST">
+                <form role="form" action="" method="POST" onsubmit="return Validate()" name="vform">
                   {{csrf_field()}}
                   <div class="box-body">
                     <div class="col-md-12">
@@ -56,9 +56,9 @@
                         <label>Nama</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-
                           <input class="form-control" placeholder="Nama" name="nama" id="nama" value="{{ $data->nama }}">
                         </div>
+                        <span class="help-block val_error" id="nama_error" style="color:red;"></span>
                       </div>
                     </div>
                     <div class="col-md-12">
@@ -94,6 +94,7 @@
               <!-- Data bahan -->
                 <div class="col-xs-4">
                   <input type="hidden" class="form-control" id="namaBahan" placeholder="Nama Bahan">
+                  <span class="help-block val_error" id="namabahan_error" style="color:red;"></span>
                 </div>
                 <div class="col-xs-3">
                   <input type="text" class="form-control" id="satuanBahan" placeholder="Satuan" disabled>
@@ -101,6 +102,7 @@
                 <input class="form-control" type="hidden" name="idBahan" id="idBahan" value="">
                 <div class="col-xs-3">
                   <input type="text" class="form-control" id="jumlahBahan" placeholder="Jumlah yang dibutuhkan" onKeyPress="return goodchars(event,'0123456789',this)">
+                  <span class="help-block val_error" id="jumlahbahan_error" style="color:red;"></span>
                 </div>
                 <div class="col-xs-2">
                   <a href="javascript: void(0)"><button type="button" class="btn btn-sm btn-default btnTambahBahan"><i class="fa  fa-plus "></i> Tambah Bahan </button></a>
@@ -170,6 +172,39 @@
 <!-- dinamically add -->
   <script src="{{url('dist/js/jquery-1.8.2.min.js')}}" type="text/javascript" charset="utf8"></script>
   <script src="{{url('dist/js/select2/select2.js')}}"></script>
+
+  <script type="text/javascript">
+
+    //getting all input object
+      var nama = document.forms["vform"]["nama"];
+
+    //getting all error display object
+      var nama_error = document.getElementById("nama_error");
+
+    //setting all event listener
+      nama.addEventListener("blur", namaVerify, true);
+
+    //validation function
+      function Validate(){
+        
+        if(nama.value == ""){
+          nama.style.border = "1px solid red";
+          nama_error.textContent = "Nama harus diisi";
+          nama.focus();
+          return false;
+        }
+
+        //event handler function
+
+          function namaVerify(){
+            if(nama.value != ""){
+              nama.style.border = "1px solid #5E6E66";
+              nama_error.innerHTML = "";
+              return true;
+            }
+          }
+      }
+  </script>
 
 
   <!-- script tambah bahan baku -->
@@ -255,100 +290,102 @@
 
       //save multi record to db
       $('#submit').on('click', function(){
-        var nama = $('#nama').val();
-        var listJenis = $('#listJenis').val();
-        var harga = $('#harga').val();
-        var listRasa = $('#listRasa').val();
-        var stok = $('#stok').val();
-        var total = $('#totalHarga').val();
+        if(Validate()){
+          var nama = $('#nama').val();
+          var listJenis = $('#listJenis').val();
+          var harga = $('#harga').val();
+          var listRasa = $('#listRasa').val();
+          var stok = $('#stok').val();
+          var total = $('#totalHarga').val();
 
-        var arrData=[];
-        var arridbahan = [];
+          var arrData=[];
+          var arridbahan = [];
 
-        //loop over each table row (tr)
-        $("#type_container tr").each(function(){
-          var currentRow = $(this);
+          //loop over each table row (tr)
+          $("#type_container tr").each(function(){
+            var currentRow = $(this);
 
 
-          var col0_value = currentRow.find("td:eq(0)").text();
-          var col1_value = currentRow.find("td:eq(1)").text();
-          var col2_value = currentRow.find("td:eq(2)").text();
-          var col3_value = currentRow.find("td:eq(3)").text();
-          var col4_value = currentRow.find("td:eq(4)").text();
+            var col0_value = currentRow.find("td:eq(0)").text();
+            var col1_value = currentRow.find("td:eq(1)").text();
+            var col2_value = currentRow.find("td:eq(2)").text();
+            var col3_value = currentRow.find("td:eq(3)").text();
+            var col4_value = currentRow.find("td:eq(4)").text();
 
-          var obj={};
-          obj.no = col0_value;
-          obj.nama_bahan = col1_value;
-          obj.jumlah = col3_value;
-          obj.satuan = col2_value;
-          arridbahan.push(col4_value);
+            var obj={};
+            obj.no = col0_value;
+            obj.nama_bahan = col1_value;
+            obj.jumlah = col3_value;
+            obj.satuan = col2_value;
+            arridbahan.push(col4_value);
 
-          arrData.push(obj);
-        });
-        
-
-          $('input:checkbox[name=checkjenis]:checked').each(function(){
-            var idjenis = $(this).attr('data-id')
-            console.log('jenis:' + idjenis)
-            $.ajax({
-              type: "POST",
-              url: "http://localhost:8081/dynasti/public/manager/rasa/ubah2",
-              data: 'idrasa= {{$data->id}}' + '& idjenis=' + idjenis + '& jumlah_produksi=' + $('#jumlahProduksi'+ idjenis).val()  + '& _token='+"{{csrf_token()}}",
-              success: function(result) {
-              }
-            });
-          })
+            arrData.push(obj);
+          });
           
 
-          for (var i=0; i<arrData.length; i++){
-            console.log(arrData[i]['jumlah'])
-            $.ajax({
-              type: "POST",
-              url: "http://localhost:8081/dynasti/public/manager/rasa/ubah1",
-              data: 'idrasa= {{$data->id}}' + '& nama_bahan=' + arrData[i]['nama_bahan'] + '& takaran =' + arrData[i]['jumlah'] +'& _token='+"{{csrf_token()}}",
-              success: function(result) {
-              }
+            $('input:checkbox[name=checkjenis]:checked').each(function(){
+              var idjenis = $(this).attr('data-id')
+              console.log('jenis:' + idjenis)
+              $.ajax({
+                type: "POST",
+                url: "http://localhost:8081/dynasti/public/manager/rasa/ubah2",
+                data: 'idrasa= {{$data->id}}' + '& idjenis=' + idjenis + '& jumlah_produksi=' + $('#jumlahProduksi'+ idjenis).val()  + '& _token='+"{{csrf_token()}}",
+                success: function(result) {
+                }
+              });
+            })
+            
+
+            for (var i=0; i<arrData.length; i++){
+              console.log(arrData[i]['jumlah'])
+              $.ajax({
+                type: "POST",
+                url: "http://localhost:8081/dynasti/public/manager/rasa/ubah1",
+                data: 'idrasa= {{$data->id}}' + '& nama_bahan=' + arrData[i]['nama_bahan'] + '& takaran =' + arrData[i]['jumlah'] +'& _token='+"{{csrf_token()}}",
+                success: function(result) {
+                }
+              });
+            }
+
+            console.log('{{$data->id}}')
+           $.ajax({
+                type: "POST",
+                url: "http://localhost:8081/dynasti/public/manager/rasa/ubah",
+                data:'id= {{$data->id}}' + '& nama=' + $('#nama').val() +'& _token='+"{{csrf_token()}}",
+                success: function(result) {
+                  $('input:checkbox[name=checkjenis]:checked').each(function(){
+                    var idjenis = $(this).attr('data-id')
+                    arridjenis.push(idjenis);
+                  })
+                }
+            }).done(a);
+
+
+          function a(){
+            console.log(arridjenis);
+           $.ajax({
+                type: "POST",
+                url: "http://localhost:8081/dynasti/public/manager/rasa/hapusDetailRasa",
+                data: 'idrasa= {{$data->id}}' + '& idbahan=' + arridbahan + '& _token='+"{{csrf_token()}}",
+                success: function(result) {
+                 console.log(result);
+                }
+            });
+
+           $.ajax({
+                type: "POST",
+                url: "http://localhost:8081/dynasti/public/manager/rasa/hapusEs",
+                data: 'idrasa= {{$data->id}}' + '& idjenis=' + arridjenis + '& _token='+"{{csrf_token()}}",
+                success: function(result) {
+                 console.log(result);
+                }
             });
           }
 
-          console.log('{{$data->id}}')
-         $.ajax({
-              type: "POST",
-              url: "http://localhost:8081/dynasti/public/manager/rasa/ubah",
-              data:'id= {{$data->id}}' + '& nama=' + $('#nama').val() +'& _token='+"{{csrf_token()}}",
-              success: function(result) {
-                $('input:checkbox[name=checkjenis]:checked').each(function(){
-                  var idjenis = $(this).attr('data-id')
-                  arridjenis.push(idjenis);
-                })
-              }
-          }).done(a);
-
-
-        function a(){
-          console.log(arridjenis);
-         $.ajax({
-              type: "POST",
-              url: "http://localhost:8081/dynasti/public/manager/rasa/hapusDetailRasa",
-              data: 'idrasa= {{$data->id}}' + '& idbahan=' + arridbahan + '& _token='+"{{csrf_token()}}",
-              success: function(result) {
-               console.log(result);
-              }
-          });
-
-         $.ajax({
-              type: "POST",
-              url: "http://localhost:8081/dynasti/public/manager/rasa/hapusEs",
-              data: 'idrasa= {{$data->id}}' + '& idjenis=' + arridjenis + '& _token='+"{{csrf_token()}}",
-              success: function(result) {
-               console.log(result);
-              }
+          $(document).ajaxStop(function(){
+            window.location="{{URL::to('manager/rasa')}}";
           });
         }
-
-        $(document).ajaxStop(function(){
-          window.location="{{URL::to('manager/rasa')}}";
-        });
         
       });
     });

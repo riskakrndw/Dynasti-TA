@@ -44,7 +44,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <!-- Form tambah jenis -->
-                      <form role="form" action="{{url('manager/jenis/simpan')}}" method="POST">
+                      <form role="form" action="{{url('manager/jenis/simpan')}}" method="POST" onsubmit="return Validate()" name="vform">
                         {{csrf_field()}}
                         <div class="form-group">
                           <label>Nama Jenis</label>
@@ -52,9 +52,7 @@
                             <span class="input-group-addon"><i class="fa fa-font"></i></span>
                             <input class="form-control" placeholder="Nama Jenis" name="nama">
                           </div>
-                          @if($errors->has('nama'))
-                            <span class="help-block">Nama jenis minimal 2 karakter</span>
-                          @endif
+                          <span class="help-block val_error" id="nama_error" style="color:red;"></span>
                           <br>
                           <label>Harga</label>
                           <div class="input-group">
@@ -62,9 +60,7 @@
                             <input class="form-control" placeholder="Harga" name="harga" onKeyPress="return goodchars(event,'0123456789',this)">
                             <span class="input-group-addon">,00</span>
                           </div>
-                          @if($errors->has('harga'))
-                            <span class="help-block">Nama jenis minimal 2 karakter</span>
-                          @endif
+                          <span class="help-block val_error" id="harga_error" style="color:red;"></span>
                         </div>
                         <div class="form-group">
                           <div class="box-footer pull-right">
@@ -174,6 +170,60 @@
   <script src="{{url('dist/js/validasinumeric.js')}}"></script>
 
   <script type="text/javascript">
+
+    //getting all input object
+      var nama = document.forms["vform"]["nama"];
+      var harga = document.forms["vform"]["harga"];
+
+    //getting all error display object
+      var nama_error = document.getElementById("nama_error");
+      var harga_error = document.getElementById("harga_error");
+
+    //setting all event listener
+      nama.addEventListener("blur", namaVerify, true);
+      harga.addEventListener("blur", hargaVerify, true);
+
+    //validation function
+      function Validate(){
+        
+        if(nama.value == ""){
+          nama.style.border = "1px solid red";
+          nama_error.textContent = "Nama harus diisi";
+          nama.focus();
+          return false;
+        }
+
+        if(harga.value == ""){
+          harga.style.border = "1px solid red";
+          harga_error.textContent = "Harga harus diisi";
+          harga.focus();
+          return false;
+        }
+
+        //event handler function
+
+
+          function namaVerify(){
+            if(nama.value != ""){
+              nama.style.border = "1px solid #5E6E66";
+              nama_error.innerHTML = "";
+              return true;
+            }
+          }
+
+          function hargaVerify(){
+            if(harga.value != ""){
+              harga.style.border = "1px solid #5E6E66";
+              harga_error.innerHTML = "";
+              return true;
+            }
+          }
+
+      }
+  </script>
+
+  <script type="text/javascript">
+
     $(document).ready(function(){
       $(".btnEditJenis").click(function(){
         $('#hargaJenis').val($(this).data('harga'));

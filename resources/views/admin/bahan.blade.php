@@ -41,7 +41,7 @@
                 </div>
               </div>
               <!-- Form tambah jenis -->
-                <form role="form" action="{{url('manager/bahan/simpan')}}" method="POST" id="formID">
+                <form role="form" action="{{url('manager/bahan/simpan')}}" method="POST" id="formID" onsubmit="return Validate()" name="vform">
                   {{csrf_field()}}
                   <div class="box-body">
                     <div class="col-md-12">
@@ -51,9 +51,7 @@
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
                           <input class="form-control" placeholder="Nama Bahan" name="nama">
                         </div>
-                        @if($errors->has('nama'))
-                          <span class="help-block">Nama bahan minimal 2 karakter</span>
-                        @endif
+                        <span class="help-block val_error" id="nama_error" style="color:red;"></span>
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -63,9 +61,7 @@
                           <span class="input-group-addon"><i class="fa fa-balance-scale"></i></span>
                           <input class="form-control" placeholder="Satuan" name="satuan">
                         </div>
-                        @if($errors->has('satuan'))
-                          <span class="help-block">Satuan harus diisi</span>
-                        @endif
+                        <span class="help-block val_error" id="satuan_error" style="color:red;"></span>
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -76,9 +72,7 @@
                           <input class="form-control" placeholder="Harga Satuan" name="harga" type="text" onKeyPress="return goodchars(event,'0123456789',this)">
                             <span class="input-group-addon">,00</span>
                         </div>
-                        @if($errors->has('harga'))
-                          <span class="help-block">Harus diisi</span>
-                        @endif
+                        <span class="help-block val_error" id="harga_error" style="color:red;"></span>
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -88,9 +82,7 @@
                           <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
                           <input class="form-control" placeholder="Stok" name="stok" onKeyPress="return goodchars(event,'0123456789',this)">
                         </div>
-                        @if($errors->has('stok'))
-                          <span class="help-block">Harus diisi</span>
-                        @endif
+                        <span class="help-block val_error" id="stok_error" style="color:red;"></span>
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -100,9 +92,7 @@
                           <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
                           <input class="form-control" placeholder="Stok Minimal" name="stok_min" onKeyPress="return goodchars(event,'0123456789',this)">
                         </div>
-                        @if($errors->has('stok_min'))
-                          <span class="help-block">Harus diisi</span>
-                        @endif
+                        <span class="help-block val_error" id="stokmin_error" style="color:red;"></span>
                       </div>
                     </div>
                     <div class="box-footer pull-right">
@@ -245,6 +235,112 @@
   <script src="{{url('dist/js/bootstrap-modalmanager.js')}}"></script>
   <script src="{{url('dist/js/bootstrap-modal.js')}}"></script>
   <script src="{{url('dist/js/validasinumeric.js')}}"></script>
+
+  <script type="text/javascript">
+
+    //getting all input object
+      var nama = document.forms["vform"]["nama"];
+      var satuan = document.forms["vform"]["satuan"];
+      var harga = document.forms["vform"]["harga"];
+      var stok = document.forms["vform"]["stok"];
+      var stokmin = document.forms["vform"]["stokmin"];
+
+    //getting all error display object
+      var nama_error = document.getElementById("nama_error");
+      var satuan_error = document.getElementById("satuan_error");
+      var harga_error = document.getElementById("harga_error");
+      var stok_error = document.getElementById("stok_error");
+      var stokmin_error = document.getElementById("stokmin_error");
+
+    //setting all event listener
+      nama.addEventListener("blur", namaVerify, true);
+      satuan.addEventListener("blur", satuanVerify, true);
+      harga.addEventListener("blur", hargaVerify, true);
+      stok.addEventListener("blur", stokVerify, true);
+      stokmin.addEventListener("blur", stokminVerify, true);
+
+    //validation function
+      function Validate(){
+        
+        if(nama.value == ""){
+          nama.style.border = "1px solid red";
+          nama_error.textContent = "Nama harus diisi";
+          nama.focus();
+          return false;
+        }
+
+        if(satuan.value == ""){
+          satuan.style.border = "1px solid red";
+          satuan_error.textContent = "Satuan harus diisi";
+          satuan.focus();
+          return false;
+        }
+
+        if(harga.value == ""){
+          harga.style.border = "1px solid red";
+          harga_error.textContent = "Harga harus diisi";
+          harga.focus();
+          return false;
+        }
+
+        if(stok.value == ""){
+          stok.style.border = "1px solid red";
+          stok_error.textContent = "Stok harus diisi";
+          stok.focus();
+          return false;
+        }
+
+        if(stokmin.value == ""){
+          stokmin.style.border = "1px solid red";
+          stokmin_error.textContent = "Stok Minimal harus diisi";
+          stokmin.focus();
+          return false;
+        }
+
+        //event handler function
+
+          function namaVerify(){
+            if(nama.value != ""){
+              nama.style.border = "1px solid #5E6E66";
+              nama_error.innerHTML = "";
+              return true;
+            }
+          }
+
+          function satuanVerify(){
+            if(satuan.value != ""){
+              satuan.style.border = "1px solid #5E6E66";
+              harga_error.innerHTML = "";
+              return true;
+            }
+          }
+
+          function hargaVerify(){
+            if(harga.value != ""){
+              harga.style.border = "1px solid #5E6E66";
+              harga_error.innerHTML = "";
+              return true;
+            }
+          }
+
+          function stokVerify(){
+            if(stok.value != ""){
+              stok.style.border = "1px solid #5E6E66";
+              stok_error.innerHTML = "";
+              return true;
+            }
+          }
+
+          function stokminVerify(){
+            if(stokmin.value != ""){
+              stokmin.style.border = "1px solid #5E6E66";
+              stokmin_error.innerHTML = "";
+              return true;
+            }
+          }
+
+      }
+  </script>
 
   <script type="text/javascript">
     $(document).ready(function(){
