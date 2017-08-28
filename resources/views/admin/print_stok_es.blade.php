@@ -37,6 +37,7 @@
             <tr style="height:50px;">
               <th class = "row" style="width: 10px; background-color:#bdc3c7;">No</th>
               <th class = "row" style="width: 300px; background-color:#bdc3c7;">Nama Ice Cream</th>
+              <th class = "row" style="width: 120px; background-color:#bdc3c7;">Harga</th>
               <th class = "row" style="width: 100px; background-color:#bdc3c7;">Stok</th>
             </tr>
           </thead>
@@ -48,12 +49,14 @@
                 <tr class="row" style="background-color:#e74c3c;">
                   <td style="text-align: center; height:35px;">{{ $no++ }}</td>
                   <td style="height:35px;">{{$v->nama}}</td>
+                  <td align="center">Rp {{ number_format($v->jenis->harga,2,",","." ) }}</td>
                   <td style="text-align: center; height:35px;">{{$v->stok}}</td>
                 </tr>
               @else
                 <tr>
                   <td style="text-align: center; height:35px;">{{ $no++ }}</td>
                   <td style="height:35px;">{{$v->nama}}</td>
+                  <td align="center">Rp {{ number_format($v->jenis->harga,2,",","." ) }}</td>
                   <td style="text-align: center; height:35px;">{{$v->stok}}</td>
                 </tr>
               @endif

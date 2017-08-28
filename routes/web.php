@@ -50,6 +50,8 @@ Route::get('/manager/beranda', 'HomeController@index_manager')->name('beranda');
 Route::get('/manager/beranda/tahun={tahun}', 'HomeController@index_manager');
 
 Route::get('/keuangan/beranda', 'HomeController@index_keuangan')->name('berandakeu');
+Route::get('/keuangan/beranda/tahun={tahun}', 'HomeController@index_keuangan');
+
 Route::get('/produksi/beranda', 'HomeController@index_produksi')->name('berandapro');
 Route::get('/pengadaan/beranda', 'HomeController@index_pengadaan')->name('berandapeng');
 
@@ -250,16 +252,16 @@ Route::group(['middleware' => 'levelKeuangan'], function(){
 		/*menampilkan form tambah*/
 			Route::get('/keuangan/pembelian/tambah', 'PembelianController@tambah')->name('tambahBeliKeu');
 		/*melakukan create*/
-			Route::get('/keuangan/pembelian/simpan/{kode}/{pengguna}/{datepicker}/{total}/{status}', 'PembelianController@store');
+			Route::get('/keuangan/pembelian/simpan/{pengguna}/{datepicker}/{total}', 'PembelianController@store');
 			Route::get('/keuangan/pembelian/simpan1/{idbeli}/{namabahan}/{jumlah}/{subtotal}', 'PembelianController@store1');
 		/*melakukan delete*/
-			Route::get('/keuangan/pembelian/hapus/{id}', 'PembelianController@destroy')->name('hapusPembelian');
+			Route::get('/keuangan/pembelian/hapus/{id}', 'PembelianController@destroy')->name('hapusPembelianKeu');
 		/*melakukan lihat detail*/
 			Route::get('/keuangan/pembelian/lihat/{id}', 'PembelianController@show');
 		/*melakukan ubah*/
 			Route::get('/keuangan/pembelian/hapusDetailPembelian/{id}', 'PembelianController@hapusDetailPembelian')->name('hapusDetailPembelianKeu');
 			Route::get('/keuangan/pembelian/edit/{id}', 'PembelianController@showEdit');
-			Route::get('/keuangan/pembelian/ubah/{id_beli}/{kode}/{pengguna}/{datepicker}/{total}/{status}', 'PembelianController@ubah');
+			Route::get('/keuangan/pembelian/ubah/{id_beli}/{pengguna}/{datepicker}/{total}/{status}', 'PembelianController@ubah');
 
 	//PENJUALAN
 		/*menampilkan halaman penjualan*/
@@ -267,7 +269,7 @@ Route::group(['middleware' => 'levelKeuangan'], function(){
 		/*menampilkan form tambah*/
 			Route::get('/keuangan/penjualan/tambah', 'PenjualanController@tambah')->name('tambahJualKeu');
 		/*melakukan create*/
-			Route::get('/keuangan/penjualan/simpan/{kode}/{pengguna}/{datepicker}/{total}', 'PenjualanController@store');
+			Route::get('/keuangan/penjualan/simpan/{pengguna}/{datepicker}/{total}', 'PenjualanController@store');
 			Route::get('/keuangan/penjualan/simpan1/{idjual}/{namaes}/{jumlah}/{subtotal}', 'PenjualanController@store1');
 		/*melakukan delete*/
 			Route::get('/keuangan/penjualan/hapus/{id}', 'PenjualanController@destroy')->name('hapusPenjualanKeu');
@@ -276,7 +278,7 @@ Route::group(['middleware' => 'levelKeuangan'], function(){
 		/*melakukan ubah*/
 			Route::get('/keuangan/penjualan/hapusDetailPenjualan/{id}', 'PenjualanController@hapusDetailPenjualan')->name('hapusDetailPenjualanKeu');
 			Route::get('/keuangan/penjualan/edit/{id}', 'PenjualanController@showEdit');
-			Route::get('/keuangan/penjualan/ubah/{id_jual}/{kode}/{pengguna}/{datepicker}/{total}', 'PenjualanController@ubah');
+			Route::get('/keuangan/penjualan/ubah/{id_jual}/{pengguna}/{datepicker}/{total}', 'PenjualanController@ubah');
 });
 
 Route::group(['middleware' => 'levelPengadaan'], function(){
@@ -286,7 +288,7 @@ Route::group(['middleware' => 'levelPengadaan'], function(){
 		/*menampilkan form tambah*/
 			Route::get('/pengadaan/pembelian/tambah', 'PembelianController@tambah')->name('tambahBeliPeng');
 		/*melakukan create*/
-			Route::get('/pengadaan/pembelian/simpan/{kode}/{pengguna}/{datepicker}/{total}/{status}', 'PembelianController@store');
+			Route::get('/pengadaan/pembelian/simpan/{pengguna}/{datepicker}/{total}', 'PembelianController@store');
 			Route::get('/pengadaan/pembelian/simpan1/{idbeli}/{namabahan}/{jumlah}/{subtotal}', 'PembelianController@store1');
 		/*melakukan delete*/
 			Route::get('/pengadaan/pembelian/hapus/{id}', 'PembelianController@destroy')->name('hapusPembelianPeng');
@@ -295,7 +297,7 @@ Route::group(['middleware' => 'levelPengadaan'], function(){
 		/*melakukan ubah*/
 			Route::get('/pengadaan/pembelian/hapusDetailPembelian/{id}', 'PembelianController@hapusDetailPembelian')->name('hapusDetailPembelianPeng');
 			Route::get('/pengadaan/pembelian/edit/{id}', 'PembelianController@showEdit');
-			Route::get('/pengadaan/pembelian/ubah/{id_beli}/{kode}/{pengguna}/{datepicker}/{total}/{status}', 'PembelianController@ubah');
+			Route::get('/pengadaan/pembelian/ubah/{id_beli}/{pengguna}/{datepicker}/{total}/{status}', 'PembelianController@ubah');
 
 	//ICECREAM
 		/*menampilkan halaman es*/
@@ -309,12 +311,14 @@ Route::group(['middleware' => 'levelProduksi'], function(){
 	//PRODUKSI
 		/*menampilkan halaman produksi*/
 			Route::get('/produksi/produksi', 'ProduksiController@index')->name('produksiPro');
+		/*menampilkan halaman produk produksi*/
+			Route::get('/produksi/produk-produksi', 'ProduksiController@index1')->name('produkproduksiPro');
 		/*menampilkan form tambah*/
 			Route::get('/produksi/produksi/tambah', 'ProduksiController@tambah')->name('tambahProduksiPro');
 		/*melakukan lihat detail*/
-			Route::get('/produksi/produksi/lihat/{id}', 'ProduksiController@show');
+			Route::get('/produksi/produksi/lihat/{id}/{tipe}', 'ProduksiController@show');
 		/*melakukan create*/
-			Route::get('/produksi/produksi/simpan/{pengguna}/{kode}/{datepicker}', 'ProduksiController@store');
+			Route::get('/produksi/produksi/simpan/{pengguna}/{datepicker}', 'ProduksiController@store');
 			Route::get('/produksi/produksi/simpan1/{ides}/{idproduksi}/{jumlahproduksi}', 'ProduksiController@store1');
 			Route::get('/produksi/produksi/simpan2/{jumlah}/{idbahan}', 'ProduksiController@store2');
 		// ubah modal

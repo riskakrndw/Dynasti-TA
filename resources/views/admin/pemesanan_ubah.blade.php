@@ -48,7 +48,7 @@
               </ul>
 
               <!-- Form tambah penjualan -->
-                <form role="form" action="" method="">
+                <form role="form" action="" method="" onsubmit="return Validate()" name="vform">
                   {{csrf_field()}}
                   <div class="box-body">
                     <input class="form-control" type="hidden" name="idPengguna" id="idPengguna" value="{{Auth::User()->id}}">
@@ -68,8 +68,9 @@
                           <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" class="form-control pull-right" id="datepicker" value="{{ $data->tanggal }}">
+                          <input type="text" class="form-control pull-right" id="datepicker" value="{{ $data->tanggal }}" name="tanggal">
                         </div>
+                        <span class="help-block val_error" id="tanggal_error" style="color:red;"></span>
                       </div>
                     </div>
                     <div class="col-md-12">
@@ -79,6 +80,7 @@
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
                           <input class="form-control" placeholder="Nama" name="nama" id="nama" value="{{ $data->nama }}">
                         </div>
+                        <span class="help-block val_error" id="nama_error" style="color:red;"></span>
                       </div>
                     </div>
                     <div class="col-md-12">
@@ -88,6 +90,7 @@
                           <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                           <input class="form-control" placeholder="Telepon" name="telepon" id="telepon" value="{{ $data->telepon }}">
                         </div>
+                        <span class="help-block val_error" id="telepon_error" style="color:red;"></span>
                       </div>
                     </div>
                     <div class="col-md-12">
@@ -97,6 +100,7 @@
                           <span class="input-group-addon"><i class="fa fa-home"></i></span>
                           <textarea class="form-control" placeholder="Alamat" name="alamat" id="alamat">{{ $data->alamat }}</textarea>
                         </div>
+                        <span class="help-block val_error" id="alamat_error" style="color:red;"></span>
                       </div>
                     </div>
                   </div>
@@ -215,6 +219,92 @@
   <script src="{{url('dist/js/bootstrap-modalmanager.js')}}"></script>
   <script src="{{url('dist/js/bootstrap-modal.js')}}"></script>
 
+  <script type="text/javascript">
+
+    //getting all input object
+      var tanggal = document.forms["vform"]["tanggal"];
+      var nama = document.forms["vform"]["nama"];
+      var telepon = document.forms["vform"]["telepon"];
+      var alamat = document.forms["vform"]["alamat"];
+
+    //getting all error display object
+      var tanggal_error = document.getElementById("tanggal_error");
+      var nama_error = document.getElementById("nama_error");
+      var telepon_error = document.getElementById("telepon_error");
+      var alamat_error = document.getElementById("alamat_error");
+
+    //setting all event listener
+      tanggal.addEventListener("blur", tanggalVerify, true);
+      nama.addEventListener("blur", namaVerify, true);
+      telepon.addEventListener("blur", teleponVerify, true);
+      alamat.addEventListener("blur", alamatVerify, true);
+
+    //validation function
+      function Validate(){
+        
+        if(tanggal.value == ""){
+          tanggal.style.border = "1px solid red";
+          tanggal_error.textContent = "Tanggal harus diisi";
+          tanggal.focus();
+          return false;
+        }
+
+        if(nama.value == ""){
+          nama.style.border = "1px solid red";
+          nama_error.textContent = "Nama harus diisi";
+          nama.focus();
+          return false;
+        }
+
+        if(telepon.value == ""){
+          telepon.style.border = "1px solid red";
+          telepon_error.textContent = "Telepon harus diisi";
+          telepon.focus();
+          return false;
+        }
+
+        if(alamat.value == ""){
+          alamat.style.border = "1px solid red";
+          alamat_error.textContent = "Alamat harus diisi";
+          alamat.focus();
+          return false;
+        }
+
+        //event handler function
+
+          function tanggalVerify(){
+            if(tanggal.value != ""){
+              tanggal.style.border = "1px solid #5E6E66";
+              tanggal_error.innerHTML = "";
+              return true;
+            }
+          }
+
+          function namaVerify(){
+            if(nama.value != ""){
+              nama.style.border = "1px solid #5E6E66";
+              nama_error.innerHTML = "";
+              return true;
+            }
+          }
+
+          function teleponVerify(){
+            if(telepon.value != ""){
+              telepon.style.border = "1px solid #5E6E66";
+              telepon_error.innerHTML = "";
+              return true;
+            }
+          }
+
+          function alamatVerify(){
+            if(alamat.value != ""){
+              alamat.style.border = "1px solid #5E6E66";
+              alamat_error.innerHTML = "";
+              return true;
+            }
+          }
+      }
+  </script>
 
   <!-- script tambah bahan baku -->
   <script>
@@ -349,85 +439,87 @@
 
       //save multi record to db
       $('#submit').on('click', function(){
-        var kode = $('#kode').val();
-        var pengguna = $('#idPengguna').val();
-        var nama = $('#nama').val();
-        var alamat = $('#alamat').val();
-        var telepon = $('#telepon').val();
-        var status = $('#pilihstatus').val();
-        var datepicker = $('#datepicker').val();
-        var bulan = new Date(datepicker).getMonth()+1;
-        var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
-        console.log(bulan);
-        var total = $('#totalHarga').val();
+        // if(Validate()){
+          var kode = $('#kode').val();
+          var pengguna = $('#idPengguna').val();
+          var nama = $('#nama').val();
+          var alamat = $('#alamat').val();
+          var telepon = $('#telepon').val();
+          var status = $('#pilihstatus').val();
+          var datepicker = $('#datepicker').val();
+          var bulan = new Date(datepicker).getMonth()+1;
+          var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
+          console.log(bulan);
+          var total = $('#totalHarga').val();
 
-        var arrData=[];
-        var arriddetailpesan = [];
+          var arrData=[];
+          var arriddetailpesan = [];
 
-        //loop over each table row (tr)
-        $("#type_container tr").each(function(){
-          var currentRow = $(this);
+          //loop over each table row (tr)
+          $("#type_container tr").each(function(){
+            var currentRow = $(this);
 
-          var col0_value = currentRow.find("td:eq(0)").text();
-          var col1_value = currentRow.find("td:eq(1)").text();
-          var col2_value = currentRow.find("td:eq(2)").text();
-          var col3_value = currentRow.find("td:eq(3)").text();
-          var col4_value = currentRow.find("td:eq(4)").find("input").val();
-          var col5_value = currentRow.find("td:eq(5)").text();
-          var col6_value = currentRow.find("td:eq(6)").text();
+            var col0_value = currentRow.find("td:eq(0)").text();
+            var col1_value = currentRow.find("td:eq(1)").text();
+            var col2_value = currentRow.find("td:eq(2)").text();
+            var col3_value = currentRow.find("td:eq(3)").text();
+            var col4_value = currentRow.find("td:eq(4)").find("input").val();
+            var col5_value = currentRow.find("td:eq(5)").text();
+            var col6_value = currentRow.find("td:eq(6)").text();
 
-          var obj={};
-          obj.no = col0_value;
-          obj.nama_es = col1_value;
-          obj.harga = col2_value;
-          obj.status = col3_value;
-          obj.jumlah = col4_value;
-          obj.subtotal = col5_value;
-          obj.ides = col6_value;
+            var obj={};
+            obj.no = col0_value;
+            obj.nama_es = col1_value;
+            obj.harga = col2_value;
+            obj.status = col3_value;
+            obj.jumlah = col4_value;
+            obj.subtotal = col5_value;
+            obj.ides = col6_value;
 
 
-          arriddetailpesan.push(col6_value);
-          arrData.push(obj);
-        });
-  
-        var idpesan;
+            arriddetailpesan.push(col6_value);
+            arrData.push(obj);
+          });
+    
+          var idpesan;
 
-        function a(){
-         $.ajax({
-              type: "POST",
-              url: "http://localhost:8081/dynasti/public/manager/pemesanan/hapusDetailPemesanan",
-              data: 'idpesan= {{$data->id}}' + '& ides=' + arriddetailpesan + '& _token='+"{{csrf_token()}}",
-              success: function(result) {
-               console.log("arriddetailpesan : " + arriddetailpesan);
-              }
-          })
-        };
- 
-          for (var i=0; i<arrData.length; i++){
-            console.log(arrData[i]['jumlah']);
-            console.log(arrData[i]['subtotal']);
-            $.ajax({
-              type: "GET",
-              url: "/dynasti/public/manager/pemesanan/ubah1/{{$data->id}}/"+arrData[i]['ides']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['status']+"/"+arrData[i]['subtotal'],
-              success: function(result) {
-                console.log("{{$data->id}}");
-              }
-            });
-          }
-
-        $.ajax({
-            type: "GET",
-            url: "/dynasti/public/manager/pemesanan/ubah/{{$data->id}}/"+pengguna+"/"+nama+"/"+alamat+"/"+telepon+"/"+datepicker+"/"+total,
-            success: function(result) {
-              idpesan = result;
-              /*console.log(idjual)*/
+          function a(){
+           $.ajax({
+                type: "POST",
+                url: "http://localhost:8081/dynasti/public/manager/pemesanan/hapusDetailPemesanan",
+                data: 'idpesan= {{$data->id}}' + '& ides=' + arriddetailpesan + '& _token='+"{{csrf_token()}}",
+                success: function(result) {
+                 console.log("arriddetailpesan : " + arriddetailpesan);
+                }
+            })
+          };
+   
+            for (var i=0; i<arrData.length; i++){
+              console.log(arrData[i]['jumlah']);
+              console.log(arrData[i]['subtotal']);
+              $.ajax({
+                type: "GET",
+                url: "/dynasti/public/manager/pemesanan/ubah1/{{$data->id}}/"+arrData[i]['ides']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['status']+"/"+arrData[i]['subtotal'],
+                success: function(result) {
+                  console.log("{{$data->id}}");
+                }
+              });
             }
-        }).done(a);
 
-        $(document).ajaxStop(function(){
-          window.location="{{URL::to('manager/pemesanan')}}";
-        });
-        
+          $.ajax({
+              type: "GET",
+              url: "/dynasti/public/manager/pemesanan/ubah/{{$data->id}}/"+pengguna+"/"+nama+"/"+alamat+"/"+telepon+"/"+datepicker+"/"+total,
+              success: function(result) {
+                idpesan = result;
+                /*console.log(idjual)*/
+              }
+          }).done(a);
+
+          $(document).ajaxStop(function(){
+            window.location="{{URL::to('manager/pemesanan')}}";
+            toastr.info("Data berhasil diubah");
+          });
+        // }
       });
     });
   </script>

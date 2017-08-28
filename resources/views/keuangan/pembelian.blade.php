@@ -19,8 +19,8 @@
         Data Pengadaan
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Transaksi</a></li>
+        <li><a href="{{route('berandakeu')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a> Transaksi</a></li>
         <li class="active">Data Pengadaan</li>
       </ol>
     </section>
@@ -59,15 +59,15 @@
                     </thead>
                     <tbody>
                       <?php $no=1; ?>
-                      @foreach($data as $data)
+                      @foreach($databerhasil as $data)
                       <tr>
                         <td>{{ $no++ }}</td>
                         <td>{{ $data->kode_pembelian }}</td>
                         <td>{{ $data->tgl }}</td>
-                        <td>{{ $data->total }}</td>
+                        <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                         <td>
-                          <a href="{{ url('manager/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                          <a href="{{ url('manager/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                          <a href="{{ url('keuangan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                          <a href="{{ url('keuangan/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
                           <!-- <a type="button" href="{{route('hapusPenjualan', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
                         </td>
                       </tr>

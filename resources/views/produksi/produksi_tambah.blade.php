@@ -1,6 +1,8 @@
 @extends('layout_master.master')
 
-@section("title", "Tambah Produksi")
+@section("title", "Tambah Data Produksi")
+
+@section("dataproduksipro", "active")
 
 @section("produksipro", "active")
 
@@ -33,41 +35,32 @@
 
         
         <div class="col-md-12">
-          <a href="{{route('produksiPro')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data penjualan </button></a>
+          <a href="{{route('produksiPro')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data produksi </button></a>
         </div>   
 
         <!-- Tambah penjualan -->
           <div class="col-md-12">
             <br>
-            <div class="box box-success">
+            <div class="box">
               <ul class="nav nav-tabs-custom">
                 <li class="pull-left box-header"><h3 class="box-title">Data Produksi</h3></li>
               </ul>
 
               <!-- Form tambah penjualan -->
-                <form role="form" action="" method="">
+                <form role="form" action="" method="" onsubmit="return Validate()" name="vform">
                   {{csrf_field()}}
                   <div class="box-body">
                     <input type="hidden" name="idPengguna" id="idPengguna" value="{{ Auth::User()->id }}">
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Kode Produksi</label>
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Produksi" name="kode" id="kode">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                       <div class="form-group">
                         <label>Tanggal</label>
                         <div class="input-group date">
                           <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" class="form-control pull-right" id="datepicker" name="datepicker">
+                          <input type="text" class="form-control pull-right" id="datepicker" name="datepicker" placeholder="Tanggal Produksi">
                         </div>
+                        <span class="help-block val_error" id="tanggal_error" style="color:red;"></span>
                       </div>
                     </div>
                     <input type="hidden" name="ides" id="ides">
@@ -94,7 +87,7 @@
 
               <hr id="garis">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Daftar bahan yang diperlukan</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Daftar Bahan Baku</h3></li>
               </ul>
 
                 <div class="box-body table-responsive">
@@ -145,6 +138,39 @@
   <script src="{{url('dist/js/select2/select2.js')}}"></script>
 <!-- date -->
   <script src="{{url('dist/js/bootstrap-datepicker.js')}}"></script>
+
+  <script type="text/javascript">
+
+    //getting all input object
+      var tanggal = document.forms["vform"]["datepicker"];
+
+    //getting all error display object
+      var tanggal_error = document.getElementById("tanggal_error");
+
+    //setting all event listener
+      tanggal.addEventListener("blur", tanggalVerify, true);
+
+    //validation function
+      function Validate(){
+        
+        if(tanggal.value == ""){
+          tanggal.style.border = "1px solid red";
+          tanggal_error.textContent = "Tanggal harus diisi";
+          tanggal.focus();
+          return false;
+        }
+
+        //event handler function
+
+          function tanggalVerify(){
+            if(tanggal.value != ""){
+              tanggal.style.border = "1px solid #5E6E66";
+              tanggal_error.innerHTML = "";
+              return true;
+            }
+          }
+      }
+  </script>
 
 
   <!-- script tambah bahan baku -->
@@ -277,51 +303,55 @@
 
       //save multi record to db
       $('#submit').on('click', function(){
-        var kode = $('#kode').val();
-        var pengguna = $('#idPengguna').val();
-        var ides = $('#ides').val();
-        var datepicker = $('#datepicker').val();
-        var bulan = new Date(datepicker).getMonth()+1;
-        var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
-        // console.log(bulan);
-        var rasa = $('#rasa').val();
-        var jumlah = $('#jumlah').val();
-        console.log(idbahan)
+        // if(Validate()){
+          var kode = $('#kode').val();
+          var pengguna = $('#idPengguna').val();
+          var ides = $('#ides').val();
+          var datepicker = $('#datepicker').val();
+          var bulan = new Date(datepicker).getMonth()+1;
+          var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
+          // console.log(bulan);
+          var rasa = $('#rasa').val();
+          var jumlah = $('#jumlah').val();
+          console.log(idbahan)
 
-        $.ajax({
-            type: "GET",
-            url: "/dynasti/public/produksi/produksi/simpan/"+pengguna+"/"+kode+"/"+datepicker,
-            success: function(result) {
-              console.log(result)
-             $('.bb').each(function(){ 
+          $.ajax({
+              type: "GET",
+              url: "/dynasti/public/produksi/produksi/simpan/"+pengguna+"/"+datepicker,
+              success: function(result) {
+                console.log(result)
+               $('.bb').each(function(){ 
 
-                var ides = $(this).attr('ides');
-                var jumlah = $(this).val();
-                console.log(ides)
-                console.log(jumlah)
+                  var ides = $(this).attr('ides');
+                  var jumlah = $(this).val();
+                  console.log(ides)
+                  console.log(jumlah)
+
+                  $.ajax({
+                      type: "GET",
+                      url: "/dynasti/public/produksi/produksi/simpan1/"+ides+"/"+result+"/"+jumlah,
+                      success: function(result) {
+                        console.log(result)
+                      }
+                  });
+                });
 
                 $.ajax({
-                    type: "GET",
-                    url: "/dynasti/public/produksi/produksi/simpan1/"+ides+"/"+result+"/"+jumlah,
-                    success: function(result) {
-                      console.log(result)
-                    }
+                  type: "GET",
+                  url: "/dynasti/public/produksi/produksi/simpan2/"+bahandipakai+"/"+idbahan,
+                  success: function(result) {
+                    console.log(result)
+                  }
                 });
-              });
+              }
+          });
 
-              $.ajax({
-                type: "GET",
-                url: "/dynasti/public/produksi/produksi/simpan2/"+bahandipakai+"/"+idbahan,
-                success: function(result) {
-                  console.log(result)
-                }
-              });
-            }
-        });
-
-        $(document).ajaxStop(function(){
-          window.location="{{URL::to('produksi/produksi')}}";
-        });
+          $(document).ajaxStop(function(){
+            window.location="{{URL::to('produksi/produksi')}}";
+            toastr.success("Data berhasil ditambah");
+          });
+        // }
+        
         
       });
     // });

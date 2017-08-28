@@ -33,6 +33,12 @@
     $("#example24").DataTable();
     $("#example25").DataTable();
 
+    $("#example3").DataTable();
+    $("#example32").DataTable();
+    $("#example33").DataTable();
+    $("#example34").DataTable();
+    $("#example35").DataTable();
+
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,

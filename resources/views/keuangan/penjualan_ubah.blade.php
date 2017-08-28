@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Ubah Penjualan")
+@section("title", "Ubah Data Penjualan")
 
 @section("jual", "active")
 
@@ -23,9 +23,9 @@
   <div class="content-wrapper">
     <section class="content-header">
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Transaksi</a></li>
-        <li><a href="#">Penjualan</a></li>
+        <li><a href="{{route('berandakeu')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a> Transaksi</a></li>
+        <li><a href="{{route('penjualanKeu')}}">Data Penjualan</a></li>
         <li class="active">Ubah</li>
       </ol>
     </section>
@@ -36,19 +36,19 @@
 
         
         <div class="col-md-12">
-          <a href="{{route('penjualanKeu')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman detail penjualan </button></a>
+          <a href="{{route('penjualanKeu')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data penjualan </button></a>
         </div>   
 
         <!-- Tambah Penjualan -->
           <div class="col-md-12">
             <br>
-            <div class="box box-success">
+            <div class="box">
               <ul class="nav nav-tabs-custom">
                 <li class="pull-left box-header"><h3 class="box-title">Data Penjualan</h3></li>
               </ul>
 
               <!-- Form tambah penjualan -->
-                <form role="form" action="" method="">
+                <form role="form" action="" method="" onsubmit="return Validate()" name="vform">
                   {{csrf_field()}}
                   <div class="box-body">
                     <input class="form-control" type="hidden" name="idPengguna" id="idPengguna" value="{{Auth::User()->id}}">
@@ -57,7 +57,7 @@
                         <label>Kode Penjualan</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Penjualan" name="kode" id="kode" value="{{ $data->kode_penjualan }}" >
+                          <input class="form-control" placeholder="Kode Penjualan" name="kode" id="kode" value="{{ $data->kode_penjualan }}" disabled >
                         </div>
                       </div>
                     </div>
@@ -70,6 +70,7 @@
                           </div>
                           <input type="text" class="form-control pull-right" id="datepicker" value="{{ $data->tgl }}" >
                         </div>
+                        <span class="help-block val_error" id="tanggal_error" style="color:red;"></span>
                       </div>
                     </div>
                   </div>
@@ -78,7 +79,7 @@
 
               <hr id="garis">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Ice Cream yang terjual</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Daftar Ice Cream</h3></li>
               </ul>
 
               <!-- Data es -->
@@ -167,6 +168,38 @@
 <!-- date -->
   <script src="{{url('dist/js/bootstrap-datepicker.js')}}"></script>
 
+  <script type="text/javascript">
+
+    //getting all input object
+      var tanggal = document.forms["vform"]["tanggal"];
+
+    //getting all error display object
+      var tanggal_error = document.getElementById("tanggal_error");
+
+    //setting all event listener
+      tanggal.addEventListener("blur", tanggalVerify, true);
+
+    //validation function
+      function Validate(){
+        
+        if(tanggal.value == ""){
+          tanggal.style.border = "1px solid red";
+          tanggal_error.textContent = "Tanggal harus diisi";
+          tanggal.focus();
+          return false;
+        }
+
+        //event handler function
+
+          function tanggalVerify(){
+            if(tanggal.value != ""){
+              tanggal.style.border = "1px solid #5E6E66";
+              tanggal_error.innerHTML = "";
+              return true;
+            }
+          }
+      }
+  </script>
 
   <script>
     //Date picker
@@ -262,72 +295,76 @@
 
       //save multi record to db
       $('#submit').on('click', function(){
-        var kode = $('#kode').val();
-        var pengguna = $('#idPengguna').val();
-        var datepicker = $('#datepicker').val();
-        var bulan = new Date(datepicker).getMonth()+1;
-        var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
-        console.log(bulan);
-        var total = $('#totalHarga').val();
+        // if(Validate()){
+          var kode = $('#kode').val();
+          var pengguna = $('#idPengguna').val();
+          var datepicker = $('#datepicker').val();
+          var bulan = new Date(datepicker).getMonth()+1;
+          var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
+          console.log(bulan);
+          var total = $('#totalHarga').val();
 
-        var arrData=[];
+          var arrData=[];
 
-        //loop over each table row (tr)
-        $("#type_container tr").each(function(){
-          var currentRow = $(this);
+          //loop over each table row (tr)
+          $("#type_container tr").each(function(){
+            var currentRow = $(this);
 
-          var col0_value = currentRow.find("td:eq(0)").text();
-          var col1_value = currentRow.find("td:eq(1)").text();
-          var col2_value = currentRow.find("td:eq(2)").text();
-          var col3_value = currentRow.find("td:eq(3)").text();
-          var col4_value = currentRow.find("td:eq(4)").text();
-          var col5_value = currentRow.find("td:eq(5)").text();
+            var col0_value = currentRow.find("td:eq(0)").text();
+            var col1_value = currentRow.find("td:eq(1)").text();
+            var col2_value = currentRow.find("td:eq(2)").text();
+            var col3_value = currentRow.find("td:eq(3)").text();
+            var col4_value = currentRow.find("td:eq(4)").text();
+            var col5_value = currentRow.find("td:eq(5)").text();
 
-          var obj={};
-          obj.no = col0_value;
-          obj.nama_es = col1_value;
-          obj.harga = col2_value;
-          obj.jumlah = col3_value;
-          obj.subtotal = col4_value;
+            var obj={};
+            obj.no = col0_value;
+            obj.nama_es = col1_value;
+            obj.harga = col2_value;
+            obj.jumlah = col3_value;
+            obj.subtotal = col4_value;
 
-          arrData.push(obj);
-        });
-  
-        var idjual = {{ $data->id }};
- 
-        function a(){
-          for (var i=0; i<arrData.length; i++){
-            $.ajax({
-              type: "GET",
-              url: "/dynasti/public/keuangan/penjualan/simpan1/"+idjual+"/"+arrData[i]['nama_es']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
-              success: function(result) {
-                /*console.log('berhasil');*/
-              }
-            });
-          }
-        };
-
-        
-          $.ajax({
-              type: "GET",
-              url: "/dynasti/public/keuangan/penjualan/ubah/"+idjual+"/"+kode+"/"+pengguna+"/"+datepicker+"/"+total,
-              success: function(result) {
-
-              }
+            arrData.push(obj);
           });
+    
+          var idjual = {{ $data->id }};
+   
+          function a(){
+            for (var i=0; i<arrData.length; i++){
+              $.ajax({
+                type: "GET",
+                url: "/dynasti/public/keuangan/penjualan/simpan1/"+idjual+"/"+arrData[i]['nama_es']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
+                success: function(result) {
+                  /*console.log('berhasil');*/
+                }
+              });
+            }
+          };
+
+          
+            $.ajax({
+                type: "GET",
+                url: "/dynasti/public/keuangan/penjualan/ubah/"+idjual+"/"+pengguna+"/"+datepicker+"/"+total,
+                success: function(result) {
+
+                }
+            });
+          
+
+          $.ajax({
+                type: "GET",
+                url: "/dynasti/public/keuangan/penjualan/hapusDetailPenjualan/"+idjual,
+                success: function(result) {
+                 console.log(result);
+                }
+            }).done(a);
+
+          $(document).ajaxStop(function(){
+            window.location="{{URL::to('keuangan/penjualan')}}";
+            toastr.info("Data berhasil diubah");
+          });
+        // }
         
-
-        $.ajax({
-              type: "GET",
-              url: "/dynasti/public/keuangan/penjualan/hapusDetailPenjualan/"+idjual,
-              success: function(result) {
-               console.log(result);
-              }
-          }).done(a);
-
-        $(document).ajaxStop(function(){
-          window.location="{{URL::to('keuangan/penjualan')}}";
-        });
       });
     });
   </script>

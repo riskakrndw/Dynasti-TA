@@ -48,21 +48,28 @@
                     <tr>
                       <th style="width: 10px">No</th>
                       <th style="width: 300px">Nama Ice Cream</th>
-                      <th style="width: 150px">Harga</th>
+                      <th style="width: 100px">Harga</th>
                       <th style="width: 100px">Stok</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php $no=1; ?>
                     @foreach($data as $data)
-                    <tr>
-                      
-                      <td>{{ $no++ }}</td>
-                      <td>{{ $data->nama }}</td>
-
-                      <td>{{ $data->jenis->harga }}</td>
-                      <td>{{ $data->stok }}</td>
-                    </tr>
+                      @if($data->stok < 100)
+                        <tr style="background-color:#e74c3c;">
+                          <td>{{ $no++ }}</td>
+                          <td>{{ $data->nama }}</td>
+                          <td>Rp {{ number_format($data->jenis->harga,2,",","." ) }}</td>
+                          <td>{{ $data->stok }}</td>
+                        </tr>
+                      @else
+                        <tr>
+                          <td>{{ $no++ }}</td>
+                          <td>{{ $data->nama }}</td>
+                          <td>Rp {{ number_format($data->jenis->harga,2,",","." ) }}</td>
+                          <td>{{ $data->stok }}</td>
+                        </tr>
+                      @endif
                     @endforeach
                   </tbody>
                 </table>

@@ -1,8 +1,8 @@
 @extends('layout_master.master')
 
-@section("title", "Tambah Ice Cream")
+@section("title", "Detail Data Permintaan Pengadaan")
 
-@section("beli", "active")
+@section("pembelianPeng", "active")
 
 @section("transaksi", "active")
 
@@ -23,9 +23,9 @@
   <div class="content-wrapper">
     <section class="content-header">
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Transaksi</a></li>
-        <li><a href="#">Data Pembelian</a></li>
+        <li><a href="{{route('berandapeng')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a> Transaksi</a></li>
+        <li><a href="{{route('pembelianPeng')}}">Data Pengadaan</a></li>
         <li class="active">Lihat Detail</li>
       </ol>
     </section>
@@ -36,15 +36,15 @@
 
         
         <div class="col-md-12">
-          <a href="{{route('pembelianPeng')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data pembelian </button></a>
+          <a href="{{route('pembelianPeng')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data pengadaan </button></a>
         </div>   
 
         <!-- Tambah Es -->
           <div class="col-md-12">
             <br>
-            <div class="box box-success">
+            <div class="box">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Data Pembelian</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Data Pengadaan</h3></li>
               </ul>
 
               <!-- Form tambah es -->
@@ -53,10 +53,10 @@
                   <div class="box-body">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Kode Pembelian</label>
+                        <label>Kode Pengadaan</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Pembelian" name="kode" id="kode" value="{{ $data->kode_pembelian }}" disabled>
+                          <input class="form-control" placeholder="Kode Pengadaan" name="kode" id="kode" value="{{ $data->kode_pembelian }}" disabled>
                         </div>
                       </div>
                     </div>
@@ -77,7 +77,7 @@
 
               <hr id="garis">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Bahan baku yang diperlukan</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Daftar Bahan Baku</h3></li>
               </ul>
 
               <!-- tabel bahan -->
@@ -101,9 +101,9 @@
                           <td>{{ $no++ }}</td>
                           <td>{{ $detail_beli->bahan->nama }}</td>
                           <td>{{ $detail_beli->bahan->satuan }}</td>
-                          <td>{{ $detail_beli->bahan->harga }}</td>
+                          <td>Rp {{ number_format($detail_beli->bahan->harga,2,",","." ) }}</td>
                           <td id="{{ $detail_beli->bahan->nama }}">{{ $detail_beli->jumlah }}</td>
-                          <td class="subTotal">{{ $detail_beli->subtotal }}</td>
+                          <td class="subTotal">Rp {{ number_format($detail_beli->subtotal,2,",","." ) }}</td>
                         </tr>
                       @endforeach
                     </tbody>
@@ -111,7 +111,7 @@
                   <br>
 
                   <span>Total Harga</span>
-                  <input id="totalHarga" class="totalHarga" name="total" placeholder="0" value="{{ $data->total }}" disabled>
+                  <input id="totalHarga" class="totalHarga" name="total" placeholder="0" value="Rp {{ number_format($data->total,2,",","." ) }}" disabled>
 
                 </div>
               <!-- /.tabel bahan -->

@@ -290,7 +290,7 @@
 
       //save multi record to db
       $('#submit').on('click', function(){
-        if(Validate()){
+        // if(Validate()){
           var nama = $('#nama').val();
           var listJenis = $('#listJenis').val();
           var harga = $('#harga').val();
@@ -384,8 +384,9 @@
 
           $(document).ajaxStop(function(){
             window.location="{{URL::to('manager/rasa')}}";
+            toastr.info("Data berhasil diubah");
           });
-        }
+        // }
         
       });
     });

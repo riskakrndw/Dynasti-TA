@@ -161,12 +161,15 @@
 
     //getting all input object
       var nama = document.forms["vform"]["nama"];
+      var jumlahbahan = document.getElementById("jumlahBahan");
 
     //getting all error display object
       var nama_error = document.getElementById("nama_error");
+      var jumlahbahan_error = document.getElementById("jumlahbahan_error");
 
     //setting all event listener
       nama.addEventListener("blur", namaVerify, true);
+      jumlahbahan.addEventListener("blur", jumlahbahanVerify, true);
 
     //validation function
       function Validate(){
@@ -178,12 +181,27 @@
           return false;
         }
 
+        if(jumlahbahan.value == ""){
+          jumlahbahan.style.border = "1px solid red";
+          jumlahbahan_error.textContent = "Jumlah Bahan harus diisi";
+          jumlahbahan.focus();
+          return false;
+        }
+
         //event handler function
 
           function namaVerify(){
             if(nama.value != ""){
               nama.style.border = "1px solid #5E6E66";
               nama_error.innerHTML = "";
+              return true;
+            }
+          }
+
+          function jumlahbahanVerify(){
+            if(jumlahbahan.value != ""){
+              jumlahbahan.style.border = "1px solid #5E6E66";
+              jumlahbahan_error.innerHTML = "";
               return true;
             }
           }
@@ -261,7 +279,7 @@
 
       //save multi record to db
       $('#submit').on('click', function(){
-        if(Validate()){
+        // if(Validate()){
           var nama = $('#nama').val();
           var listJenis = $('#listJenis').val();
           var harga = $('#harga').val();
@@ -326,8 +344,9 @@
 
           $(document).ajaxStop(function(){
             window.location="{{URL::to('manager/rasa')}}";
+            toastr.success("Data berhasil ditambah");
           });
-        }
+        // }
         
         
       });

@@ -57,14 +57,25 @@
                   <tbody>
                     <?php $no=1; ?>
                     @foreach($data as $data)
-                    <tr>
-                      <td>{{ $no++ }}</td>
-                      <td>{{ $data->nama }}</td>
-                      <td>{{ $data->satuan }}</td>
-                      <td>{{ $data->harga }}</td>
-                      <td>{{ $data->stok }}</td>
-                      <td>{{ $data->stok_min }}</td>
-                    </tr>
+                      @if($data->stok < $data->stok_min)
+                          <tr style="background-color:#e74c3c;">
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $data->nama }}</td>
+                            <td>{{ $data->satuan }}</td>
+                            <td>{{ $data->harga }}</td>
+                            <td>{{ $data->stok }}</td>
+                            <td>{{ $data->stok_min }}</td>
+                          </tr>
+                      @else
+                        <tr>
+                          <td>{{ $no++ }}</td>
+                          <td>{{ $data->nama }}</td>
+                          <td>{{ $data->satuan }}</td>
+                          <td>{{ $data->harga }}</td>
+                          <td>{{ $data->stok }}</td>
+                          <td>{{ $data->stok_min }}</td>
+                        </tr>
+                      @endif
                     @endforeach
                   </tbody>
                 </table>

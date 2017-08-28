@@ -48,7 +48,7 @@
               </ul>
 
               <!-- Form tambah pembelian -->
-                <form role="form" action="" method="">
+                <form role="form" action="" method="" onsubmit="return Validate()" name="vform">
                   {{csrf_field()}}
                   <div class="box-body">
                     <input class="form-control" type="hidden" name="idPengguna" id="idPengguna" value="{{Auth::User()->id}}">
@@ -69,8 +69,9 @@
                           <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" class="form-control pull-right" id="datepicker" value="{{ $data->tgl }}" >
+                          <input type="text" class="form-control pull-right" id="datepicker" value="{{ $data->tgl }}" name="tanggal">
                         </div>
+                        <span class="help-block val_error" id="tanggal_error" style="color:red;"></span>
                       </div>
                     </div>
                   </div>
@@ -171,6 +172,38 @@
 <!-- date -->
   <script src="{{url('dist/js/bootstrap-datepicker.js')}}"></script>
 
+  <script type="text/javascript">
+
+    //getting all input object
+      var tanggal = document.forms["vform"]["tanggal"];
+
+    //getting all error display object
+      var tanggal_error = document.getElementById("tanggal_error");
+
+    //setting all event listener
+      tanggal.addEventListener("blur", tanggalVerify, true);
+
+    //validation function
+      function Validate(){
+        
+        if(tanggal.value == ""){
+          tanggal.style.border = "1px solid red";
+          tanggal_error.textContent = "Tanggal harus diisi";
+          tanggal.focus();
+          return false;
+        }
+
+        //event handler function
+
+          function tanggalVerify(){
+            if(tanggal.value != ""){
+              tanggal.style.border = "1px solid #5E6E66";
+              tanggal_error.innerHTML = "";
+              return true;
+            }
+          }
+      }
+  </script>
 
   <script>
     //Date picker
@@ -264,75 +297,78 @@
 
       //save multi record to db
       $('#submit').on('click', function(){
-        var kode = $('#kode').val();
-        var pengguna = $('#idPengguna').val();
-        var datepicker = $('#datepicker').val();
-        var bulan = new Date(datepicker).getMonth()+1;
-        var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
-        console.log(bulan);
-        var total = $('#totalHarga').val();
+        // if(Validate()){
+          var kode = $('#kode').val();
+          var pengguna = $('#idPengguna').val();
+          var datepicker = $('#datepicker').val();
+          var bulan = new Date(datepicker).getMonth()+1;
+          var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
+          console.log(bulan);
+          var total = $('#totalHarga').val();
 
-        var arrData=[];
+          var arrData=[];
 
-        //loop over each table row (tr)
-        $("#type_container tr").each(function(){
-          var currentRow = $(this);
+          //loop over each table row (tr)
+          $("#type_container tr").each(function(){
+            var currentRow = $(this);
 
-          var col0_value = currentRow.find("td:eq(0)").text();
-          var col1_value = currentRow.find("td:eq(1)").text();
-          var col2_value = currentRow.find("td:eq(2)").text();
-          var col3_value = currentRow.find("td:eq(3)").text();
-          var col4_value = currentRow.find("td:eq(4)").text();
-          var col5_value = currentRow.find("td:eq(5)").text();
-          var col6_value = currentRow.find("td:eq(6)").text();
+            var col0_value = currentRow.find("td:eq(0)").text();
+            var col1_value = currentRow.find("td:eq(1)").text();
+            var col2_value = currentRow.find("td:eq(2)").text();
+            var col3_value = currentRow.find("td:eq(3)").text();
+            var col4_value = currentRow.find("td:eq(4)").text();
+            var col5_value = currentRow.find("td:eq(5)").text();
+            var col6_value = currentRow.find("td:eq(6)").text();
 
-          var obj={};
-          obj.no = col0_value;
-          obj.nama_bahan = col1_value;
-          obj.satuan = col2_value;
-          obj.harga = col3_value;
-          obj.jumlah = col4_value;
-          obj.subtotal = col5_value;
+            var obj={};
+            obj.no = col0_value;
+            obj.nama_bahan = col1_value;
+            obj.satuan = col2_value;
+            obj.harga = col3_value;
+            obj.jumlah = col4_value;
+            obj.subtotal = col5_value;
 
-          arrData.push(obj);
-        });
-  
-        var idbeli = {{ $data->id }};
-        var status;
- 
-        function a(){
-          for (var i=0; i<arrData.length; i++){
-            $.ajax({
-              type: "GET",
-              url: "/dynasti/public/manager/pembelian/simpan1/"+idbeli+"/"+arrData[i]['nama_bahan']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
-              success: function(result) {
-                console.log('berhasil');
-              }
-            });
-          }
-        };
-
-        
-          $.ajax({
-              type: "GET",
-              url: "/dynasti/public/manager/pembelian/ubah/"+idbeli+"/"+pengguna+"/"+datepicker+"/"+total+"/"+status,
-              success: function(result) {
-
-              }
+            arrData.push(obj);
           });
-        
+    
+          var idbeli = {{ $data->id }};
+          var status;
+   
+          function a(){
+            for (var i=0; i<arrData.length; i++){
+              $.ajax({
+                type: "GET",
+                url: "/dynasti/public/manager/pembelian/simpan1/"+idbeli+"/"+arrData[i]['nama_bahan']+"/"+arrData[i]['jumlah']+"/"+arrData[i]['subtotal'],
+                success: function(result) {
+                  console.log('berhasil');
+                }
+              });
+            }
+          };
 
-        $.ajax({
-              type: "GET",
-              url: "/dynasti/public/manager/pembelian/hapusDetailPembelian/"+idbeli,
-              success: function(result) {
-               console.log(result);
-              }
-          }).done(a);
+          
+            $.ajax({
+                type: "GET",
+                url: "/dynasti/public/manager/pembelian/ubah/"+idbeli+"/"+pengguna+"/"+datepicker+"/"+total+"/"+status,
+                success: function(result) {
 
-        $(document).ajaxStop(function(){
-          window.location="{{URL::to('manager/pembelian')}}";
-        });
+                }
+            });
+          
+
+          $.ajax({
+                type: "GET",
+                url: "/dynasti/public/manager/pembelian/hapusDetailPembelian/"+idbeli,
+                success: function(result) {
+                 console.log(result);
+                }
+            }).done(a);
+
+          $(document).ajaxStop(function(){
+            window.location="{{URL::to('manager/pembelian')}}";
+            toastr.info("Data berhasil diubah");
+          });
+        // }
       });
     });
   </script>

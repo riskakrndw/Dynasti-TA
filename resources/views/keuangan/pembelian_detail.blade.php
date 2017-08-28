@@ -23,9 +23,9 @@
   <div class="content-wrapper">
     <section class="content-header">
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Transaksi</a></li>
-        <li><a href="#">Data Pembelian</a></li>
+        <li><a href="{{route('berandakeu')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a> Transaksi</a></li>
+        <li><a href="{{route('pembelianKeu')}}">Data Pengadaan</a></li>
         <li class="active">Lihat Detail</li>
       </ol>
     </section>
@@ -36,13 +36,13 @@
 
         
         <div class="col-md-12">
-          <a href="{{route('pembelianKeu')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data pembelian </button></a>
+          <a href="{{route('pembelianKeu')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data pengadaan </button></a>
         </div>   
 
         <!-- Tambah Es -->
           <div class="col-md-12">
             <br>
-            <div class="box box-success">
+            <div class="box">
               <ul class="nav nav-tabs-custom">
                 <li class="pull-left box-header"><h3 class="box-title">Data Pembelian</h3></li>
               </ul>
@@ -101,9 +101,9 @@
                           <td>{{ $no++ }}</td>
                           <td>{{ $detail_beli->bahan->nama }}</td>
                           <td>{{ $detail_beli->bahan->satuan }}</td>
-                          <td>{{ $detail_beli->bahan->harga }}</td>
+                          <td>Rp {{ number_format($detail_beli->bahan->harga,2,",","." ) }}</td>
                           <td id="{{ $detail_beli->bahan->nama }}">{{ $detail_beli->jumlah }}</td>
-                          <td class="subTotal">{{ $detail_beli->subtotal }}</td>
+                          <td class="subTotal">Rp {{ number_format($detail_beli->subtotal,2,",","." ) }}</td>
                         </tr>
                       @endforeach
                     </tbody>
@@ -111,7 +111,7 @@
                   <br>
 
                   <span>Total Harga</span>
-                  <input id="totalHarga" class="totalHarga" name="total" placeholder="0" value="{{ $data->total }}" disabled>
+                  <input id="totalHarga" class="totalHarga" name="total" placeholder="0" value="Rp {{ number_format($data->total,2,",","." ) }}" disabled>
 
                 </div>
               <!-- /.tabel bahan -->

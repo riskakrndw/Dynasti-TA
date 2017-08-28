@@ -47,7 +47,7 @@
               </ul>
 
               <!-- Form tambah penjualan -->
-                <form role="form" action="" method="">
+                <form role="form" action="" method="" onsubmit="return Validate()" name="vform">
                   {{csrf_field()}}
                   <div class="box-body">
                     <input type="hidden" name="idPengguna" id="idPengguna" value="{{ Auth::User()->id }}">
@@ -67,8 +67,9 @@
                           <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" class="form-control pull-right" id="datepicker" name="datepicker" value="{{ $data->tgl }}">
+                          <input type="text" class="form-control pull-right" id="datepicker" name="datepicker" value="{{ $data->tgl }}" placeholder="Tanggal Produksi">
                         </div>
+                        <span class="help-block val_error" id="tanggal_error" style="color:red;"></span>
                       </div>
                     </div>
                     <input type="hidden" name="ides" id="ides" value="{{ $data->detail_produksi[0]->ice_cream->id }}">
@@ -163,6 +164,39 @@
   <script src="{{url('dist/js/select2/select2.js')}}"></script>
 <!-- date -->
   <script src="{{url('dist/js/bootstrap-datepicker.js')}}"></script>
+
+  <script type="text/javascript">
+
+    //getting all input object
+      var tanggal = document.forms["vform"]["datepicker"];
+
+    //getting all error display object
+      var tanggal_error = document.getElementById("tanggal_error");
+
+    //setting all event listener
+      tanggal.addEventListener("blur", tanggalVerify, true);
+
+    //validation function
+      function Validate(){
+        
+        if(tanggal.value == ""){
+          tanggal.style.border = "1px solid red";
+          tanggal_error.textContent = "Tanggal harus diisi";
+          tanggal.focus();
+          return false;
+        }
+
+        //event handler function
+
+          function tanggalVerify(){
+            if(tanggal.value != ""){
+              tanggal.style.border = "1px solid #5E6E66";
+              tanggal_error.innerHTML = "";
+              return true;
+            }
+          }
+      }
+  </script>
 
   <!-- script tambah bahan baku -->
   <script>
@@ -303,51 +337,55 @@
 
       //save multi record to db
       $('#submit').on('click', function(){
-        var kode = $('#kode').val();
-        var pengguna = $('#idPengguna').val();
-        var ides = $('#ides').val();
-        var datepicker = $('#datepicker').val();
-        var bulan = new Date(datepicker).getMonth()+1;
-        var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
-        // console.log(bulan);
-        var rasa = $('#rasa').val();
-        var jumlah = $('#jumlah').val();
-        console.log(idbahan)
+        // if(Validate()){
+          var kode = $('#kode').val();
+          var pengguna = $('#idPengguna').val();
+          var ides = $('#ides').val();
+          var datepicker = $('#datepicker').val();
+          var bulan = new Date(datepicker).getMonth()+1;
+          var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
+          // console.log(bulan);
+          var rasa = $('#rasa').val();
+          var jumlah = $('#jumlah').val();
+          console.log(idbahan)
 
-        $.ajax({
-            type: "GET",
-            url: "/dynasti/public/manager/produksi/simpan/"+pengguna+"/"+kode+"/"+datepicker,
-            success: function(result) {
-              console.log(result)
-             $('.bb').each(function(){ 
+          $.ajax({
+              type: "GET",
+              url: "/dynasti/public/manager/produksi/simpan/"+pengguna+"/"+kode+"/"+datepicker,
+              success: function(result) {
+                console.log(result)
+               $('.bb').each(function(){ 
 
-                var ides = $(this).attr('ides');
-                var jumlah = $(this).val();
-                console.log(ides)
-                console.log(jumlah)
+                  var ides = $(this).attr('ides');
+                  var jumlah = $(this).val();
+                  console.log(ides)
+                  console.log(jumlah)
+
+                  $.ajax({
+                      type: "GET",
+                      url: "/dynasti/public/manager/produksi/simpan1/"+ides+"/"+result+"/"+jumlah,
+                      success: function(result) {
+                        console.log(result)
+                      }
+                  });
+                });
 
                 $.ajax({
-                    type: "GET",
-                    url: "/dynasti/public/manager/produksi/simpan1/"+ides+"/"+result+"/"+jumlah,
-                    success: function(result) {
-                      console.log(result)
-                    }
+                  type: "GET",
+                  url: "/dynasti/public/manager/produksi/simpan2/"+bahandipakai+"/"+idbahan,
+                  success: function(result) {
+                    console.log(result)
+                  }
                 });
-              });
+              }
+          });
 
-              $.ajax({
-                type: "GET",
-                url: "/dynasti/public/manager/produksi/simpan2/"+bahandipakai+"/"+idbahan,
-                success: function(result) {
-                  console.log(result)
-                }
-              });
-            }
-        });
-
-        $(document).ajaxStop(function(){
-          window.location="{{URL::to('manager/produksi')}}";
-        });
+          $(document).ajaxStop(function(){
+            window.location="{{URL::to('manager/produksi')}}";
+            toastr.info("Data berhasil diubah");
+          });
+        // }
+        
         
       });
   </script>

@@ -1,8 +1,10 @@
 @extends('layout_master.master')
 
-@section("title", "Produksi")
+@section("title", "Data Produk Produksi")
 
 @section("produksipro", "active")
+
+@section("produkproduksipro", "active")
 
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
@@ -14,23 +16,17 @@
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Data Produksi
+        Data Produk Produksi
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Data Produksi</li>
+        <li><a href="{{route('berandapro')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Data Produk Produksi</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
-      <div class="row">
-
-        <!-- Tambah produksi -->
-          <div class="col-md-12">
-            <a href="{{route('tambahProduksiPro')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Produksi </button></a>
-          </div>
-        <!-- /Tambah produksi -->        
+      <div class="row">      
 
         <!-- Data produksi -->
         <div class="col-xs-12">
@@ -39,7 +35,7 @@
             <!-- header -->
               <div class="box-header">
                 <ul class="nav nav-tabs-custom">
-                  <li class="pull-left box-header"><h3 class="box-title">Daftar Produksi</h3></li>
+                  <li class="pull-left box-header"><h3 class="box-title">Daftar Produk Produksi</h3></li>
                 </ul>
               </div>
             <!-- /header -->
@@ -67,7 +63,7 @@
                       <td>{{ $data->ice_cream->nama }}</td>
                       <td>{{ $data->jumlah }}</td>
                       <td>
-                        <a href="{{ url('produksi/produksi/edit/'.$data->id) }}" class="btn btn-sm btn-default"><i class="fa fa-edit"></i> Ubah</a>
+                        <a href="{{ url('produksi/produksi/lihat/'.$data->produksi->id.'/produkproduksipro') }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                       </td>
                     </tr>
                     @endforeach

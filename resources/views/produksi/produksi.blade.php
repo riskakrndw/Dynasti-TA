@@ -1,6 +1,8 @@
 @extends('layout_master.master')
 
-@section("title", "Produksi")
+@section("title", "Data Produksi")
+
+@section("dataproduksipro", "active")
 
 @section("produksipro", "active")
 
@@ -17,7 +19,7 @@
         Data Produksi
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{{route('berandapro')}}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Data Produksi</li>
       </ol>
     </section>
@@ -65,8 +67,8 @@
                       <td>{{ $datapro->tgl }}</td>
                       <td>{{ $datapro->detail_produksi[0]->ice_cream->rasa->nama }}</td>
                       <td>
-                          <button type="button" class="btn btn-sm btn-default btnEditPro" data-toggle="modal" data-target="" data-id="{{ $datapro->id }}" data-kode="{{ $datapro->kode_produksi }}" data-tanggal="{{ $datapro->tgl }}"> <i class="fa fa-edit"></i> Ubah</button>
-                        <a href="{{ url('produksi/produksi/lihat/'.$datapro->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                        <button type="button" class="btn btn-sm btn-default btnEditPro" data-toggle="modal" data-target="" data-id="{{ $datapro->id }}" data-kode="{{ $datapro->kode_produksi }}" data-tanggal="{{ $datapro->tgl }}"> <i class="fa fa-edit"></i> Ubah</button>
+                        <a href="{{ url('produksi/produksi/lihat/'.$datapro->id.'/dataproduksipro') }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                       </td>
                     </tr>
                     @endforeach
@@ -83,16 +85,17 @@
           <div id="editPro" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title">Ubah Data Jenis</h4>
+              <h4 class="modal-title">Ubah Data Produksi</h4>
             </div>
             <div class="modal-body modal-primary">
               <form role="form" action="{{url('produksi/produksi/edit')}}" method="POST">
               {{csrf_field()}}
               <label>Kode Produksi</label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                <input class="form-control" id="kodepro" name="kodepro" placeholder="Kode Produksi" value="">
+                <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
+                <input class="form-control" id="kodepro" name="kodepro" placeholder="Kode Produksi" value="" disabled>
               </div>
+              <br>
               <label>Tanggal</label>
                 <div class="input-group date">
                   <div class="input-group-addon">

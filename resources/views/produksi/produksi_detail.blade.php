@@ -1,6 +1,18 @@
 @extends('layout_master.master')
 
-@section("title", "Tambah Produksi")
+
+
+@if($tipe == "dataproduksipro")
+  @section("title", "Detail Data Produksi")
+@elseif($tipe == "produkproduksipro")
+  @section("title", "Detail Data Produk Produksi")
+@endif
+
+@if($tipe == "dataproduksipro")
+  @section("dataproduksipro", "active")
+@elseif($tipe == "produkproduksipro")
+  @section("produkproduksipro", "active")
+@endif
 
 @section("produksipro", "active")
 
@@ -21,9 +33,16 @@
   <div class="content-wrapper">
     <section class="content-header">
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Data Produksi</a></li>
-        <li class="active">Tambah</li>
+        @if($tipe == "dataproduksipro")
+          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li><a href="#">Data Produksi</a></li>
+          <li class="active">Detail</li>
+        @elseif($tipe == "produkproduksipro")
+          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li><a href="#">Data Produk Produksi</a></li>
+          <li class="active">Detail</li>
+        @endif
+        
       </ol>
     </section>
 
@@ -31,15 +50,20 @@
     <section class="content">
       <div class="row">
 
-        
-        <div class="col-md-12">
-          <a href="{{route('produksiPro')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data penjualan </button></a>
-        </div>   
+        @if($tipe == "dataproduksipro")
+          <div class="col-md-12">
+            <a href="{{route('produksiPro')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data produksi </button></a>
+          </div> 
+        @elseif($tipe == "produkproduksipro")
+          <div class="col-md-12">
+            <a href="{{route('produkproduksiPro')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data produk produksi </button></a>
+          </div>
+        @endif
 
         <!-- Tambah penjualan -->
           <div class="col-md-12">
             <br>
-            <div class="box box-success">
+            <div class="box">
               <ul class="nav nav-tabs-custom">
                 <li class="pull-left box-header"><h3 class="box-title">Data Produksi</h3></li>
               </ul>
@@ -53,7 +77,7 @@
                       <div class="form-group">
                         <label>Kode Produksi</label>
                         <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
                           <input class="form-control" placeholder="Kode Produksi" name="kode" id="kode" value="{{ $data->kode_produksi }}" disabled>
                         </div>
                       </div>
@@ -101,7 +125,7 @@
 
               <hr id="garis">
               <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Daftar bahan yang diperlukan</h3></li>
+                <li class="pull-left box-header"><h3 class="box-title">Daftar Bahan Baku</h3></li>
               </ul>
 
                 <div class="box-body table-responsive">

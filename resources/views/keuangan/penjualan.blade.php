@@ -19,8 +19,8 @@
         Data Penjualan
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#"> Transaksi</a></li>
+        <li><a href="{{route('berandakeu')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a> Transaksi</a></li>
         <li class="active">Data Penjualan</li>
       </ol>
     </section>
@@ -66,7 +66,7 @@
                       <td>{{ $no++ }}</td>
                       <td>{{ $data->kode_penjualan }}</td>
                       <td>{{ $data->tgl }}</td>
-                      <td>{{ $data->total }}</td>
+                      <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                       <td>
                         <a href="{{ url('keuangan/penjualan/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                         <a href="{{ url('keuangan/penjualan/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>

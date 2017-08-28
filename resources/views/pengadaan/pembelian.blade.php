@@ -1,8 +1,8 @@
 @extends('layout_master.master')
 
-@section("title", "Data Pengadaan")
+@section("title", "Data Permintaan Pengadaan")
 
-@section("beli", "active")
+@section("pembelianPeng", "active")
 
 @section("transaksi", "active")
 
@@ -63,10 +63,10 @@
                           <td>{{ $no++ }}</td>
                           <td>{{ $data->kode_pembelian }}</td>
                           <td>{{ $data->tgl }}</td>
-                          <td>{{ $data->total }}</td>
+                          <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
-                           <a href="{{ url('manager/pengadaan/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                           <a href="{{ url('manager/pengadaan/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                           <a href="{{ url('pengadaan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('pengadaan/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
                            <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
                          </td>
                         </tr>
@@ -95,10 +95,10 @@
                           <td>{{ $no++ }}</td>
                           <td>{{ $data->kode_pembelian }}</td>
                           <td>{{ $data->tgl }}</td>
-                          <td>{{ $data->total }}</td>
+                          <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
-                           <a href="{{ url('manager/pengadaan/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                           <a href="{{ url('manager/pengadaan/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                           <a href="{{ url('pengadaan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('pengadaan/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
                            <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
                          </td>
                         </tr>
@@ -127,10 +127,10 @@
                           <td>{{ $no++ }}</td>
                           <td>{{ $data->kode_pembelian }}</td>
                           <td>{{ $data->tgl }}</td>
-                          <td>{{ $data->total }}</td>
+                          <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
-                           <a href="{{ url('manager/pengadaan/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                           <a href="{{ url('manager/pengadaan/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                           <a href="{{ url('pengadaan/pengadaan/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('pengadaan/pengadaan/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
                            <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
                          </td>
                         </tr>
@@ -159,10 +159,10 @@
                           <td>{{ $no++ }}</td>
                           <td>{{ $data->kode_pembelian }}</td>
                           <td>{{ $data->tgl }}</td>
-                          <td>{{ $data->total }}</td>
+                          <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
-                           <a href="{{ url('manager/pengadaan/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                           <a href="{{ url('manager/pengadaan/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                           <a href="{{ url('pengadaan/pengadaan/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('pengadaan/pengadaan/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
                            <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
                          </td>
                         </tr>

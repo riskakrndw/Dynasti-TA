@@ -95,7 +95,7 @@
                           <td>{{ $no++ }}</td>
                           <td>{{ $data->kode_pembelian }}</td>
                           <td>{{ $data->tgl }}</td>
-                          <td>{{ $data->total }}</td>
+                          <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
                            <a href="{{ url('manager/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                            <a href="{{ url('manager/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
@@ -127,7 +127,7 @@
                           <td>{{ $no++ }}</td>
                           <td>{{ $data->kode_pembelian }}</td>
                           <td>{{ $data->tgl }}</td>
-                          <td>{{ $data->total }}</td>
+                          <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
                            <a href="{{ url('manager/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                            <a href="{{ url('manager/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
@@ -159,7 +159,7 @@
                           <td>{{ $no++ }}</td>
                           <td>{{ $data->kode_pembelian }}</td>
                           <td>{{ $data->tgl }}</td>
-                          <td>{{ $data->total }}</td>
+                          <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
                            <a href="{{ url('manager/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                            <a href="{{ url('manager/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>

@@ -78,6 +78,12 @@
             background: #367fa9;
           }
         }
+        .navbar-custom-menu>.navbar-nav>li>.dropdown-menu {
+          border-color: #925c07;
+        }
+        .open>.dropdown-menu {
+          border-color: #cc5b09;
+        }
          .main-header .logo {
           background-color: #cc5b09 !important;
           color: #ffffff !important;

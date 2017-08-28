@@ -20,11 +20,11 @@ class ProduksiController extends Controller
     {
         
         if(Auth::user()->level == "manager"){
-            $data = Produksi::all()->orderBy('updated_at', 'asc');
+            $data = Produksi::orderBy('updated_at', 'asc')->get();
             // dd($data->ice_cream);
             return view('admin.produksi')->with('data', $data);
         } elseif (Auth::user()->level == "produksi"){
-            $data = Produksi::all()->orderBy('updated_at', 'asc');
+            $data = Produksi::orderBy('updated_at', 'asc')->get();
             return view('produksi.produksi')->with('data', $data);
         }
     	
@@ -32,9 +32,16 @@ class ProduksiController extends Controller
 
     public function index1()
     {
-        $data = DetailProduksi::all()->orderBy('updated_at', 'asc');
-        // dd($data);
-        return view('admin.produksi_barang')->with('data', $data);
+       
+        if(Auth::user()->level == "manager"){
+            $data = DetailProduksi::orderBy('updated_at', 'asc')->get();
+            // dd($data);
+            return view('admin.produksi_barang')->with('data', $data);
+        } elseif (Auth::user()->level == "produksi"){
+            $data = DetailProduksi::orderBy('updated_at', 'asc')->get();
+            // dd($data);
+            return view('produksi.produksi_barang')->with('data', $data);
+        }
     }
 
     public function tambah()
