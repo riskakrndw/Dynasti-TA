@@ -50,7 +50,7 @@
                   <table id="example1" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 90px">No</th>
+                        <th style="width: 0px">No</th>
                         <th style="width: 210px">Kode Pengadaan</th>
                         <th style="width: 168px">Tanggal</th>
                         <th style="width: 168px">Total</th>
@@ -83,9 +83,9 @@
                     <thead>
                       <tr>
                         <th style="width: 0px">No</th>
-                        <th style="width: 25px">Kode Pengadaan</th>
-                        <th style="width: 50px">Tanggal</th>
-                        <th style="width: 50px">Total</th>
+                        <th style="width: 210px">Kode Pengadaan</th>
+                        <th style="width: 168px">Tanggal</th>
+                        <th style="width: 168px">Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -115,9 +115,9 @@
                     <thead>
                       <tr>
                         <th style="width: 0px">No</th>
-                        <th style="width: 25px">Kode Pengadaan</th>
-                        <th style="width: 50px">Tanggal</th>
-                        <th style="width: 50px">Total</th>
+                        <th style="width: 210px">Kode Pengadaan</th>
+                        <th style="width: 168px">Tanggal</th>
+                        <th style="width: 168px">Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -147,9 +147,9 @@
                     <thead>
                       <tr>
                         <th style="width: 0px">No</th>
-                        <th style="width: 25px">Kode Pengadaan</th>
-                        <th style="width: 50px">Tanggal</th>
-                        <th style="width: 50px">Total</th>
+                        <th style="width: 210px">Kode Pengadaan</th>
+                        <th style="width: 168px">Tanggal</th>
+                        <th style="width: 168px">Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>

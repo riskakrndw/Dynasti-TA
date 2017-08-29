@@ -50,7 +50,7 @@
                   <table id="example1" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 90px">No</th>
+                        <th style="width: 0px">No</th>
                         <th style="width: 210px">Kode Pengadaan</th>
                         <th style="width: 168px">Tanggal</th>
                         <th style="width: 168px">Total</th>

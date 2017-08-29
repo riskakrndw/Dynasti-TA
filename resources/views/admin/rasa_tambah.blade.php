@@ -74,12 +74,14 @@
                               dalam 1 kali pembuatan menghasilkan:
                                 <div class="input-group">
                                   <span class="input-group-addon"><i class="fa fa-plus"></i></span>
-                                  <input class="form-control" placeholder="Jumlah" name="jumlahProduksi" id="jumlahProduksi{{$key}}" onKeyPress="return goodchars(event,'0123456789',this)">
+                                  <input class="form-control inputcheckbox_error" placeholder="Jumlah" name="jumlahProduksi" id="jumlahProduksi{{$key}}" onKeyPress="return goodchars(event,'0123456789',this)">
+                                  <span class="help-block input_error" style="color:red;"></span>
                                 </div>
                               </div>
                             </label>
                           </div>
                         @endforeach
+                        <span class="help-block val_error hide" id="jenis_error" style="color:red;">Jenis harus diisi minimal 1</span>
                       </div>
                     </div>
                   </div>
@@ -161,50 +163,82 @@
 
     //getting all input object
       var nama = document.forms["vform"]["nama"];
-      var jumlahbahan = document.getElementById("jumlahBahan");
+      // var jumlahbahan = document.getElementById("jumlahBahan");
 
     //getting all error display object
       var nama_error = document.getElementById("nama_error");
-      var jumlahbahan_error = document.getElementById("jumlahbahan_error");
+      // var jumlahbahan_error = document.getElementById("jumlahbahan_error");
 
     //setting all event listener
-      nama.addEventListener("blur", namaVerify, true);
-      jumlahbahan.addEventListener("blur", jumlahbahanVerify, true);
+      // jumlahbahan.addEventListener("blur", jumlahbahanVerify, true);
 
     //validation function
       function Validate(){
-        
+        var hasil = true;
+
         if(nama.value == ""){
           nama.style.border = "1px solid red";
           nama_error.textContent = "Nama harus diisi";
           nama.focus();
-          return false;
+          hasil = false;
+        }else{
+          nama.style.border = "1px solid #5E6E66";
+          nama_error.innerHTML = "";
         }
 
-        if(jumlahbahan.value == ""){
-          jumlahbahan.style.border = "1px solid red";
-          jumlahbahan_error.textContent = "Jumlah Bahan harus diisi";
-          jumlahbahan.focus();
-          return false;
+        if(hasil == true){
+          var cek = false;
+            if($(".checkjenis:checkbox:checked").length > 0){
+              $('#jenis_error').addClass('hide');
+                $(".checkbox").each(function() {
+                  if($(this).find('label').find('.checkjenis').is(':checked')){
+                    if($(this).find('label').find('.input-group').find('.inputcheckbox_error').val() == ""){
+                      $(this).find('label').find('.input-group').find('.input_error').text("errrrr");
+                     
+                    }else{
+                      $(this).find('label').find('.input-group').find('.input_error').text();
+                    }
+                  }
+                  
+                });
+                $(".checkbox").each(function() {
+                  console.log("ss"+$(this).find('label').find('.checkjenis').is(':checked'));
+                 if($(this).find('label').find('.checkjenis').is(':checked')){
+                  console.log('kosong');
+                    if($(this).find('label').find('.input-group').find('.inputcheckbox_error').val() == ""){
+                      cek = true;
+                    }
+                  }
+                });
+                if(cek == true){
+                  return false;
+                }else{
+                  return true;
+                }
+           }else {
+              $('#jenis_error').removeClass('hide');
+              return false;
+           }
         }
+
+        // if(jumlahbahan.value == ""){
+        //   jumlahbahan.style.border = "1px solid red";
+        //   jumlahbahan_error.textContent = "Jumlah Bahan harus diisi";
+        //   jumlahbahan.focus();
+        //   return false;
+        // }
 
         //event handler function
 
-          function namaVerify(){
-            if(nama.value != ""){
-              nama.style.border = "1px solid #5E6E66";
-              nama_error.innerHTML = "";
-              return true;
-            }
-          }
+      
 
-          function jumlahbahanVerify(){
-            if(jumlahbahan.value != ""){
-              jumlahbahan.style.border = "1px solid #5E6E66";
-              jumlahbahan_error.innerHTML = "";
-              return true;
-            }
-          }
+          // function jumlahbahanVerify(){
+          //   if(jumlahbahan.value != ""){
+          //     jumlahbahan.style.border = "1px solid #5E6E66";
+          //     jumlahbahan_error.innerHTML = "";
+          //     return true;
+          //   }
+          // }
       }
   </script>
 
@@ -279,7 +313,8 @@
 
       //save multi record to db
       $('#submit').on('click', function(){
-        // if(Validate()){
+        if(Validate()){
+          // console.log(Validate());
           var nama = $('#nama').val();
           var listJenis = $('#listJenis').val();
           var harga = $('#harga').val();
@@ -346,7 +381,7 @@
             window.location="{{URL::to('manager/rasa')}}";
             toastr.success("Data berhasil ditambah");
           });
-        // }
+        } 
         
         
       });

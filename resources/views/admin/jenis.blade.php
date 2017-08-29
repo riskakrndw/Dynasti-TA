@@ -9,7 +9,7 @@
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
 <link href="{{url('dist/css/bootstrap-modal.css')}}" rel="stylesheet" />
-<link href="{{url('dist/sweetalert.css')}}" rel="stylesheet" type="text/css"/>
+<!-- <link href="{{url('dist/sweetalert.css')}}" rel="stylesheet" type="text/css"/> -->
 
 @endsection
 
@@ -165,7 +165,9 @@
  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script> -->
   <script src="{{url('dist/js/bootstrap-modalmanager.js')}}"></script>
   <script src="{{url('dist/js/bootstrap-modal.js')}}"></script>
+<!--   
   <script src="{{url('dist/sweetalert.min.js')}}"></script>  
+ -->
 <!-- validasi keyboard numeric only -->
   <script src="{{url('dist/js/validasinumeric.js')}}"></script>
 
