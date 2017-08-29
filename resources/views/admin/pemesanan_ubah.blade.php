@@ -115,7 +115,8 @@
 
               <!-- Data bahan -->
                 <div class="col-xs-3">
-                  <input type="hidden" class="form-control" id="namaEs" placeholder="Nama Ice Cream">
+                  <input type="hidden" class="form-control" id="namaEs" placeholder="Nama Ice Cream" name="namaes">
+                  <span class="help-block val_error" id="namaes_error" style="color:red;"></span>
                 </div>
                 <input class="form-control" type="hidden" name="idEs" id="idEs" value="">
                 <input class="form-control" type="hidden" name="stokEs" id="stokEs" value="">
@@ -123,7 +124,8 @@
                   <input type="text" class="form-control" id="hargaEs" placeholder="Harga" disabled>
                 </div>
                 <div class="col-xs-3">
-                  <input type="text" class="form-control" id="jumlahEs" placeholder="Jumlah yang dipesan" onKeyPress="return goodchars(event,'0123456789',this)">
+                  <input type="text" class="form-control" id="jumlahEs" name="jumlaes" placeholder="Jumlah yang dipesan" onKeyPress="return goodchars(event,'0123456789',this)">
+                  <span class="help-block val_error" id="jumlahes_error" style="color:red;"></span>
                 </div>
                 <div class="col-xs-3">
                   <a href="javascript: void(0)"><button type="button" class="btn btn-sm btn-default btnTambahEs"><i class="fa  fa-plus "></i> Tambah Ice Cream </button></a>
@@ -229,80 +231,97 @@
 
     //getting all error display object
       var tanggal_error = document.getElementById("tanggal_error");
-      var nama_error = document.getElementById("nama_error");
-      var telepon_error = document.getElementById("telepon_error");
-      var alamat_error = document.getElementById("alamat_error");
+      var namaEs = document.getElementById("namaEs");
+      var namaes_error = document.getElementById("namaes_error");
+      var jumlahEs = document.getElementById("jumlahEs");
+      var jumlahes_error = document.getElementById("jumlahes_error");
 
     //setting all event listener
       tanggal.addEventListener("blur", tanggalVerify, true);
-      nama.addEventListener("blur", namaVerify, true);
-      telepon.addEventListener("blur", teleponVerify, true);
-      alamat.addEventListener("blur", alamatVerify, true);
-
+      
     //validation function
       function Validate(){
+        var cek = false;
         
         if(tanggal.value == ""){
           tanggal.style.border = "1px solid red";
           tanggal_error.textContent = "Tanggal harus diisi";
           tanggal.focus();
-          return false;
+          cek = true;
+        }else{
+          tanggal.style.border = "1px solid #5E6E66";
+          tanggal_error.innerHTML = "";
         }
 
         if(nama.value == ""){
           nama.style.border = "1px solid red";
           nama_error.textContent = "Nama harus diisi";
           nama.focus();
-          return false;
+          cek = true;
+        }else{
+          nama.style.border = "1px solid #5E6E66";
+          nama_error.innerHTML = "";
         }
 
         if(telepon.value == ""){
           telepon.style.border = "1px solid red";
           telepon_error.textContent = "Telepon harus diisi";
           telepon.focus();
-          return false;
+          cek = true;
+        }else{
+          telepon.style.border = "1px solid #5E6E66";
+          telepon_error.innerHTML = "";
         }
 
         if(alamat.value == ""){
           alamat.style.border = "1px solid red";
           alamat_error.textContent = "Alamat harus diisi";
           alamat.focus();
+          cek = true;
+        }else{
+          alamat.style.border = "1px solid #5E6E66";
+          alamat_error.innerHTML = "";
+        }
+
+        if(cek == false){
+          if($('#type_container').children().length == 0){
+
+            alert('Ice Cream harus diisi');
+            return false;
+          }else{
+            return true;
+          }
+        }else{
           return false;
         }
 
-        //event handler function
+        return true;
+      }
 
-          function tanggalVerify(){
-            if(tanggal.value != ""){
-              tanggal.style.border = "1px solid #5E6E66";
-              tanggal_error.innerHTML = "";
-              return true;
-            }
-          }
+      function ValidateDetail(){
+        
+        if(namaEs.value == ""){
+          namaEs.style.border = "1px solid red";
+          namaes_error.textContent = "Nama Ice Cream harus diisi";
+          namaEs.focus();
+          return false;
+        }else{
+          namaEs.style.border = "1px solid #5E6E66";
+          namaes_error.innerHTML = "";
+        }
 
-          function namaVerify(){
-            if(nama.value != ""){
-              nama.style.border = "1px solid #5E6E66";
-              nama_error.innerHTML = "";
-              return true;
-            }
-          }
+        if(jumlahEs.value == ""){
+          jumlahEs.style.border = "1px solid red";
+          jumlahes_error.textContent = "Jumlah harus diisi";
+          jumlahEs.focus();
+          return false;
+        }else{
+          jumlahEs.style.border = "1px solid #5E6E66";
+          jumlahes_error.innerHTML = "";
+        }
 
-          function teleponVerify(){
-            if(telepon.value != ""){
-              telepon.style.border = "1px solid #5E6E66";
-              telepon_error.innerHTML = "";
-              return true;
-            }
-          }
+          return true;
 
-          function alamatVerify(){
-            if(alamat.value != ""){
-              alamat.style.border = "1px solid #5E6E66";
-              alamat_error.innerHTML = "";
-              return true;
-            }
-          }
       }
   </script>
 
@@ -318,7 +337,8 @@
     jQuery(document).ready(function() {
       var doc = $(document);
       jQuery('.btnTambahEs').die('click').live('click', function(e) {
-        e.preventDefault();
+        if(ValidateDetail()){
+          e.preventDefault();
           for(var i = 0; i<1; i++){
             var type_div = 'teams_'+jQuery.now();
       
@@ -360,6 +380,8 @@
               }
             )
           }
+        }
+       
       });
   
       jQuery(".remove-type").die('click').live('click', function (e) {
@@ -439,7 +461,7 @@
 
       //save multi record to db
       $('#submit').on('click', function(){
-        // if(Validate()){
+        if(Validate()){
           var kode = $('#kode').val();
           var pengguna = $('#idPengguna').val();
           var nama = $('#nama').val();
@@ -519,7 +541,7 @@
             window.location="{{URL::to('manager/pemesanan')}}";
             toastr.info("Data berhasil diubah");
           });
-        // }
+        }
       });
     });
   </script>

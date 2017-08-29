@@ -84,14 +84,16 @@
 
               <!-- Data es -->
                 <div class="col-xs-3">
-                  <input type="hidden" class="form-control" id="namaEs" placeholder="Nama Ice Cream">
+                  <input type="hidden" class="form-control" id="namaEs" placeholder="Nama Ice Cream" name="namaes">
+                  <span class="help-block val_error" id="namaes_error" style="color:red;"></span>
                 </div>
                 <input class="form-control" type="hidden" name="idEs" id="idEs" value="">
                 <div class="col-xs-3">
                   <input type="text" class="form-control" id="hargaEs" placeholder="Harga" disabled>
                 </div>
                 <div class="col-xs-3">
-                  <input type="text" class="form-control" id="jumlahEs" placeholder="Jumlah yang terjual" onKeyPress="return goodchars(event,'0123456789',this)">
+                  <input type="text" class="form-control" id="jumlahEs" name="jumlaes" placeholder="Jumlah yang terjual" onKeyPress="return goodchars(event,'0123456789',this)">
+                  <span class="help-block val_error" id="jumlahes_error" style="color:red;"></span>
                 </div>
                 <div class="col-xs-3">
                   <a href="javascript: void(0)"><button type="button" class="btn btn-sm btn-default btnTambahEs"><i class="fa  fa-plus "></i> Tambah Ice Cream </button></a>
@@ -175,30 +177,70 @@
 
     //getting all error display object
       var tanggal_error = document.getElementById("tanggal_error");
+      var namaEs = document.getElementById("namaEs");
+      var namaes_error = document.getElementById("namaes_error");
+      var jumlahEs = document.getElementById("jumlahEs");
+      var jumlahes_error = document.getElementById("jumlahes_error");
 
     //setting all event listener
       tanggal.addEventListener("blur", tanggalVerify, true);
 
     //validation function
       function Validate(){
+        var cek = false;
         
         if(tanggal.value == ""){
           tanggal.style.border = "1px solid red";
           tanggal_error.textContent = "Tanggal harus diisi";
           tanggal.focus();
+          cek = true;
+        }else{
+          tanggal.style.border = "1px solid #5E6E66";
+          tanggal_error.innerHTML = "";
+        }
+
+        if(cek == false){
+          if($('#type_container').children().length == 0){
+
+            alert('Ice Cream harus diisi');
+            return false;
+          }else{
+            return true;
+          }
+        }else{
           return false;
         }
 
-        //event handler function
+        return true;
 
-          function tanggalVerify(){
-            if(tanggal.value != ""){
-              tanggal.style.border = "1px solid #5E6E66";
-              tanggal_error.innerHTML = "";
-              return true;
-            }
-          }
       }
+
+      function ValidateDetail(){
+        
+        if(namaEs.value == ""){
+          namaEs.style.border = "1px solid red";
+          namaes_error.textContent = "Nama Ice Cream harus diisi";
+          namaEs.focus();
+          return false;
+        }else{
+          namaEs.style.border = "1px solid #5E6E66";
+          namaes_error.innerHTML = "";
+        }
+
+        if(jumlahEs.value == ""){
+          jumlahEs.style.border = "1px solid red";
+          jumlahes_error.textContent = "Jumlah harus diisi";
+          jumlahEs.focus();
+          return false;
+        }else{
+          jumlahEs.style.border = "1px solid #5E6E66";
+          jumlahes_error.innerHTML = "";
+        }
+
+          return true;
+
+      }
+
   </script>
 
   <script>
@@ -212,47 +254,50 @@
     jQuery(document).ready(function() {
       var doc = $(document);
       jQuery('.btnTambahEs').die('click').live('click', function(e) {
-        e.preventDefault();
-        if(parseInt($('#jumlahEs').val()) > parseInt($('#stokEs').val())){
-          alert("stok tidak mencukupi");
-        }
-        else{
-          for(var i = 0; i<1; i++){
-            var type_div = 'teams_'+jQuery.now();
-      
-            $.get('/dynasti/public/api/namaIceCream/'+$('#idEs').val(),
-              function(hasil){
-                var nama = hasil;
-                var harga = $('#hargaEs').val();
-                var jumlah = $('#jumlahEs').val();
-                var total = $('#totalHarga').val();
-                var Subtotal = parseInt(harga) * parseInt(jumlah);
-                var namadb  = "#" + nama.replace(/\s/g,'');
-                var namaSub = namadb + "subTotal";
-                if ($(namadb).length){
-                  prevVal = $(namadb).text();
-                  newVal = parseInt(prevVal)+parseInt(jumlah);
-                  $(namadb).text(newVal);
+        if(ValidateDetail()){
+          e.preventDefault();
+          if(parseInt($('#jumlahEs').val()) > parseInt($('#stokEs').val())){
+            alert("stok tidak mencukupi");
+          }
+          else{
+            for(var i = 0; i<1; i++){
+              var type_div = 'teams_'+jQuery.now();
+        
+              $.get('/dynasti/public/api/namaIceCream/'+$('#idEs').val(),
+                function(hasil){
+                  var nama = hasil;
+                  var harga = $('#hargaEs').val();
+                  var jumlah = $('#jumlahEs').val();
+                  var total = $('#totalHarga').val();
+                  var Subtotal = parseInt(harga) * parseInt(jumlah);
+                  var namadb  = "#" + nama.replace(/\s/g,'');
+                  var namaSub = namadb + "subTotal";
+                  if ($(namadb).length){
+                    prevVal = $(namadb).text();
+                    newVal = parseInt(prevVal)+parseInt(jumlah);
+                    $(namadb).text(newVal);
 
-                  prevSub = $(namaSub).text();
-                  newSub = parseInt(prevSub) + parseInt(jumlah) * parseInt(harga);
-                  $(namaSub).text(newSub);
-                }
-                else{
-                  nomorBaris = nomorBaris + 1;
-                  $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
-                }
-                $('#namaEs').val('');
-                $('#hargaEs').val('');
-                $('#jumlahEs').val('');
+                    prevSub = $(namaSub).text();
+                    newSub = parseInt(prevSub) + parseInt(jumlah) * parseInt(harga);
+                    $(namaSub).text(newSub);
+                  }
+                  else{
+                    nomorBaris = nomorBaris + 1;
+                    $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                  }
+                  $('#namaEs').val('');
+                  $('#hargaEs').val('');
+                  $('#jumlahEs').val('');
 
-                var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
-                var totalHargaBaru = totalHargaLama + Subtotal;
-                document.getElementById('totalHarga').value = totalHargaBaru;
-              }
-            )
+                  var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
+                  var totalHargaBaru = totalHargaLama + Subtotal;
+                  document.getElementById('totalHarga').value = totalHargaBaru;
+                }
+              )
+            }
           }
         }
+        
       });
   
       jQuery(".remove-type").die('click').live('click', function (e) {
@@ -295,7 +340,7 @@
 
       //save multi record to db
       $('#submit').on('click', function(){
-        // if(Validate()){
+        if(Validate()){
           var kode = $('#kode').val();
           var pengguna = $('#idPengguna').val();
           var datepicker = $('#datepicker').val();
@@ -363,7 +408,7 @@
             window.location="{{URL::to('manager/penjualan')}}";
             toastr.info("Data berhasil diubah");
           });
-        // }
+        }
         
       });
     });

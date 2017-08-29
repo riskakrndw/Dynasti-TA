@@ -77,7 +77,8 @@
               <div>
               <!-- Data bahan -->
                 <div class="col-xs-3">
-                  <input type="hidden" class="form-control" id="namaBahan" placeholder="Nama Bahan">
+                  <input type="hidden" class="form-control" id="namaBahan" placeholder="Nama Bahan" name="namabahan">
+                  <span class="help-block val_error" id="namabahan_error" style="color:red;"></span>
                 </div>
                 <div class="col-xs-2">
                   <input type="text" class="form-control" id="satuanBahan" placeholder="Satuan" disabled>
@@ -87,7 +88,8 @@
                   <input type="text" class="form-control" id="hargaBahan" placeholder="Harga" disabled>
                 </div>
                 <div class="col-xs-3">
-                  <input type="text" class="form-control" id="jumlahBahan" placeholder="Jumlah yang dibutuhkan" onKeyPress="return goodchars(event,'0123456789',this)">
+                  <input type="text" class="form-control" id="jumlahBahan" name="jumlahbahan" placeholder="Jumlah yang dibutuhkan" onKeyPress="return goodchars(event,'0123456789',this)">
+                  <span class="help-block val_error" id="jumlahbahan_error" style="color:red;"></span>
                 </div>
                 <div class="col-xs-2">
                   <a href="javascript: void(0)"><button type="button" class="btn btn-sm btn-default btnTambahBahan"><i class="fa  fa-plus "></i> Tambah Bahan </button></a>
@@ -157,29 +159,68 @@
 
     //getting all error display object
       var tanggal_error = document.getElementById("tanggal_error");
+      var namaBahan = document.getElementById("namaBahan");
+      var namabahan_error = document.getElementById("namabahan_error");
+      var jumlahBahan = document.getElementById("jumlahBahan");
+      var jumlahbahan_error = document.getElementById("jumlahbahan_error");
 
     //setting all event listener
       tanggal.addEventListener("blur", tanggalVerify, true);
 
     //validation function
       function Validate(){
-        
+        var cek = false;
+
         if(tanggal.value == ""){
           tanggal.style.border = "1px solid red";
           tanggal_error.textContent = "Tanggal harus diisi";
           tanggal.focus();
+          cek = true;
+        }else{
+          tanggal.style.border = "1px solid #5E6E66";
+          tanggal_error.innerHTML = "";
+        }
+
+        if(cek == false){
+          if($('#type_container').children().length == 0){
+
+            alert('Bahan baku harus diisi');
+            return false;
+          }else{
+            return true;
+          }
+        }else{
           return false;
         }
 
-        //event handler function
+        return true;
 
-          function tanggalVerify(){
-            if(tanggal.value != ""){
-              tanggal.style.border = "1px solid #5E6E66";
-              tanggal_error.innerHTML = "";
-              return true;
-            }
-          }
+      }
+
+      function ValidateDetail(){
+        
+        if(namaBahan.value == ""){
+          namaBahan.style.border = "1px solid red";
+          namabahan_error.textContent = "Nama Bahan harus diisi";
+          namaBahan.focus();
+          return false;
+        }else{
+          namaBahan.style.border = "1px solid #5E6E66";
+          namabahan_error.innerHTML = "";
+        }
+
+        if(jumlahBahan.value == ""){
+          jumlahBahan.style.border = "1px solid red";
+          jumlahbahan_error.textContent = "Nama Bahan harus diisi";
+          jumlahBahan.focus();
+          return false;
+        }else{
+          jumlahBahan.style.border = "1px solid #5E6E66";
+          jumlahbahan_error.innerHTML = "";
+        }
+
+          return true;
+
       }
   </script>
 
@@ -196,45 +237,48 @@
     jQuery(document).ready(function() {
       var doc = $(document);
       jQuery('.btnTambahBahan').die('click').live('click', function(e) {
-        e.preventDefault();
-        for(var i = 0; i<1; i++){
-          var type_div = 'teams_'+jQuery.now();
-    
-          $.get('/dynasti/public/api/namaBahan/'+$('#namaBahan').val(),
-            function(hasil){
-              
-              var nama = hasil[0];
-              var satuan = $('#satuanBahan').val();
-              var harga = $('#hargaBahan').val();
-              var jumlah = $('#jumlahBahan').val();
-              var total = $('#totalHarga').val();
-              var Subtotal = parseInt(harga) * parseInt(jumlah);
-              var namadb  = "#" + nama.replace(/\s/g,'');
-              var namaSub = namadb + "subTotal";
-              if ($(namadb).length){
-                prevVal = $(namadb).text();
-                newVal = parseInt(prevVal)+parseInt(jumlah);
-                $(namadb).text(newVal);
+        if(ValidateDetail()){
+          e.preventDefault();
+          for(var i = 0; i<1; i++){
+            var type_div = 'teams_'+jQuery.now();
+      
+            $.get('/dynasti/public/api/namaBahan/'+$('#namaBahan').val(),
+              function(hasil){
+                
+                var nama = hasil[0];
+                var satuan = $('#satuanBahan').val();
+                var harga = $('#hargaBahan').val();
+                var jumlah = $('#jumlahBahan').val();
+                var total = $('#totalHarga').val();
+                var Subtotal = parseInt(harga) * parseInt(jumlah);
+                var namadb  = "#" + nama.replace(/\s/g,'');
+                var namaSub = namadb + "subTotal";
+                if ($(namadb).length){
+                  prevVal = $(namadb).text();
+                  newVal = parseInt(prevVal)+parseInt(jumlah);
+                  $(namadb).text(newVal);
 
-                prevSub = $(namaSub).text();
-                newSub = parseInt(prevSub) + parseInt(jumlah) * parseInt(harga);
-                $(namaSub).text(newSub);
-              }
-              else{
-                nomorBaris = nomorBaris + 1;
-                $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
-              }
-              $('#namaBahan').val('');
-              $('#hargaBahan').val('');
-              $('#jumlahBahan').val('');
-              $('#satuanBahan').val('');
+                  prevSub = $(namaSub).text();
+                  newSub = parseInt(prevSub) + parseInt(jumlah) * parseInt(harga);
+                  $(namaSub).text(newSub);
+                }
+                else{
+                  nomorBaris = nomorBaris + 1;
+                  $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                }
+                $('#namaBahan').val('');
+                $('#hargaBahan').val('');
+                $('#jumlahBahan').val('');
+                $('#satuanBahan').val('');
 
-              var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
-              var totalHargaBaru = totalHargaLama + Subtotal;
-              document.getElementById('totalHarga').value = totalHargaBaru;
-            }
-          )
+                var totalHargaLama = parseInt(document.getElementById('totalHarga').value);
+                var totalHargaBaru = totalHargaLama + Subtotal;
+                document.getElementById('totalHarga').value = totalHargaBaru;
+              }
+            )
+          }
         }
+        
       });
   
       jQuery(".remove-type").die('click').live('click', function (e) {
@@ -271,7 +315,7 @@
 
       //save multi record to db
       $('#submit').on('click', function(){
-        // if(Validate()){
+        if(Validate()){
           var kode = $('#kode').val();
           var pengguna = $('#idPengguna').val();
           var datepicker = $('#datepicker').val();
@@ -333,7 +377,7 @@
             window.location="{{URL::to('manager/pembelian')}}";
             toastr.success("Data berhasil ditambah");
           });
-        // }
+        }
         
       });
     });

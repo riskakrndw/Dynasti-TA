@@ -64,22 +64,24 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Tersedia dalam jenis : </label>
-                          @foreach($dataJenis as $key=>$dataJenis)
-                            <div class="checkbox">
-                              <label>
-                                <input type="checkbox" name="checkjenis" class="checkjenis" data-id="{{ $dataJenis->id }}" id="jenis{{ $dataJenis->id }}" idjenis="{{$key}}">
-                                {{ $dataJenis->nama }}
-                                <br>
-                                <div id="showjenis{{$key}}" class="hide">
-                                dalam 1 kali pembuatan menghasilkan:
-                                  <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                                    <input class="form-control" placeholder="jumlah" name="jumlahProduksi" id="jumlahProduksi{{$dataJenis->id}}" data-id="jenis{{ $dataJenis->id }}" onKeyPress="return goodchars(event,'0123456789',this)">
-                                  </div>
+                        @foreach($dataJenis as $key=>$dataJenis)
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" name="checkjenis" class="checkjenis" data-id="{{ $dataJenis->id }}" id="jenis{{ $dataJenis->id }}" idjenis="{{$key}}">
+                              {{ $dataJenis->nama }}
+                              <br>
+                              <div id="showjenis{{$key}}" class="hide">
+                              dalam 1 kali pembuatan menghasilkan:
+                                <div class="input-group">
+                                  <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                                  <input class="form-control" placeholder="jumlah" name="jumlahProduksi" id="jumlahProduksi{{$dataJenis->id}}" data-id="jenis{{ $dataJenis->id }}" onKeyPress="return goodchars(event,'0123456789',this)">
+                                  <span class="help-block input_error" style="color:red;"></span>
                                 </div>
-                              </label>
-                            </div>
-                          @endforeach
+                              </div>
+                            </label>
+                          </div>
+                        @endforeach
+                        <span class="help-block val_error hide" id="jenis_error" style="color:red;">Jenis harus diisi minimal 1</span>
                       </div>
                     </div>
                   </div>
@@ -93,7 +95,7 @@
 
               <!-- Data bahan -->
                 <div class="col-xs-4">
-                  <input type="hidden" class="form-control" id="namaBahan" placeholder="Nama Bahan">
+                  <input type="hidden" class="form-control" id="namaBahan" placeholder="Nama Bahan" name="namabahan">
                   <span class="help-block val_error" id="namabahan_error" style="color:red;"></span>
                 </div>
                 <div class="col-xs-3">
@@ -101,7 +103,7 @@
                 </div>
                 <input class="form-control" type="hidden" name="idBahan" id="idBahan" value="">
                 <div class="col-xs-3">
-                  <input type="text" class="form-control" id="jumlahBahan" placeholder="Jumlah yang dibutuhkan" onKeyPress="return goodchars(event,'0123456789',this)">
+                  <input type="text" class="form-control" id="jumlahBahan" name="jumlahbahan" placeholder="Jumlah yang dibutuhkan" onKeyPress="return goodchars(event,'0123456789',this)">
                   <span class="help-block val_error" id="jumlahbahan_error" style="color:red;"></span>
                 </div>
                 <div class="col-xs-2">
@@ -177,32 +179,98 @@
 
     //getting all input object
       var nama = document.forms["vform"]["nama"];
+      // var jumlahbahan = document.getElementById("jumlahBahan");
 
     //getting all error display object
       var nama_error = document.getElementById("nama_error");
+      var namaBahan = document.getElementById("namaBahan");
+      var namabahan_error = document.getElementById("namabahan_error");
+      var jumlahBahan = document.getElementById("jumlahBahan");
+      var jumlahbahan_error = document.getElementById("jumlahbahan_error");
+      // var jumlahbahan_error = document.getElementById("jumlahbahan_error");
 
     //setting all event listener
-      nama.addEventListener("blur", namaVerify, true);
+      // jumlahbahan.addEventListener("blur", jumlahbahanVerify, true);
 
     //validation function
       function Validate(){
-        
+        var hasil = true;
+
         if(nama.value == ""){
           nama.style.border = "1px solid red";
           nama_error.textContent = "Nama harus diisi";
           nama.focus();
-          return false;
+          hasil = false;
+        }else{
+          nama.style.border = "1px solid #5E6E66";
+          nama_error.innerHTML = "";
         }
 
-        //event handler function
+        if(hasil == true){
+          var cek = false;
+            if($(".checkjenis:checkbox:checked").length > 0){
+              $('#jenis_error').addClass('hide');
+                $(".checkbox").each(function() {
+                  if($(this).find('label').find('.checkjenis').is(':checked')){
+                    if($(this).find('label').find('.input-group').find('.inputcheckbox_error').val() == ""){
+                      $(this).find('label').find('.input-group').find('.input_error').text("errrrr");
+                     
+                    }else{
+                      $(this).find('label').find('.input-group').find('.input_error').text("");
+                      
+                    }
+                  }
+                  
+                });
+                $(".checkbox").each(function() {
+                 if($(this).find('label').find('.checkjenis').is(':checked')){
+                    if($(this).find('label').find('.input-group').find('.inputcheckbox_error').val() == ""){
+                      cek = true;
+                    }
+                  }
+                });
+                if(cek == false){
+                  if($('#type_container').children().length == 0){
 
-          function namaVerify(){
-            if(nama.value != ""){
-              nama.style.border = "1px solid #5E6E66";
-              nama_error.innerHTML = "";
-              return true;
-            }
-          }
+                    alert('Bahan baku harus diisi');
+                    return false;
+                  }else{
+                    return true;
+                  }
+                }else{
+                  return false;
+                }
+           }else {
+              $('#jenis_error').removeClass('hide');
+              return false;
+           }
+        }
+      }
+
+      function ValidateDetail(){
+        
+        if(namaBahan.value == ""){
+          namaBahan.style.border = "1px solid red";
+          namabahan_error.textContent = "Nama Bahan harus diisi";
+          namaBahan.focus();
+          return false;
+        }else{
+          namaBahan.style.border = "1px solid #5E6E66";
+          namabahan_error.innerHTML = "";
+        }
+
+        if(jumlahBahan.value == ""){
+          jumlahBahan.style.border = "1px solid red";
+          jumlahbahan_error.textContent = "Nama Bahan harus diisi";
+          jumlahBahan.focus();
+          return false;
+        }else{
+          jumlahBahan.style.border = "1px solid #5E6E66";
+          jumlahbahan_error.innerHTML = "";
+        }
+
+          return true;
+
       }
   </script>
 
@@ -215,41 +283,42 @@
     jQuery(document).ready(function() {
       var doc = $(document);
 
-      console.log("{{$data->ice_cream}}");
       @foreach($data->ice_cream_notrashed as $datajenis)
         $('#jenis{{$datajenis->jenis->id}}').attr("checked", true);
         $('#showjenis'+$('#jenis{{$datajenis->jenis->id}}').attr('idjenis')).removeClass('hide');
         $('#jumlahProduksi{{$datajenis->jenis->id}}').val('{{ $datajenis->jumlah_produksi}}');
-        console.log("{{$datajenis->jenis->id}}");
       @endforeach
 
       jQuery('.btnTambahBahan').die('click').live('click', function(e) {
-        e.preventDefault();
-        for(var i = 0; i<1; i++){
-          var type_div = 'teams_'+jQuery.now();
-    
-          $.get('/dynasti/public/api/namaBahan/'+$('#namaBahan').val(),
-            function(hasil){
-              var nama = hasil[0];
-              var id = hasil[1];
-              var satuan = $('#satuanBahan').val();
-              var jumlah = $('#jumlahBahan').val();
-              var namadb  = "#" + nama.replace(/\s/g,'');
-              if ($(namadb).length){
-                prevVal = $(namadb).text();
-                newVal = parseInt(prevVal)+parseInt(jumlah);
-                $(namadb).text(newVal);
+        if(ValidateDetail()){
+          e.preventDefault();
+          for(var i = 0; i<1; i++){
+            var type_div = 'teams_'+jQuery.now();
+      
+            $.get('/dynasti/public/api/namaBahan/'+$('#namaBahan').val(),
+              function(hasil){
+                var nama = hasil[0];
+                var id = hasil[1];
+                var satuan = $('#satuanBahan').val();
+                var jumlah = $('#jumlahBahan').val();
+                var namadb  = "#" + nama.replace(/\s/g,'');
+                if ($(namadb).length){
+                  prevVal = $(namadb).text();
+                  newVal = parseInt(prevVal)+parseInt(jumlah);
+                  $(namadb).text(newVal);
+                }
+                else{
+                  nomorBaris = nomorBaris + 1;
+                  $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td style="display:none">'+id+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                }
+                $('#namaBahan').val('');
+                $('#jumlahBahan').val('');
+                $('#satuanBahan').val('');
               }
-              else{
-                nomorBaris = nomorBaris + 1;
-                $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td style="display:none">'+id+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
-              }
-              $('#namaBahan').val('');
-              $('#jumlahBahan').val('');
-              $('#satuanBahan').val('');
-            }
-          )
+            )
+          }
         }
+        
       });
   
       jQuery(".remove-type").die('click').live('click', function (e) {
@@ -285,12 +354,11 @@
         }else{
           $('#showjenis'+$(this).attr('idjenis')).addClass('hide');
         }
-        console.log($(this).attr('idjenis'));
       });
 
       //save multi record to db
       $('#submit').on('click', function(){
-        // if(Validate()){
+        if(Validate()){
           var nama = $('#nama').val();
           var listJenis = $('#listJenis').val();
           var harga = $('#harga').val();
@@ -325,7 +393,6 @@
 
             $('input:checkbox[name=checkjenis]:checked').each(function(){
               var idjenis = $(this).attr('data-id')
-              console.log('jenis:' + idjenis)
               $.ajax({
                 type: "POST",
                 url: "http://localhost:8081/dynasti/public/manager/rasa/ubah2",
@@ -337,7 +404,6 @@
             
 
             for (var i=0; i<arrData.length; i++){
-              console.log(arrData[i]['jumlah'])
               $.ajax({
                 type: "POST",
                 url: "http://localhost:8081/dynasti/public/manager/rasa/ubah1",
@@ -347,7 +413,6 @@
               });
             }
 
-            console.log('{{$data->id}}')
            $.ajax({
                 type: "POST",
                 url: "http://localhost:8081/dynasti/public/manager/rasa/ubah",
@@ -362,13 +427,11 @@
 
 
           function a(){
-            console.log(arridjenis);
            $.ajax({
                 type: "POST",
                 url: "http://localhost:8081/dynasti/public/manager/rasa/hapusDetailRasa",
                 data: 'idrasa= {{$data->id}}' + '& idbahan=' + arridbahan + '& _token='+"{{csrf_token()}}",
                 success: function(result) {
-                 console.log(result);
                 }
             });
 
@@ -377,7 +440,6 @@
                 url: "http://localhost:8081/dynasti/public/manager/rasa/hapusEs",
                 data: 'idrasa= {{$data->id}}' + '& idjenis=' + arridjenis + '& _token='+"{{csrf_token()}}",
                 success: function(result) {
-                 console.log(result);
                 }
             });
           }
@@ -386,7 +448,7 @@
             window.location="{{URL::to('manager/rasa')}}";
             toastr.info("Data berhasil diubah");
           });
-        // }
+        }
         
       });
     });

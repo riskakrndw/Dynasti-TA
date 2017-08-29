@@ -167,6 +167,10 @@
 
     //getting all error display object
       var nama_error = document.getElementById("nama_error");
+      var namaBahan = document.getElementById("namaBahan");
+      var namabahan_error = document.getElementById("namabahan_error");
+      var jumlahBahan = document.getElementById("jumlahBahan");
+      var jumlahbahan_error = document.getElementById("jumlahbahan_error");
       // var jumlahbahan_error = document.getElementById("jumlahbahan_error");
 
     //setting all event listener
@@ -196,49 +200,62 @@
                       $(this).find('label').find('.input-group').find('.input_error').text("errrrr");
                      
                     }else{
-                      $(this).find('label').find('.input-group').find('.input_error').text();
+                      $(this).find('label').find('.input-group').find('.input_error').text("");
+                      
                     }
                   }
                   
                 });
                 $(".checkbox").each(function() {
-                  console.log("ss"+$(this).find('label').find('.checkjenis').is(':checked'));
                  if($(this).find('label').find('.checkjenis').is(':checked')){
-                  console.log('kosong');
                     if($(this).find('label').find('.input-group').find('.inputcheckbox_error').val() == ""){
                       cek = true;
                     }
                   }
                 });
-                if(cek == true){
-                  return false;
+                  console.log($('#type_container').children().length);
+                if(cek == false){
+                  if($('#type_container').children().length == 0){
+
+                    alert('Bahan baku harus diisi');
+                    return false;
+                  }else{
+                    return true;
+                  }
                 }else{
-                  return true;
+                  return false;
                 }
            }else {
               $('#jenis_error').removeClass('hide');
               return false;
            }
         }
+      }
 
-        // if(jumlahbahan.value == ""){
-        //   jumlahbahan.style.border = "1px solid red";
-        //   jumlahbahan_error.textContent = "Jumlah Bahan harus diisi";
-        //   jumlahbahan.focus();
-        //   return false;
-        // }
+      function ValidateDetail(){
+        
+        if(namaBahan.value == ""){
+          namaBahan.style.border = "1px solid red";
+          namabahan_error.textContent = "Nama Bahan harus diisi";
+          namaBahan.focus();
+          return false;
+        }else{
+          namaBahan.style.border = "1px solid #5E6E66";
+          namabahan_error.innerHTML = "";
+        }
 
-        //event handler function
+        if(jumlahBahan.value == ""){
+          jumlahBahan.style.border = "1px solid red";
+          jumlahbahan_error.textContent = "Nama Bahan harus diisi";
+          jumlahBahan.focus();
+          return false;
+        }else{
+          jumlahBahan.style.border = "1px solid #5E6E66";
+          jumlahbahan_error.innerHTML = "";
+        }
 
-      
+          return true;
 
-          // function jumlahbahanVerify(){
-          //   if(jumlahbahan.value != ""){
-          //     jumlahbahan.style.border = "1px solid #5E6E66";
-          //     jumlahbahan_error.innerHTML = "";
-          //     return true;
-          //   }
-          // }
       }
   </script>
 
@@ -248,30 +265,33 @@
     jQuery(document).ready(function() {
       var doc = $(document);
       jQuery('.btnTambahBahan').die('click').live('click', function(e) {
-        e.preventDefault();
-        for(var i = 0; i<1; i++){
-          var type_div = 'teams_'+jQuery.now();
-    
-          $.get('/dynasti/public/api/namaBahan/'+$('#namaBahan').val(),
-            function(hasil){
-              var nama = hasil[0];
-              var satuan = $('#satuanBahan').val();
-              var jumlah = $('#jumlahBahan').val();
-              var namadb  = "#" + nama.replace(/\s/g,'');
-              if ($(namadb).length){
-                prevVal = $(namadb).text();
-                newVal = parseInt(prevVal)+parseInt(jumlah);
-                $(namadb).text(newVal);
+        if(ValidateDetail()){
+          // console.log(ValidateDetail());
+          e.preventDefault();
+          for(var i = 0; i<1; i++){
+            var type_div = 'teams_'+jQuery.now();
+      
+            $.get('/dynasti/public/api/namaBahan/'+$('#namaBahan').val(),
+              function(hasil){
+                var nama = hasil[0];
+                var satuan = $('#satuanBahan').val();
+                var jumlah = $('#jumlahBahan').val();
+                var namadb  = "#" + nama.replace(/\s/g,'');
+                if ($(namadb).length){
+                  prevVal = $(namadb).text();
+                  newVal = parseInt(prevVal)+parseInt(jumlah);
+                  $(namadb).text(newVal);
+                }
+                else{
+                  nomorBaris = nomorBaris + 1;
+                  $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                }
+                $('#namaBahan').val('');
+                $('#jumlahBahan').val('');
+                $('#satuanBahan').val('');
               }
-              else{
-                nomorBaris = nomorBaris + 1;
-                $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
-              }
-              $('#namaBahan').val('');
-              $('#jumlahBahan').val('');
-              $('#satuanBahan').val('');
-            }
-          )
+            )
+          }
         }
       });
   
@@ -305,6 +325,7 @@
       $('.checkjenis').change(function(){
         if(this.checked){
           $('#showjenis'+$(this).attr('idjenis')).removeClass('hide');
+          $(this).closest('label').find('.input-group').find('.input_error').text("");
         }else{
           $('#showjenis'+$(this).attr('idjenis')).addClass('hide');
         }
