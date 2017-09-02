@@ -71,6 +71,7 @@
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
                           <input type="hidden" class="form-control" id="rasa" name="rasa" placeholder="Rasa">
                         </div>
+                        <span class="help-block val_error" id="rasa_error" style="color:red;"></span>
                       </div>
                     </div>
                     <div class="col-md-12">
@@ -143,32 +144,63 @@
 
     //getting all input object
       var tanggal = document.forms["vform"]["datepicker"];
+      var rasa = document.forms["vform"]["rasa"];
 
     //getting all error display object
       var tanggal_error = document.getElementById("tanggal_error");
+      var rasa_error = document.getElementById("rasa_error");
 
     //setting all event listener
       tanggal.addEventListener("blur", tanggalVerify, true);
 
     //validation function
       function Validate(){
+        var hasil = true;
+
+        console.log(tanggal.value);
         
         if(tanggal.value == ""){
           tanggal.style.border = "1px solid red";
           tanggal_error.textContent = "Tanggal harus diisi";
           tanggal.focus();
+          hasil = false;
+        }else{
+            tanggal.style.border = "1px solid #5E6E66";
+            tanggal_error.innerHTML = "";
+        }
+
+        if(hasil == true){
+          var cek = false;
+          if(rasa.value == ""){
+            rasa.style.border = "1px solid red";
+            rasa_error.textContent = "Rasa harus diisi";
+            rasa.focus();
+            cek = true;
+          }else{
+            rasa.style.border = "1px solid #5E6E66";
+            rasa_error.innerHTML = "";
+          }
+
+          if(cek == false){
+            var cekjumlah = false;
+            $(".bb").each(function() {
+              if($(this).val() > 0){
+                cekjumlah = true;
+              }
+            })
+          }
+          
+
+          if(cekjumlah == true){
+            return true;
+          }else{
+            alert("Minimal jumlah produksi harap diisi");
+            return false;
+          }
+        }else{
           return false;
         }
 
-        //event handler function
-
-          function tanggalVerify(){
-            if(tanggal.value != ""){
-              tanggal.style.border = "1px solid #5E6E66";
-              tanggal_error.innerHTML = "";
-              return true;
-            }
-          }
       }
   </script>
 
@@ -303,7 +335,7 @@
 
       //save multi record to db
       $('#submit').on('click', function(){
-        // if(Validate()){
+        if(Validate()){
           var kode = $('#kode').val();
           var pengguna = $('#idPengguna').val();
           var ides = $('#ides').val();
@@ -350,7 +382,7 @@
             window.location="{{URL::to('manager/produksi')}}";
             toastr.success("Data berhasil ditambah");
           });
-        // }
+        }
         
         
       });

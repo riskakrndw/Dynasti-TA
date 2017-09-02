@@ -34,7 +34,7 @@
               <div class="inner">
                 <h3>{{ $totalstokbahan }}</h3>
 
-                <p>Stok Bahan Baku</p>
+                <p>Jumlah Bahan Baku <br> di Bawah Stok Minimal</p>
               </div>
               <div class="icon">
                 <i class="ion ion-android-cart"></i>
@@ -62,7 +62,7 @@
               <div class="inner">
                 <h3>{{ $totalstokes }}</h3>
 
-                <p>Stok Ice Cream</p>
+                <p>Jumlah Ice Cream <br> di Bawah Stok Minimal</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pricetags"></i>

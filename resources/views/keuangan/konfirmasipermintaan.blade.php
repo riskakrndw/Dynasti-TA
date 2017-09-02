@@ -14,11 +14,11 @@
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Data Permintaan Pengadaan
+        Data Permintaan Pengadaan yang Diterima
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Permintaan Pengadaan</li>
+        <li class="active">Permintaan Pengadaan yang Diterima</li>
       </ol>
     </section>
 
@@ -26,7 +26,7 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
-          <a href="{{route('beranda')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman beranda </button></a>
+          <a href="{{route('berandakeu')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman beranda </button></a>
         </div> 
 
         <!-- Data es -->
@@ -36,7 +36,7 @@
             <!-- header -->
               <div class="box-header">
                 <ul class="nav nav-tabs-custom">
-                  <li class="pull-left box-header"><h3 class="box-title">Daftar Permintaan Pengadaan</h3></li>
+                  <li class="pull-left box-header"><h3 class="box-title">Daftar Permintaan Pengadaan yang Diterima</h3></li>
                 </ul>
               </div>
             <!-- /header -->
@@ -62,20 +62,20 @@
                       <td>{{ $data->tgl }}</td>
                       <td>{{ $data->total }}</td>
                       <td>
-                        <a href="{{ url('manager/konfirmasi/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                        <a href="{{ url('keuangan/konfirmasi/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                         <br><br>
-                        <form method="post" action="{{ url('manager/konfirmasi/ubah') }}">
+                        <form method="post" action="{{ url('keuangan/konfirmasi/ubah') }}">
                           {{csrf_field()}}
                           <input class="form-control" type="hidden" name="id" id="id" value="{{ $data->id }}">
-                          <input class="form-control" type="hidden" name="status" value="diterima">
-                          <button type="submit" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-check"></i> Terima</button>
+                          <input class="form-control" type="hidden" name="status" value="berhasil">
+                          <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-check"></i> Berhasil</button>
                         </form>
                         <br>
-                        <form method="post" action="{{ url('manager/konfirmasi/ubah') }}">
+                        <form method="post" action="{{ url('keuangan/konfirmasi/ubah') }}">
                           {{csrf_field()}}
                           <input class="form-control" type="hidden" name="id" id="id" value="{{ $data->id }}">
-                          <input class="form-control" type="hidden" name="status" value="ditolak">
-                          <button type="submit" class="btn btn-sm btn-danger btnEditEs"><i class="fa fa-remove"></i> Tolak</button>
+                          <input class="form-control" type="hidden" name="status" value="gagal">
+                          <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i> Gagal</button>
                         </form>
                         <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
                       </td>

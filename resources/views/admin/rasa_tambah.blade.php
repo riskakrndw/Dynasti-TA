@@ -64,14 +64,14 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Tersedia dalam jenis : </label>
-                        @foreach($dataJenis as $key=>$dataJenis)
+                        @foreach($dataJenis as $key=>$dataJeniss)
                           <div class="checkbox">
                             <label>
-                              <input type="checkbox" name="checkjenis" class="checkjenis" id="{{ $dataJenis->id }}" idjenis="{{$key}}">
-                              {{ $dataJenis->nama }}
+                              <input type="checkbox" name="checkjenis" class="checkjenis" id="{{ $dataJeniss->id }}" idjenis="{{$key}}">
+                              {{ $dataJeniss->nama }}
                               <br>
                               <div id="showjenis{{$key}}" class="hide">
-                              dalam 1 kali pembuatan menghasilkan:
+                                dalam 1 resep menghasilkan:
                                 <div class="input-group">
                                   <span class="input-group-addon"><i class="fa fa-plus"></i></span>
                                   <input class="form-control inputcheckbox_error" placeholder="Jumlah" name="jumlahProduksi" id="jumlahProduksi{{$key}}" onKeyPress="return goodchars(event,'0123456789',this)">
@@ -79,6 +79,9 @@
                                 </div>
                               </div>
                             </label>
+                            @if($key != count($dataJenis) - 1)
+                              <p class="hide" id="atau{{$key}}">atau</p>
+                            @endif
                           </div>
                         @endforeach
                         <span class="help-block val_error hide" id="jenis_error" style="color:red;">Jenis harus diisi minimal 1</span>
@@ -325,9 +328,11 @@
       $('.checkjenis').change(function(){
         if(this.checked){
           $('#showjenis'+$(this).attr('idjenis')).removeClass('hide');
+          $('#atau'+$(this).attr('idjenis')).removeClass('hide');
           $(this).closest('label').find('.input-group').find('.input_error').text("");
         }else{
           $('#showjenis'+$(this).attr('idjenis')).addClass('hide');
+          $('#atau'+$(this).attr('idjenis')).addClass('hide');
         }
         console.log($(this).attr('idjenis'));
       });

@@ -64,21 +64,24 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Tersedia dalam jenis : </label>
-                        @foreach($dataJenis as $key=>$dataJenis)
+                        @foreach($dataJenis as $key=>$dataJeniss)
                           <div class="checkbox">
                             <label>
-                              <input type="checkbox" name="checkjenis" class="checkjenis" data-id="{{ $dataJenis->id }}" id="jenis{{ $dataJenis->id }}" idjenis="{{$key}}">
-                              {{ $dataJenis->nama }}
+                              <input type="checkbox" name="checkjenis" class="checkjenis" data-id="{{ $dataJeniss->id }}" id="jenis{{ $dataJeniss->id }}" idjenis="{{$key}}">
+                              {{ $dataJeniss->nama }}
                               <br>
                               <div id="showjenis{{$key}}" class="hide">
-                              dalam 1 kali pembuatan menghasilkan:
+                                dalam 1 resep menghasilkan:
                                 <div class="input-group">
                                   <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                                  <input class="form-control" placeholder="jumlah" name="jumlahProduksi" id="jumlahProduksi{{$dataJenis->id}}" data-id="jenis{{ $dataJenis->id }}" onKeyPress="return goodchars(event,'0123456789',this)">
+                                  <input class="form-control inputcheckbox_error" placeholder="jumlah" name="jumlahProduksi" id="jumlahProduksi{{$dataJeniss->id}}" data-id="jenis{{ $dataJeniss->id }}" onKeyPress="return goodchars(event,'0123456789',this)">
                                   <span class="help-block input_error" style="color:red;"></span>
                                 </div>
                               </div>
                             </label>
+                            @if($key != count($dataJenis) - 1)
+                              <p class="hide" id="atau{{$key}}">atau</p>
+                            @endif
                           </div>
                         @endforeach
                         <span class="help-block val_error hide" id="jenis_error" style="color:red;">Jenis harus diisi minimal 1</span>
@@ -229,6 +232,7 @@
                     }
                   }
                 });
+                  console.log($('#type_container').children().length);
                 if(cek == false){
                   if($('#type_container').children().length == 0){
 
@@ -351,8 +355,11 @@
       $('.checkjenis').change(function(){
         if(this.checked){
           $('#showjenis'+$(this).attr('idjenis')).removeClass('hide');
+          $('#atau'+$(this).attr('idjenis')).removeClass('hide');
+          $(this).closest('label').find('.input-group').find('.input_error').text("");
         }else{
           $('#showjenis'+$(this).attr('idjenis')).addClass('hide');
+          $('#atau'+$(this).attr('idjenis')).addClass('hide');
         }
       });
 

@@ -29,11 +29,11 @@
       <!-- Info beranda -->
         <div class="row">
 
-          <div class="col-lg-6 col-xs-6">
+          <div class="col-lg-3 col-xs-3">
             <!-- small box -->
             <div class="small-box bg-green">
               <div class="inner">
-                <h3>Rp {{ number_format($totalpengadaan,2,",","." ) }}</h3>
+                <h4>Rp {{ number_format($totalpengadaan,2,",","." ) }}</h4>
                 <p>Total Pengadaan</p>
               </div>
               <div class="icon">
@@ -47,7 +47,21 @@
             <!-- small box -->
             <div class="small-box bg-red">
               <div class="inner">
-                <h3>Rp {{ number_format($totalpenjualan,2,",","." ) }}</h3>
+                <h4>1</h4>
+                <p>Permintaan Pengadaan yang Diterima</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pricetags"></i>
+              </div>
+              <a href="{{route('konfirmasikeu')}}" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-xs-3">
+            <!-- small box -->
+            <div class="small-box bg-red">
+              <div class="inner">
+                <h4>Rp {{ number_format($totalpenjualan,2,",","." ) }}</h4>
                 <p>Total Penjualan</p>
               </div>
               <div class="icon">

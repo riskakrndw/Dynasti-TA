@@ -39,39 +39,76 @@
                 <div class="row">
                   <div class="col-md-12">
                     <!-- Form tambah pengguna -->
-                      <form role="form" action="{{route('tambahPengguna')}}" method="POST" onsubmit="return Validate()" name="vform">
+                      <form role="form" action="{{route('tambahPengguna')}}" method="POST">
                         {{csrf_field()}}
                         <div class="form-group">
-                          <label>Username</label>
-                          <div class="input-group">
-                            <span class="input-group-addon">@</span>
-                            <input class="form-control" placeholder="Username" name="username">
+                          <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+                            <label>Username</label>
+                            <div class="input-group">
+                              <span class="input-group-addon">@</span>
+                              <input class="form-control" placeholder="Username" name="username" value="{{ old('username') }}">
+                            </div>
+                            @if ($errors->has('username'))
+                              <span class="help-block">
+                                  <strong>{{ $errors->first('username') }}</strong>
+                              </span>
+                            @endif
                           </div>
-                          <span class="help-block val_error" id="username_error" style="color:red;"></span>
                           <br>
-                          <label>Nama</label>
-                          <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                            <input class="form-control" placeholder="Nama" name="name">
+                          <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label>Nama</label>
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                              <input class="form-control" placeholder="Nama" name="name" value="{{ old('name') }}">
+                            </div>
+                            @if ($errors->has('name'))
+                              <span class="help-block">
+                                  <strong>{{ $errors->first('name') }}</strong>
+                              </span>
+                            @endif
                           </div>
-                          <span class="help-block val_error" id="nama_error" style="color:red;"></span>
                           <br>
-                          <label>Pilih Level</label>
-                          <select class="form-control select2" style="width: 100%;" name="level" id="level">
-                            <option disabled="disabled" selected="selected" value="0">Pilih Level</option>
-                            <option value="pengadaan">Bagian Pengadaan</option>
-                            <option value="keuangan">Bagian Keuangan</option>
-                            <option value="produksi">Bagian Produksi</option>
-                            
-                          </select>
-                          <span class="help-block val_error" id="level_error" style="color:red;"></span>
-                          <br>
-                          <label>Password</label>
-                          <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                            <input type="password" class="form-control" placeholder="Password" name="password">
+                          <div class="form-group{{ $errors->has('level') ? ' has-error' : '' }}">
+                            <label>Pilih Level</label>
+                            <select class="form-control select2" style="width: 100%;" name="level" id="level">
+                              <option disabled="disabled" selected="selected" value="0">Pilih Level</option>
+                              <option value="pengadaan" @if(old('level') == 'pengadaan') {{ 'selected' }} @endif>Bagian Pengadaan</option>
+                              <option value="keuangan" @if(old('level') == 'keuangan') {{ 'selected' }} @endif>Bagian Keuangan</option>
+                              <option value="produksi" @if(old('level') == 'produksi') {{ 'selected' }} @endif>Bagian Produksi</option>
+                            </select>
+                            @if ($errors->has('level'))
+                              <span class="help-block">
+                                  <strong>{{ $errors->first('level') }}</strong>
+                              </span>
+                            @endif
                           </div>
-                          <span class="help-block val_error" id="password_error" style="color:red;"></span>
+                          <br>
+                          <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                            <label>Kata Sandi</label>
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                              <input type="password" class="form-control" placeholder="Kata Sandi" name="password">
+                            </div>
+                            @if ($errors->has('password'))
+                              <span class="help-block">
+                                  <strong>{{ $errors->first('password') }}</strong>
+                              </span>
+                            @endif
+                          </div>
+                          <br>
+                          <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                            <label>Konfirmasi Kata Sandi</label>
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                              <input type="password" class="form-control" placeholder="Konfirmasi Kata Sandi" name="password_confirmation">
+                            </div>
+                            @if ($errors->has('password_confirmation'))
+                              <span class="help-block">
+                                  <strong>{{ $errors->first('password_confirmation') }}</strong>
+                              </span>
+                            @endif
+                          </div>
+                          
                         </div>
                         <div class="form-group">
                           <div class="box-footer pull-right">
@@ -263,90 +300,7 @@
   <script src="{{url('dist/js/bootstrap-modalmanager.js')}}"></script>
   <script src="{{url('dist/js/bootstrap-modal.js')}}"></script>
 
-  <script type="text/javascript">
-
-    //getting all input object
-      var username = document.forms["vform"]["username"];
-      var nama = document.forms["vform"]["name"];
-      var level = document.forms["vform"]["level"];
-      var password = document.forms["vform"]["password"];
-
-    //getting all error display object
-      var username_error = document.getElementById("username_error");
-      var nama_error = document.getElementById("nama_error");
-      var level_error = document.getElementById("level_error");
-      var password_error = document.getElementById("password_error");
-
-    //setting all event listener
-      username.addEventListener("blur", usernameVerify, true);
-      nama.addEventListener("blur", namaVerify, true);
-      level.addEventListener("blur", levelVerify, true);
-      password.addEventListener("blur", passwordVerify, true);
-
-    //validation function
-      function Validate(){
-        if(username.value == ""){
-          username.style.border = "1px solid red";
-          username_error.textContent = "Username harus diisi";
-          username.focus();
-          return false;
-        }
-
-        if(nama.value == ""){
-          nama.style.border = "1px solid red";
-          nama_error.textContent = "Nama harus diisi";
-          nama.focus();
-          return false;
-        }
-
-        if(level.value == ""){
-          level.style.border = "1px solid red";
-          level_error.textContent = "Level harus diisi";
-          level.focus();
-          return false;
-        }
-
-        if(password.value == ""){
-          password.style.border = "1px solid red";
-          password_error.textContent = "Passwords harus diisi";
-          password.focus();
-          return false;
-        }
-
-        //event handler function
-          function usernameVerify(){
-            if(username.value != ""){
-              username.style.border = "1px solid #5E6E66";
-              username_error.innerHTML = "";
-              return true;
-            }
-          }
-
-          function namaVerify(){
-            if(nama.value != ""){
-              nama.style.border = "1px solid #5E6E66";
-              nama_error.innerHTML = "";
-              return true;
-            }
-          }
-
-          function levelVerify(){
-            if(level.value != ""){
-              level.style.border = "1px solid #5E6E66";
-              level_error.innerHTML = "";
-              return true;
-            }
-          }
-
-          function passwordVerify(){
-            if(password.value != ""){
-              password.style.border = "1px solid #5E6E66";
-              password_error.innerHTML = "";
-              return true;
-            }
-          }
-      }
-  </script>
+  
 
   <script type="text/javascript">
 

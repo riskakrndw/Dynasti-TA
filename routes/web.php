@@ -246,6 +246,12 @@ Route::group(['middleware' => 'levelManager'], function(){
 
 Route::group(['middleware' => 'levelKeuangan'], function(){
 
+	//PERMINTAAN
+		Route::get('/keuangan/konfirmasi', 'PembelianController@konfirmasikeu')->name('konfirmasikeu');
+		/*melakukan lihat detail*/
+			Route::get('/keuangan/konfirmasi/lihat/{id}', 'PembelianController@showKeu');
+			Route::post('/keuangan/konfirmasi/ubah', 'PembelianController@ubahStatusKeu');
+
 	//PEMBELIAN
 		/*menampilkan halaman pembelian*/
 			Route::get('/keuangan/pembelian', 'PembelianController@index')->name('pembelianKeu');

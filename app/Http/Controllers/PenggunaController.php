@@ -25,8 +25,18 @@ class PenggunaController extends Controller
             'name' => 'required|string|max:255',
             'level' => 'required',
             'username' => 'required|string|max:255|unique:users',
-            'password' => 'required|string|min:3',
-        ]);
+            'password' => 'required|string|min:3|confirmed',
+            'password_confirmation' => 'required',
+        ],
+        [
+        'name.required' => 'Nama harus diisi',
+        'level.required' => 'Level harus dipilih',
+        'username.required' => 'Username harus diisi',
+        'password.required' => 'Kata Sandi harus diisi',
+        'password_confirmation.required' => 'Konfirmasi Kata Sandi harus diisi',
+        'password.confirmed' => 'Kata Sandi tidak sama',
+        ]
+        );
 
         $data = new User;
         $data->name = $request->name;

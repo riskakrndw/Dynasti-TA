@@ -174,6 +174,12 @@ class PembelianController extends Controller
         return view('admin.permintaan')->with('data', $data);
     }
 
+    public function konfirmasikeu(){
+        $data = Pembelian::where('status', '=', 'diterima')->get();
+        /*$dd($data);*/
+        return view('keuangan.konfirmasipermintaan')->with('data', $data);
+    }
+
     public function ubahStatus(Request $request)
     {
         $data = Pembelian::where('id', $request->id)->first();
@@ -181,6 +187,26 @@ class PembelianController extends Controller
         $data->status = $request->status;
         $data->save();
 
+        $notification = array(
+            'message' => 'Data berhasil diubah',
+            'alert-type' => 'info'
+        );
+        return redirect()->back()->with($notification);
+
+    }
+
+    public function ubahStatusKeu(Request $request)
+    {
+        $data = Pembelian::where('id', $request->id)->first();
+
+        $data->status = $request->status;
+        $data->save();
+
+        foreach ($data->detail_beli as $key => $value) {
+            $bahan = Bahan::find($value->id_bahan);
+            $bahan->stok = $bahan->stok + $value->jumlah;
+            $bahan->save();
+        }
         $notification = array(
             'message' => 'Data berhasil diubah',
             'alert-type' => 'info'
