@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Data Pengadaan")
+@section("title", "Konfirmasi Pengadaan yang Telah Dibeli")
 
 @section("beranda", "active")
 
@@ -14,11 +14,11 @@
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Data Permintaan Pengadaan yang Diterima
+        Konfirmasi Pengadaan yang Telah Dibeli
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Permintaan Pengadaan yang Diterima</li>
+        <li class="active">Konfirmasi Pengadaan yang Telah Dibeli</li>
       </ol>
     </section>
 
@@ -36,7 +36,7 @@
             <!-- header -->
               <div class="box-header">
                 <ul class="nav nav-tabs-custom">
-                  <li class="pull-left box-header"><h3 class="box-title">Daftar Permintaan Pengadaan yang Diterima</h3></li>
+                  <li class="pull-left box-header"><h3 class="box-title">Daftar Pengadaan yang Telah Dibeli</h3></li>
                 </ul>
               </div>
             <!-- /header -->
@@ -63,19 +63,20 @@
                       <td>{{ $data->total }}</td>
                       <td>
                         <a href="{{ url('keuangan/konfirmasi/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                        <br><br>
-                        <form method="post" action="{{ url('keuangan/konfirmasi/ubah') }}">
+                        <br>
+                        <form method="post" action="{{ url('keuangan/pembelian/dibeli') }}">
                           {{csrf_field()}}
                           <input class="form-control" type="hidden" name="id" id="id" value="{{ $data->id }}">
-                          <input class="form-control" type="hidden" name="status" value="berhasil">
-                          <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-check"></i> Berhasil</button>
+                          <input class="form-control" type="hidden" name="status" value="dibeli">
+                          <br>
+                          <button type="submit" class="btn btn-sm btn-default" onclick='return confirm("Apakah anda yakin telah membeli barang pengadaan?")'><i class="fa fa-check"></i> Dibeli</button>
                         </form>
                         <br>
-                        <form method="post" action="{{ url('keuangan/konfirmasi/ubah') }}">
+                        <form method="post" action="{{ url('keuangan/pembelian/gagal') }}">
                           {{csrf_field()}}
                           <input class="form-control" type="hidden" name="id" id="id" value="{{ $data->id }}">
                           <input class="form-control" type="hidden" name="status" value="gagal">
-                          <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i> Gagal</button>
+                          <button type="submit" class="btn btn-sm btn-danger" onclick='return confirm("Apakah anda yakin akan membatalkan pembelian barang pengadaan?")'><i class="fa fa-close"></i> Batal</button>
                         </form>
                         <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
                       </td>

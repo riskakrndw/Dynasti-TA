@@ -182,7 +182,7 @@ class PembelianController extends Controller
     public function konfirmasikeu(){
         $data = Pembelian::where('status', '=', 'diterima')->get();
         /*$dd($data);*/
-        return view('keuangan.konfirmasipermintaan')->with('data', $data);
+        return view('keuangan.konfirmasipembelian')->with('data', $data);
     }
 
     public function ubahStatusKeu(Request $request)

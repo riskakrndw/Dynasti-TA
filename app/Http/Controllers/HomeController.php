@@ -109,8 +109,9 @@ class HomeController extends Controller
     public function index_keuangan()
     {
         // untuk informasi beranda
-            $totalpengadaan = DB::table('pembelian')->sum('total');
+            $totalpengadaan = DB::table('pembelian')->where('status', '=', 'dibeli')->sum('total');
             $totalpenjualan = DB::table('penjualan')->sum('total');
+            $jumlahpembelian = Pembelian::where('status', '=', 'disetujui')->count();
         // untuk informasi beranda
 
         // untuk informasi grafik        
@@ -142,7 +143,7 @@ class HomeController extends Controller
             }
         // untuk informasi grafik  
 
-        return view('keuangan.beranda')->with('totalpengadaan', $totalpengadaan)->with('totalpenjualan', $totalpenjualan)->with('data', $data)->with('tahun', $tahun)->with('laporan', $laporan);
+        return view('keuangan.beranda')->with('jumlahpembelian', $jumlahpembelian)->with('totalpengadaan', $totalpengadaan)->with('totalpenjualan', $totalpenjualan)->with('data', $data)->with('tahun', $tahun)->with('laporan', $laporan);
     }
 
     public function index_pengadaan()

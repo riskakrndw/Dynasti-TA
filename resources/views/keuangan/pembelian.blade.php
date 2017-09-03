@@ -67,8 +67,8 @@
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
-                           <a href="{{ url('pengadaan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                           <a href="{{ url('pengadaan/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                           <a href="{{ url('keuangan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('keuangan/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
                            <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
                          </td>
                         </tr>
@@ -99,7 +99,7 @@
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
-                            <a href="{{ url('pengadaan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                            <a href="{{ url('keuangan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach
@@ -129,7 +129,7 @@
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
-                            <a href="{{ url('pengadaan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                            <a href="{{ url('keuangan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                             <form method="post" action="{{ url('keuangan/pembelian/dibeli') }}">
                               {{csrf_field()}}
                               <input class="form-control" type="hidden" name="id" id="id" value="{{ $data->id }}">
@@ -173,7 +173,7 @@
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
-                           <a href="{{ url('pengadaan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('keuangan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach
@@ -202,7 +202,7 @@
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
-                            <a href="{{ url('pengadaan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                            <a href="{{ url('keuangan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach
@@ -231,7 +231,7 @@
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
-                           <a href="{{ url('pengadaan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('keuangan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach
@@ -260,7 +260,7 @@
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
-                           <a href="{{ url('pengadaan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('keuangan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach

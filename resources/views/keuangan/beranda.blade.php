@@ -33,11 +33,8 @@
             <!-- small box -->
             <div class="small-box bg-green">
               <div class="inner">
-                <h4>Rp {{ number_format($totalpengadaan,2,",","." ) }}</h4>
+                <h3>Rp {{ number_format($totalpengadaan,2,",","." ) }}</h3>
                 <p>Total Pengadaan</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-android-cart"></i>
               </div>
               <a href="{{route('pembelianKeu')}}" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -47,11 +44,11 @@
             <!-- small box -->
             <div class="small-box bg-red">
               <div class="inner">
-                <h4>1</h4>
-                <p>Permintaan Pengadaan yang Diterima</p>
+                <h3>{{ $jumlahpembelian }}</h3>
+                <p>Konfirmasi Pengadaan yang Telah Dibeli</p>
               </div>
               <div class="icon">
-                <i class="ion ion-pricetags"></i>
+                <i class="ion ion-plus"></i>
               </div>
               <a href="{{route('konfirmasikeu')}}" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -61,11 +58,8 @@
             <!-- small box -->
             <div class="small-box bg-red">
               <div class="inner">
-                <h4>Rp {{ number_format($totalpenjualan,2,",","." ) }}</h4>
+                <h3>Rp {{ number_format($totalpenjualan,2,",","." ) }}</h3>
                 <p>Total Penjualan</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pricetags"></i>
               </div>
               <a href="{{route('penjualanKeu')}}" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -74,7 +68,7 @@
         </div>
       <!-- /Info beranda -->
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">
@@ -153,7 +147,7 @@
           </div>
         </div>
       </div>
-
+ -->
     </section>
     <!-- /. main content -->
   </div>

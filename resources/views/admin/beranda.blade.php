@@ -45,7 +45,7 @@
               <div class="inner">
                 <h3>{{ $jumlahpermintaan }}</h3>
 
-                <p>Permintaan Pengadaan</p>
+                <p>Konfirmasi Permintaan Pengadaan</p>
               </div>
               <div class="icon">
                 <i class="ion ion-plus-round"></i>
