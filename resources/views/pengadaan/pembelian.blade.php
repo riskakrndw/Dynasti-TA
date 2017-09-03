@@ -40,8 +40,11 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#semua" data-toggle="tab">Semua</a></li>
-              <li><a href="#menunggu" data-toggle="tab">Menunggu</a></li>
-              <li><a href="#berhasil" data-toggle="tab">Berhasil</a></li>
+              <li><a href="#menunggu" data-toggle="tab">Menunggu Persetujuan</a></li>
+              <li><a href="#disetujui" data-toggle="tab">Permintaan Disetujui</a></li>
+              <li><a href="#ditolak" data-toggle="tab">Permintaan Ditolak</a></li>
+              <li><a href="#dibeli" data-toggle="tab">Dibeli</a></li>
+              <li><a href="#diterima" data-toggle="tab">Diterima</a></li>
               <li><a href="#gagal" data-toggle="tab">Gagal</a></li>
             </ul>
             <div class="tab-content">
@@ -83,9 +86,9 @@
                     <thead>
                       <tr>
                         <th style="width: 0px">No</th>
-                        <th style="width: 25px">Kode Pengadaan</th>
-                        <th style="width: 50px">Tanggal</th>
-                        <th style="width: 50px">Total</th>
+                        <th style="width: 210px">Kode Pengadaan</th>
+                        <th style="width: 168px">Tanggal</th>
+                        <th style="width: 168px">Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -97,9 +100,7 @@
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
-                           <a href="{{ url('pengadaan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                           <a href="{{ url('pengadaan/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
-                           <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
+                            <a href="{{ url('pengadaan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach
@@ -109,29 +110,27 @@
               </div>
               <!-- /.tab-pane -->
 
-              <div class="tab-pane" id="berhasil">
+              <div class="tab-pane" id="disetujui">
                 <div class="box-body table-responsive">
                   <table id="example13" class="table table-bordered table-hover">
                     <thead>
                       <tr>
                         <th style="width: 0px">No</th>
-                        <th style="width: 25px">Kode Pengadaan</th>
-                        <th style="width: 50px">Tanggal</th>
-                        <th style="width: 50px">Total</th>
+                        <th style="width: 210px">Kode Pengadaan</th>
+                        <th style="width: 168px">Tanggal</th>
+                        <th style="width: 168px">Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
                       <?php $no=1; ?>
-                      @foreach($databerhasil as $data)
+                      @foreach($datadisetujui as $data)
                         <tr>
                           <td>{{ $no++ }}</td>
                           <td>{{ $data->kode_pembelian }}</td>
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
-                           <a href="{{ url('pengadaan/pengadaan/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                           <a href="{{ url('pengadaan/pengadaan/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
-                           <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
+                           <a href="{{ url('pengadaan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach
@@ -141,15 +140,109 @@
               </div>
               <!-- /.tab-pane -->
 
-              <div class="tab-pane" id="gagal">
+              <div class="tab-pane" id="ditolak">
+                <div class="box-body table-responsive">
+                  <table id="example14" class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th style="width: 0px">No</th>
+                        <th style="width: 210px">Kode Pengadaan</th>
+                        <th style="width: 168px">Tanggal</th>
+                        <th style="width: 168px">Total</th>
+                        <th>Aksi</th>
+                    </thead>
+                    <tbody>
+                      <?php $no=1; ?>
+                      @foreach($dataditolak as $data)
+                        <tr>
+                          <td>{{ $no++ }}</td>
+                          <td>{{ $data->kode_pembelian }}</td>
+                          <td>{{ $data->tgl }}</td>
+                          <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
+                          <td>
+                           <a href="{{ url('pengadaan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                         </td>
+                        </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="tab-pane" id="dibeli">
                 <div class="box-body table-responsive">
                   <table id="example15" class="table table-bordered table-hover">
                     <thead>
                       <tr>
                         <th style="width: 0px">No</th>
-                        <th style="width: 25px">Kode Pengadaan</th>
-                        <th style="width: 50px">Tanggal</th>
-                        <th style="width: 50px">Total</th>
+                        <th style="width: 210px">Kode Pengadaan</th>
+                        <th style="width: 168px">Tanggal</th>
+                        <th style="width: 168px">Total</th>
+                        <th>Aksi</th>
+                    </thead>
+                    <tbody>
+                      <?php $no=1; ?>
+                      @foreach($datadibeli as $data)
+                        <tr>
+                          <td>{{ $no++ }}</td>
+                          <td>{{ $data->kode_pembelian }}</td>
+                          <td>{{ $data->tgl }}</td>
+                          <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
+                          <td>
+                            <a href="{{ url('pengadaan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                            <form method="post" action="{{ url('pengadaan/pembelian/diterima') }}">
+                              {{csrf_field()}}
+                              <input class="form-control" type="hidden" name="id" id="id" value="{{ $data->id }}">
+                              <input class="form-control" type="hidden" name="status" value="diterima">
+                              <br>
+                              <button type="submit" class="btn btn-sm btn-default" onclick='return confirm("Apakah anda yakin telah menerima barang pengadaan?")'><i class="fa fa-check"></i> Diterima</button>
+                            </form>
+                         </td>
+                        </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="tab-pane" id="diterima">
+                <div class="box-body table-responsive">
+                  <table id="example16" class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th style="width: 0px">No</th>
+                        <th style="width: 210px">Kode Pengadaan</th>
+                        <th style="width: 168px">Tanggal</th>
+                        <th style="width: 168px">Total</th>
+                        <th>Aksi</th>
+                    </thead>
+                    <tbody>
+                      <?php $no=1; ?>
+                      @foreach($dataditerima as $data)
+                        <tr>
+                          <td>{{ $no++ }}</td>
+                          <td>{{ $data->kode_pembelian }}</td>
+                          <td>{{ $data->tgl }}</td>
+                          <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
+                          <td>
+                           <a href="{{ url('pengadaan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                         </td>
+                        </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="tab-pane" id="gagal">
+                <div class="box-body table-responsive">
+                  <table id="example17" class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th style="width: 0px">No</th>
+                        <th style="width: 210px">Kode Pengadaan</th>
+                        <th style="width: 168px">Tanggal</th>
+                        <th style="width: 168px">Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -161,9 +254,7 @@
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
-                           <a href="{{ url('pengadaan/pengadaan/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                           <a href="{{ url('pengadaan/pengadaan/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
-                           <!-- <a type="button" href="{{route('hapusPembelian', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button> -->
+                           <a href="{{ url('pengadaan/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach
@@ -171,6 +262,7 @@
                   </table>
                 </div>
               </div>
+
             </div>
             <!-- /.tab-content -->
           </div>

@@ -394,7 +394,7 @@
           
             $.ajax({
                 type: "GET",
-                url: "/dynasti/public/manager/pembelian/ubah/"+idbeli+"/"+pengguna+"/"+datepicker+"/"+total+"/"+status,
+                url: "/dynasti/public/manager/pembelian/ubah/"+idbeli+"/"+pengguna+"/"+datepicker+"/"+total,
                 success: function(result) {
 
                 }

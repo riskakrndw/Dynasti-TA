@@ -34,10 +34,7 @@
               <div class="inner">
                 <h3>{{ $totalstokbahan }}</h3>
 
-                <p>Jumlah Bahan Baku <br> di Bawah Stok Minimal</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-android-cart"></i>
+                <p>Bahan Baku di Bawah Stok Minimal</p>
               </div>
               <a href="{{route('stokBahan')}}" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -62,10 +59,7 @@
               <div class="inner">
                 <h3>{{ $totalstokes }}</h3>
 
-                <p>Jumlah Ice Cream <br> di Bawah Stok Minimal</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pricetags"></i>
+                <p>Ice Cream di Bawah Stok Minimal</p>
               </div>
               <a href="{{route('stokIce')}}" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
             </div>

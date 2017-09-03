@@ -26,6 +26,8 @@
     $("#example13").DataTable();
     $("#example14").DataTable();
     $("#example15").DataTable();
+    $("#example16").DataTable();
+    $("#example17").DataTable();
 
     $("#example21").DataTable();
     $("#example22").DataTable();

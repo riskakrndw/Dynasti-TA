@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 use Illuminate\Http\Request;
 use App\Pembelian;
@@ -84,13 +85,25 @@ class HomeController extends Controller
 
     public function stokBahan(){
 
-        $data = DB::select("select * from bahan_baku where stok < stok_min");
-        return view('admin.stokBahan')->with('data', $data);
+        
+
+        if(Auth::user()->level == "manager"){
+            $data = DB::select("select * from bahan_baku where stok < stok_min");
+            return view('admin.stokBahan')->with('data', $data);
+        } elseif (Auth::user()->level == "pengadaan"){
+            $data = DB::select("select * from bahan_baku where stok < stok_min");
+            return view('pengadaan.stokBahan')->with('data', $data);
+        }
     }
 
     public function stokIce(){
-        $data = IceCream::where('stok', '<', '100')->get();
-        return view('admin.stokIce')->with('data', $data);
+        if(Auth::user()->level == "manager"){
+            $data = IceCream::where('stok', '<', '100')->get();
+            return view('admin.stokIce')->with('data', $data);
+        } elseif (Auth::user()->level == "pengadaan"){
+            $data = IceCream::where('stok', '<', '100')->get();
+            return view('pengadaan.stokIce')->with('data', $data);
+        }
     }
 
     public function index_keuangan()
@@ -134,7 +147,12 @@ class HomeController extends Controller
 
     public function index_pengadaan()
     {
-        return view('pengadaan.beranda');
+        // untuk info beranda
+            $jumlahpenerimaan = Pembelian::where('status', '=', 'dibeli')->count();
+            $totalstokbahan = count(DB::select("select * from bahan_baku where stok < stok_min"));
+            $totalstokes = IceCream::where('stok', '<', '100')->count();
+        // untuk info beranda
+        return view('pengadaan.beranda')->with('jumlahpenerimaan', $jumlahpenerimaan)->with('totalstokbahan', $totalstokbahan)->with('totalstokes', $totalstokes);
     }
 
     public function index_produksi()

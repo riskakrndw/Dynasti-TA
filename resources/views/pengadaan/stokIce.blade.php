@@ -2,7 +2,7 @@
 
 @section("title", "Ice Cream")
 
-@section("beranda", "active")
+@section("berandapeng", "active")
 
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
@@ -27,7 +27,7 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
-          <a href="{{route('beranda')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman beranda </button></a>
+          <a href="{{route('berandapeng')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman beranda </button></a>
         </div>
 
         <!-- Data es -->

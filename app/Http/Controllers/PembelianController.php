@@ -17,19 +17,31 @@ class PembelianController extends Controller
     {
         if(Auth::user()->level == "manager"){
             $data = Pembelian::all();
-            $databerhasil = Pembelian::where('status', '=', 'berhasil')->get();
             $datamenunggu = Pembelian::where('status', '=', 'menunggu')->get();
+            $datadisetujui = Pembelian::where('status', '=', 'disetujui')->get();
+            $dataditolak = Pembelian::where('status', '=', 'ditolak')->get();
+            $datadibeli = Pembelian::where('status', '=', 'dibeli')->get();
+            $dataditerima = Pembelian::where('status', '=', 'diterima')->get();
             $datagagal = Pembelian::where('status', '=', 'gagal')->get();
-            return view('admin.pembelian')->with('data', $data)->with('databerhasil', $databerhasil)->with('datamenunggu', $datamenunggu)->with('datagagal', $datagagal);
+            return view('admin.pembelian')->with('data', $data)->with('datamenunggu', $datamenunggu)->with('datadisetujui', $datadisetujui)->with('dataditolak', $dataditolak)->with('datadibeli', $datadibeli)->with('dataditerima', $dataditerima)->with('datagagal', $datagagal);
         } elseif (Auth::user()->level == "keuangan"){
-            $databerhasil = Pembelian::where('status', '=', 'berhasil')->get();
-            return view('keuangan.pembelian')->with('databerhasil', $databerhasil);
+            $data = Pembelian::all();
+            $datamenunggu = Pembelian::where('status', '=', 'menunggu')->get();
+            $datadisetujui = Pembelian::where('status', '=', 'disetujui')->get();
+            $dataditolak = Pembelian::where('status', '=', 'ditolak')->get();
+            $datadibeli = Pembelian::where('status', '=', 'dibeli')->get();
+            $dataditerima = Pembelian::where('status', '=', 'diterima')->get();
+            $datagagal = Pembelian::where('status', '=', 'gagal')->get();
+            return view('keuangan.pembelian')->with('data', $data)->with('datamenunggu', $datamenunggu)->with('datadisetujui', $datadisetujui)->with('dataditolak', $dataditolak)->with('datadibeli', $datadibeli)->with('dataditerima', $dataditerima)->with('datagagal', $datagagal);
         } elseif (Auth::user()->level == "pengadaan"){
             $data = Pembelian::all();
-            $databerhasil = Pembelian::where('status', '=', 'berhasil')->get();
             $datamenunggu = Pembelian::where('status', '=', 'menunggu')->get();
+            $datadisetujui = Pembelian::where('status', '=', 'disetujui')->get();
+            $dataditolak = Pembelian::where('status', '=', 'ditolak')->get();
+            $datadibeli = Pembelian::where('status', '=', 'dibeli')->get();
+            $dataditerima = Pembelian::where('status', '=', 'diterima')->get();
             $datagagal = Pembelian::where('status', '=', 'gagal')->get();
-            return view('pengadaan.pembelian')->with('data', $data)->with('databerhasil', $databerhasil)->with('datamenunggu', $datamenunggu)->with('datagagal', $datagagal);
+            return view('pengadaan.pembelian')->with('data', $data)->with('datamenunggu', $datamenunggu)->with('datadisetujui', $datadisetujui)->with('dataditolak', $dataditolak)->with('datadibeli', $datadibeli)->with('dataditerima', $dataditerima)->with('datagagal', $datagagal);
         }
         
     }
@@ -57,9 +69,9 @@ class PembelianController extends Controller
         $data->tgl = $datepicker;
         $data->total = $total;
         if(Auth::user()->level == "manager"){
-            $data->status = "berhasil";
+            $data->status = "diterima";
         } elseif (Auth::user()->level == "keuangan"){
-            $data->status = "berhasil";
+            $data->status = "diterima";
         } elseif (Auth::user()->level == "pengadaan"){
             $data->status = "menunggu";
         }
@@ -88,20 +100,13 @@ class PembelianController extends Controller
 
     }
 
-    public function ubah($id_beli, $pengguna, $datepicker, $total, $status)
+    public function ubah($id_beli, $pengguna, $datepicker, $total)
     {
         $data = Pembelian::find($id_beli);
         $data->kode_pembelian = 'BL/' . $datepicker . '/' . $data->id;
         $data->id_users = $pengguna;
         $data->tgl = $datepicker;
         $data->total = $total;
-        if(Auth::user()->level == "manager"){
-            $data->status = "berhasil";
-        } elseif (Auth::user()->level == "keuangan"){
-            $data->status = "berhasil";
-        } elseif (Auth::user()->level == "pengadaan"){
-            $data->status = "menunggu";
-        }
         $data->save();
 
         return $data->id;
@@ -180,21 +185,6 @@ class PembelianController extends Controller
         return view('keuangan.konfirmasipermintaan')->with('data', $data);
     }
 
-    public function ubahStatus(Request $request)
-    {
-        $data = Pembelian::where('id', $request->id)->first();
-
-        $data->status = $request->status;
-        $data->save();
-
-        $notification = array(
-            'message' => 'Data berhasil diubah',
-            'alert-type' => 'info'
-        );
-        return redirect()->back()->with($notification);
-
-    }
-
     public function ubahStatusKeu(Request $request)
     {
         $data = Pembelian::where('id', $request->id)->first();
@@ -213,6 +203,89 @@ class PembelianController extends Controller
         );
         return redirect()->back()->with($notification);
 
+    }
+
+    public function pembelianDisetujui(Request $request)
+    {
+        $data = Pembelian::where('id', $request->id)->first();
+
+        $data->status = $request->status;
+        $data->save();
+        
+        $notification = array(
+            'message' => 'Permintaan berhasil disetujui',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function pembelianDitolak(Request $request)
+    {
+        $data = Pembelian::where('id', $request->id)->first();
+
+        $data->status = $request->status;
+        $data->save();
+        
+        $notification = array(
+            'message' => 'Permintaan berhasil ditolak',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function pembelianDibeli(Request $request)
+    {
+        $data = Pembelian::where('id', $request->id)->first();
+
+        $data->status = $request->status;
+        $data->save();
+        
+        $notification = array(
+            'message' => 'Barang pengadaan telah dibeli',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function pembelianGagal(Request $request)
+    {
+        $data = Pembelian::where('id', $request->id)->first();
+
+        $data->status = $request->status;
+        $data->save();
+
+        $notification = array(
+            'message' => 'Pembelian berhasil dibatalkan',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function pembelianDiterima(Request $request)
+    {
+        $data = Pembelian::where('id', $request->id)->first();
+
+        $data->status = $request->status;
+        $data->save();
+
+        foreach ($data->detail_beli as $key => $value) {
+            $bahan = Bahan::find($value->id_bahan);
+            $bahan->stok = $bahan->stok + $value->jumlah;
+            $bahan->save();
+        }
+        $notification = array(
+            'message' => 'Barang pengadaan telah diterima',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    }
+
+    //UNTUK DI USER PENGADAAN
+    public function konfirmasipenerimaan(){
+        $data = Pembelian::where('status', '=', 'dibeli')->get();
+        /*$dd($data);*/
+        return view('pengadaan.konfirmasipenerimaan')->with('data', $data);
     }
 
 }

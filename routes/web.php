@@ -141,13 +141,20 @@ Route::group(['middleware' => 'levelManager'], function(){
 		/*melakukan ubah*/
 			Route::get('/manager/pembelian/hapusDetailPembelian/{id}', 'PembelianController@hapusDetailPembelian')->name('hapusDetailPembelian');
 			Route::get('/manager/pembelian/edit/{id}', 'PembelianController@showEdit');
-			Route::get('/manager/pembelian/ubah/{id_beli}/{pengguna}/{datepicker}/{total}/{status}', 'PembelianController@ubah');
+			Route::get('/manager/pembelian/ubah/{id_beli}/{pengguna}/{datepicker}/{total}', 'PembelianController@ubah');
+		// ubah status pembelian
+			Route::post('/manager/pembelian/disetujui', 'PembelianController@pembelianDisetujui');
+			Route::post('/manager/pembelian/ditolak', 'PembelianController@pembelianDitolak');
+			Route::post('/manager/pembelian/dibeli', 'PembelianController@pembelianDibeli');
+			Route::post('/manager/pembelian/gagal', 'PembelianController@pembelianGagal');
+			Route::post('/manager/pembelian/diterima', 'PembelianController@pembelianDiterima');
 
 	//PERMINTAAN
 			Route::get('/manager/konfirmasi', 'PembelianController@konfirmasi')->name('konfirmasi');
 		/*melakukan lihat detail*/
 			Route::get('/manager/konfirmasi/lihat/{id}', 'PembelianController@show');
-			Route::post('/manager/konfirmasi/ubah', 'PembelianController@ubahStatus');
+			Route::post('/manager/konfirmasi/disetujui', 'PembelianController@pembelianDisetujui');
+			Route::post('/manager/konfirmasi/ditolak', 'PembelianController@pembelianDitolak');
 
 	//STOK BAHAN
 		Route::get('/manager/stok-bahan', 'HomeController@stokBahan')->name('stokBahan');
@@ -304,6 +311,21 @@ Route::group(['middleware' => 'levelPengadaan'], function(){
 			Route::get('/pengadaan/pembelian/hapusDetailPembelian/{id}', 'PembelianController@hapusDetailPembelian')->name('hapusDetailPembelianPeng');
 			Route::get('/pengadaan/pembelian/edit/{id}', 'PembelianController@showEdit');
 			Route::get('/pengadaan/pembelian/ubah/{id_beli}/{pengguna}/{datepicker}/{total}/{status}', 'PembelianController@ubah');
+
+
+			Route::post('/pengadaan/pembelian/diterima', 'PembelianController@pembelianDiterima');
+
+	//STOK BAHAN
+		Route::get('/pengadaan/stok-bahan', 'HomeController@stokBahan')->name('stokBahanPengadaan');
+
+	//STOK ES
+		Route::get('/pengadaan/stok-ice', 'HomeController@stokIce')->name('stokIcePengadaan');
+
+	//PENERIMAAN
+		Route::get('/pengadaan/konfirmasi', 'PembelianController@konfirmasipenerimaan')->name('konfirmasipenerimaan');
+		/*melakukan lihat detail*/
+			Route::get('/pengadaan/konfirmasi/lihat/{id}', 'PembelianController@showKeu');
+			Route::post('/pengadaan/konfirmasi/ubah', 'PembelianController@ubahStatusKeu');
 
 	//ICECREAM
 		/*menampilkan halaman es*/
