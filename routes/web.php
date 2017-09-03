@@ -275,6 +275,9 @@ Route::group(['middleware' => 'levelKeuangan'], function(){
 			Route::get('/keuangan/pembelian/hapusDetailPembelian/{id}', 'PembelianController@hapusDetailPembelian')->name('hapusDetailPembelianKeu');
 			Route::get('/keuangan/pembelian/edit/{id}', 'PembelianController@showEdit');
 			Route::get('/keuangan/pembelian/ubah/{id_beli}/{pengguna}/{datepicker}/{total}/{status}', 'PembelianController@ubah');
+		// ubah status
+			Route::post('/keuangan/pembelian/dibeli', 'PembelianController@pembelianDibeli');
+			Route::post('/keuangan/pembelian/gagal', 'PembelianController@pembelianGagal');
 
 	//PENJUALAN
 		/*menampilkan halaman penjualan*/

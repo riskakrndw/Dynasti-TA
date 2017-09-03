@@ -52,7 +52,7 @@
               <div class="icon">
                 <i class="ion ion-plus-round"></i>
               </div>
-              <a href="{{route('konfirmasi')}}" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="{{route('konfirmasipenerimaan')}}" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
 

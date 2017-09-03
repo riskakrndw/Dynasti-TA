@@ -26,7 +26,7 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
-          <a href="{{route('beranda')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman beranda </button></a>
+          <a href="{{route('berandapeng')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman beranda </button></a>
         </div> 
 
         <!-- Data es -->
@@ -63,7 +63,7 @@
                       <td>{{ $data->total }}</td>
                       <td>
                         <a href="{{ url('pengadaan/konfirmasi/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                        <br><br>
+                        <br>
                         <form method="post" action="{{ url('pengadaan/pembelian/diterima') }}">
                           {{csrf_field()}}
                           <input class="form-control" type="hidden" name="id" id="id" value="{{ $data->id }}">

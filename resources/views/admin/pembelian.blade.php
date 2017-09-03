@@ -153,10 +153,10 @@
                               <button type="submit" class="btn btn-sm btn-default" onclick='return confirm("Apakah anda yakin telah membeli barang pengadaan?")'><i class="fa fa-check"></i> Dibeli</button>
                             </form>
                             <br>
-                            <form method="post" action="{{ url('manager/pembelian/diterima') }}">
+                            <form method="post" action="{{ url('manager/pembelian/gagal') }}">
                               {{csrf_field()}}
                               <input class="form-control" type="hidden" name="id" id="id" value="{{ $data->id }}">
-                              <input class="form-control" type="hidden" name="status" value="diterima">
+                              <input class="form-control" type="hidden" name="status" value="gagal">
                               <button type="submit" class="btn btn-sm btn-danger" onclick='return confirm("Apakah anda yakin akan membatalkan pembelian barang pengadaan?")'><i class="fa fa-close"></i> Batal</button>
                             </form>
                           </td>
