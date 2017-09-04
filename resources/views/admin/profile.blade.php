@@ -27,7 +27,7 @@
         <!-- Data Pribadi -->
         <div class="col-md-2"></div>
           <div class="col-md-8">
-            <div class="box box-success">
+            <div class="box">
               <ul class="nav nav-tabs-custom">
                 <li class="pull-left box-header"><h3 class="box-title">Data Pribadi</h3></li>
                 <div class="btn-group pull-right">
@@ -58,6 +58,12 @@
                       <input class="form-control"
                       @if(Auth::user()->level == "manager")
                         placeholder="Manager"
+                      @elseif(Auth::user()->level == "keuangan")
+                        placeholder="Bagian Keuangan"
+                      @elseif(Auth::user()->level == "pengadaan")
+                        placeholder="Bagian Pengadaan"
+                      @elseif(Auth::user()->level == "produksi")
+                        placeholder="Bagian Produksi"
                       @endif
                       " disabled>
                     </div>

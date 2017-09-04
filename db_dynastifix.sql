@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 04 Sep 2017 pada 05.06
+-- Generation Time: 04 Sep 2017 pada 05.20
 -- Versi Server: 10.1.19-MariaDB
 -- PHP Version: 5.6.24
 
@@ -97,6 +97,15 @@ CREATE TABLE `detail_pemesanan` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `detail_pemesanan`
+--
+
+INSERT INTO `detail_pemesanan` (`id`, `id_pemesanan`, `id_es`, `jumlah`, `subtotal`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '1', 1, 56, 224000, 'menunggu', '2017-09-04 03:16:49', '2017-09-04 03:16:49', NULL),
+(2, '2', 1, 200, 800000, 'menunggu', '2017-09-04 03:18:41', '2017-09-04 03:18:41', NULL),
+(3, '2', 2, 300, 900000, 'menunggu', '2017-09-04 03:18:41', '2017-09-04 03:18:41', NULL);
 
 -- --------------------------------------------------------
 
@@ -325,6 +334,14 @@ CREATE TABLE `pemesanan` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data untuk tabel `pemesanan`
+--
+
+INSERT INTO `pemesanan` (`id`, `id_users`, `kode_pemesanan`, `nama`, `alamat`, `telepon`, `tanggal`, `total`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 5, 'PSN/2017-9-8/1', 'sss', 'fdfsfssf', '4444', '2017-09-08', 224000, 'batal', '2017-09-04 03:16:49', '2017-09-04 03:17:43', NULL),
+(2, 5, 'PSN/2017-9-14/2', 'sssss', 'aasdads', '3333', '2017-09-14', 1700000, 'menunggu', '2017-09-04 03:18:41', '2017-09-04 03:18:41', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -416,9 +433,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `level`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(5, 'maulana rizki', 'manager', 'manager', '$2y$10$yn0O9MHvhOW5TpZXJHRsoeOBAokFDuB/tYavYWS.mLjyRzTO.i4ly', '1PyJg9qYaJhzXD5Ss2VJxZRW2tSUD3I0ViWPqyiIthvpzFYOK8PK8JDcmSbF', '2017-06-20 04:21:13', '2017-09-04 00:56:42'),
-(8, 'riska kurnia', 'pengadaan', 'pengadaan', '$2y$10$SjVXFiVt3v6ntCBxmGX3uuJH5JmruTLKNZWShEEQakvyc4yznPmy6', NULL, '2017-09-04 00:57:26', '2017-09-04 00:57:26'),
-(9, 'Dewi', 'keuangan', 'keuangan', '$2y$10$GH62flhlbj7cpa7X8mlTE.J0nPAifql2XwsEKVz8kL7AqKUvuqb6y', NULL, '2017-09-04 00:58:04', '2017-09-04 00:58:04'),
+(5, 'maulana rizki s', 'manager', 'manager', '$2y$10$yn0O9MHvhOW5TpZXJHRsoeOBAokFDuB/tYavYWS.mLjyRzTO.i4ly', '1PyJg9qYaJhzXD5Ss2VJxZRW2tSUD3I0ViWPqyiIthvpzFYOK8PK8JDcmSbF', '2017-06-20 04:21:13', '2017-09-04 03:14:49'),
+(8, 'riska kurnia dewi', 'pengadaan', 'pengadaan', '$2y$10$SjVXFiVt3v6ntCBxmGX3uuJH5JmruTLKNZWShEEQakvyc4yznPmy6', NULL, '2017-09-04 00:57:26', '2017-09-04 03:15:08'),
+(9, 'Dewi Kurnia', 'keuangan', 'keuangan', '$2y$10$GH62flhlbj7cpa7X8mlTE.J0nPAifql2XwsEKVz8kL7AqKUvuqb6y', NULL, '2017-09-04 00:58:04', '2017-09-04 03:15:00'),
 (10, 'putri', 'produksi', 'produksi', '$2y$10$dtbq2j0X/0MFLoy9lK1Sl.uYxSA477bcmMBI31O16o5DGNAglLMcm', NULL, '2017-09-04 00:58:23', '2017-09-04 00:58:23');
 
 --
@@ -547,7 +564,7 @@ ALTER TABLE `detail_pembelian`
 -- AUTO_INCREMENT for table `detail_pemesanan`
 --
 ALTER TABLE `detail_pemesanan`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `detail_penjualan`
 --
@@ -587,7 +604,7 @@ ALTER TABLE `pembelian`
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `penjualan`
 --
