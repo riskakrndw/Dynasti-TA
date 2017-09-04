@@ -273,7 +273,7 @@
 
         if(wh == true)
         {
-          alert('ga bisa produksi')
+          alert('Bahan baku tidak mencukupi. Harap melakukan pengadaan bahan baku terlebih dahulu')
           $('#submit').attr('disabled',true);
         }else{
           $('#submit').attr('disabled',false);

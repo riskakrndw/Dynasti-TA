@@ -80,7 +80,7 @@
           <div id="editStok" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title">Ubah Data Jenis</h4>
+              <h4 class="modal-title">Ubah Stok</h4>
             </div>
             <div class="modal-body modal-primary">
               <form role="form" action="{{url('manager/icecream/edit')}}" method="POST">
