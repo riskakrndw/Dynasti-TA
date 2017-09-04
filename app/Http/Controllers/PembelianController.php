@@ -180,7 +180,7 @@ class PembelianController extends Controller
     }
 
     public function konfirmasikeu(){
-        $data = Pembelian::where('status', '=', 'diterima')->get();
+        $data = Pembelian::where('status', '=', 'disetujui')->get();
         /*$dd($data);*/
         return view('keuangan.konfirmasipembelian')->with('data', $data);
     }

@@ -243,7 +243,7 @@
       var satuan = document.forms["vform"]["satuan"];
       var harga = document.forms["vform"]["harga"];
       var stok = document.forms["vform"]["stok"];
-      var stokmin = document.forms["vform"]["stokmin"];
+      var stokmin = document.forms["vform"]["stok_min"];
 
     //getting all error display object
       var nama_error = document.getElementById("nama_error");

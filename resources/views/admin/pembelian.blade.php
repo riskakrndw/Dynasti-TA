@@ -54,9 +54,10 @@
                     <thead>
                       <tr>
                         <th style="width: 0px">No</th>
-                        <th style="width: 210px">Kode Pengadaan</th>
-                        <th style="width: 168px">Tanggal</th>
+                        <th style="width: 150px">Kode Pengadaan</th>
+                        <th style="width: 120px">Tanggal</th>
                         <th style="width: 168px">Total</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -67,6 +68,19 @@
                           <td>{{ $data->kode_pembelian }}</td>
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
+                          @if($data->status == "menunggu")
+                            <td>Menunggu persetujuan Manager</td>
+                          @elseif($data->status == "disetujui"){
+                            <td>Permintaan pengadaan disetujui</td>
+                          @elseif($data->status == "ditolak")
+                            <td>Permintaan pengadaan ditolak</td>
+                          @elseif($data->status == "dibeli")
+                            <td>Pengadaan telah dibeli</td>
+                          @elseif($data->status == "diterima")
+                            <td>Pengadaan telah diterima</td>
+                          @elseif($data->status == "gagal")
+                            <td>Pengadaan batal dilakukan</td>
+                          @endif
                           <td>
                            <a href="{{ url('manager/pembelian/lihat/'.$data->id) }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                            <a href="{{ url('manager/pembelian/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>

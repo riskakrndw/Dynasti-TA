@@ -2,7 +2,7 @@
 
 @section("title", "Konfirmasi Penerimaan Pengadaan")
 
-@section("beranda", "active")
+@section("berandapeng", "active")
 
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />

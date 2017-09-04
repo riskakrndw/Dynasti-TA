@@ -256,7 +256,7 @@ Route::group(['middleware' => 'levelKeuangan'], function(){
 	//PERMINTAAN
 		Route::get('/keuangan/konfirmasi', 'PembelianController@konfirmasikeu')->name('konfirmasikeu');
 		/*melakukan lihat detail*/
-			Route::get('/keuangan/konfirmasi/lihat/{id}', 'PembelianController@showKeu');
+			Route::get('/keuangan/konfirmasi/lihat/{id}', 'PembelianController@show');
 			Route::post('/keuangan/konfirmasi/ubah', 'PembelianController@ubahStatusKeu');
 
 	//PEMBELIAN
@@ -327,7 +327,7 @@ Route::group(['middleware' => 'levelPengadaan'], function(){
 	//PENERIMAAN
 		Route::get('/pengadaan/konfirmasi', 'PembelianController@konfirmasipenerimaan')->name('konfirmasipenerimaan');
 		/*melakukan lihat detail*/
-			Route::get('/pengadaan/konfirmasi/lihat/{id}', 'PembelianController@showKeu');
+			Route::get('/pengadaan/konfirmasi/lihat/{id}', 'PembelianController@show');
 			Route::post('/pengadaan/konfirmasi/ubah', 'PembelianController@ubahStatusKeu');
 
 	//ICECREAM
