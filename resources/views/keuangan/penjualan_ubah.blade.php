@@ -68,7 +68,7 @@
                           <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" class="form-control pull-right" id="datepicker" value="{{ $data->tgl }}" >
+                          <input type="text" class="form-control pull-right" id="datepicker" value="{{ $data->tgl }}" name="tanggal">
                         </div>
                         <span class="help-block val_error" id="tanggal_error" style="color:red;"></span>
                       </div>
