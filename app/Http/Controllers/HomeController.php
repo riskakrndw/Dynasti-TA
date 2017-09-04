@@ -109,7 +109,7 @@ class HomeController extends Controller
     public function index_keuangan()
     {
         // untuk informasi beranda
-            $totalpengadaan = DB::table('pembelian')->where('status', '=', 'dibeli')->sum('total');
+            $totalpengadaan = DB::table('pembelian')->where('status', '=', 'diterima')->sum('total');
             $totalpenjualan = DB::table('penjualan')->sum('total');
             $jumlahpembelian = Pembelian::where('status', '=', 'disetujui')->count();
         // untuk informasi beranda
