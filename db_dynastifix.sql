@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 05 Sep 2017 pada 09.12
+-- Generation Time: 05 Sep 2017 pada 11.55
 -- Versi Server: 10.1.19-MariaDB
 -- PHP Version: 5.6.24
 
@@ -202,7 +202,9 @@ CREATE TABLE `detail_rasa` (
 
 INSERT INTO `detail_rasa` (`id`, `id_rasa`, `id_bahan`, `takaran`, `created_at`, `updated_at`) VALUES
 (1, 2, 3, 6, '2017-09-04 01:40:24', '2017-09-04 01:40:24'),
-(2, 2, 4, 110, '2017-09-04 01:40:24', '2017-09-04 01:40:24');
+(2, 2, 4, 110, '2017-09-04 01:40:24', '2017-09-04 01:40:24'),
+(3, 3, 4, 11, '2017-09-05 08:55:15', '2017-09-05 08:55:15'),
+(4, 4, 4, 5, '2017-09-05 09:40:23', '2017-09-05 09:40:23');
 
 -- --------------------------------------------------------
 
@@ -216,6 +218,7 @@ CREATE TABLE `ice_cream` (
   `id_rasa` int(3) DEFAULT NULL,
   `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `stok` int(10) DEFAULT '0',
+  `stok_min` int(10) NOT NULL,
   `jumlah_produksi` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -226,9 +229,12 @@ CREATE TABLE `ice_cream` (
 -- Dumping data untuk tabel `ice_cream`
 --
 
-INSERT INTO `ice_cream` (`id`, `id_jenis`, `id_rasa`, `nama`, `stok`, `jumlah_produksi`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 15, 2, 'Ice Cream cup kecill vanilla', 10, 50, '2017-09-04 01:40:24', '2017-09-05 06:33:52', NULL),
-(2, 14, 2, 'Ice Cream stik vanilla', 18499, 50, '2017-09-04 01:40:24', '2017-09-04 05:24:34', NULL);
+INSERT INTO `ice_cream` (`id`, `id_jenis`, `id_rasa`, `nama`, `stok`, `stok_min`, `jumlah_produksi`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 15, 2, 'Ice Cream cup kecill vanilla', 0, 10, 50, '2017-09-04 01:40:24', '2017-09-05 09:39:08', NULL),
+(2, 14, 2, 'Ice Cream stik vanilla', 0, 38, 50, '2017-09-04 01:40:24', '2017-09-05 09:39:08', NULL),
+(3, 15, 3, 'Ice Cream cup kecill matcha', 50, 10, 50, '2017-09-05 08:55:15', '2017-09-05 09:41:06', NULL),
+(4, 16, 4, 'Ice Cream cup besar strawberry', 60, 35, 80, '2017-09-05 09:40:23', '2017-09-05 09:49:34', NULL),
+(5, 15, 4, 'Ice Cream cup kecill strawberry', 760, 54, 57, '2017-09-05 09:40:23', '2017-09-05 09:49:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -449,7 +455,9 @@ CREATE TABLE `rasa` (
 --
 
 INSERT INTO `rasa` (`id`, `nama`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, 'vanilla', '2017-09-04 01:40:23', '2017-09-04 01:40:23', NULL);
+(2, 'vanilla', '2017-09-04 01:40:23', '2017-09-04 01:40:23', NULL),
+(3, 'matcha', '2017-09-05 08:55:15', '2017-09-05 08:55:15', NULL),
+(4, 'strawberry', '2017-09-05 09:40:23', '2017-09-05 09:40:23', NULL);
 
 -- --------------------------------------------------------
 
@@ -473,7 +481,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `level`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(10, 'putri', 'manager', 'manager', '$2y$10$dtbq2j0X/0MFLoy9lK1Sl.uYxSA477bcmMBI31O16o5DGNAglLMcm', 'Bscuwhgvs4MFohbRs3A6Uz08qKHyam22m0LOpqMaetNRWZORcZujBjb5FPek', '2017-09-04 00:58:23', '2017-09-04 00:58:23'),
+(10, 'putri', 'manager', 'manager', '$2y$10$dtbq2j0X/0MFLoy9lK1Sl.uYxSA477bcmMBI31O16o5DGNAglLMcm', 'cik2jCBTwz3ebkDthMhypBHN5qxXgbb9XsiJkSNG5WPAq7qjePsfYeu3UVM7', '2017-09-04 00:58:23', '2017-09-04 00:58:23'),
 (14, 'aaaa', 'produksi', 'produksi', '$2y$10$VZ4o/AOTSKYKCJ5ijAGg7uYuPPMFmNbkf9SqUKbCdBQ1dNz9/bHf6', 'HImjeYh2RdPu9nMh69jXopOg0X6v8KoMoynFwbSJqhVyY2PdOnGTnpPlL4g7', '2017-09-04 07:52:04', '2017-09-04 10:50:42');
 
 --
@@ -617,12 +625,12 @@ ALTER TABLE `detail_produksi`
 -- AUTO_INCREMENT for table `detail_rasa`
 --
 ALTER TABLE `detail_rasa`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `ice_cream`
 --
 ALTER TABLE `ice_cream`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `jenis`
 --
@@ -657,7 +665,7 @@ ALTER TABLE `produksi`
 -- AUTO_INCREMENT for table `rasa`
 --
 ALTER TABLE `rasa`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `users`
 --
