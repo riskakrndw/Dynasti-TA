@@ -13,7 +13,7 @@ class PemesananController extends Controller
 {
     public function index()
     {
-    	$data = DetailPemesanan::orderBy('id', 'desc')->get();
+    	$data = DetailPemesanan::whereIn('status', ['menunggu', 'siap'])->orderBy('id', 'desc')->get();
         $datamenunggu = DetailPemesanan::where('status', '=', 'menunggu')->orderBy('updated_at', 'asc')->get();
         $datasiap = DetailPemesanan::where('status', '=', 'siap')->orderBy('updated_at', 'desc')->get();
         // dd($data);
@@ -124,6 +124,11 @@ class PemesananController extends Controller
         $data = Pemesanan::find($idpesanan);
         $data->status = "batal";
         $data->save();
+
+        foreach ($data->detail_pemesanan as $value) {
+            $value->status = "batal";
+            $value->save();
+        }
     }
 
     public function updateJumlah($iddetail, $jumlahes)

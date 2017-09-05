@@ -187,12 +187,16 @@
 
     //validation function
       function Validate(){
+        var cek = false;
         
         if(nama.value == ""){
           nama.style.border = "1px solid red";
           nama_error.textContent = "Nama harus diisi";
           nama.focus();
           return false;
+        }else{
+          nama.style.border = "1px solid #5E6E66";
+          nama_error.textContent = "";
         }
 
         if(harga.value == ""){
@@ -200,26 +204,10 @@
           harga_error.textContent = "Harga harus diisi";
           harga.focus();
           return false;
+        }else{
+          harga.style.border = "1px solid #5E6E66";
+          harga_error.textContent = "";
         }
-
-        //event handler function
-
-
-          function namaVerify(){
-            if(nama.value != ""){
-              nama.style.border = "1px solid #5E6E66";
-              nama_error.innerHTML = "";
-              return true;
-            }
-          }
-
-          function hargaVerify(){
-            if(harga.value != ""){
-              harga.style.border = "1px solid #5E6E66";
-              harga_error.innerHTML = "";
-              return true;
-            }
-          }
 
       }
   </script>

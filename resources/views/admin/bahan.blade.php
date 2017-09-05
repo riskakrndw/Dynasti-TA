@@ -261,12 +261,16 @@
 
     //validation function
       function Validate(){
+        var cek = false;
         
         if(nama.value == ""){
           nama.style.border = "1px solid red";
           nama_error.textContent = "Nama harus diisi";
           nama.focus();
           return false;
+        }else{
+          nama.style.border = "1px solid #5E6E66";
+          nama_error.textContent = "";
         }
 
         if(satuan.value == ""){
@@ -274,6 +278,9 @@
           satuan_error.textContent = "Satuan harus diisi";
           satuan.focus();
           return false;
+        }else{
+          satuan.style.border = "1px solid #5E6E66";
+          satuan_error.textContent = "";
         }
 
         if(harga.value == ""){
@@ -281,6 +288,9 @@
           harga_error.textContent = "Harga harus diisi";
           harga.focus();
           return false;
+        }else{
+          harga.style.border = "1px solid #5E6E66";
+          harga_error.textContent = "";
         }
 
         if(stok.value == ""){
@@ -288,6 +298,9 @@
           stok_error.textContent = "Stok harus diisi";
           stok.focus();
           return false;
+        }else{
+          stok.style.border = "1px solid #5E6E66";
+          stok_error.textContent = "";
         }
 
         if(stokmin.value == ""){
@@ -295,49 +308,10 @@
           stokmin_error.textContent = "Stok Minimal harus diisi";
           stokmin.focus();
           return false;
+        }else{
+          stokmin.style.border = "1px solid #5E6E66";
+          stokmin_error.textContent = "";
         }
-
-        //event handler function
-
-          function namaVerify(){
-            if(nama.value != ""){
-              nama.style.border = "1px solid #5E6E66";
-              nama_error.innerHTML = "";
-              return true;
-            }
-          }
-
-          function satuanVerify(){
-            if(satuan.value != ""){
-              satuan.style.border = "1px solid #5E6E66";
-              harga_error.innerHTML = "";
-              return true;
-            }
-          }
-
-          function hargaVerify(){
-            if(harga.value != ""){
-              harga.style.border = "1px solid #5E6E66";
-              harga_error.innerHTML = "";
-              return true;
-            }
-          }
-
-          function stokVerify(){
-            if(stok.value != ""){
-              stok.style.border = "1px solid #5E6E66";
-              stok_error.innerHTML = "";
-              return true;
-            }
-          }
-
-          function stokminVerify(){
-            if(stokmin.value != ""){
-              stokmin.style.border = "1px solid #5E6E66";
-              stokmin_error.innerHTML = "";
-              return true;
-            }
-          }
 
       }
   </script>
