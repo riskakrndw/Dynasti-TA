@@ -92,6 +92,7 @@ class RasaController extends Controller
         $data->id_jenis = $request->idjenis;
         $data->id_rasa = $idrasa;
         $data->jumlah_produksi = $request->jumlah_produksi;
+        $data->stok_min = $request->stok_minimal;
         $data->save();
 
         return $data->id;
@@ -189,7 +190,7 @@ class RasaController extends Controller
             $data->id_jenis = $request->idjenis;
             $data->id_rasa = $request->idrasa;
         }else{
-            if($data->deleted_at != "NULL"){
+            if($data->deleted_at != NULL){
                 $data->restore();
                 $data->stok = 0;
             }
@@ -198,6 +199,7 @@ class RasaController extends Controller
         $nama='Ice Cream '.$jenis->nama.' '.$rasa->nama;        
         $data->nama = $nama;
         $data->jumlah_produksi = $request->jumlah_produksi;
+        $data->stok_min = $request->stok_minimal;
         $data->save();
 
         return $rasa;

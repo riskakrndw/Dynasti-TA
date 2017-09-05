@@ -190,6 +190,13 @@
           border-color: #832014 !important;
           color: #fff !important;
         }
+
+        .datepicker table tr td.disabled,
+        .datepicker table tr td.disabled:hover {
+          background: none !important;
+          color: #c0bbbb !important;;
+          cursor: not-allowed !important;
+        }
     </style>
 
     @yield("moreasset")

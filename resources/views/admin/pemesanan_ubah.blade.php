@@ -68,7 +68,7 @@
                           <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" class="form-control pull-right" id="datepicker" value="{{ $data->tanggal }}" name="tanggal">
+                          <input type="text" class="form-control pull-right" id="datepicker" value="{{ $data->tanggal }}" name="tanggal" data-date-start-date="0d">
                         </div>
                         <span class="help-block val_error" id="tanggal_error" style="color:red;"></span>
                       </div>
@@ -220,6 +220,7 @@
   <script src="{{url('dist/js/select2/select2.js')}}"></script>
 <!-- date -->
   <script src="{{url('dist/js/bootstrap-datepicker.js')}}"></script>
+  <script src="{{url('plugins/datepicker/locales/bootstrap-datepicker.id.js')}}"></script>
   <script src="{{url('dist/js/bootstrap-modalmanager.js')}}"></script>
   <script src="{{url('dist/js/bootstrap-modal.js')}}"></script>
 
@@ -332,7 +333,9 @@
     //Date picker
       $('#datepicker').datepicker({
         autoclose: true,
-        format: "yyyy-mm-dd"
+        format: "yyyy-mm-dd",
+        todayBtn:"linked",
+        language:"id",
       });
 
     var nomorBaris = {{$no}};

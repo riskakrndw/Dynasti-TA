@@ -49,6 +49,7 @@
                       <th style="width: 300px">Nama Ice Cream</th>
                       <th style="width: 150px">Harga</th>
                       <th style="width: 100px">Stok</th>
+                      <th style="width: 100px">Stok Minimal</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -62,8 +63,10 @@
 
                       <td>Rp {{ number_format($data->jenis->harga,2,",","." ) }}</td>
                       <td>{{ $data->stok }}</td>
+                      <td>{{ $data->stok_min }}</td>
                       <td> 
                         <button type="button" class="btn btn-sm btn-default btnEditStok" data-toggle="modal" data-target="" data-id="{{ $data->id }}" data-stok="{{ $data->stok }}"> <i class="fa fa-edit"></i> Ubah Stok</button>
+                        <button type="button" class="btn btn-sm btn-default btnEditStokMinimal" data-toggle="modal" data-target="" data-id="{{ $data->id }}" data-stok-min="{{ $data->stok_min }}"> <i class="fa fa-edit"></i> Ubah Stok Minimal</button>
                       </td>
                     </tr>
                     @endforeach
@@ -101,6 +104,31 @@
           </div>
         <!-- /Modal edit stok -->
 
+        <!-- Modal edit stok minimal -->
+          <div id="editStokMinimal" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Ubah Stok Minimal</h4>
+            </div>
+            <div class="modal-body modal-primary">
+              <form role="form" action="{{url('manager/icecream/edit/stokmin')}}" method="POST">
+              {{csrf_field()}}
+              <label>Stok</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                <input class="form-control" id="stok_min" name="stok_min" placeholder="Stok Minimal" value="">
+              </div>
+              <input class="form-control" type="hidden" name="id" id="idEss" value="">
+            </div>
+            <div class="modal-footer">
+              <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
+              <button type="submit" class="btn btn-primary">Simpan</button>
+
+            </div>
+          </form>
+          </div>
+        <!-- /Modal edit stok minimal -->
+
       </div>
     </section>
     <!-- /. main content -->
@@ -122,6 +150,14 @@
         $('#stok').val($(this).data('stok'));
         $('#idEs').val($(this).data('id'));
         $('#editStok').modal('show');
+      });
+    });
+
+    $(document).ready(function(){
+      $(".btnEditStokMinimal").click(function(){
+        $('#stok_min').val($(this).data('stok-min'));
+        $('#idEss').val($(this).data('id'));
+        $('#editStokMinimal').modal('show');
       });
     });
 

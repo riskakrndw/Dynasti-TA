@@ -67,7 +67,7 @@
                           <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" class="form-control pull-right" id="datepicker" name="datepicker" value="{{ $data->tgl }}" placeholder="Tanggal Produksi">
+                          <input type="text" class="form-control pull-right" id="datepicker" name="datepicker" value="{{ $data->tgl }}" placeholder="Tanggal Produksi" data-date-end-date="0d">
                         </div>
                         <span class="help-block val_error" id="tanggal_error" style="color:red;"></span>
                       </div>
@@ -164,6 +164,7 @@
   <script src="{{url('dist/js/select2/select2.js')}}"></script>
 <!-- date -->
   <script src="{{url('dist/js/bootstrap-datepicker.js')}}"></script>
+  <script src="{{url('plugins/datepicker/locales/bootstrap-datepicker.id.js')}}"></script>
 
   <script type="text/javascript">
 
@@ -203,7 +204,9 @@
     //Date picker
       $('#datepicker').datepicker({
         autoclose: true,
-        format: "yyyy-mm-dd"
+        format: "yyyy-mm-dd",
+        todayBtn:"linked",
+        language:"id",
       });
     var w = 0;
     var arr  = [];

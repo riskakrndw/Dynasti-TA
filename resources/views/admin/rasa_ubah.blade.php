@@ -71,10 +71,17 @@
                               {{ $dataJeniss->nama }}
                               <br>
                               <div id="showjenis{{$key}}" class="hide">
-                                dalam 1 resep menghasilkan:
+                                Dalam 1 resep menghasilkan:
                                 <div class="input-group">
                                   <span class="input-group-addon"><i class="fa fa-font"></i></span>
                                   <input class="form-control inputcheckbox_error" placeholder="jumlah" name="jumlahProduksi" id="jumlahProduksi{{$dataJeniss->id}}" data-id="jenis{{ $dataJeniss->id }}" onKeyPress="return goodchars(event,'0123456789',this)">
+                                  <span class="help-block input_error" style="color:red;"></span>
+                                </div>
+                                <br>
+                                Stok Minimal:
+                                <div class="input-group">
+                                  <span class="input-group-addon"><i class="fa fa-warning "></i></span>
+                                  <input class="form-control inputcheckbox_error" placeholder="Stok Minimal" name="stokMinimal" id="stokMinimal{{$dataJeniss->id}}" data-id="jenis{{ $dataJeniss->id }}" onKeyPress="return goodchars(event,'0123456789',this)">
                                   <span class="help-block input_error" style="color:red;"></span>
                                 </div>
                               </div>
@@ -139,7 +146,7 @@
                           <td>{{ $no++ }}</td>
                           <td>{{ $detailRasa->bahan->nama }}</td>
                           <td>{{ $detailRasa->bahan->satuan }}</td>
-                          <td>{{ $detailRasa->takaran }}</td>
+                          <td id="{{$nama}}">{{ $detailRasa->takaran }}</td>
                           <td style="display:none">{{ $detailRasa->bahan->id }}</td>
                             <td class="col-md-3 control-label"><a class="remove-type pull-right" data-nama="{{ $nama }}" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td>
                         </tr>
@@ -291,6 +298,7 @@
         $('#jenis{{$datajenis->jenis->id}}').attr("checked", true);
         $('#showjenis'+$('#jenis{{$datajenis->jenis->id}}').attr('idjenis')).removeClass('hide');
         $('#jumlahProduksi{{$datajenis->jenis->id}}').val('{{ $datajenis->jumlah_produksi}}');
+        $('#stokMinimal{{$datajenis->jenis->id}}').val('{{ $datajenis->stok_min}}');
       @endforeach
 
       jQuery('.btnTambahBahan').die('click').live('click', function(e) {
@@ -403,7 +411,7 @@
               $.ajax({
                 type: "POST",
                 url: "http://localhost:8081/dynasti/public/manager/rasa/ubah2",
-                data: 'idrasa= {{$data->id}}' + '& idjenis=' + idjenis + '& jumlah_produksi=' + $('#jumlahProduksi'+ idjenis).val()  + '& _token='+"{{csrf_token()}}",
+                data: 'idrasa= {{$data->id}}' + '& idjenis=' + idjenis + '& jumlah_produksi=' + $('#jumlahProduksi'+ idjenis).val()  + '& stok_minimal=' + $('#stokMinimal'+idjenis).val() + '& _token='+"{{csrf_token()}}",
                 success: function(result) {
                 }
               });

@@ -96,7 +96,21 @@ class IceCreamController extends Controller
         $data->save();
 
         $notification = array(
-            'message' => 'Data berhasil diubah',
+            'message' => 'Stok berhasil diubah',
+            'alert-type' => 'info'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function updateMin(Request $request)
+    {
+        
+        $data = IceCream::find($request->id);
+        $data->stok_min = $request->stok_min;
+        $data->save();
+
+        $notification = array(
+            'message' => 'Stok Minimal berhasil diubah',
             'alert-type' => 'info'
         );
         return redirect()->back()->with($notification);

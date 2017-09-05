@@ -131,6 +131,7 @@ Route::group(['middleware' => 'levelManager'], function(){
 			Route::post('/manager/icecream/ubah1', 'IceCreamController@ubah1');
 		// ubah stok
 			Route::post('/manager/icecream/edit', 'IceCreamController@update');
+			Route::post('/manager/icecream/edit/stokmin', 'IceCreamController@updateMin');
 
 	//BAHAN
 		Route::get('/manager/bahan', 'BahanController@index')->name('bahan');

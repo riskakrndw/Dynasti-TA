@@ -77,6 +77,13 @@
                                   <input class="form-control inputcheckbox_error" placeholder="Jumlah" name="jumlahProduksi" id="jumlahProduksi{{$key}}" onKeyPress="return goodchars(event,'0123456789',this)">
                                   <span class="help-block input_error" style="color:red;"></span>
                                 </div>
+                                <br>
+                                Stok Minimal:
+                                <div class="input-group">
+                                  <span class="input-group-addon"><i class="fa fa-warning "></i></span>
+                                  <input class="form-control inputcheckbox_error" placeholder="Stok Minimal" name="stokMinimal" id="stokMinimal{{$key}}" onKeyPress="return goodchars(event,'0123456789',this)">
+                                  <span class="help-block input_error" style="color:red;"></span>
+                                </div>
                               </div>
                             </label>
                             @if($key != count($dataJenis) - 1)
@@ -375,7 +382,7 @@
               $.ajax({
                 type: "POST",
                 url: "http://localhost:8081/dynasti/public/manager/rasa/simpan2",
-                data:'idjenis=' + $(this).attr('id') + '& jumlah_produksi=' + $('#jumlahProduksi'+ idjenis).val()  + '& _token='+"{{csrf_token()}}",
+                data:'idjenis=' + $(this).attr('id') + '& jumlah_produksi=' + $('#jumlahProduksi'+ idjenis).val()  + '& stok_minimal=' + $('#stokMinimal'+idjenis).val() + '& _token='+"{{csrf_token()}}",
                 success: function(result) {
                 }
               });
