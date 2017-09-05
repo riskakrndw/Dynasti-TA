@@ -257,18 +257,18 @@
                       <label>Kata Sandi Baru</label>
                       <div class="input-group">
                         <span class="input-group-addon">@</span>
-                        <input class="form-control" id="sandiBaru" type="password" placeholder="Kata Sandi Baru" name="password">
+                        <input class="form-control" id="newpassword" type="password" placeholder="Kata Sandi Baru" name="newpassword">
                       </div>
-                      @if($errors->has('username'))
+                      @if($errors->has('newpassword'))
                         <span class="help-block">Nama jenis minimal 2 karakter</span>
                       @endif
                       <br>
                       <label>Ulangi Kata Sandi Baru</label>
                       <div class="input-group">
                         <span class="input-group-addon">@</span>
-                        <input class="form-control" type="password" id="ulangSandiBaru" placeholder="Email" name="password_confirmation">
+                        <input class="form-control" type="password" id="passwordconfirmation" placeholder="Email" name="passwordconfirmation">
                       </div>
-                      @if($errors->has('username'))
+                      @if($errors->has('passwordconfirmation'))
                         <span class="help-block">Nama jenis minimal 2 karakter</span>
                       @endif
                       <input class="form-control" type="hidden" name="id" id="idPengguna1" value="">

@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Input as input;
+use Auth;
+use Hash;
 
 use Illuminate\Http\Request;
 use App\User;
@@ -44,19 +47,25 @@ class ProfilController extends Controller
 
     public function updateSandi(Request $request)
     {
-        $data = User::find(auth()->user()->id);
-        // dd(\Hash::check($request->sandiLama, $user->password));
-        if(\Hash::check($request->sandiLama, $data->password)){
-            $data->password = \Hash::make($request->sandiBaru);
-            $data->save();
-        }else{
-            $data->session()->flash('error', 'Your password has not been changed.');
-        }
+        
+        $User = User::find(Auth::user()->id);
 
-        $notification = array(
-            'message' => 'Data berhasil diubah',
-            'alert-type' => 'info'
-        );
-        return redirect()->back()->with($notification);
+        if(Hash::check(Input::get('passwordold'), $User['password']) && Input::get('password') == Input::get('password_confirmation')){
+            $User->password = bcrypt(Input::get('password'));
+            $User->save();
+
+            $notification = array(
+                'message' => 'Data berhasil diubah',
+                'alert-type' => 'info'
+            );
+            return redirect()->back()->with($notification);
+        }else{
+            $notification = array(
+                'message' => 'Data tidak berhasil diubah',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+        
     }
 }

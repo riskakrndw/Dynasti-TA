@@ -31,20 +31,30 @@
                 <p>
                   {{Auth::user()->name}}
                   @if(Auth::user()->level == "manager")
-                  <small>Bagian Manager</small>
+                    <small>Bagian Manager</small>
                   @elseif(Auth::user()->level == "pengadaan")
-                  <small>Bagian Pengadaan</small>
+                    <small>Bagian Pengadaan</small>
                   @elseif(Auth::user()->level == "produksi")
-                  <small>Bagian Produksi</small>
+                    <small>Bagian Produksi</small>
                   @elseif(Auth::user()->level == "keuangan")
-                  <small>Bagian Keuangan</small>
+                    <small>Bagian Keuangan</small>
                   @endif
                 </p>
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="{{route('profilman')}}" class="btn btn-default btn-flat fa fa-user">  Profil</a>
+                  <a 
+                    @if(Auth::user()->level == "manager")
+                      href="{{route('profilman')}}"
+                    @elseif(Auth::user()->level == "pengadaan")
+                      href="{{route('profilpeng')}}"
+                    @elseif(Auth::user()->level == "produksi")
+                      href="{{route('profilpro')}}"
+                    @elseif(Auth::user()->level == "keuangan")
+                      href="{{route('profilkeu')}}"
+                    @endif
+                  class="btn btn-default btn-flat fa fa-user">  Profil</a>
                 </div>
                 <div class="pull-right">
                   <a href="{{ route('logout') }}" class="btn btn-default btn-flat fa fa-power-off" onclick="event.preventDefault();

@@ -56,10 +56,22 @@ Route::get('/produksi/beranda', 'HomeController@index_produksi')->name('berandap
 Route::get('/pengadaan/beranda', 'HomeController@index_pengadaan')->name('berandapeng');
 
 //profil
-Route::get('/manager/profil', 'ProfilController@index')->name('profilman');
-Route::post('/manager/profil/edit', 'ProfilController@updateData');
-
-Route::post('/manager/profil/editSandi', 'ProfilController@updateSandi');
+	// manager
+		Route::get('/manager/profil', 'ProfilController@index')->name('profilman');
+		Route::post('/manager/profil/edit', 'ProfilController@updateData');
+		Route::post('/manager/profil/editSandi', 'ProfilController@updateSandi');
+	//keuangan
+		Route::get('/keuangan/profil', 'ProfilController@index')->name('profilkeu');
+		Route::post('/keuangan/profil/edit', 'ProfilController@updateData');
+		Route::post('/keuangan/profil/editSandi', 'ProfilController@updateSandi');
+	//produksi
+		Route::get('/produksi/profil', 'ProfilController@index')->name('profilpro');
+		Route::post('/produksi/profil/edit', 'ProfilController@updateData');
+		Route::post('/produksi/profil/editSandi', 'ProfilController@updateSandi');
+	// pengadaan
+		Route::get('/pengadaan/profil', 'ProfilController@index')->name('profilpeng');
+		Route::post('/pengadaan/profil/edit', 'ProfilController@updateData');
+		Route::post('/pengadaan/profil/editSandi', 'ProfilController@updateSandi');
 
 //pengguna
 Route::get('/manager/pengguna', 'PenggunaController@index')->name('pengguna');

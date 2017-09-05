@@ -145,6 +145,7 @@
                         <th style="width: 100px">Jumlah</th>
                         <th style="width: 250px">Subtotal</th>
                         <th style="display:none">id</th>
+                        <th style="display:none">id detail</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
@@ -170,6 +171,7 @@
                           </td>
                           <td id="{{ $nama }}subTotal{{$detail_pemesanan->status}}" class="subTotal">{{ $detail_pemesanan->subtotal }}</td>
                           <td style="display:none">{{ $detail_pemesanan->id_es }}</td>
+                          <td style="display:none">{{ $detail_pemesanan->id }}</td>
                           @if($detail_pemesanan->status == "menunggu")
                             <td>
                               <a class="remove-type btn btn-sm btn-default" targetDiv="" data-id="tr{{$no}}" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a>
@@ -366,7 +368,7 @@
                 }
                 else{
                   nomorBaris = nomorBaris + 1;
-                  $('#type_container').append('<tr id="tr'+nomorBaris+'" no="'+nomorBaris+'"><td id="no'+nomorBaris+'">'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'statusmenunggu'+'>'+status+'</td><td id='+nama.replace(/\s/g,'')+'menunggu'+'><input type="number" class="nunggupemesanan" nama="'+nama.replace(/\s/g,'')+'" harga="'+harga+'" value="'+jumlah+'" min="1" style="width: 50px;"></td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotalmenunggu'+'>'+Subtotal+'</td><td style="display:none">'+ides+'</td><td class="col-md-3 control-label"> '+
+                  $('#type_container').append('<tr id="tr'+nomorBaris+'" no="'+nomorBaris+'"><td id="no'+nomorBaris+'">'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'statusmenunggu'+'>'+status+'</td><td id='+nama.replace(/\s/g,'')+'menunggu'+'><input type="number" class="nunggupemesanan" nama="'+nama.replace(/\s/g,'')+'" harga="'+harga+'" value="'+jumlah+'" min="1" style="width: 50px;"></td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotalmenunggu'+'>'+Subtotal+'</td><td style="display:none">'+ides+'</td><td style="display:none">'+0+'</td><td class="col-md-3 control-label"> '+
                          '     <a class="remove-type btn btn-sm btn-default" targetDiv="" data-id="tr'+nomorBaris+'" href="javascript: void(0)" ><i class="glyphicon glyphicon-trash"></i></a></td></tr>');
                 }
                 $('#namaEs').val('');
@@ -488,6 +490,7 @@
             var col4_value = currentRow.find("td:eq(4)").find("input").val();
             var col5_value = currentRow.find("td:eq(5)").text();
             var col6_value = currentRow.find("td:eq(6)").text();
+            var col7_value = currentRow.find("td:eq(7)").text();
 
             var obj={};
             obj.no = col0_value;
@@ -497,25 +500,27 @@
             obj.jumlah = col4_value;
             obj.subtotal = col5_value;
             obj.ides = col6_value;
+            obj.iddetail = col7_value;
 
 
-            arriddetailpesan.push(col6_value);
+            arriddetailpesan.push(col7_value);
             arrData.push(obj);
           });
     
           var idpesan;
 
-          function a(){
+          // function a(){
            $.ajax({
                 type: "POST",
                 url: "http://localhost:8081/dynasti/public/manager/pemesanan/hapusDetailPemesanan",
-                data: 'idpesan= {{$data->id}}' + '& ides=' + arriddetailpesan + '& _token='+"{{csrf_token()}}",
+                data: 'idpesan= {{$data->id}}' + '& id=' + arriddetailpesan + '& _token='+"{{csrf_token()}}",
                 success: function(result) {
                  console.log("arriddetailpesan : " + arriddetailpesan);
                 }
-            })
-          };
-   
+            }).done(a);
+          // };
+    
+          function a(){
             for (var i=0; i<arrData.length; i++){
               console.log(arrData[i]['jumlah']);
               console.log(arrData[i]['subtotal']);
@@ -527,6 +532,8 @@
                 }
               });
             }
+          }
+            
 
           $.ajax({
               type: "GET",
@@ -535,12 +542,12 @@
                 idpesan = result;
                 /*console.log(idjual)*/
               }
-          }).done(a);
-
-          $(document).ajaxStop(function(){
-            window.location="{{URL::to('manager/pemesanan')}}";
-            toastr.info("Data berhasil diubah");
           });
+
+          // $(document).ajaxStop(function(){
+          //   window.location="{{URL::to('manager/pemesanan')}}";
+          //   toastr.info("Data berhasil diubah");
+          // });
         }
       });
     });

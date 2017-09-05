@@ -75,7 +75,7 @@ class PemesananController extends Controller
         $cekstok;
 
         if($data->stok >= $jumlahes){
-            $data->stok = $data->stok - $data->jumlahes;
+            $data->stok = $data->stok - $jumlahes;
             $data->save();
 
             $datadetail = DetailPemesanan::find($iddetailpemesanan);
@@ -182,13 +182,14 @@ class PemesananController extends Controller
         if($status == "menunggu"){
             $data = DetailPemesanan::withTrashed()->where('id_es', '=', $ides)->where('id_pemesanan', '=', $pemesanan_id)->get();
 
-            if (count($data) == 0 || $data->status = "siap" && count($data) == 1) {
+            if (count($data) == 0 || ($data[0]->status == "siap" && count($data) == 1)) {
                 $datadetail = new DetailPemesanan;
                 $datadetail->id_pemesanan = $pemesanan_id;
                 $datadetail->id_es = $ides;
                 $datadetail->jumlah = $jumlah;
                 $datadetail->subtotal = $subtotal;
                 $datadetail->save();
+                return count($data);
             }elseif(count($data) > 1){
                 $cek = false;
                 $index;
@@ -206,12 +207,15 @@ class PemesananController extends Controller
                     $datadetail->jumlah = $jumlah;
                     $datadetail->subtotal = $subtotal;
                     $datadetail->save();
+                    return "2";
                 }
                 else{
                     $datadetail = $data[$index];
                     $datadetail->jumlah = $jumlah;
                     $datadetail->subtotal = $subtotal;
                     $datadetail->save();
+                    return $jumlah;
+
                 }
             }else{
                 $datadetail = DetailPemesanan::withTrashed()->where('id_es', '=', $ides)->where('id_pemesanan', '=', $pemesanan_id)->first();
@@ -223,6 +227,7 @@ class PemesananController extends Controller
                 $datadetail->jumlah = $jumlah;
                 $datadetail->subtotal = $subtotal;
                 $datadetail->save();
+                return "4";
             }
            
             
@@ -236,9 +241,11 @@ class PemesananController extends Controller
     public function hapusDetailPemesanan(Request $request)
     {
 
-        $arr = explode(',', $request->ides); //mecah jadi array
-        $data = DetailPemesanan::where('id_pemesanan', '=', $request->idpesan)->whereNotIn('id_es', $arr);
+        $arr = explode(',', $request->id); //mecah jadi array
+        $data = DetailPemesanan::where('id_pemesanan', '=', $request->idpesan)->whereNotIn('id', $arr);
         $data->delete();
+
+        return $request->id;
     }
 
     public function showEdit($id)

@@ -85,7 +85,17 @@
                     <h4 class="modal-title">Ubah Data Pengguna</h4>
                   </div>
                   <div class="modal-body modal-primary">
-                    <form role="form" action="{{url('manager/profil/edit')}}" method="POST">
+                    <form role="form" 
+                      @if(Auth::user()->level == "manager")
+                        action="{{url('manager/profil/edit')}}"
+                      @elseif(Auth::user()->level == "pengadaan")
+                        action="{{url('pengadaan/profil/edit')}}"
+                      @elseif(Auth::user()->level == "produksi")
+                        action="{{url('produksi/profil/edit')}}"
+                      @elseif(Auth::user()->level == "keuangan")
+                        action="{{url('keuangan/profil/edit')}}"
+                      @endif
+                    method="POST">
                       {{csrf_field()}}
                       <label>Nama</label>
                       <div class="input-group">
@@ -122,12 +132,22 @@
                     <h4 class="modal-title">Ubah Kata Sandi</h4>
                   </div>
                   <div class="modal-body modal-primary">
-                    <form role="form" action="{{url('manager/profil/editSandi')}}" method="POST">
+                    <form role="form" 
+                      @if(Auth::user()->level == "manager")
+                        action="{{url('manager/profil/editSandi')}}"
+                      @elseif(Auth::user()->level == "pengadaan")
+                        action="{{url('pengadaan/profil/editSandi')}}"
+                      @elseif(Auth::user()->level == "produksi")
+                        action="{{url('produksi/profil/editSandi')}}"
+                      @elseif(Auth::user()->level == "keuangan")
+                        action="{{url('keuangan/profil/editSandi')}}"
+                      @endif
+                    method="POST">
                       {{csrf_field()}}
                       <label>Kata Sandi Lama</label>
                       <div class="input-group">
                         <span class="input-group-addon">@</span>
-                        <input class="form-control" id="sandiLama" type="password" placeholder="Kata Sandi Lama" name="sandiLama">
+                        <input class="form-control" id="passwordold" type="password" placeholder="Kata Sandi Lama" name="passwordold">
                       </div>
                       @if($errors->has('username'))
                         <span class="help-block">Nama jenis minimal 2 karakter</span>
@@ -136,7 +156,7 @@
                       <label>Kata Sandi Baru</label>
                       <div class="input-group">
                         <span class="input-group-addon">@</span>
-                        <input class="form-control" id="sandiBaru" type="password" placeholder="Kata Sandi Baru" name="sandiBaru">
+                        <input class="form-control" id="password" type="password" placeholder="Kata Sandi Baru" name="password">
                       </div>
                       @if($errors->has('username'))
                         <span class="help-block">Nama jenis minimal 2 karakter</span>
@@ -145,7 +165,7 @@
                       <label>Ulangi Kata Sandi Baru</label>
                       <div class="input-group">
                         <span class="input-group-addon">@</span>
-                        <input class="form-control" type="password" id="ulangSandiBaru" placeholder="Ulangi Kata Sandi Baru" name="ulangSandiBaru">
+                        <input class="form-control" type="password" id="password_confirmation" placeholder="Ulangi Kata Sandi Baru" name="password_confirmation">
                       </div>
                       @if($errors->has('username'))
                         <span class="help-block">Nama jenis minimal 2 karakter</span>
