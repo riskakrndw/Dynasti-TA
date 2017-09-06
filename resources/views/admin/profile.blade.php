@@ -170,7 +170,7 @@
                       @if($errors->has('username'))
                         <span class="help-block">Nama jenis minimal 2 karakter</span>
                       @endif
-                      <input class="form-control" type="hidden" name="id" id="idPengguna1" value="">
+                      <!-- <input class="form-control" type="hidden" name="id" id="idPengguna1" value=""> -->
                     </div>
                     <div class="modal-footer">
                       <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>

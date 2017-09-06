@@ -45,13 +45,40 @@ class ProfilController extends Controller
         
     }
 
+    // public function updateSandi(Request $request)
+    // {
+    //     return $request->all();
+    //     $User = User::find(Auth::user()->id);
+
+    //     if(Hash::check(Input::get('passwordold'), $User['password']) && Input::get('password') == Input::get('password_confirmation')){
+    //         $User->password = bcrypt(Input::get('password'));
+    //         $User->save();
+
+    //         $notification = array(
+    //             'message' => 'Data berhasil diubah',
+    //             'alert-type' => 'info'
+    //         );
+    //         return redirect()->back()->with($notification);
+    //     }else{
+    //         $notification = array(
+    //             'message' => 'Data tidak berhasil diubah',
+    //             'alert-type' => 'error'
+    //         );
+    //         return redirect()->back()->with($notification);
+    //     }
+        
+    // }
     public function updateSandi(Request $request)
     {
-        
+        $this->validate($request,[                      // --> validasi input
+            'passwordold' => 'required|min:6',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
         $User = User::find(Auth::user()->id);
 
-        if(Hash::check(Input::get('passwordold'), $User['password']) && Input::get('password') == Input::get('password_confirmation')){
-            $User->password = bcrypt(Input::get('password'));
+        if(Hash::check($request->passwordold, $User->password)){
+            $User->password = $request->password;
             $User->save();
 
             $notification = array(
@@ -68,4 +95,28 @@ class ProfilController extends Controller
         }
         
     }
+
+    // public function editPassword(Request $request){         // --> fungsi ubah password
+    //     $this->validate($request,[                      // --> validasi input
+    //         'id'=> 'required',
+    //         'oldPassword' => 'required|min:6',
+    //         'password' => 'required|min:6|confirmed',
+    //         ]);
+
+    //     $user = User::find($request->id);           // --> cari baris user berdasarkan auth id
+
+    //     if (Hash::check($request->oldPassword, $user->password)){    // pengecekan apakah pass lama == database 
+            
+    //         $user->password=bcrypt($request->password);         // jika iya simpan pass baru
+    //         $user->save();
+
+    //         Toastr::success('Password telah diperbarui!','Password');
+
+    //         return back();
+    //     } else {
+    //         Toastr::error('Password lama tidak cocok!','Password');     // pass lama tidak cocok dengan oldPassword
+
+    //         return back();
+    //     }       
+    // }
 }

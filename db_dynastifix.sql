@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 05 Sep 2017 pada 11.55
+-- Generation Time: 06 Sep 2017 pada 09.50
 -- Versi Server: 10.1.19-MariaDB
 -- PHP Version: 5.6.24
 
@@ -27,12 +27,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `bahan_baku` (
-  `id` int(5) NOT NULL,
+  `id` int(3) NOT NULL,
   `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `harga` int(10) NOT NULL,
-  `stok` float NOT NULL,
+  `stok` double NOT NULL,
   `satuan` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `stok_min` float NOT NULL,
+  `stok_min` double NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -42,8 +42,8 @@ CREATE TABLE `bahan_baku` (
 --
 
 INSERT INTO `bahan_baku` (`id`, `nama`, `harga`, `stok`, `satuan`, `stok_min`, `created_at`, `updated_at`) VALUES
-(3, 'susu bubuk', 20000, 197.84, 'gr', 100, '2017-09-04 01:04:03', '2017-09-04 05:31:08'),
-(4, 'garam', 3000, 0.4, 'ml', 20, '2017-09-04 01:04:53', '2017-09-04 05:31:08'),
+(3, 'susu bubuk', 20000, 197.83999633789062, 'gr', 100, '2017-09-04 01:04:03', '2017-09-04 05:31:08'),
+(4, 'garam', 3000, 0.4000000059604645, 'ml', 20, '2017-09-04 01:04:53', '2017-09-04 05:31:08'),
 (5, 'jjjh', 87788, 78778, 'gguggu', 878, '2017-09-05 07:11:05', '2017-09-05 07:11:05');
 
 -- --------------------------------------------------------
@@ -54,10 +54,10 @@ INSERT INTO `bahan_baku` (`id`, `nama`, `harga`, `stok`, `satuan`, `stok_min`, `
 
 CREATE TABLE `detail_pembelian` (
   `id` int(5) UNSIGNED NOT NULL,
-  `id_pembelian` int(10) NOT NULL,
-  `id_bahan` int(5) NOT NULL,
-  `jumlah` int(5) NOT NULL,
-  `subtotal` int(20) NOT NULL,
+  `id_pembelian` int(5) NOT NULL,
+  `id_bahan` int(3) NOT NULL,
+  `jumlah` int(7) NOT NULL,
+  `subtotal` int(10) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -90,9 +90,9 @@ DELIMITER ;
 
 CREATE TABLE `detail_pemesanan` (
   `id` int(5) UNSIGNED NOT NULL,
-  `id_pemesanan` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_es` int(5) NOT NULL,
-  `jumlah` int(10) NOT NULL,
+  `id_pemesanan` int(5) NOT NULL,
+  `id_es` int(3) NOT NULL,
+  `jumlah` int(7) NOT NULL,
   `subtotal` int(10) NOT NULL,
   `status` enum('menunggu','siap','batal') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'menunggu',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -105,8 +105,8 @@ CREATE TABLE `detail_pemesanan` (
 --
 
 INSERT INTO `detail_pemesanan` (`id`, `id_pemesanan`, `id_es`, `jumlah`, `subtotal`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(36, '17', 1, 200, 800000, 'batal', '2017-09-05 06:22:28', '2017-09-05 06:43:10', NULL),
-(37, '18', 1, 20, 80000, 'siap', '2017-09-05 06:22:47', '2017-09-05 06:33:52', NULL);
+(36, 17, 1, 200, 800000, 'batal', '2017-09-05 06:22:28', '2017-09-05 06:43:10', NULL),
+(37, 18, 1, 20, 80000, 'siap', '2017-09-05 06:22:47', '2017-09-05 06:33:52', NULL);
 
 -- --------------------------------------------------------
 
@@ -116,10 +116,10 @@ INSERT INTO `detail_pemesanan` (`id`, `id_pemesanan`, `id_es`, `jumlah`, `subtot
 
 CREATE TABLE `detail_penjualan` (
   `id` int(5) NOT NULL,
-  `id_penjualan` varchar(20) NOT NULL,
-  `id_es` int(5) NOT NULL,
-  `jumlah` int(5) NOT NULL,
-  `subtotal` int(20) NOT NULL,
+  `id_penjualan` int(5) NOT NULL,
+  `id_es` int(3) NOT NULL,
+  `jumlah` int(7) NOT NULL,
+  `subtotal` int(10) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -129,16 +129,16 @@ CREATE TABLE `detail_penjualan` (
 --
 
 INSERT INTO `detail_penjualan` (`id`, `id_penjualan`, `id_es`, `jumlah`, `subtotal`, `created_at`, `updated_at`) VALUES
-(3, '1', 1, 17, 68000, '2017-09-04 03:04:48', '2017-09-04 03:04:48'),
-(4, '2', 1, 7, 28000, '2017-09-04 03:05:24', '2017-09-04 03:05:24'),
-(5, '3', 1, 4, 16000, '2017-09-04 03:49:42', '2017-09-04 03:49:42'),
-(6, '4', 1, 10, 40000, '2017-09-04 03:54:43', '2017-09-04 03:54:43'),
-(7, '5', 2, 500, 1500000, '2017-09-04 03:55:57', '2017-09-04 03:55:57'),
-(8, '6', 1, 5, 20000, '2017-09-04 04:06:56', '2017-09-04 04:06:56'),
-(9, '7', 2, 6, 18000, '2017-09-04 04:09:09', '2017-09-04 04:09:09'),
-(10, '8', 1, 5, 20000, '2017-09-04 04:09:49', '2017-09-04 04:09:49'),
-(11, '9', 1, 20, 80000, '2017-09-05 06:55:47', '2017-09-05 06:55:47'),
-(12, '10', 2, 1000, 3000000, '2017-09-05 06:57:44', '2017-09-05 06:57:44');
+(3, 1, 1, 17, 68000, '2017-09-04 03:04:48', '2017-09-04 03:04:48'),
+(4, 2, 1, 7, 28000, '2017-09-04 03:05:24', '2017-09-04 03:05:24'),
+(5, 3, 1, 4, 16000, '2017-09-04 03:49:42', '2017-09-04 03:49:42'),
+(6, 4, 1, 10, 40000, '2017-09-04 03:54:43', '2017-09-04 03:54:43'),
+(7, 5, 2, 500, 1500000, '2017-09-04 03:55:57', '2017-09-04 03:55:57'),
+(8, 6, 1, 5, 20000, '2017-09-04 04:06:56', '2017-09-04 04:06:56'),
+(9, 7, 2, 6, 18000, '2017-09-04 04:09:09', '2017-09-04 04:09:09'),
+(10, 8, 1, 5, 20000, '2017-09-04 04:09:49', '2017-09-04 04:09:49'),
+(11, 9, 1, 20, 80000, '2017-09-05 06:55:47', '2017-09-05 06:55:47'),
+(12, 10, 2, 1000, 3000000, '2017-09-05 06:57:44', '2017-09-05 06:57:44');
 
 --
 -- Trigger `detail_penjualan`
@@ -162,9 +162,9 @@ DELIMITER ;
 
 CREATE TABLE `detail_produksi` (
   `id` int(5) NOT NULL,
-  `id_produksi` int(10) NOT NULL,
-  `id_es` int(5) NOT NULL,
-  `jumlah` int(5) NOT NULL,
+  `id_produksi` int(5) NOT NULL,
+  `id_es` int(3) NOT NULL,
+  `jumlah` int(7) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -188,9 +188,9 @@ INSERT INTO `detail_produksi` (`id`, `id_produksi`, `id_es`, `jumlah`, `created_
 --
 
 CREATE TABLE `detail_rasa` (
-  `id` int(5) NOT NULL,
+  `id` int(3) NOT NULL,
   `id_rasa` int(3) NOT NULL,
-  `id_bahan` int(5) NOT NULL,
+  `id_bahan` int(3) NOT NULL,
   `takaran` double NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
@@ -213,13 +213,13 @@ INSERT INTO `detail_rasa` (`id`, `id_rasa`, `id_bahan`, `takaran`, `created_at`,
 --
 
 CREATE TABLE `ice_cream` (
-  `id` int(5) NOT NULL,
+  `id` int(3) NOT NULL,
   `id_jenis` int(3) DEFAULT NULL,
   `id_rasa` int(3) DEFAULT NULL,
   `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `stok` int(10) DEFAULT '0',
   `stok_min` int(10) NOT NULL,
-  `jumlah_produksi` int(11) NOT NULL,
+  `jumlah_produksi` int(7) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -312,7 +312,7 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `pembelian` (
-  `id` int(10) NOT NULL,
+  `id` int(5) NOT NULL,
   `id_users` int(3) NOT NULL,
   `kode_pembelian` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `total` int(10) NOT NULL,
@@ -349,7 +349,7 @@ DELIMITER ;
 --
 
 CREATE TABLE `pemesanan` (
-  `id` int(10) NOT NULL,
+  `id` int(5) NOT NULL,
   `id_users` int(3) NOT NULL,
   `kode_pemesanan` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -378,7 +378,7 @@ INSERT INTO `pemesanan` (`id`, `id_users`, `kode_pemesanan`, `nama`, `alamat`, `
 --
 
 CREATE TABLE `penjualan` (
-  `id` int(10) NOT NULL,
+  `id` int(5) NOT NULL,
   `id_users` int(3) NOT NULL,
   `kode_penjualan` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tgl` date NOT NULL,
@@ -419,7 +419,7 @@ DELIMITER ;
 --
 
 CREATE TABLE `produksi` (
-  `id` int(10) NOT NULL,
+  `id` int(5) NOT NULL,
   `id_users` int(3) NOT NULL,
   `kode_produksi` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tgl` date NOT NULL,
@@ -481,8 +481,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `level`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(10, 'putri', 'manager', 'manager', '$2y$10$dtbq2j0X/0MFLoy9lK1Sl.uYxSA477bcmMBI31O16o5DGNAglLMcm', 'cik2jCBTwz3ebkDthMhypBHN5qxXgbb9XsiJkSNG5WPAq7qjePsfYeu3UVM7', '2017-09-04 00:58:23', '2017-09-04 00:58:23'),
-(14, 'aaaa', 'produksi', 'produksi', '$2y$10$VZ4o/AOTSKYKCJ5ijAGg7uYuPPMFmNbkf9SqUKbCdBQ1dNz9/bHf6', 'HImjeYh2RdPu9nMh69jXopOg0X6v8KoMoynFwbSJqhVyY2PdOnGTnpPlL4g7', '2017-09-04 07:52:04', '2017-09-04 10:50:42');
+(10, 'putri', 'manager', 'manager', '$2y$10$Vn8I9m72a.89nTwSejvrUesE9h22C.wJL9Nz.OX8KAnTl8ucM0L0O', 'uX9K6voaUkhGUL8bVesSp7ZA83LqGs84mWvYDwAD2n1R3KfdHRSxyrHu4gpu', '2017-09-04 00:58:23', '2017-09-06 05:54:06'),
+(14, 'aaaa', 'produksi', 'produksi', '$2y$10$4azMgx8YB1qJDLwNupkfN.zUPjggPCdwPijU9oLruu85Bg8sF7kkO', 'lKVBZZZYdFx4tYtQcFdf9jgZZQnsa8Zv91s07KHrdxx3M8w49dCQdhPxogpH', '2017-09-04 07:52:04', '2017-09-04 10:50:42');
 
 --
 -- Indexes for dumped tables
@@ -600,7 +600,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bahan_baku`
 --
 ALTER TABLE `bahan_baku`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `detail_pembelian`
 --
@@ -625,12 +625,12 @@ ALTER TABLE `detail_produksi`
 -- AUTO_INCREMENT for table `detail_rasa`
 --
 ALTER TABLE `detail_rasa`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `ice_cream`
 --
 ALTER TABLE `ice_cream`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `jenis`
 --
@@ -645,22 +645,22 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `penjualan`
 --
 ALTER TABLE `penjualan`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `produksi`
 --
 ALTER TABLE `produksi`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `rasa`
 --
