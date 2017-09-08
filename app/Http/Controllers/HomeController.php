@@ -23,8 +23,8 @@ class HomeController extends Controller
     public function index_manager()
     {
         // untuk informasi pemesanan
-            $sesudah=Carbon::now()->addDays(10);
-            $pemesanan=Pemesanan::whereBetween('tanggal',[Carbon::now(),$sesudah])->orderBy('tanggal', 'asc')->get();
+            $sesudah=Carbon::now()->addDays(5);
+            $pemesanan=Pemesanan::whereBetween('tanggal',[Carbon::now(),$sesudah])->orderBy('tanggal', 'asc')->whereIn('status', ['menunggu', 'siap'])->get();
         // untuk informasi pemesanan
     
         // untuk informasi grafik        
@@ -158,6 +158,11 @@ class HomeController extends Controller
 
     public function index_produksi()
     {
-        return view('produksi.beranda');
+        // untuk informasi pemesanan
+            $sesudah=Carbon::now()->addDays(10);
+            $pemesanan=Pemesanan::whereBetween('tanggal',[Carbon::now(),$sesudah])->orderBy('tanggal', 'asc')->get();
+        // untuk informasi pemesanan
+
+        return view('produksi.beranda')->with('pemesanan', $pemesanan);
     }
 }

@@ -40,34 +40,6 @@ class ProfilController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    public function setup()
-    {
-        
-    }
-
-    // public function updateSandi(Request $request)
-    // {
-    //     return $request->all();
-    //     $User = User::find(Auth::user()->id);
-
-    //     if(Hash::check(Input::get('passwordold'), $User['password']) && Input::get('password') == Input::get('password_confirmation')){
-    //         $User->password = bcrypt(Input::get('password'));
-    //         $User->save();
-
-    //         $notification = array(
-    //             'message' => 'Data berhasil diubah',
-    //             'alert-type' => 'info'
-    //         );
-    //         return redirect()->back()->with($notification);
-    //     }else{
-    //         $notification = array(
-    //             'message' => 'Data tidak berhasil diubah',
-    //             'alert-type' => 'error'
-    //         );
-    //         return redirect()->back()->with($notification);
-    //     }
-        
-    // }
     public function updateSandi(Request $request)
     {
         $this->validate($request,[                      // --> validasi input
@@ -82,13 +54,13 @@ class ProfilController extends Controller
             $User->save();
 
             $notification = array(
-                'message' => 'Data berhasil diubah',
+                'message' => 'Kata Sandi Berhasil Diubah',
                 'alert-type' => 'info'
             );
             return redirect()->back()->with($notification);
         }else{
             $notification = array(
-                'message' => 'Data tidak berhasil diubah',
+                'message' => 'Kata Sandi Gagal Diubah',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);

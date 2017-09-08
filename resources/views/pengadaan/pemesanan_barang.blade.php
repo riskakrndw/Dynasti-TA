@@ -2,9 +2,9 @@
 
 @section("title", "Data Produk Pesanan")
 
-@section("produkpesanan", "active")
+@section("produkpesananpeng", "active")
 
-@section("pemesanan", "active")
+@section("pemesananpeng", "active")
 
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
@@ -19,7 +19,7 @@
         Data Produk Pesanan
       </h1>
       <ol class="breadcrumb">
-        <li><a href="{{route('beranda')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{{route('berandapeng')}}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a> Pemesanan</a></li>
         <li class="active">Data Produk Pesanan</li>
       </ol>
@@ -44,12 +44,12 @@
                   <table id="example1" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th>No</th>
-                        <th>Kode Pemesanan</th>
-                        <th>Tanggal</th>
-                        <th >Status</th>
-                        <th>Nama Ice Cream</th>
-                        <th>Jumlah</th>
+                        <th style="width: 20px">No</th>
+                        <th style="width: 120px">Kode Pemesanan</th>
+                        <th style="width: 100px">Tanggal</th>
+                        <th style="width: 80px">Status</th>
+                        <th style="width: 180px">Nama Ice Cream</th>
+                        <th style="width: 100px">Jumlah</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -63,7 +63,7 @@
                           <td>{{ $data->ice_cream->nama }}</td>
                           <td>{{ $data->jumlah }}</td>
                           <td>
-                           <a href="{{ url('manager/pemesanan/lihat/'.$data->pemesanan->id.'/produkpesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('pengadaan/pemesanan/lihat/'.$data->pemesanan->id.'/produkpesananpeng') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach
@@ -77,11 +77,11 @@
                   <table id="example22" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th>No</th>
-                        <th>Kode Pemesanan</th>
-                        <th>Tanggal</th>
-                        <th>Nama Ice Cream</th>
-                        <th>Jumlah</th>
+                        <th style="width: 10px">No</th>
+                        <th style="width: 25px">Kode Pemesanan</th>
+                        <th style="width: 50px">Tanggal</th>
+                        <th style="width: 80px">Nama Ice Cream</th>
+                        <th style="width: 20px">Jumlah</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -94,7 +94,7 @@
                           <td>{{ $data->ice_cream->nama }}</td>
                           <td>{{ $data->jumlah }}</td>
                           <td>
-                           <a href="{{ url('manager/pemesanan/lihat/'.$data->pemesanan->id.'/produkpesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('pengadaan/pemesanan/lihat/'.$data->pemesanan->id.'/produkpesananpeng') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                            <button class="btn btn-sm btn-default btnStatusSiap" id-es="{{ $data->ice_cream->id }}" id-detail="{{ $data->id }}" jumlah="{{ $data->jumlah }}"><i class="fa fa-edit"></i> Siap</button>
                          </td>
                         </tr>
@@ -110,11 +110,11 @@
                   <table id="example23" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th>No</th>
-                        <th>Kode Pemesanan</th>
-                        <th>Tanggal</th>
-                        <th>Nama Ice Cream</th>
-                        <th>Jumlah</th>
+                        <th style="width: 10px">No</th>
+                        <th style="width: 25px">Kode Pemesanan</th>
+                        <th style="width: 50px">Tanggal</th>
+                        <th style="width: 80px">Nama Ice Cream</th>
+                        <th style="width: 20px">Jumlah</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -127,7 +127,7 @@
                           <td>{{ $data->ice_cream->nama }}</td>
                           <td>{{ $data->jumlah }}</td>
                           <td>
-                           <a href="{{ url('manager/pemesanan/lihat/'.$data->pemesanan->id.'/produkpesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('pengadaan/pemesanan/lihat/'.$data->pemesanan->id.'/produkpesananpeng') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach
@@ -168,7 +168,7 @@
         var tr = $(this);
         $.ajax({
           type: "GET",
-          url: "/dynasti/public/manager/pemesanan/detail/siap/"+ides+"/"+jumlahes+"/"+iddetailpemesanan,
+          url: "/dynasti/public/pengadaan/pemesanan/detail/siap/"+ides+"/"+jumlahes+"/"+iddetailpemesanan,
           success: function(result) {
             if(result == "tidak cukup"){
               alert("Stok tidak mencukupi");

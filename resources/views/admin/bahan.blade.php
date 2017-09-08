@@ -123,12 +123,12 @@
                 <table id="example1" class="table table-bordered table-hover">
                   <thead>
                     <tr>
-                      <th style="width: 30px">No</th>
-                      <th style="width: 180px">Nama Bahan</th>
-                      <th style="width: 80px">Satuan</th>
-                      <th style="width: 120px">Harga Satuan</th>
-                      <th style="width: 80px">Stok</th>
-                      <th style="width: 90px">Stok Minimal</th>
+                      <th>No</th>
+                      <th>Nama Bahan</th>
+                      <th>Satuan</th>
+                      <th>Harga Satuan</th>
+                      <th>Stok</th>
+                      <th>Stok Minimal</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>

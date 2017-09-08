@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use Auth;
+use Hash;
+use Validator;
 
 use Illuminate\Http\Request;
 use App\User;
@@ -80,27 +83,33 @@ class PenggunaController extends Controller
 
     public function updateSandi(Request $request)
     {
-        $this->validate($request, [
-            'password' => 'required|min:6|confirmed',
-        ]);
+        // $cek = Validator::make($request->all(),[
+        //     'password' => 'required'
+        // ]);
 
-        // return $request->all();
-        $data = User::find($request->id);
-        // dd($request->id);
+        // if($cek->fails(){
+        //     return back()->withErrors($cek, 'tambah')->withInput();
+        // })
+
+
+
+        // $this->validate($request,[                      // --> validasi input
+        //     'password' => 'required|min:6|confirmed',
+        // ]);
+
+        $User = User::find($request->id);
+
         
-        if(!empty($request->password)){
-            $data->password = bcrypt($request->password);
-            // dd($request->password);
-            $data->save();
-        }
+        $User->password = $request->password;
+        $User->save();
 
         $notification = array(
-            'message' => 'Data berhasil diubah',
+            'message' => 'Kata Sandi Berhasil Diubah',
             'alert-type' => 'info'
         );
         return redirect()->back()->with($notification);
+        
     }
-
 
     public function destroy(Request $request, $id)
     {

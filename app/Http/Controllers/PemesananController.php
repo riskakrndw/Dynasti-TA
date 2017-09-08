@@ -13,11 +13,19 @@ class PemesananController extends Controller
 {
     public function index()
     {
-    	$data = DetailPemesanan::whereIn('status', ['menunggu', 'siap'])->orderBy('id', 'desc')->get();
+        $data = DetailPemesanan::whereIn('status', ['menunggu', 'siap'])->orderBy('id', 'desc')->get();
         $datamenunggu = DetailPemesanan::where('status', '=', 'menunggu')->orderBy('updated_at', 'asc')->get();
         $datasiap = DetailPemesanan::where('status', '=', 'siap')->orderBy('updated_at', 'desc')->get();
-        // dd($data);
-    	return view('admin.pemesanan_barang')->with('data', $data)->with('datamenunggu', $datamenunggu)->with('datasiap', $datasiap);
+
+        if(Auth::user()->level == "manager"){
+            // dd($data);
+            return view('admin.pemesanan_barang')->with('data', $data)->with('datamenunggu', $datamenunggu)->with('datasiap', $datasiap);
+        } elseif (Auth::user()->level == "pengadaan"){
+            // dd($data);
+            return view('pengadaan.pemesanan_barang')->with('data', $data)->with('datamenunggu', $datamenunggu)->with('datasiap', $datasiap);
+        }
+    	
+        
     }
 
     public function index1()
@@ -28,7 +36,12 @@ class PemesananController extends Controller
         $dataselesai = Pemesanan::where('status', '=', 'selesai')->orderBy('updated_at', 'desc')->get();
         $databatal = Pemesanan::where('status', '=', 'batal')->orderBy('updated_at', 'desc')->get();
         // dd($databatal);
-    	return view('admin.pemesanan')->with('data', $data)->with('datamenunggu', $datamenunggu)->with('datasiap', $datasiap)->with('dataselesai', $dataselesai)->with('databatal', $databatal);
+        if(Auth::user()->level == "manager"){
+            return view('admin.pemesanan')->with('data', $data)->with('datamenunggu', $datamenunggu)->with('datasiap', $datasiap)->with('dataselesai', $dataselesai)->with('databatal', $databatal);
+        } elseif (Auth::user()->level == "pengadaan"){
+            return view('pengadaan.pemesanan')->with('data', $data)->with('datamenunggu', $datamenunggu)->with('datasiap', $datasiap)->with('dataselesai', $dataselesai)->with('databatal', $databatal);
+        }
+    	
     }
 
     public function tambah()
@@ -89,18 +102,6 @@ class PemesananController extends Controller
                 $datapemesanan = Pemesanan::find($datadetail->id_pemesanan);
                 $datapemesanan->status = "siap";
                 $datapemesanan->save();
-                // dd($datapemesanan->status);
-
-                // nyoba untuk auto pindah tabs
-                // $hasil = array();
-                // $hasil[] = $datapemesanan->id;
-                // $hasil[] = $datapemesanan->kode_pemesanan;
-                // $hasil[] = $datapemesanan->tanggal;
-                // $hasil[] = $datapemesanan->detail_pemesanan->id_es;
-                // $hasil[] = $datapemesanan->detail_pemesanan->jumlah;
-                // dd($hasil);
-                // /nyoba untuk auto pindah tabs
-
             }
 
             $cekstok = "cukup";
@@ -155,8 +156,16 @@ class PemesananController extends Controller
     public function show($id, $tipe)
     {
         $data = Pemesanan::find($id);
+        if(Auth::user()->level == "manager"){
+            return view('admin.pemesanan_detail')->with('data', $data)->with('tipe', $tipe);
+        } elseif (Auth::user()->level == "pengadaan"){
+            return view('admin.pemesanan_detail')->with('data', $data)->with('tipe', $tipe);
+        }elseif (Auth::user()->level == "produksi"){
+            return view('admin.pemesanan_detail')->with('data', $data)->with('tipe', $tipe);
+        }
+        
         // dd($data);
-        return view('admin.pemesanan_detail')->with('data', $data)->with('tipe', $tipe);
+        
     }
 
     public function ubah($id_pesan, $pengguna, $nama, $alamat, $telepon, $datepicker, $total)
@@ -234,9 +243,6 @@ class PemesananController extends Controller
                 $datadetail->save();
                 return "4";
             }
-           
-            
-
             return $data;
         }
     
@@ -258,6 +264,9 @@ class PemesananController extends Controller
         if(Auth::user()->level == "manager"){
             $data = Pemesanan::where('id', $id)->first();
             return view('admin.pemesanan_ubah')->with('data', $data);
+        } elseif (Auth::user()->level == "pengadaan"){
+            $data = Pemesanan::where('id', $id)->first();
+            return view('pengadaan.pemesanan_ubah')->with('data', $data);
         }
         
     }

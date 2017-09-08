@@ -41,12 +41,6 @@ class BahanController extends Controller
         return view('admin.bahan');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -72,35 +66,11 @@ class BahanController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $data = Bahan::find($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
         $data = Bahan::find($request->id);
@@ -118,23 +88,9 @@ class BahanController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request, $id)
     {
         
-        // $detail = DetailPembelian::where('id_bahan', $id)->get();
-        // foreach ($detail as $value) {
-        //     $pembelian = Pembelian::find($value->id_pembelian);
-        //     $pembelian->total = $pembelian->total - $value->subtotal;
-        //     $pembelian->save();
-        // }
-
-        // DetailPembelian::where('id_bahan', $id)->delete();
         $data = Bahan::where('id', $id)->delete();
 
         $notification = array(

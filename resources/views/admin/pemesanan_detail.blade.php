@@ -2,12 +2,29 @@
 
 @section("title", "Detail Data Pemesanan")
 
-@section("pemesanan", "active")
+@if($tipe == "pemesanan")
+  @section("pemesanan", "active")
+@elseif($tipe == "produkpesanan")
+  @section("pemesanan", "active")
+@elseif($tipe == "pemesananpeng")
+  @section("pemesananpeng", "active")
+@elseif($tipe == "produkpesananpeng")
+  @section("pemesananpeng", "active")
+@endif
+
 
 @if($tipe == "pemesanan")
   @section("pesanan", "active")
 @elseif($tipe == "produkpesanan")
   @section("produkpesanan", "active")
+@elseif($tipe == "pemesananpeng")
+  @section("pesananpeng", "active")
+@elseif($tipe == "produkpesananpeng")
+  @section("produkpesananpeng", "active")
+@elseif($tipe == "pemesananberanda")
+  @section("beranda", "active")
+@elseif($tipe == "pemesananberandapro")
+  @section("beranda", "active")
 @endif
 
 
@@ -30,9 +47,23 @@
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="{{route('beranda')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a>Pemesanan</a></li>
-        <li><a href="{{route('pemesanan')}}">Data Pemesanan</a></li>
-        <li class="active">Lihat Detail</li>
+        @if($tipe == "pemesananberanda")
+          <li><a>Beranda</a></li>
+          <li><a>Informasi Pemesanan</a></li>
+          <li class="active">Lihat</li>
+        @else
+          <li><a>Pemesanan</a></li>
+          @if($tipe == "pemesanan")
+            <li><a href="{{route('pemesanan')}}">Data Pemesanan</a></li>
+          @elseif($tipe == "produkpesanan")
+            <li><a href="{{route('pemesanan')}}">Data Produk Pesanan</a></li>
+          @elseif($tipe == "pemesananpeng")
+            <li><a href="{{route('pemesanan')}}">Data Pemesanan</a></li>
+          @elseif($tipe == "produkpesananpeng")
+            <li><a href="{{route('pemesanan')}}">Data Produk Pesanan</a></li>
+          @endif
+          <li class="active">Lihat Detail</li>
+        @endif
       </ol>
     </section>
 
@@ -47,6 +78,22 @@
         @elseif($tipe == "produkpesanan")
           <div class="col-md-12">
             <a href="{{route('produkpesanan')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data produk pesanan </button></a>
+          </div>
+        @elseif($tipe == "pemesananpeng")
+          <div class="col-md-12">
+            <a href="{{route('pemesananpeng')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data pemesanan </button></a>
+          </div>
+        @elseif($tipe == "produkpesananpeng")
+          <div class="col-md-12">
+            <a href="{{route('produkpesananpeng')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data produk pesanan </button></a>
+          </div>
+        @elseif($tipe == "pemesananberanda")
+          <div class="col-md-12">
+            <a href="{{route('beranda')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman beranda </button></a>
+          </div>
+        @elseif($tipe == "pemesananberandapro")
+          <div class="col-md-12">
+            <a href="{{route('berandapro')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman beranda </button></a>
           </div>
         @endif
           

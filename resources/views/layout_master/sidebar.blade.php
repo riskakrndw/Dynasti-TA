@@ -80,6 +80,8 @@
           </li>
           <li class="@yield("user")"><a href="{{route('pengguna')}}"><i class="fa  fa-user-plus"></i> <span>Data Pengguna</span></a></li>
 
+
+
         @elseif(Auth::user()->level == "keuangan")
           <li class="@yield("beranda")"><a href="{{route('berandakeu')}}"><i class="fa fa-home"></i> <span>Beranda</span></a></li>
             <li class="treeview @yield("transaksi")">
@@ -95,6 +97,8 @@
               </ul>
             </li>
 
+
+
         @elseif(Auth::user()->level == "pengadaan")
           <li class="@yield("berandapeng")"><a href="{{route('berandapeng')}}"><i class="fa fa-home"></i> <span>Beranda</span></a></li>
           <li class="treeview @yield("stok")">
@@ -109,7 +113,21 @@
               <li class="@yield("stokes")"><a href="{{route('icecreampeng')}}"><i class="fa fa-list"></i> Ice Cream</a></li>
             </ul>
           </li>
+          <li class="treeview @yield("pemesananpeng")">
+            <a href="#">
+              <i class="fa fa-cart-plus"></i> <span>Pemesanan</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="@yield("pesananpeng")"><a href="{{route('pemesananpeng')}}"><i class="fa fa-list"></i> Data Pemesanan</a></li>
+              <li class="@yield("produkpesananpeng")"><a href="{{route('produkpesananpeng')}}"><i class="fa fa-list"></i> Data Produk Pesanan</a></li>
+            </ul>
+          </li>
           <li class="@yield("pembelianPeng")"><a href="{{route('pembelianPeng')}}"><i class="fa  fa-cart-plus"></i> <span>Permintaan Pengadaan</span></a></li>
+        
+
         
         @elseif(Auth::user()->level == "produksi")
           <li class="@yield("berandapro")"><a href="{{route('berandapro')}}"><i class="fa fa-home"></i> <span>Beranda</span></a></li>

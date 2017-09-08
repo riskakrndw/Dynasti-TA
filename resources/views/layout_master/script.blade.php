@@ -47,6 +47,9 @@
     $("#pembelian4").DataTable();
     $("#pembelian5").DataTable();
 
+
+    $("#example41").DataTable();
+
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,

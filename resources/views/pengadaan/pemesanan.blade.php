@@ -2,9 +2,9 @@
 
 @section("title", "Data Pemesanan")
 
-@section("pesanan", "active")
+@section("pesananpeng", "active")
 
-@section("pemesanan", "active")
+@section("pemesananpeng", "active")
 
 @section("moreasset")
 <link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
@@ -19,7 +19,7 @@
         Data Pemesanan
       </h1>
       <ol class="breadcrumb">
-        <li><a href="{{route('beranda')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{{route('berandapeng')}}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a> Pemesanan</a></li>
         <li class="active">Data Pemesanan</li>
       </ol>
@@ -28,13 +28,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="row">
-
-        <!-- Tambah es -->
-          <div class="col-md-12">
-            <a href="{{route('tambahPemesanan')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Pemesanan </button></a>
-          </div>
-
-        <!-- /Tambah es -->        
+    
         <div class="col-md-12">
           <br>
           <div class="nav-tabs-custom">
@@ -51,13 +45,13 @@
                   <table id="example21" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th>No</th>
-                        <th>Kode Pemesanan</th>
-                        <th>Tanggal</th>
-                        <th>Status</th>
-                        <th>Nama</th>
-                        <th>Alamat</th>
-                        <th>Total</th>
+                        <th style="width: 20px">No</th>
+                        <th style="width: 110px">Kode Pemesanan</th>
+                        <th style="width: 70px">Tanggal</th>
+                        <th style="width: 80px">Status</th>
+                        <th style="width: 108px">Nama</th>
+                        <th style="width: 148px">Alamat</th>
+                        <th style="width: 76px">Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -72,8 +66,7 @@
                           <td>{{ $data->alamat }}</td>
                           <td>{{ $data->total }}</td>
                           <td>
-                           <a href="{{ url('manager/pemesanan/lihat/'.$data->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
-                           <a href="{{ url('manager/pemesanan/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
+                           <a href="{{ url('pengadaan/pemesanan/lihat/'.$data->id.'/pemesananpeng') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach
@@ -88,12 +81,12 @@
                   <table id="example22" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th>No</th>
-                        <th >Kode Pemesanan</th>
-                        <th>Tanggal</th>
-                        <th>Nama</th>
-                        <th>Alamat</th>
-                        <th>Total</th>
+                        <th style="width: 10px">No</th>
+                        <th style="width: 25px">Kode Pemesanan</th>
+                        <th style="width: 50px">Tanggal</th>
+                        <th style="width: 50px">Nama</th>
+                        <th style="width: 75px">Alamat</th>
+                        <th style="width: 30px">Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -107,7 +100,7 @@
                           <td>{{ $data->alamat }}</td>
                           <td>{{ $data->total }}</td>
                           <td>
-                           <a href="{{ url('manager/pemesanan/lihat/'.$data->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('pengadaan/pemesanan/lihat/'.$data->id.'/pemesananpeng') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                            <button class="btn btn-sm btn-danger btnStatusBatal" id-pemesanan="{{ $data->id }}"><i class="fa fa-close"></i> Batal</button>
                          </td>
                         </tr>
@@ -123,12 +116,12 @@
                   <table id="example23" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th>No</th>
-                        <th>Kode Pemesanan</th>
-                        <th>Tanggal</th>
-                        <th>Nama</th>
-                        <th>Alamat</th>
-                        <th>Total</th>
+                        <th style="width: 10px">No</th>
+                        <th style="width: 25px">Kode Pemesanan</th>
+                        <th style="width: 50px">Tanggal</th>
+                        <th style="width: 50px">Nama</th>
+                        <th style="width: 75px">Alamat</th>
+                        <th style="width: 30px">Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -142,7 +135,7 @@
                           <td>{{ $data->alamat }}</td>
                           <td>{{ $data->total }}</td>
                           <td>
-                           <a href="{{ url('manager/pemesanan/lihat/'.$data->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('pengadaan/pemesanan/lihat/'.$data->id.'/pemesananpeng') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                            <button class="btn btn-sm btn-default btnStatusSelesai" id-pemesanan="{{ $data->id }}"><i class="fa fa-edit"></i> Selesai</button>
                          </td>
                         </tr>
@@ -158,12 +151,12 @@
                   <table id="example24" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th>No</th>
-                        <th >Kode Pemesanan</th>
-                        <th >Tanggal</th>
-                        <th>Nama</th>
-                        <th>Alamat</th>
-                        <th >Total</th>
+                        <th style="width: 10px">No</th>
+                        <th style="width: 50px">Kode Pemesanan</th>
+                        <th style="width: 50px">Tanggal</th>
+                        <th style="width: 75px">Nama</th>
+                        <th style="width: 50px">Alamat</th>
+                        <th style="width: 50px">Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -177,7 +170,7 @@
                           <td>{{ $data->alamat }}</td>
                           <td>{{ $data->total }}</td>
                           <td>
-                           <a href="{{ url('manager/pemesanan/lihat/'.$data->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('pengadaan/pemesanan/lihat/'.$data->id.'/pemesananpeng') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach
@@ -191,12 +184,12 @@
                   <table id="example25" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th >No</th>
-                        <th >Kode Pemesanan</th>
-                        <th>Tanggal</th>
-                        <th>Nama</th>
-                        <th >Alamat</th>
-                        <th >Total</th>
+                        <th style="width: 10px">No</th>
+                        <th style="width: 25px">Kode Pemesanan</th>
+                        <th style="width: 50px">Tanggal</th>
+                        <th style="width: 50px">Nama</th>
+                        <th style="width: 75px">Alamat</th>
+                        <th style="width: 30px">Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -210,7 +203,7 @@
                           <td>{{ $datas->alamat }}</td>
                           <td>{{ $datas->total }}</td>
                           <td>
-                           <a href="{{ url('manager/pemesanan/lihat/'.$datas->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
+                           <a href="{{ url('pengadaan/pemesanan/lihat/'.$datas->id.'/pemesananpeng') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
                         </tr>
                       @endforeach
@@ -246,7 +239,7 @@
         var idpesanan = $(this).attr('id-pemesanan');
         $.ajax({
           type: "GET",
-          url: "/dynasti/public/manager/pemesanan/selesai/"+idpesanan,
+          url: "/dynasti/public/pengadaan/pemesanan/selesai/"+idpesanan,
           success: function(result) {
             toastr.success("Status berhasil diubah menjadi siap");
             tr.closest('tr').remove();
@@ -261,7 +254,7 @@
         var idpesanan = $(this).attr('id-pemesanan');
         $.ajax({
           type: "GET",
-          url: "/dynasti/public/manager/pemesanan/batal/"+idpesanan,
+          url: "/dynasti/public/pengadaan/pemesanan/batal/"+idpesanan,
           success: function(result) {
             toastr.success("Status berhasil dibatalkan");
             tr.closest('tr').remove();

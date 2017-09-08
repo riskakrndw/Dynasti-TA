@@ -93,8 +93,8 @@
                   <table id="example1" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 50px">No</th>
-                        <th style="width: 500px">Nama Jenis</th>
+                        <th >No</th>
+                        <th>Nama Jenis</th>
                         <th>Harga</th>
                         <th>Aksi</th>
                       </tr>

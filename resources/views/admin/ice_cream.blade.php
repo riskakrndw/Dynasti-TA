@@ -45,11 +45,11 @@
                 <table id="example1" class="table table-bordered table-hover">
                   <thead>
                     <tr>
-                      <th style="width: 10px">No</th>
-                      <th style="width: 300px">Nama Ice Cream</th>
-                      <th style="width: 150px">Harga</th>
-                      <th style="width: 100px">Stok</th>
-                      <th style="width: 100px">Stok Minimal</th>
+                      <th>No</th>
+                      <th >Nama Ice Cream</th>
+                      <th>Harga</th>
+                      <th>Stok</th>
+                      <th>Stok Minimal</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>

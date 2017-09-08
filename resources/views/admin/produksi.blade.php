@@ -51,10 +51,10 @@
                 <table id="example1" class="table table-bordered table-hover">
                   <thead>
                     <tr>
-                      <th style="width: 10px">No</th>
-                      <th style="width: 125px">Kode Produksi</th>
-                      <th style="width: 150px">Tanggal</th>
-                      <th style="width: 350px">Rasa</th>
+                      <th>No</th>
+                      <th >Kode Produksi</th>
+                      <th>Tanggal</th>
+                      <th>Rasa</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>

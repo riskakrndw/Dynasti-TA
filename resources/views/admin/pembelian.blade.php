@@ -53,10 +53,10 @@
                   <table id="example1" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 0px">No</th>
-                        <th style="width: 150px">Kode Pengadaan</th>
-                        <th style="width: 120px">Tanggal</th>
-                        <th style="width: 168px">Total</th>
+                        <th>No</th>
+                        <th>Kode Pengadaan</th>
+                        <th>Tanggal</th>
+                        <th>Total</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </thead>
@@ -99,10 +99,10 @@
                   <table id="example12" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 0px">No</th>
-                        <th style="width: 210px">Kode Pengadaan</th>
-                        <th style="width: 168px">Tanggal</th>
-                        <th style="width: 168px">Total</th>
+                        <th>No</th>
+                        <th>Kode Pengadaan</th>
+                        <th>Tanggal</th>
+                        <th>Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -143,10 +143,10 @@
                   <table id="example13" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 0px">No</th>
-                        <th style="width: 210px">Kode Pengadaan</th>
-                        <th style="width: 168px">Tanggal</th>
-                        <th style="width: 168px">Total</th>
+                        <th>No</th>
+                        <th>Kode Pengadaan</th>
+                        <th>Tanggal</th>
+                        <th>Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -187,10 +187,10 @@
                   <table id="example14" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 0px">No</th>
-                        <th style="width: 210px">Kode Pengadaan</th>
-                        <th style="width: 168px">Tanggal</th>
-                        <th style="width: 168px">Total</th>
+                        <th>No</th>
+                        <th >Kode Pengadaan</th>
+                        <th>Tanggal</th>
+                        <th>Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -216,10 +216,10 @@
                   <table id="example15" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 0px">No</th>
-                        <th style="width: 210px">Kode Pengadaan</th>
-                        <th style="width: 168px">Tanggal</th>
-                        <th style="width: 168px">Total</th>
+                        <th> No</th>
+                        <th>Kode Pengadaan</th>
+                        <th>Tanggal</th>
+                        <th>Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -252,10 +252,10 @@
                   <table id="example16" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 0px">No</th>
-                        <th style="width: 210px">Kode Pengadaan</th>
-                        <th style="width: 168px">Tanggal</th>
-                        <th style="width: 168px">Total</th>
+                        <th>No</th>
+                        <th>Kode Pengadaan</th>
+                        <th>Tanggal</th>
+                        <th>Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -281,10 +281,10 @@
                   <table id="example17" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 0px">No</th>
-                        <th style="width: 210px">Kode Pengadaan</th>
-                        <th style="width: 168px">Tanggal</th>
-                        <th style="width: 168px">Total</th>
+                        <th>No</th>
+                        <th>Kode Pengadaan</th>
+                        <th>Tanggal</th>
+                        <th>Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
