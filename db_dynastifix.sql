@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 08 Sep 2017 pada 22.57
+-- Generation Time: 09 Sep 2017 pada 13.59
 -- Versi Server: 10.1.19-MariaDB
 -- PHP Version: 5.6.24
 
@@ -43,7 +43,7 @@ CREATE TABLE `bahan_baku` (
 
 INSERT INTO `bahan_baku` (`id`, `nama`, `harga`, `stok`, `satuan`, `stok_min`, `created_at`, `updated_at`) VALUES
 (3, 'susu bubuk', 20000, 197.83999633789062, 'gr', 100, '2017-09-04 01:04:03', '2017-09-04 05:31:08'),
-(4, 'garam', 3000, 0.4000000059604645, 'ml', 20, '2017-09-04 01:04:53', '2017-09-04 05:31:08'),
+(4, 'garam', 3000, 3.4000000059604645, 'ml', 20, '2017-09-04 01:04:53', '2017-09-09 04:29:04'),
 (5, 'jjjh', 87788, 78778, 'gguggu', 878, '2017-09-05 07:11:05', '2017-09-05 07:11:05');
 
 -- --------------------------------------------------------
@@ -105,7 +105,7 @@ CREATE TABLE `detail_pemesanan` (
 --
 
 INSERT INTO `detail_pemesanan` (`id`, `id_pemesanan`, `id_es`, `jumlah`, `subtotal`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(39, 20, 1, 10, 40000, 'siap', '2017-09-08 19:23:02', '2017-09-08 19:25:57', NULL),
+(39, 20, 1, 10, 40000, 'menunggu', '2017-09-08 19:23:02', '2017-09-08 19:25:57', NULL),
 (40, 21, 3, 48, 192000, 'siap', '2017-09-08 19:27:33', '2017-09-08 19:28:29', NULL),
 (41, 21, 1, 30, 120000, 'siap', '2017-09-08 19:27:33', '2017-09-08 19:28:38', NULL);
 
@@ -258,10 +258,10 @@ CREATE TABLE `jenis` (
 
 INSERT INTO `jenis` (`id`, `nama`, `harga`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (14, 'stik', 3000, '2017-09-04 00:59:59', '2017-09-04 01:01:16', NULL),
-(15, 'cup kecill', 4000, '2017-09-04 01:00:15', '2017-09-04 01:00:15', NULL),
+(15, 'cup kecill', 4000, '2017-09-04 01:00:15', '2017-09-09 02:44:39', '2017-09-09 02:44:39'),
 (16, 'cup besar', 5000, '2017-09-04 01:00:59', '2017-09-04 01:00:59', NULL),
 (17, 'nnn', 4, '2017-09-04 01:29:52', '2017-09-04 01:29:55', '2017-09-04 01:29:55'),
-(18, 'dfsfs', 665464, '2017-09-05 07:02:20', '2017-09-05 07:02:20', NULL);
+(18, 'dfsfs', 665464, '2017-09-05 07:02:20', '2017-09-09 02:44:26', '2017-09-09 02:44:26');
 
 -- --------------------------------------------------------
 
@@ -331,8 +331,8 @@ INSERT INTO `pembelian` (`id`, `id_users`, `kode_pembelian`, `total`, `status`, 
 (7, 5, 'BL/2017-9-6/7', 21000, 'diterima', '2017-09-06', '2017-09-04 02:15:50', '2017-09-04 02:59:36'),
 (8, 8, 'BL/2017-9-15/8', 9000, 'ditolak', '2017-09-15', '2017-09-04 02:20:57', '2017-09-04 02:21:17'),
 (9, 8, 'BL/2017-9-16/9', 9000, 'gagal', '2017-09-16', '2017-09-04 02:21:31', '2017-09-04 02:22:15'),
-(10, 5, 'BL/2017-9-8/10', 9000, 'dibeli', '2017-09-08', '2017-09-04 02:22:53', '2017-09-04 02:22:53'),
-(11, 8, 'BL/2017-8-16/11', 15000, 'menunggu', '2017-08-16', '2017-09-04 04:16:54', '2017-09-04 04:16:54');
+(10, 5, 'BL/2017-9-8/10', 9000, 'diterima', '2017-09-08', '2017-09-04 02:22:53', '2017-09-09 04:29:03'),
+(11, 8, 'BL/2017-8-16/11', 15000, 'disetujui', '2017-08-16', '2017-09-04 04:16:54', '2017-09-09 04:19:07');
 
 --
 -- Trigger `pembelian`
@@ -482,10 +482,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `level`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(10, 'putri', 'manager', 'manager', '$2y$10$vEq.Ln1zu5nFOFt379NguOITsnvvbhViqqcLm7z06ClhmFWgbzkLy', '8H97wZ6XYdsR2AjjcNzBnbcHI9gdAl0JsBWcZYjHwllF3JNUCQqXHaqRmqde', '2017-09-04 00:58:23', '2017-09-08 12:46:15'),
-(15, 'aaaa', 'pengadaan', 'pengadaan', '$2y$10$xkE88CMYiv9AA.8/PY0WI.7jtkXtHZBZJzIfJVu1ZxFMeOiPooLLO', 'GtVTJ2epYO2iGGOsT94OXcnIqqwHX0lPHI2smciY2ZY6cRmw0ivdHeET3X6x', '2017-09-07 18:12:59', '2017-09-07 18:12:59'),
-(16, 'sss', 'produksi', 'produksi', '$2y$10$QEXn.C32REz53/Eehv.ibu3dRmwnPUxPTgqTTytJJ5Ax.CC9WzwUO', '3i6Q6BMnFmXiJHatUbjzKaETTIXvV8SYbhA7QVu2B133p3f9tXq2cyKqBdRW', '2017-09-07 18:13:21', '2017-09-08 12:47:19'),
-(17, 'qqq', 'keuangan', 'keuangan', '$2y$10$LixBg5t3E7R/FNberllLieaHzmbd7SGun9QCzuocNcpN3VEnn1oAy', 'GsCMlDoRbsXsLAAJ8S2S9jfNx5UmQueaShj0Zl6MGMxbTBNbsokPTy04Z2oi', '2017-09-07 18:13:36', '2017-09-07 18:13:36'),
+(10, 'putri', 'manager', 'manager', '$2y$10$vEq.Ln1zu5nFOFt379NguOITsnvvbhViqqcLm7z06ClhmFWgbzkLy', 'z6yRhgepQFhbLBpyAuOChwXnJihSUtNruLt5HugPgdZq8Zi1iTebLuOoQFDz', '2017-09-04 00:58:23', '2017-09-08 12:46:15'),
+(15, 'aaaa', 'pengadaan', 'pengadaan', '$2y$10$xkE88CMYiv9AA.8/PY0WI.7jtkXtHZBZJzIfJVu1ZxFMeOiPooLLO', 'DjvaMx9oqyR7QZwJbR5YFZoCIB07QrlCU1v2VQEE3t9c69RQfQ0j4ankIqni', '2017-09-07 18:12:59', '2017-09-07 18:12:59'),
+(16, 'sss', 'produksi', 'produksi', '$2y$10$QEXn.C32REz53/Eehv.ibu3dRmwnPUxPTgqTTytJJ5Ax.CC9WzwUO', 'y2eQHzG9Pz4R886mhSW7jcHr7S819gl1Y4ocqUcNmvfUlhCr6QWaFLwVpBoX', '2017-09-07 18:13:21', '2017-09-08 12:47:19'),
+(17, 'qqq', 'keuangan', 'keuangan', '$2y$10$FinLejEzP8DJXL4sPS1C2.pJMQKnPw2JfjSXLLQfUnoTJRUvtp9Du', 'fc1oSm8oh4jhOL2TJuQ3Xe06cKZseDxEYGRnF5Y5wIgoKji0JS89Ogwojd40', '2017-09-07 18:13:36', '2017-09-08 23:55:22'),
 (18, 'sasasas', 'pengadaan', 'qqq', '$2y$10$uOGpjfRzRwezFeH/eXSnCehB1/VMs4x4ChuNAR51VfYMo8iG.Hjwa', 'AYEtEC1robqUYiu7S7ml8tfNPdJL2dYYZ6994690n1eYQ0LXFcbLBnWmRGRc', '2017-09-08 09:04:09', '2017-09-08 09:04:09');
 
 --

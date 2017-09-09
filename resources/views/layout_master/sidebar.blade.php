@@ -4,10 +4,10 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <div class="user-panel">
-        <li class="text-center">
-          <img src="{{url('dist/img/logo.jpeg')}}" class="img-circle" alt="User Image">
-        </li>
-      </div>
+          <li class="text-center">
+            <img src="{{url('dist/img/logo.jpeg')}}" class="img-circle" alt="User Image">
+          </li>
+        </div>
         <li class="header">MAIN NAVIGATION</li>
 
         @if(Auth::user()->level == "manager")

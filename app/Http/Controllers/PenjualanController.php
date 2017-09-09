@@ -22,8 +22,6 @@ class PenjualanController extends Controller
             $data = Penjualan::all();
             return view('keuangan.penjualan')->with('data', $data);
         }
-
-    	
     }
 
     public function tambah()
@@ -104,6 +102,12 @@ class PenjualanController extends Controller
     	
     }
 
+    public function hapusDetailPenjualan($id)
+    {
+        $data = DetailPenjualan::where('id_penjualan', '=', $id)->delete();
+        return "berhasil";
+    }
+    
     public function show($id)
     {
         if(Auth::user()->level == "manager"){
@@ -116,11 +120,7 @@ class PenjualanController extends Controller
 	
     }
 
-    public function hapusDetailPenjualan($id)
-    {
-    	$data = DetailPenjualan::where('id_penjualan', '=', $id)->delete();
-    	return "berhasil";
-    }
+    
 
     public function destroy(Request $request, $id)
     {

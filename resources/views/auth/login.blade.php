@@ -7,6 +7,16 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
+                    <div class="judul">
+                        <center>
+                            <span>SISTEM INFORMASI <br> PRODUKSI DAN PENGENDALIAN KETERSEDIAAN</span>
+                        </center>
+                        <br>
+                        <center>
+                            <img src="{{url('dist/img/logo.jpeg')}}" class="img-circle" alt="User Image">
+                        </center>
+                        <br><br>
+                    </div>
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 

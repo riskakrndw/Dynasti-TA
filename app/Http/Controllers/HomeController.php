@@ -112,7 +112,7 @@ class HomeController extends Controller
             $totalpengadaan = DB::table('pembelian')->where('status', '=', 'diterima')->sum('total');
             $totalpenjualan = DB::table('penjualan')->sum('total');
             $jumlahpembelian = Pembelian::where('status', '=', 'disetujui')->count();
-        // untuk informasi beranda
+        // untuk informasi beranda 
 
         // untuk informasi grafik        
             $data = Penjualan::getJumlahPenjualan();
@@ -141,7 +141,8 @@ class HomeController extends Controller
                 }
                 $laporan[$i]['bulan'] = $i;
             }
-        // untuk informasi grafik  
+
+        // untuk informasi grafik
 
         return view('keuangan.beranda')->with('jumlahpembelian', $jumlahpembelian)->with('totalpengadaan', $totalpengadaan)->with('totalpenjualan', $totalpenjualan)->with('data', $data)->with('tahun', $tahun)->with('laporan', $laporan);
     }
@@ -158,11 +159,6 @@ class HomeController extends Controller
 
     public function index_produksi()
     {
-        // untuk informasi pemesanan
-            $sesudah=Carbon::now()->addDays(10);
-            $pemesanan=Pemesanan::whereBetween('tanggal',[Carbon::now(),$sesudah])->orderBy('tanggal', 'asc')->get();
-        // untuk informasi pemesanan
-
-        return view('produksi.beranda')->with('pemesanan', $pemesanan);
+        return view('produksi.beranda');
     }
 }

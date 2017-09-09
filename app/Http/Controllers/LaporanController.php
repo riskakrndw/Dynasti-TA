@@ -84,7 +84,7 @@ class LaporanController extends Controller
 
     public function cetakes(){
          $data = IceCream::all();
-        return view('admin.print_stok_es')->with('data', $data);;
+        return view('admin.print_stok_es')->with('data', $data);
     }
 
     public function laporanBahan()
@@ -95,6 +95,6 @@ class LaporanController extends Controller
 
     public function cetakbahan(){
          $data = Bahan::all();
-        return view('admin.print_stok_bahan')->with('data', $data);;
+        return view('admin.print_stok_bahan')->with('data', $data);
     }
 }
