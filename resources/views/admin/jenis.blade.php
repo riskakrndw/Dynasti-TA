@@ -214,14 +214,14 @@
 
   <script type="text/javascript">
 
-    $(document).ready(function(){
+    
       $(".btnEditJenis").click(function(){
         $('#hargaJenis').val($(this).data('harga'));
         $('#namaJenis').val($(this).data('nama'));
         $('#idJenis').val($(this).data('id'));
         $('#editJenis').modal('show');
       });
-    });
+    
 
   </script>
 

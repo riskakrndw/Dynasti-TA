@@ -144,22 +144,22 @@
   <script src="{{url('dist/js/validasinumeric.js')}}"></script>
 
   <script type="text/javascript">
-    $(document).ready(function(){
+    
       $(".btnEditStok").click(function(){
         $('#hargaJenis').val($(this).data('harga'));
         $('#stok').val($(this).data('stok'));
         $('#idEs').val($(this).data('id'));
         $('#editStok').modal('show');
       });
-    });
+    
 
-    $(document).ready(function(){
+    
       $(".btnEditStokMinimal").click(function(){
         $('#stok_min').val($(this).data('stok-min'));
         $('#idEss').val($(this).data('id'));
         $('#editStokMinimal').modal('show');
       });
-    });
+    
 
   </script>
 

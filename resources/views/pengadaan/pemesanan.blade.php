@@ -45,13 +45,13 @@
                   <table id="example21" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 20px">No</th>
-                        <th style="width: 110px">Kode Pemesanan</th>
-                        <th style="width: 70px">Tanggal</th>
-                        <th style="width: 80px">Status</th>
-                        <th style="width: 108px">Nama</th>
-                        <th style="width: 148px">Alamat</th>
-                        <th style="width: 76px">Total</th>
+                        <th>No</th>
+                        <th>Kode Pemesanan</th>
+                        <th>Tanggal</th>
+                        <th>Status</th>
+                        <th>Nama</th>
+                        <th>Alamat</th>
+                        <th>Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -81,12 +81,12 @@
                   <table id="example22" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 10px">No</th>
-                        <th style="width: 25px">Kode Pemesanan</th>
-                        <th style="width: 50px">Tanggal</th>
-                        <th style="width: 50px">Nama</th>
-                        <th style="width: 75px">Alamat</th>
-                        <th style="width: 30px">Total</th>
+                        <th>No</th>
+                        <th>Kode Pemesanan</th>
+                        <th>Tanggal</th>
+                        <th>Nama</th>
+                        <th>Alamat</th>
+                        <th>Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -116,12 +116,12 @@
                   <table id="example23" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 10px">No</th>
-                        <th style="width: 25px">Kode Pemesanan</th>
-                        <th style="width: 50px">Tanggal</th>
-                        <th style="width: 50px">Nama</th>
-                        <th style="width: 75px">Alamat</th>
-                        <th style="width: 30px">Total</th>
+                        <th>No</th>
+                        <th>Kode Pemesanan</th>
+                        <th>Tanggal</th>
+                        <th>Nama</th>
+                        <th>Alamat</th>
+                        <th>Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -151,12 +151,12 @@
                   <table id="example24" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 10px">No</th>
-                        <th style="width: 50px">Kode Pemesanan</th>
-                        <th style="width: 50px">Tanggal</th>
-                        <th style="width: 75px">Nama</th>
-                        <th style="width: 50px">Alamat</th>
-                        <th style="width: 50px">Total</th>
+                        <th>No</th>
+                        <th>Kode Pemesanan</th>
+                        <th>Tanggal</th>
+                        <th>Nama</th>
+                        <th>Alamat</th>
+                        <th>Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -184,12 +184,12 @@
                   <table id="example25" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 10px">No</th>
-                        <th style="width: 25px">Kode Pemesanan</th>
-                        <th style="width: 50px">Tanggal</th>
-                        <th style="width: 50px">Nama</th>
-                        <th style="width: 75px">Alamat</th>
-                        <th style="width: 30px">Total</th>
+                        <th>No</th>
+                        <th>Kode Pemesanan</th>
+                        <th>Tanggal</th>
+                        <th>Nama</th>
+                        <th>Alamat</th>
+                        <th>Total</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>

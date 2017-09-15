@@ -207,7 +207,7 @@
                 $(".checkbox").each(function() {
                   if($(this).find('label').find('.checkjenis').is(':checked')){
                     if($(this).find('label').find('.input-group').find('.inputcheckbox_error').val() == ""){
-                      $(this).find('label').find('.input-group').find('.input_error').text("errrrr");
+                      $(this).find('label').find('.input-group').find('.input_error').text("Silahkan melengkapi data");
                      
                     }else{
                       $(this).find('label').find('.input-group').find('.input_error').text("");

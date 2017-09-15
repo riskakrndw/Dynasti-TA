@@ -84,18 +84,17 @@ class PenggunaController extends Controller
     public function updateSandi(Request $request)
     {
         // $cek = Validator::make($request->all(),[
-        //     'password' => 'required'
+        //     'passwordedit' => 'required'
         // ]);
 
-        // if($cek->fails(){
+        // if($cek->fails()){
         //     return back()->withErrors($cek, 'tambah')->withInput();
-        // })
+        // }
 
 
-
-        // $this->validate($request,[                      // --> validasi input
-        //     'password' => 'required|min:6|confirmed',
-        // ]);
+        $this->validate($request,[                      // --> validasi input
+            'password' => 'required|min:6|confirmed',
+        ]);
 
         $User = User::find($request->id);
 

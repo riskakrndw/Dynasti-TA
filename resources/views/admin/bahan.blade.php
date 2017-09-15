@@ -317,7 +317,7 @@
   </script>
 
   <script type="text/javascript">
-    $(document).ready(function(){
+   
       $(".btnEditBahan").click(function(){
         $('#namaBahan').val($(this).data('nama'));
         $('#satuanBahan').val($(this).data('satuan'));
@@ -327,6 +327,6 @@
         $('#idBahan').val($(this).data('id'));
         $('#editBahan').modal('show');
       });
-    });
+    
   </script>
 @endsection

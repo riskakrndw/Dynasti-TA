@@ -160,7 +160,7 @@
   <script type="text/javascript">
 
     $('.btnStatusSiap').click(function(){
-      if(confirm('Apakah anda akan mengubah status menjadi siap?') == true){
+      if(confirm('Apakah ice cream ini telah siap?') == true){
         var ides = $(this).attr('id-es');
         console.log(ides);
         var jumlahes = $(this).attr('jumlah');

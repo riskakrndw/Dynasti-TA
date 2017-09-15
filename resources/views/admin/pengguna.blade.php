@@ -304,7 +304,11 @@
 
   <script type="text/javascript">
 
-    $(document).ready(function(){
+    @if(count($errors->tambah) > 0)
+      $('#editSandi').modal('show');
+    @endif
+
+    
       $(".btnEditPengguna").click(function(){
         $('#namaPengguna').val($(this).data('name'));
         if($(this).data('level')=="manager"){
@@ -321,14 +325,14 @@
         $('#idPengguna').val($(this).data('id'));
         $('#editPengguna').modal('show');
       });
-    });
+    
 
-    $(document).ready(function(){
+    
       $(".btnEditSandi").click(function(){
         $('#idPengguna1').val($(this).data('id'));
         $('#editSandi').modal('show');
       });
-    });
+    
 
   </script>
 

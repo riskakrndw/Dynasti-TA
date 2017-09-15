@@ -44,12 +44,12 @@
                   <table id="example1" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 20px">No</th>
-                        <th style="width: 120px">Kode Pemesanan</th>
-                        <th style="width: 100px">Tanggal</th>
-                        <th style="width: 80px">Status</th>
-                        <th style="width: 180px">Nama Ice Cream</th>
-                        <th style="width: 100px">Jumlah</th>
+                        <th>No</th>
+                        <th>Kode Pemesanan</th>
+                        <th>Tanggal</th>
+                        <th>Status</th>
+                        <th>Nama Ice Cream</th>
+                        <th>Jumlah</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -77,11 +77,11 @@
                   <table id="example22" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 10px">No</th>
-                        <th style="width: 25px">Kode Pemesanan</th>
-                        <th style="width: 50px">Tanggal</th>
-                        <th style="width: 80px">Nama Ice Cream</th>
-                        <th style="width: 20px">Jumlah</th>
+                        <th>No</th>
+                        <th>Kode Pemesanan</th>
+                        <th>Tanggal</th>
+                        <th>Nama Ice Cream</th>
+                        <th>Jumlah</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -110,11 +110,11 @@
                   <table id="example23" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width: 10px">No</th>
-                        <th style="width: 25px">Kode Pemesanan</th>
-                        <th style="width: 50px">Tanggal</th>
-                        <th style="width: 80px">Nama Ice Cream</th>
-                        <th style="width: 20px">Jumlah</th>
+                        <th>No</th>
+                        <th>Kode Pemesanan</th>
+                        <th>Tanggal</th>
+                        <th>Nama Ice Cream</th>
+                        <th>Jumlah</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>

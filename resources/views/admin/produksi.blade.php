@@ -139,14 +139,14 @@
   </script>
   
   <script type="text/javascript">
-    $(document).ready(function(){
+    
       $(".btnEditPro").click(function(){
         $('#idpro').val($(this).data('id'));
         $('#kodepro').val($(this).data('kode'));
         $('#datepicker').val($(this).data('tanggal'));
         $('#editPro').modal('show');
       });
-    });
+    
 
   </script>
 
