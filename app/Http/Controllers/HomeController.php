@@ -77,7 +77,7 @@ class HomeController extends Controller
         // untuk info beranda
             $jumlahpermintaan = Pembelian::where('status', '=', 'menunggu')->count();
             $totalstokbahan = count(DB::select("select * from bahan_baku where stok < stok_min"));
-            $totalstokes = IceCream::where('stok', '<', '100')->count();
+            $totalstokes = count(DB::select("select * from ice_cream where stok < stok_min"));
         // untuk info beranda
 
         return view('admin.beranda')->with('jumlahpermintaan', $jumlahpermintaan)->with('totalstokbahan', $totalstokbahan)->with('totalstokes', $totalstokes)->with('data', $data)->with('tahun', $tahun)->with('pemesanan', $pemesanan)->with('laporan', $laporan)->with('laporanpemesanan', $laporanpemesanan);
@@ -152,13 +152,14 @@ class HomeController extends Controller
         // untuk info beranda
             $jumlahpenerimaan = Pembelian::where('status', '=', 'dibeli')->count();
             $totalstokbahan = count(DB::select("select * from bahan_baku where stok < stok_min"));
-            $totalstokes = IceCream::where('stok', '<', '100')->count();
+            $totalstokes = count(DB::select("select * from ice_cream where stok < stok_min"));
         // untuk info beranda
         return view('pengadaan.beranda')->with('jumlahpenerimaan', $jumlahpenerimaan)->with('totalstokbahan', $totalstokbahan)->with('totalstokes', $totalstokes);
     }
 
     public function index_produksi()
     {
-        return view('produksi.beranda');
+        $data = IceCream::all();
+        return view('produksi.beranda')->with('data', $data);
     }
 }

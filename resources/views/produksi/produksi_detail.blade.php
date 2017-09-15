@@ -3,9 +3,9 @@
 
 
 @if($tipe == "dataproduksipro")
-  @section("title", "Detail Data Produksi")
+  @section("title", "Bagian Produksi | Detail Data Produksi")
 @elseif($tipe == "produkproduksipro")
-  @section("title", "Detail Data Produk Produksi")
+  @section("title", "Bagian Produksi | Detail Data Produk Produksi")
 @endif
 
 @if($tipe == "dataproduksipro")

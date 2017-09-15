@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Bagian Pengadaan | Beranda")
+@section("title", "Bagian Produksi | Beranda")
 
 @section("berandapro", "active")
 
@@ -29,7 +29,45 @@
 
       <!-- Info beranda -->
         <div class="row">
-
+          <div class="col-md-12">
+            <section class="connectedSortable">
+                <div class="box">
+                  <div class="nav-tabs-custom">
+                    <div class="box-header">
+                      <ul class="nav nav-tabs-custom">
+                        <li class="pull-left header"><i class="fa fa-info-circle"></i> Ice cream yang harus segera diproduksi</li>
+                        <div class="box-tools pull-right">
+                          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                      </ul>
+                    </div>
+                    <div class="box-body table-responsive">
+                      <table id="example1" class="table table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th>No</th>
+                            <th>Nama Ice Cream</th>
+                            <th>Stok</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php $no=1; ?>
+                          @foreach($data as $data)
+                            @if($data->stok < $data->stok_min)
+                              <tr>
+                                <td>{{ $no++ }}</td>
+                                <td>{{ $data->nama }}</td>
+                                <td>{{ $data->stok }}</td>
+                              </tr>
+                            @endif
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+            </section>
+          </div>
         </div>
       <!-- /Info beranda -->
 

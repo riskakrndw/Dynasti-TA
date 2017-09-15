@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Data Produk Produksi")
+@section("title", "Bagian Produksi | Data Produk Produksi")
 
 @section("produksipro", "active")
 
