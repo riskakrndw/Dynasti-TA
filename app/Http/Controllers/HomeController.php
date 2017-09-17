@@ -98,10 +98,10 @@ class HomeController extends Controller
 
     public function stokIce(){
         if(Auth::user()->level == "manager"){
-            $data = IceCream::where('stok', '<', '100')->get();
+            $data = DB::select("select * from ice_cream where stok < stok_min");
             return view('admin.stokIce')->with('data', $data);
         } elseif (Auth::user()->level == "pengadaan"){
-            $data = IceCream::where('stok', '<', '100')->get();
+            $data = DB::select("select * from ice_cream where stok < stok_min");
             return view('pengadaan.stokIce')->with('data', $data);
         }
     }

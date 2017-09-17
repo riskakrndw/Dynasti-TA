@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 15 Sep 2017 pada 06.37
+-- Generation Time: 17 Sep 2017 pada 23.39
 -- Versi Server: 10.1.19-MariaDB
 -- PHP Version: 5.6.24
 
@@ -106,7 +106,7 @@ CREATE TABLE `detail_pemesanan` (
 --
 
 INSERT INTO `detail_pemesanan` (`id`, `id_pemesanan`, `id_es`, `jumlah`, `subtotal`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(39, 20, 1, 10, 40000, 'siap', '2017-09-08 19:23:02', '2017-09-10 22:06:52', NULL),
+(39, 20, 1, 10, 40000, 'siap', '2017-09-08 19:23:02', '2017-09-15 10:49:27', NULL),
 (40, 21, 3, 48, 192000, 'siap', '2017-09-08 19:27:33', '2017-09-08 19:28:29', NULL),
 (41, 21, 1, 30, 120000, 'siap', '2017-09-08 19:27:33', '2017-09-08 19:28:38', NULL),
 (42, 22, 2, 4, 12000, 'batal', '2017-09-10 22:09:40', '2017-09-10 22:09:59', NULL);
@@ -236,7 +236,7 @@ CREATE TABLE `ice_cream` (
 --
 
 INSERT INTO `ice_cream` (`id`, `id_jenis`, `id_rasa`, `nama`, `stok`, `stok_min`, `jumlah_produksi`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 15, 2, 'Ice Cream cup kecill vanilla', 31, 10, 50, '2017-09-04 01:40:24', '2017-09-10 22:06:52', NULL),
+(1, 15, 2, 'Ice Cream cup kecill vanilla', 21, 10, 50, '2017-09-04 01:40:24', '2017-09-15 10:49:27', NULL),
 (2, 14, 2, 'Ice Cream stik vanilla', 1, 38, 50, '2017-09-04 01:40:24', '2017-09-09 14:25:33', NULL),
 (3, 15, 3, 'Ice Cream cup kecill matcha', 2, 10, 50, '2017-09-05 08:55:15', '2017-09-08 19:28:28', NULL),
 (4, 16, 4, 'Ice Cream cup besar strawberry', 78, 35, 80, '2017-09-05 09:40:23', '2017-09-09 14:28:50', NULL),
@@ -386,7 +386,7 @@ CREATE TABLE `pemesanan` (
 --
 
 INSERT INTO `pemesanan` (`id`, `id_users`, `kode_pemesanan`, `nama`, `alamat`, `telepon`, `tanggal`, `total`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(20, 10, 'PSN/2017-9-21/20', 'sdada', 'sadasd', '34242', '2017-09-11', 40000, 'selesai', '2017-09-08 19:23:02', '2017-09-10 22:31:27', NULL),
+(20, 10, 'PSN/2017-9-21/20', 'sdada', 'sadasd', '34242', '2017-09-11', 40000, 'selesai', '2017-09-08 19:23:02', '2017-09-15 10:49:34', NULL),
 (21, 10, 'PSN/2017-9-28/21', 'sfsfa', 'gdg', '556', '2017-09-13', 312000, 'selesai', '2017-09-08 19:27:33', '2017-09-10 22:47:37', NULL),
 (22, 10, 'PSN/2017-9-13/22', 'dadad', 'sadada', '344', '2017-09-13', 12000, 'batal', '2017-09-10 22:09:39', '2017-09-10 22:48:03', NULL);
 
@@ -503,10 +503,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `level`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(10, 'putri', 'manager', 'manager', '$2y$10$Cm3DRZC99iPTxBOqAftN3..JXhLE06yPA66iWiTlRIc9nsS4yYZTK', 'FU5dzx3nFtEtTVljSxtrcR7ccTrh1zD41mgTFbpIIqIGiY5XfiyX68bWWRSN', '2017-09-04 00:58:23', '2017-09-10 23:26:15'),
-(15, 'aaaa', 'pengadaan', 'pengadaan', '$2y$10$xkE88CMYiv9AA.8/PY0WI.7jtkXtHZBZJzIfJVu1ZxFMeOiPooLLO', 'zSJrRa23cLtxNvQDwgjPlHOaOqvyvDZ19pS0mjYfFoi3zkXyJWOC7pqTi74V', '2017-09-07 18:12:59', '2017-09-07 18:12:59'),
-(16, 'ssssaaja', 'produksi', 'produksi', '$2y$10$QEXn.C32REz53/Eehv.ibu3dRmwnPUxPTgqTTytJJ5Ax.CC9WzwUO', '4eeHkKJfttLsmwnHJ2hAniA1XffeGPu6cKZjZu8wMRKd2vRCcUXAarea1VVp', '2017-09-07 18:13:21', '2017-09-10 23:08:37'),
-(17, 'qqq', 'keuangan', 'keuangan', '$2y$10$FinLejEzP8DJXL4sPS1C2.pJMQKnPw2JfjSXLLQfUnoTJRUvtp9Du', 'eU2HJqn2mrQGbnvf8Af75Z8EBH6Mob0SQvYLJrXLvZk21Uun9XOdH6p0Ev4D', '2017-09-07 18:13:36', '2017-09-08 23:55:22'),
+(10, 'putri', 'manager', 'manager', '$2y$10$Cm3DRZC99iPTxBOqAftN3..JXhLE06yPA66iWiTlRIc9nsS4yYZTK', 'tF9XSG4BUqn8iniIV2mdMat5wdaE6uclPQJGr36I5kCM0nEEilFxyrIZF4yu', '2017-09-04 00:58:23', '2017-09-10 23:26:15'),
+(15, 'aaaa', 'pengadaan', 'pengadaan', '$2y$10$xkE88CMYiv9AA.8/PY0WI.7jtkXtHZBZJzIfJVu1ZxFMeOiPooLLO', 'uwURAQox1YiVXVHpEXzHqVOlsXdS9u6zxWJroRjRU11OlL8xguar4ME9ijBe', '2017-09-07 18:12:59', '2017-09-07 18:12:59'),
+(16, 'ssssaaja', 'produksi', 'produksi', '$2y$10$QEXn.C32REz53/Eehv.ibu3dRmwnPUxPTgqTTytJJ5Ax.CC9WzwUO', 'odutRBV9kGbnAqfzZpWxMb0Ttw0Z8fXLe6kk3sh4yVakuzgti90tTzmvD1BL', '2017-09-07 18:13:21', '2017-09-10 23:08:37'),
+(17, 'qqq', 'keuangan', 'keuangan', '$2y$10$FinLejEzP8DJXL4sPS1C2.pJMQKnPw2JfjSXLLQfUnoTJRUvtp9Du', 'rwzRUsjy5QfuTmCDnCXtl1yLPRdL9yXtOyvDPXWAhErn7Fv08lhtzxquiYFp', '2017-09-07 18:13:36', '2017-09-08 23:55:22'),
 (18, 'sasasas', 'pengadaan', 'qqq', '$2y$10$uOGpjfRzRwezFeH/eXSnCehB1/VMs4x4ChuNAR51VfYMo8iG.Hjwa', 'AYEtEC1robqUYiu7S7ml8tfNPdJL2dYYZ6994690n1eYQ0LXFcbLBnWmRGRc', '2017-09-08 09:04:09', '2017-09-08 09:04:09');
 
 --

@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Konfirmasi Pengadaan yang Telah Dibeli")
+@section("title", "Bagian Keuangan | Konfirmasi Pengadaan yang Telah Dibeli")
 
 @section("beranda", "active")
 

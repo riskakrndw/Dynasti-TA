@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Stok Bahan Baku")
+@section("title", "Bagian Pengadaan | Stok Bahan Baku")
 
 @section("berandapeng", "active")
 

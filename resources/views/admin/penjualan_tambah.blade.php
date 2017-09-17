@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Tambah Data Penjualan")
+@section("title", "Manager | Tambah Data Penjualan")
 
 @section("jual", "active")
 

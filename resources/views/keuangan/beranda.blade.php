@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Admin | Beranda")
+@section("title", "Bagian Keuangan | Beranda")
 
 @section("beranda", "active")
 

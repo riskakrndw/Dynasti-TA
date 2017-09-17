@@ -1,6 +1,6 @@
 @extends('layout_master.master')
 
-@section("title", "Tambah Ice Cream")
+@section("title", "Bagian Keuangan | Detail Data Pengadaan")
 
 @section("beli", "active")
 
