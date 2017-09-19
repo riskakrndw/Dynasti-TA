@@ -56,16 +56,18 @@
                   <tbody>
                     <?php $no=1; ?>
                     @foreach($data as $data)
-                    <tr>
-                      <td>{{ $no++ }}</td>
-                      <td>{{ $data->produksi->kode_produksi }}</td>
-                      <td>{{ $data->produksi->tgl }}</td>
-                      <td>{{ $data->ice_cream->nama }}</td>
-                      <td>{{ $data->jumlah }}</td>
-                      <td>
-                        <a href="{{ url('produksi/produksi/lihat/'.$data->produksi->id.'/produkproduksipro') }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
-                      </td>
-                    </tr>
+                      @if($data->jumlah > 0)
+                        <tr>
+                          <td>{{ $no++ }}</td>
+                          <td>{{ $data->produksi->kode_produksi }}</td>
+                          <td>{{ $data->produksi->tgl }}</td>
+                          <td>{{ $data->ice_cream->nama }}</td>
+                          <td>{{ $data->jumlah }}</td>
+                          <td>
+                            <a href="{{ url('manager/produksi/lihat/'.$data->produksi->id.'/produkproduksi') }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
+                          </td>
+                        </tr>
+                      @endif
                     @endforeach
                   </tbody>
                 </table>
