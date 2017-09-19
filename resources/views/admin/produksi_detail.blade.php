@@ -113,7 +113,7 @@
                         @foreach($data->detail_produksi as $key=>$datadetail)
                         <label>{{$no++}} . {{$datadetail->ice_cream->jenis->nama}}</label>
                         <br>
-                        dalam 1 kali pembuatan menghasilkan:
+                        Jumlah ice cream yang diproduksi:
                         <input class="form-control bb" jmlproduksi="{{ $datadetail->ice_cream->jumlah_produksi }}" placeholder="Jumlah Produksi" name="jumlah" min="0" value="{{$datadetail->jumlah}}" id="jumlahPro{{$key+1}}" ides="datadetail->id_es" disabled>
                         <br>
                         @endforeach

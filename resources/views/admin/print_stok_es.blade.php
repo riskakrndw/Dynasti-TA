@@ -45,7 +45,7 @@
             <?php $no=1; ?>
             @foreach($data as $v)
             
-            @if($v->stok < 100)
+            @if($v->stok < $v->stok_min)
                 <tr class="row" style="background-color:#e74c3c;">
                   <td style="text-align: center; height:35px;">{{ $no++ }}</td>
                   <td style="height:35px;">{{$v->nama}}</td>

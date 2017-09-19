@@ -65,7 +65,7 @@
                   <tbody>
                     <?php $no=1; ?>
                     @foreach($data as $data)
-                      @if($data->stok < 100)
+                      @if($data->stok < $data->stok_min)
                         <tr style="background-color:#e74c3c;">
                           <td>{{ $no++ }}</td>
                           <td>{{ $data->nama }}</td>
