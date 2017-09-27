@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 19 Sep 2017 pada 07.45
+-- Generation Time: 27 Sep 2017 pada 15.26
 -- Versi Server: 10.1.19-MariaDB
 -- PHP Version: 5.6.24
 
@@ -42,8 +42,9 @@ CREATE TABLE `bahan_baku` (
 --
 
 INSERT INTO `bahan_baku` (`id`, `nama`, `harga`, `stok`, `satuan`, `stok_min`, `created_at`, `updated_at`) VALUES
-(1, 'susu bubuk', 6000, 1.3299999237060547, 'ml', 50, '2017-08-30 10:06:36', '2017-09-19 05:17:20'),
-(2, 'air', 9000, 85, 'ml', 10, '2017-08-30 11:23:06', '2017-08-30 11:27:17');
+(1, 'susu bubuk', 6000, 22.670000076294, 'ml', 50, '2017-08-30 10:06:36', '2017-09-27 13:24:42'),
+(2, 'air', 9000, 85, 'ml', 10, '2017-08-30 11:23:06', '2017-08-30 11:27:17'),
+(3, 'fdfs', 554, 54, 'dfdfd', 54, '2017-09-27 13:24:30', '2017-09-27 13:24:30');
 
 -- --------------------------------------------------------
 
@@ -66,11 +67,11 @@ CREATE TABLE `detail_pembelian` (
 --
 
 INSERT INTO `detail_pembelian` (`id`, `id_pembelian`, `id_bahan`, `jumlah`, `subtotal`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 4, 24000, '2017-08-30 10:07:20', '2017-08-30 10:07:20'),
 (2, 2, 1, 6, 36000, '2017-08-30 10:14:09', '2017-08-30 10:14:09'),
 (3, 3, 1, 10, 60000, '2017-08-30 10:17:34', '2017-08-30 10:17:34'),
-(4, 4, 1, 10, 60000, '2017-08-30 10:19:02', '2017-08-30 10:19:02'),
-(5, 5, 2, 5, 45000, '2017-08-30 11:26:43', '2017-08-30 11:26:43');
+(5, 5, 2, 5, 45000, '2017-08-30 11:26:43', '2017-08-30 11:26:43'),
+(6, 1, 1, 4, 24000, '2017-09-24 12:45:06', '2017-09-24 12:45:06'),
+(8, 4, 1, 10, 60000, '2017-09-24 12:46:23', '2017-09-24 12:46:23');
 
 --
 -- Trigger `detail_pembelian`
@@ -237,7 +238,8 @@ CREATE TABLE `jenis` (
 INSERT INTO `jenis` (`id`, `nama`, `harga`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (11, 'stik', 3000, '2017-08-30 01:26:54', '2017-08-30 01:26:54', NULL),
 (12, 'cup', 2000, '2017-08-30 12:04:23', '2017-08-30 12:04:23', NULL),
-(13, 'ember', 40000, '2017-08-30 12:04:31', '2017-08-30 12:04:31', NULL);
+(13, 'ember', 40000, '2017-08-30 12:04:31', '2017-08-30 12:04:31', NULL),
+(14, 'as', 30007, '2017-09-27 12:54:04', '2017-09-27 13:07:53', NULL);
 
 -- --------------------------------------------------------
 
@@ -304,10 +306,10 @@ CREATE TABLE `pembelian` (
 --
 
 INSERT INTO `pembelian` (`id`, `id_users`, `kode_pembelian`, `total`, `status`, `tgl`, `created_at`, `updated_at`) VALUES
-(1, 6, 'BL/2017-8-4/1', 24000, 'menunggu', '2017-08-04', '2017-08-30 10:07:20', '2017-08-30 10:12:14'),
+(1, 6, 'BL/2017-8-17/1', 24000, 'menunggu', '2017-08-17', '2017-08-30 10:07:20', '2017-09-24 12:45:06'),
 (2, 6, 'BL/2017-8-11/2', 36000, 'menunggu', '2017-08-11', '2017-08-30 10:14:09', '2017-08-30 11:25:20'),
 (3, 6, 'BL/2017-8-3/3', 60000, 'menunggu', '2017-08-03', '2017-08-30 10:17:33', '2017-08-30 11:25:30'),
-(4, 6, 'BL/2017-8-4/4', 60000, 'gagal', '2017-08-04', '2017-08-30 10:19:02', '2017-08-30 11:27:13'),
+(4, 6, 'BL/2017-8-24/4', 60000, 'gagal', '2017-08-24', '2017-08-30 10:19:02', '2017-09-24 12:46:23'),
 (5, 6, 'BL/2017-8-16/5', 45000, 'gagal', '2017-08-16', '2017-08-30 11:26:43', '2017-08-30 11:27:17');
 
 --
@@ -441,10 +443,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `level`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(5, 'maulana rizki', 'manager', 'manager', '$2y$10$yn0O9MHvhOW5TpZXJHRsoeOBAokFDuB/tYavYWS.mLjyRzTO.i4ly', 'ycpAL1V97mt7mQOlmnRInkmhlAF7oiqm5WHZKa2IBRvDlqcGMQxVhXmMUtR2', '2017-06-20 04:21:13', '2017-06-21 22:59:23'),
-(6, 'aaaaa', 'pengadaan', 'pengadaan', '$2y$10$IMIp3i9ZT4XFJcUaPAgCTeGdrZ4QdJ2phrGRgK0fuuHmLpIb7zA2K', 'Eyl5a8lqJ66orjpVdtotj8T2sO3hidB37Q8jNp4BlRZQy23nio3mueaDxARP', '2017-08-30 10:03:43', '2017-08-30 10:03:43'),
-(7, 'wwwww', 'keuangan', 'keuangan', '$2y$10$nA1WxzlMZXfj4huR4vCrFurX1hgx0.y4BimXqUZNg6f6M2k2TMKYG', '0fiSKAhZcwj7D5JOy0q9fcLZ69Uwme8Rq7HhKnQhZyB8P2XWfXdcUgSO2N6e', '2017-08-30 10:03:54', '2017-08-30 10:03:54'),
-(8, 'wwww', 'produksi', 'produksi', '$2y$10$sFcpvgLAu3F07sKtr34EQ.l9fLtKLRAN7d/uHvzAy8aMiaSvNQDK.', 'ZhI5tVtEwA1xiplSA8QuLPvCdwIz1wN2bU2I4AA7Io422Pplbi1WRI9iu21l', '2017-09-19 05:15:19', '2017-09-19 05:15:19');
+(5, 'maulana rizki', 'manager', 'manager', '$2y$10$yn0O9MHvhOW5TpZXJHRsoeOBAokFDuB/tYavYWS.mLjyRzTO.i4ly', 'QKdKu9QwgY2QmYYkpS60UYrOlkUhm3aTlTxzSJOchWuVO1b79zIJyk373mS4', '2017-06-20 04:21:13', '2017-06-21 22:59:23'),
+(6, 'aaaaa', 'pengadaan', 'pengadaan', '$2y$10$IMIp3i9ZT4XFJcUaPAgCTeGdrZ4QdJ2phrGRgK0fuuHmLpIb7zA2K', 'iOm6wi3K9fTG0IzhcTHat8nZL9mOGDPf5nb4ii8tKjIhiOIbAncRtdhOj6Jc', '2017-08-30 10:03:43', '2017-08-30 10:03:43'),
+(7, 'wwwww', 'keuangan', 'keuangan', '$2y$10$nA1WxzlMZXfj4huR4vCrFurX1hgx0.y4BimXqUZNg6f6M2k2TMKYG', 'VtaqcmCPY5neVX853lhtYsYG1um7j8Z9t5AJDGAxv45bDHD8ME93cVovmiCu', '2017-08-30 10:03:54', '2017-08-30 10:03:54'),
+(8, 'wwww', 'produksi', 'produksi', '$2y$10$sFcpvgLAu3F07sKtr34EQ.l9fLtKLRAN7d/uHvzAy8aMiaSvNQDK.', 'kReoPFUWmuNf9Wk66gkKAK98CslVsiTEMVjCGnML9TjNuBWPi354EhlvI9Zz', '2017-09-19 05:15:19', '2017-09-19 05:15:19');
 
 --
 -- Indexes for dumped tables
@@ -574,12 +576,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bahan_baku`
 --
 ALTER TABLE `bahan_baku`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `detail_pembelian`
 --
 ALTER TABLE `detail_pembelian`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `detail_pemesanan`
 --
@@ -609,7 +611,7 @@ ALTER TABLE `ice_cream`
 -- AUTO_INCREMENT for table `jenis`
 --
 ALTER TABLE `jenis`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `migrations`
 --

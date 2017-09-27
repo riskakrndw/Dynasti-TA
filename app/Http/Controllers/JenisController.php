@@ -22,7 +22,13 @@ class JenisController extends Controller
     {
         $this->validate($request, [
             'nama' => 'required|min:2|max:50',
-        ]);
+            'harga' => 'required|min:2|max:10',
+        ],
+        [
+        'nama.required' => 'Nama harus diisi',
+        'harga.required' => 'Harga harus diisi',
+        ]
+        );
 
         $data = new Jenis;
         $data->nama = $request->nama;
@@ -45,12 +51,18 @@ class JenisController extends Controller
     {
 
         $this->validate($request, [
-            'nama' => 'required|min:2|max:50',
-        ]);
+            'namaUbah' => 'required|min:2|max:50',
+            'hargaUbah' => 'required|min:2|max:10',
+        ],
+        [
+        'namaUbah.required' => 'Nama harus diisi',
+        'hargaUbah.required' => 'Harga harus diisi',
+        ]
+        );
         
         $data = Jenis::find($request->id);
-        $data->nama = $request->nama;
-        $data->harga = $request->harga;
+        $data->nama = $request->namaUbah;
+        $data->harga = $request->hargaUbah;
         $data->save();
 
         $notification = array(

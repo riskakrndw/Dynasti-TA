@@ -46,10 +46,18 @@ class BahanController extends Controller
         $this->validate($request, [
             'nama' => 'required|min:2|max:50',
             'harga' => 'required|max:10',
-            'stok' => 'required|max:20',
+            'stok' => 'required',
+            'stok_min' => 'required',
             'satuan' => 'required|max:30',
-
-        ]);
+        ],
+        [
+        'nama.required' => 'Nama harus diisi',
+        'harga.required' => 'Harga harus diisi',
+        'stok.required' => 'Stok harus diisi',
+        'stok_min.required' => 'Harga harus diisi',
+        'satuan.required' => 'Satuan harus diisi',
+        ]
+        );
 
         $data = new Bahan;
         $data->nama = $request->nama;

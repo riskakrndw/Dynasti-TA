@@ -47,20 +47,32 @@
                       <form role="form" action="{{url('manager/jenis/simpan')}}" method="POST" onsubmit="return Validate()" name="vform">
                         {{csrf_field()}}
                         <div class="form-group">
-                          <label>Nama Jenis</label>
-                          <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                            <input class="form-control" placeholder="Nama Jenis" name="nama">
+                          <div class="form-group{{ $errors->has('nama') ? ' has-error' : '' }}">
+                            <label>Nama Jenis</label>
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                              <input class="form-control" placeholder="Nama Jenis" name="nama" value="{{ old('nama') }}">
+                            </div>
+                            @if ($errors->has('nama'))
+                              <span class="help-block">
+                                  <strong>{{ $errors->first('nama') }}</strong>
+                              </span>
+                            @endif
                           </div>
-                          <span class="help-block val_error" id="nama_error" style="color:red;"></span>
                           <br>
-                          <label>Harga</label>
-                          <div class="input-group">
-                            <span class="input-group-addon">Rp</span>
-                            <input class="form-control" placeholder="Harga" name="harga" onKeyPress="return goodchars(event,'0123456789',this)">
-                            <span class="input-group-addon">,00</span>
+                          <div class="form-group{{ $errors->has('harga') ? ' has-error' : '' }}">
+                            <label>Harga</label>
+                            <div class="input-group">
+                              <span class="input-group-addon">Rp</span>
+                              <input class="form-control" placeholder="Harga" name="harga" onKeyPress="return goodchars(event,'0123456789',this)" value="{{ old('harga') }}">
+                              <span class="input-group-addon">,00</span>
+                            </div>
+                            @if ($errors->has('harga'))
+                              <span class="help-block">
+                                  <strong>{{ $errors->first('harga') }}</strong>
+                              </span>
+                            @endif
                           </div>
-                          <span class="help-block val_error" id="harga_error" style="color:red;"></span>
                         </div>
                         <div class="form-group">
                           <div class="box-footer pull-right">
@@ -126,19 +138,33 @@
                   <div class="modal-body modal-primary">
                     <form role="form" action="{{url('manager/jenis/edit')}}" method="POST">
                     {{csrf_field()}}
-                    <label>Nama Jenis</label>
-                    <div class="input-group">
-                      <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                      <input class="form-control" id="namaJenis" name="nama" placeholder="Nama Jenis" value="">
+                    <input class="form-control" type="hidden" name="id" id="idJenis" value="">
+                    <div class="form-group{{ $errors->has('namaUbah') ? ' has-error' : '' }}">
+                      <label>Nama Jenis</label>
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                        <input class="form-control" id="namaJenis" name="namaUbah" placeholder="Nama Jenis" value="">
+                      </div>
+                      @if ($errors->has('namaUbah'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('namaUbah') }}</strong>
+                        </span>
+                      @endif
                     </div>
                     <br>
-                    <label>Harga</label>
-                    <div class="input-group">
-                      <span class="input-group-addon">Rp</span>
-                      <input class="form-control" id="hargaJenis" name="harga" placeholder="Harga" value="" onKeyPress="return goodchars(event,'0123456789',this)">
-                      <span class="input-group-addon">,00</span>
+                    <div class="form-group{{ $errors->has('hargaUbah') ? ' has-error' : '' }}">
+                      <label>Harga</label>
+                      <div class="input-group">
+                        <span class="input-group-addon">Rp</span>
+                        <input class="form-control" id="hargaJenis" name="hargaUbah" placeholder="Harga" value="" onKeyPress="return goodchars(event,'0123456789',this)">
+                        <span class="input-group-addon">,00</span>
+                      </div>
+                      @if ($errors->has('hargaUbah'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('hargaUbah') }}</strong>
+                        </span>
+                      @endif
                     </div>
-                    <input class="form-control" type="hidden" name="id" id="idJenis" value="">
                   </div>
                   <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
@@ -171,6 +197,7 @@
 <!-- validasi keyboard numeric only -->
   <script src="{{url('dist/js/validasinumeric.js')}}"></script>
 
+<!-- 
   <script type="text/javascript">
 
     //getting all input object
@@ -211,7 +238,7 @@
 
       }
   </script>
-
+ -->
   <script type="text/javascript">
 
     

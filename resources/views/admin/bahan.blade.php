@@ -46,53 +46,83 @@
                   <div class="box-body">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Nama Bahan</label>
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Nama Bahan" name="nama">
+                        <div class="form-group{{ $errors->has('nama') ? ' has-error' : '' }}">
+                          <label>Nama Bahan</label>
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                            <input class="form-control" placeholder="Nama Bahan" name="nama" value="{{ old('nama') }}">
+                          </div>
+                          @if ($errors->has('nama'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('nama') }}</strong>
+                            </span>
+                          @endif
                         </div>
-                        <span class="help-block val_error" id="nama_error" style="color:red;"></span>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Satuan</label>
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-balance-scale"></i></span>
-                          <input class="form-control" placeholder="Satuan" name="satuan">
+                        <div class="form-group{{ $errors->has('satuan') ? ' has-error' : '' }}">
+                          <label>Satuan</label>
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-balance-scale"></i></span>
+                            <input class="form-control" placeholder="Satuan" name="satuan" value="{{ old('satuan') }}">
+                          </div>
+                          @if ($errors->has('satuan'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('satuan') }}</strong>
+                            </span>
+                          @endif
                         </div>
-                        <span class="help-block val_error" id="satuan_error" style="color:red;"></span>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Harga Satuan</label>
-                        <div class="input-group">
-                          <span class="input-group-addon">Rp</span>
-                          <input class="form-control" placeholder="Harga Satuan" name="harga" type="text" onKeyPress="return goodchars(event,'0123456789',this)">
+                        <div class="form-group{{ $errors->has('harga') ? ' has-error' : '' }}">
+                          <label>Harga Satuan</label>
+                          <div class="input-group">
+                            <span class="input-group-addon">Rp</span>
+                            <input class="form-control" placeholder="Harga Satuan" name="harga" type="text" value="{{ old('harga') }}" onKeyPress="return goodchars(event,'0123456789',this)">
                             <span class="input-group-addon">,00</span>
+                          </div>
+                          @if ($errors->has('harga'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('harga') }}</strong>
+                            </span>
+                          @endif
                         </div>
-                        <span class="help-block val_error" id="harga_error" style="color:red;"></span>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Stok</label>
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
-                          <input class="form-control" placeholder="Stok" name="stok" onKeyPress="return goodchars(event,'0123456789',this)">
+                        <div class="form-group{{ $errors->has('stok') ? ' has-error' : '' }}">
+                          <label>Stok</label>
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
+                            <input class="form-control" placeholder="Stok" name="stok" value="{{ old('stok') }}" onKeyPress="return goodchars(event,'0123456789',this)">
+                          </div>
+                          @if ($errors->has('stok'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('stok') }}</strong>
+                            </span>
+                          @endif
                         </div>
-                        <span class="help-block val_error" id="stok_error" style="color:red;"></span>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Stok Minimal</label>
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
-                          <input class="form-control" placeholder="Stok Minimal" name="stok_min" onKeyPress="return goodchars(event,'0123456789',this)">
+                        <div class="form-group{{ $errors->has('stok_min') ? ' has-error' : '' }}">
+                          <label>Stok Minimal</label>
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
+                            <input class="form-control" placeholder="Stok Minimal" name="stok_min" value="{{ old('stok_min') }}" onKeyPress="return goodchars(event,'0123456789',this)">
+                          </div>
+                          @if ($errors->has('stok_min'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('stok_min') }}</strong>
+                            </span>
+                          @endif
                         </div>
-                        <span class="help-block val_error" id="stokmin_error" style="color:red;"></span>
                       </div>
                     </div>
                     <div class="box-footer pull-right">
@@ -235,7 +265,7 @@
   <script src="{{url('dist/js/bootstrap-modalmanager.js')}}"></script>
   <script src="{{url('dist/js/bootstrap-modal.js')}}"></script>
   <script src="{{url('dist/js/validasinumeric.js')}}"></script>
-
+<!-- 
   <script type="text/javascript">
 
     //getting all input object
@@ -315,7 +345,7 @@
 
       }
   </script>
-
+ -->
   <script type="text/javascript">
    
       $(".btnEditBahan").click(function(){
