@@ -271,7 +271,7 @@
 
               bahandipakai[j] = totalTakaran.toFixed(2);
 
-              if((parseFloat(totalTakaran)) > arr2[j]){
+              if((parseFloat(totalTakaran)) > arr2[j] || wh == true){
                 wh = true;
                
                 
