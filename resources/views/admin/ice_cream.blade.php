@@ -92,7 +92,7 @@
                 <label>Stok</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                  <input class="form-control" id="stok" name="stok" placeholder="Stok" value="old(stok)">
+                  <input class="form-control" id="stok" name="stok" placeholder="Stok" value="{{ old('stok') }}">
                 </div>
                 @if ($errors->has('stok'))
                   <span class="help-block">
@@ -120,10 +120,17 @@
             <div class="modal-body modal-primary">
               <form role="form" action="{{url('manager/icecream/edit/stokmin')}}" method="POST">
               {{csrf_field()}}
-              <label>Stok</label>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                <input class="form-control" id="stok_min" name="stok_min" placeholder="Stok Minimal" value="">
+              <div class="form-group{{ $errors->has('stok_min') ? ' has-error' : '' }}">
+                <label>Stok Minimal</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                  <input class="form-control" id="stok_min" name="stok_min" placeholder="Stok Minimal" value="">
+                </div>
+                @if ($errors->has('stok_min'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('stok_min') }}</strong>
+                  </span>
+                @endif
               </div>
               <input class="form-control" type="hidden" name="id" id="idEss" value="">
             </div>
@@ -153,7 +160,11 @@
   <script type="text/javascript">
 
     @if(count($errors)>0)
-      $('#editStok').modal('show');
+      @if ($errors->has('stok'))
+        $('#editStok').modal('show');
+      @else
+        $('#editStokMinimal').modal('show');
+      @endif
     @endif
     
       $(".btnEditStok").click(function(){

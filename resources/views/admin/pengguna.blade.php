@@ -335,8 +335,8 @@
           $('#levelManager').show();
           $('#levelPengguna').hide();
         @else
-        $('#levelPengguna').show();
-        $('#levelManager').hide();
+          $('#levelPengguna').show();
+          $('#levelManager').hide();
         @endif
 
         $('#editPengguna').modal('show');

@@ -111,6 +111,14 @@ class IceCreamController extends Controller
 
     public function updateMin(Request $request)
     {
+
+        $this->validate($request, [
+            'stok_min' => 'required|min:1',
+        ],
+        [
+        'stok_min.required' => 'Stok minimal harus diisi',
+        ]
+        );
         
         $data = IceCream::find($request->id);
         $data->stok_min = $request->stok_min;
