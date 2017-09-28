@@ -12,7 +12,23 @@
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+	if(auth() -> user()){
+	    if(auth()->user()->level=="manager"){
+	        return redirect("/manager/beranda");
+	    }
+	    elseif(auth()->user()->level=="keuangan"){
+	        return redirect("/keuangan/beranda");
+	    }
+	    elseif(auth()->user()->level=="produksi"){
+	        return redirect("/produksi/beranda");
+	    }
+	    elseif (auth()->user()->level=="pengadaan") {
+	        return redirect("/pengadaan/beranda");
+	    }
+	}else{
+		return view('auth.login');
+	}
+    
 });
 
 Auth::routes();

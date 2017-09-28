@@ -222,6 +222,7 @@
     var bahandipakai = [];
     var nomorBaris = 0;
     var no;
+    var inputLama;
 
     jQuery(document).ready(function() {
       var doc = $(document);
@@ -232,14 +233,21 @@
     
     });
 
+    $(document).on('focusin', '.bb', function(){
+      $(this).data('val', $(this).val());
+    });
+
     $(document).on('change','.bb',function(){
+       inputLama = $(this).data('val');
+       console.log("input yg lama" + inputLama + $(this).val());
       console.log('cek takan:'+arrTakaran)
       var j=0;
+      wh = false;
          $('.total').each(function(){ 
        
           var totalTakaran = 0; 
           
-          wh = false;
+          
           for(var i = 1; i<=no; i++){
             var jumlahproduksi = $('#jumlahPro'+i).attr('jmlproduksi'); //jumlah yang dihasilkan dalam 1 takaran
             var jumlah = $('#jumlahPro'+i).val(); //jumlah yang ingin diproduksi
@@ -259,15 +267,19 @@
             var total = $(this).text();
 
               if(w == 0)
-              arr.push(total);
-
-              $(this).text(parseFloat(totalTakaran.toFixed(2)));
+              
 
               bahandipakai[j] = totalTakaran.toFixed(2);
 
               if((parseFloat(totalTakaran)) > arr2[j]){
                 wh = true;
-              } 
+               
+                
+              } else{
+                arr.push(total);
+
+                $(this).text(parseFloat(totalTakaran.toFixed(2)));
+              }
           }
           
           j++;
@@ -277,9 +289,10 @@
         if(wh == true)
         {
           alert('Bahan baku tidak mencukupi. Harap melakukan pengadaan bahan baku terlebih dahulu')
-          $('#submit').attr('disabled',true);
+          // $('#submit').attr('disabled',true);
+          $(this).val(inputLama);
         }else{
-          $('#submit').attr('disabled',false);
+          // $('#submit').attr('disabled',false);
         }
         w = 1
         console.log(arr);

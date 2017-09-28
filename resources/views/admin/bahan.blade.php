@@ -192,51 +192,71 @@
                 <div class="modal-body">
                   <form role="form" action="{{url('manager/bahan/edit')}}" method="POST">
                   {{csrf_field()}}
-                  <label>Nama Bahan</label>
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                    <input class="form-control" id="namaBahan" name="nama" placeholder="Nama Bahan" value="">
+                  <div class="form-group{{ $errors->has('namaUbah') ? ' has-error' : '' }}">
+                    <label>Nama Bahan</label>
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                      <input class="form-control" id="namaBahan" name="namaUbah" placeholder="Nama Bahan" value="{{ old('namaUbah') }}">
+                    </div>
+                    @if ($errors->has('namaUbah'))
+                      <span class="help-block">
+                          <strong>{{ $errors->first('namaUbah') }}</strong>
+                      </span>
+                    @endif
                   </div>
-                  @if($errors->has('nama'))
-                    <span class="help-block">Nama bahan minimal 2 karakter</span>
-                  @endif
                   <br>
-                  <label>Satuan</label>
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-balance-scale"></i></span>
-                    <input class="form-control" placeholder="Satuan" id="satuanBahan" name="satuan" value="">
+                  <div class="form-group{{ $errors->has('satuanUbah') ? ' has-error' : '' }}">
+                    <label>Satuan</label>
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-balance-scale"></i></span>
+                      <input class="form-control" placeholder="Satuan" id="satuanBahan" name="satuanUbah" value="{{ old('satuanUbah') }}">
+                    </div>
+                    @if ($errors->has('satuanUbah'))
+                      <span class="help-block">
+                          <strong>{{ $errors->first('satuanUbah') }}</strong>
+                      </span>
+                    @endif
                   </div>
-                  @if($errors->has('stok'))
-                    <span class="help-block">Harus diisi</span>
-                  @endif
                   <br>
-                  <label>Harga Satuan</label>
-                  <div class="input-group">
-                          <span class="input-group-addon">Rp</span>
-                    <input class="form-control" placeholder="Harga Satuan" id="hargaBahan" name="harga" type="text" onKeyPress="return goodchars(event,'0123456789',this)">
-                            <span class="input-group-addon">,00</span>
+                  <div class="form-group{{ $errors->has('hargaUbah') ? ' has-error' : '' }}">
+                    <label>Harga Satuan</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">Rp</span>
+                      <input class="form-control" placeholder="Harga Satuan" id="hargaBahan" value="{{ old('hargaUbah') }}" name="hargaUbah" type="text" onKeyPress="return goodchars(event,'0123456789',this)">
+                      <span class="input-group-addon">,00</span>
+                    </div>
+                    @if ($errors->has('hargaUbah'))
+                      <span class="help-block">
+                          <strong>{{ $errors->first('hargaUbah') }}</strong>
+                      </span>
+                    @endif
                   </div>
-                  @if($errors->has('harga'))
-                    <span class="help-block">Harus diisi</span>
-                  @endif
                   <br>
-                  <label>Stok</label>
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
-                    <input class="form-control" placeholder="Stok" id="stokBahan" name="stok" onKeyPress="return goodchars(event,'0123456789',this)">
+                  <div class="form-group{{ $errors->has('stokUbah') ? ' has-error' : '' }}">
+                    <label>Stok</label>
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
+                      <input class="form-control" placeholder="Stok" id="stokBahan" value="{{ old('stokUbah') }}" name="stokUbah" onKeyPress="return goodchars(event,'0123456789',this)">
+                    </div>
+                    @if ($errors->has('stokUbah'))
+                      <span class="help-block">
+                          <strong>{{ $errors->first('stokUbah') }}</strong>
+                      </span>
+                    @endif
                   </div>
-                  @if($errors->has('stok'))
-                    <span class="help-block">Harus diisi</span>
-                  @endif
                   <br>
-                  <label>Stok Minimal</label>
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
-                    <input class="form-control" placeholder="Stok Minimal" id="stok_min" name="stok_min" onKeyPress="return goodchars(event,'0123456789',this)">
+                  <div class="form-group{{ $errors->has('stok_minUbah') ? ' has-error' : '' }}">
+                    <label>Stok Minimal</label>
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
+                      <input class="form-control" placeholder="Stok Minimal" value="{{ old('stok_minUbah') }}" id="stok_min" name="stok_minUbah" onKeyPress="return goodchars(event,'0123456789',this)">
+                    </div>
+                    @if ($errors->has('stok_minUbah'))
+                      <span class="help-block">
+                          <strong>{{ $errors->first('stok_minUbah') }}</strong>
+                      </span>
+                    @endif
                   </div>
-                  @if($errors->has('stok'))
-                    <span class="help-block">Harus diisi</span>
-                  @endif
                   <input class="form-control" type="hidden" name="id" id="idBahan" value="">
                 </div>
                 <div class="modal-footer">
@@ -347,7 +367,11 @@
   </script>
  -->
   <script type="text/javascript">
-   
+    
+    @if(count($errors)>0)
+      $('#editBahan').modal('show');
+    @endif
+
       $(".btnEditBahan").click(function(){
         $('#namaBahan').val($(this).data('nama'));
         $('#satuanBahan').val($(this).data('satuan'));

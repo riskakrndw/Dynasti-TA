@@ -90,7 +90,14 @@ class IceCreamController extends Controller
 
     public function update(Request $request)
     {
-        
+        $this->validate($request, [
+            'stok' => 'required|min:1',
+        ],
+        [
+        'stok.required' => 'Stok harus diisi',
+        ]
+        );
+
         $data = IceCream::find($request->id);
         $data->stok = $request->stok;
         $data->save();

@@ -18,7 +18,18 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            if(auth()->user()->level=="manager"){
+                return redirect("/manager/beranda");
+            }
+            elseif(auth()->user()->level=="keuangan"){
+                return redirect("/keuangan/beranda");
+            }
+            elseif(auth()->user()->level=="produksi"){
+                return redirect("/produksi/beranda");
+            }
+            elseif (auth()->user()->level=="pengadaan") {
+                return redirect("/pengadaan/beranda");
+            }
         }
 
         return $next($request);

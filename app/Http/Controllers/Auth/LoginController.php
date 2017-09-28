@@ -14,7 +14,6 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/manager/beranda';
 
     /**
      * Create a new controller instance.
@@ -24,6 +23,25 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function loginView()
+    {
+        if(auth() -> user()){
+            if(auth()->user()->level=="manager"){
+                return "/manager/beranda";
+            }
+            elseif(auth()->user()->level=="keuangan"){
+                return "/keuangan/beranda";
+            }
+            elseif(auth()->user()->level=="produksi"){
+                return "/produksi/beranda";
+            }
+            elseif (auth()->user()->level=="pengadaan") {
+                return "/pengadaan/beranda";
+            }
+        }
+        return redirect ('/');
     }
 
     protected function redirectTo()

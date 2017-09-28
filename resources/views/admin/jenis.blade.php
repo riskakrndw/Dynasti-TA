@@ -31,6 +31,12 @@
       <div class="row">
 
         <!-- Tambah jenis -->
+          <!-- <div class="col-md-12">
+            <button type="button" class="btn btn-sm btn-primary btnTambahJenis" data-toggle="modal" data-target=""> <i class="fa fa-plus"></i> Tambah</button>
+          </div> -->
+        <!-- /Tambah rasa -->
+
+        <!-- Tambah jenis -->
           <div class="col-md-12">
             <div class="box">
               <div class="box-header with-border">
@@ -43,7 +49,6 @@
               <div class="box-body">
                 <div class="row">
                   <div class="col-md-12">
-                    <!-- Form tambah jenis -->
                       <form role="form" action="{{url('manager/jenis/simpan')}}" method="POST" onsubmit="return Validate()" name="vform">
                         {{csrf_field()}}
                         <div class="form-group">
@@ -80,7 +85,6 @@
                           </div>
                         </div>
                       </form>
-                    <!-- Form tambah jenis -->
                   </div>
                 </div>
               </div>
@@ -129,6 +133,50 @@
                 </div>
               <!-- /.tabel jenis -->
 
+              <!-- Modal tambah jenis -->
+                <div id="tambahJenis" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Tambah Data Jenis</h4>
+                  </div>
+                  <div class="modal-body modal-primary">
+                    <form role="form" action="{{url('manager/jenis/simpan')}}" method="POST">
+                    {{csrf_field()}}
+                    <div class="form-group{{ $errors->has('nama') ? ' has-error' : '' }}">
+                      <label>Nama Jenis</label>
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                        <input class="form-control" placeholder="Nama Jenis" name="nama" value="{{ old('nama') }}">
+                      </div>
+                      @if ($errors->has('nama'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('nama') }}</strong>
+                        </span>
+                      @endif
+                    </div>
+                    <br>
+                    <div class="form-group{{ $errors->has('harga') ? ' has-error' : '' }}">
+                      <label>Harga</label>
+                      <div class="input-group">
+                        <span class="input-group-addon">Rp</span>
+                        <input class="form-control" placeholder="Harga" name="harga" onKeyPress="return goodchars(event,'0123456789',this)" value="{{ old('harga') }}">
+                        <span class="input-group-addon">,00</span>
+                      </div>
+                      @if ($errors->has('harga'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('harga') }}</strong>
+                        </span>
+                      @endif
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                  </div>
+                </form>
+                </div>
+              <!-- /Modal tambah jenis -->
+
               <!-- Modal edit jenis -->
                 <div id="editJenis" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
                   <div class="modal-header">
@@ -143,7 +191,7 @@
                       <label>Nama Jenis</label>
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                        <input class="form-control" id="namaJenis" name="namaUbah" placeholder="Nama Jenis" value="">
+                        <input class="form-control" id="namaJenis" name="namaUbah" placeholder="Nama Jenis" value="{{ old('namaUbah') }}">
                       </div>
                       @if ($errors->has('namaUbah'))
                         <span class="help-block">
@@ -156,7 +204,7 @@
                       <label>Harga</label>
                       <div class="input-group">
                         <span class="input-group-addon">Rp</span>
-                        <input class="form-control" id="hargaJenis" name="hargaUbah" placeholder="Harga" value="" onKeyPress="return goodchars(event,'0123456789',this)">
+                        <input class="form-control" id="hargaJenis" name="hargaUbah" placeholder="Harga" value="{{ old('hargaUbah') }}" onKeyPress="return goodchars(event,'0123456789',this)">
                         <span class="input-group-addon">,00</span>
                       </div>
                       @if ($errors->has('hargaUbah'))
@@ -174,6 +222,7 @@
                 </form>
                 </div>
               <!-- /Modal edit jenis -->
+
             </div>
           </div>
         <!-- /Data jenis -->
@@ -241,7 +290,10 @@
  -->
   <script type="text/javascript">
 
-    
+    @if(count($errors)>0)
+      $('#editJenis').modal('show');
+    @endif
+     
       $(".btnEditJenis").click(function(){
         $('#hargaJenis').val($(this).data('harga'));
         $('#namaJenis').val($(this).data('nama'));
@@ -249,7 +301,9 @@
         $('#editJenis').modal('show');
       });
     
-
+      $(".btnTambahJenis").click(function(){
+        $('#tambahJenis').modal('show');
+      });
   </script>
 
 @endsection

@@ -208,33 +208,44 @@
                   <div class="modal-body modal-primary">
                     <form role="form" action="{{url('manager/pengguna/edit')}}" method="POST">
                       {{csrf_field()}}
-                      <label>Nama</label>
-                      <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                        <input class="form-control" id="namaPengguna" placeholder="Nama" name="name">
+                      <div class="form-group{{ $errors->has('nameUbah') ? ' has-error' : '' }}">
+                        <label>Nama</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <input class="form-control" id="namaPengguna" placeholder="Nama" name="nameUbah" value="{{ old('nameUbah') }}">
+                        </div>
+                        @if ($errors->has('nameUbah'))
+                          <span class="help-block">
+                              <strong>{{ $errors->first('nameUbah') }}</strong>
+                          </span>
+                        @endif
                       </div>
-                      @if($errors->has('name'))
-                        <span class="help-block">Nama jenis minimal 2 karakter</span>
-                      @endif
                       <br>
-                      <label>Pilih Level</label>
-                      <input class="form-control" id="levelManager" name="level" disabled>
-                      <select class="form-control select2" style="width: 100%;" name="level" id="levelPengguna">
-                        <option disabled="disabled" selected="selected" value="0">Pilih Level</option>
-                        <option value="pengadaan">Bagian Pengadaan</option>
-                        <option value="keuangan">Bagian Keuangan</option>
-                        <option value="produksi">Bagian Produksi</option>      
-                      </select>
+                      <!-- <div class="form-group{{ $errors->has('levelUbah') ? ' has-error' : '' }}"> -->
+                        <label>Pilih Level</label>
+                        <input class="form-control" id="levelManager" value=old("levelUbah") name="levelUbah" disabled>
+                        <select class="form-control select2" style="width: 100%;" name="levelUbah" id="levelPengguna">
+                          <option disabled="disabled" selected="selected" value="0">Pilih Level</option>
+                          <option value="pengadaan" @if(old("levelUbah") == "pengadaan") selected="selected" @endif >Bagian Pengadaan</option>
+                          <option value="keuangan" @if(old("levelUbah") == "keuangan") selected="selected" @endif>Bagian Keuangan</option>
+                          <option value="produksi" @if(old("levelUbah") == "produksi") selected="selected" @endif>Bagian Produksi</option>      
+                        </select>
+                        
+                      <!-- </div> -->
                       <br>
-                      <label>Username</label>
-                      <div class="input-group">
-                        <span class="input-group-addon">@</span>
-                        <input class="form-control" id="usernamePengguna" placeholder="Username" name="username">
+                      <div class="form-group{{ $errors->has('usernameUbah') ? ' has-error' : '' }}">
+                        <label>Username</label>
+                        <div class="input-group">
+                          <span class="input-group-addon">@</span>
+                          <input class="form-control" id="usernamePengguna" placeholder="Username" name="usernameUbah" value="{{ old('usernameUbah') }}">
+                        </div>
+                        @if ($errors->has('usernameUbah'))
+                          <span class="help-block">
+                              <strong>{{ $errors->first('usernameUbah') }}</strong>
+                          </span>
+                        @endif
                       </div>
-                      @if($errors->has('username'))
-                        <span class="help-block">Nama jenis minimal 2 karakter</span>
-                      @endif
-                      <input class="form-control" type="hidden" name="id" id="idPengguna" value="">
+                      <input class="form-control" type="hidden" name="id" id="idPengguna" value="old('id')">
                     </div>
                     <div class="modal-footer">
                       <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
@@ -254,23 +265,31 @@
                   <div class="modal-body modal-primary">
                     <form role="form" action="{{url('manager/pengguna/editSandi')}}" method="POST">
                       {{csrf_field()}}
-                      <label>Kata Sandi Baru</label>
-                      <div class="input-group">
-                        <span class="input-group-addon">@</span>
-                        <input class="form-control" id="password" type="password" placeholder="Kata Sandi Baru" name="password">
+                      <div class="form-group{{ $errors->has('passwordUbah') ? ' has-error' : '' }}">
+                        <label>Kata Sandi Baru</label>
+                        <div class="input-group">
+                          <span class="input-group-addon">@</span>
+                          <input class="form-control" id="password" type="password" placeholder="Kata Sandi Baru" name="passwordUbah">
+                        </div>
+                        @if ($errors->has('passwordUbah'))
+                          <span class="help-block">
+                              <strong>{{ $errors->first('passwordUbah') }}</strong>
+                          </span>
+                        @endif
                       </div>
-                      @if($errors->has('password'))
-                        <span class="help-block">Nama jenis minimal 2 karakter</span>
-                      @endif
                       <br>
-                      <label>Ulangi Kata Sandi Baru</label>
-                      <div class="input-group">
-                        <span class="input-group-addon">@</span>
-                        <input class="form-control" type="password" id="password_confirmation" placeholder="Konfirmasi Password" name="password_confirmation">
+                      <div class="form-group{{ $errors->has('password_confirmationUbah') ? ' has-error' : '' }}">
+                        <label>Ulangi Kata Sandi Baru</label>
+                        <div class="input-group">
+                          <span class="input-group-addon">@</span>
+                          <input class="form-control" type="password" id="password_confirmation" placeholder="Konfirmasi Password" name="password_confirmationUbah">
+                        </div>
+                        @if ($errors->has('password_confirmationUbah'))
+                          <span class="help-block">
+                              <strong>{{ $errors->first('password_confirmationUbah') }}</strong>
+                          </span>
+                        @endif
                       </div>
-                      @if($errors->has('password_confirmation'))
-                        <span class="help-block">Nama jenis minimal 2 karakter</span>
-                      @endif
                       <input type="hidden" name="id" id="idPengguna1" value="">
                     </div>
                     <div class="modal-footer">
@@ -308,6 +327,21 @@
       $('#editSandi').modal('show');
     @endif
 
+    @if(count($errors)>0)
+      @if ($errors->has('password_confirmationUbah') || $errors->has('passwordUbah'))
+      $('#editSandi').modal('show');
+      @else
+        @if(old("levelUbah")=="manager")
+          $('#levelManager').show();
+          $('#levelPengguna').hide();
+        @else
+        $('#levelPengguna').show();
+        $('#levelManager').hide();
+        @endif
+
+        $('#editPengguna').modal('show');
+      @endif
+    @endif
     
       $(".btnEditPengguna").click(function(){
         $('#namaPengguna').val($(this).data('name'));

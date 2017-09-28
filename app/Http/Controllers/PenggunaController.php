@@ -58,20 +58,26 @@ class PenggunaController extends Controller
 
     public function updateData(Request $request)
     {
-        // $this->validate($request, [
-        //     'name' => 'required|string|max:255',
-        //     'level' => 'required',
-        //     'username' => 'required|string|username|max:255|unique:users',
-        // ]);
+        $this->validate($request, [
+            'nameUbah' => 'required|string|max:255',
+            'levelUbah' => 'required',
+            'usernameUbah' => 'required|string|max:255',
+        ],
+        [
+        'nameUbah.required' => 'Nama harus diisi',
+        'levelUbah.required' => 'Level harus diisi',
+        'usernameUbah.required' => 'Username harus diisi',
+        ]
+        );
 
         $data = User::find($request->id);
-        $data->name = $request->name;
+        $data->name = $request->nameUbah;
         if($data->level != "manager"){
-            $data->level = $request->level;    
+            $data->level = $request->levelUbah;    
         }
         
         // dd($request->username);
-        $data->username = $request->username;
+        $data->username = $request->usernameUbah;
         $data->save();
 
         $notification = array(
@@ -93,13 +99,15 @@ class PenggunaController extends Controller
 
 
         $this->validate($request,[                      // --> validasi input
-            'password' => 'required|min:6|confirmed',
+            'passwordUbah' => 'required|min:6|confirmed',
+            'password_confirmationUbah' => 'confirmed',
+            
         ]);
 
         $User = User::find($request->id);
 
         
-        $User->password = $request->password;
+        $User->password = $request->passwordUbah;
         $User->save();
 
         $notification = array(

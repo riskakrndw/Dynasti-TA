@@ -81,12 +81,29 @@ class BahanController extends Controller
 
     public function update(Request $request)
     {
+
+        $this->validate($request, [
+            'namaUbah' => 'required|min:2|max:50',
+            'hargaUbah' => 'required|min:2|max:10',
+            'stokUbah' => 'required|min:2|max:50',
+            'satuanUbah' => 'required|min:2|max:10',
+            'stok_minUbah' => 'required|min:2|max:50',
+        ],
+        [
+        'namaUbah.required' => 'Nama harus diisi',
+        'hargaUbah.required' => 'Harga harus diisi',
+        'stokUbah.required' => 'Stok harus diisi',
+        'satuanUbah.required' => 'Satuan harus diisi',
+        'stok_minUbah.required' => 'Stok Minimal harus diisi',
+        ]
+        );
+
         $data = Bahan::find($request->id);
-        $data->nama = $request->nama;
-        $data->harga = $request->harga;
-        $data->stok = $request->stok;
-        $data->satuan = $request->satuan;
-        $data->stok_min = $request->stok_min;
+        $data->nama = $request->namaUbah;
+        $data->harga = $request->hargaUbah;
+        $data->stok = $request->stokUbah;
+        $data->satuan = $request->satuanUbah;
+        $data->stok_min = $request->stok_minUbah;
         $data->save();
 
         $notification = array(

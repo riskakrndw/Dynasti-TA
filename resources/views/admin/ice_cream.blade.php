@@ -88,10 +88,17 @@
             <div class="modal-body modal-primary">
               <form role="form" action="{{url('manager/icecream/edit')}}" method="POST">
               {{csrf_field()}}
-              <label>Stok</label>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                <input class="form-control" id="stok" name="stok" placeholder="Stok" value="">
+              <div class="form-group{{ $errors->has('stok') ? ' has-error' : '' }}">
+                <label>Stok</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                  <input class="form-control" id="stok" name="stok" placeholder="Stok" value="old(stok)">
+                </div>
+                @if ($errors->has('stok'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('stok') }}</strong>
+                  </span>
+                @endif
               </div>
               <input class="form-control" type="hidden" name="id" id="idEs" value="">
             </div>
@@ -144,6 +151,10 @@
   <script src="{{url('dist/js/validasinumeric.js')}}"></script>
 
   <script type="text/javascript">
+
+    @if(count($errors)>0)
+      $('#editStok').modal('show');
+    @endif
     
       $(".btnEditStok").click(function(){
         $('#hargaJenis').val($(this).data('harga'));
