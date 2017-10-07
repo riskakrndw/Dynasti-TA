@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\IceCream;
 use App\Rasa;
 use App\DetailBahan;
+use App\DetailProduksi;
 use App\Pemesanan;
 use Illuminate\Support\Facades\DB;
 
@@ -85,5 +86,10 @@ class IceCreamApiController extends Controller
         return $data;
     }
 
+    public function getJumlahProduksi($id_es, $id_produksi)
+    {
+        $data = DetailProduksi::where('id_produksi', $id_produksi)->where('id_es', $id_es)->first();
+        return $data->jumlah;
+    }
 
 }

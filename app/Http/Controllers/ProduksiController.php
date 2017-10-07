@@ -78,11 +78,14 @@ class ProduksiController extends Controller
         $dataes->stok = $dataes->stok + $jumlahproduksi;
         $dataes->save();   
 
-        $detailProduksi = new DetailProduksi;
-        $detailProduksi->id_es = $ides;
-        $detailProduksi->id_produksi = $idproduksi;
-        $detailProduksi->jumlah = $jumlahproduksi;
-        $detailProduksi->save();
+        if($jumlahproduksi > 0){
+            $detailProduksi = new DetailProduksi;
+            $detailProduksi->id_es = $ides;
+            $detailProduksi->id_produksi = $idproduksi;
+            $detailProduksi->jumlah = $jumlahproduksi;
+            $detailProduksi->save();
+        }
+        
     }
 
     public function store2($jumlah, $idbahan)
@@ -127,8 +130,87 @@ class ProduksiController extends Controller
         }
     }
 
+    public function edit(Request $request)
+    {
+        // return $request->jumlahes;
+        $data = Produksi::find($request->id);
+        $data->tgl = $request->datepicker;
+        $data->kode_produksi = 'PRO/' . $request->datepicker . '/' . $request->id;
+        $data->id_users = auth()->user()->id;
+        $data->save();
+
+        if($data->detail_produksi[0]->ice_cream->id_rasa == $request->id_rasa){
+            $jumlahes = explode(",", $request->jumlahes);
+            $id_es = explode(",", $request->id_es);
+
+            $detail_produksi = DetailProduksi::where('id_produksi', $request->id)->get();
+            foreach ($detail_produksi as $key => $value) {
+                $dataes = IceCream::find($value->id_es);
+                $dataes->stok = $dataes->stok - $value->jumlah;
+                $dataes->save();
+            }
+
+            foreach ($jumlahes as $key=>$value) {
+                $datadetail = DetailProduksi::where("id_produksi", $request->id)->where('id_es', $id_es[$key])->first();
+                if($datadetail != NULL){
+                
+                    $dataes = IceCream::find($request->id_es[$key]);
+                    $dataes->stok = $dataes->stok + $value;
+                    $dataes->save();
+                    if($value == 0){
+                        DetailProduksi::where("id_produksi", $request->id)->where('id_es', $id_es[$key])->delete();
+                    }else{
+                        $datadetail->jumlah = $value;
+                        $datadetail->save();
+                    }
+                }else{
+                    if($value > 0){
+                        $datadetail = new DetailProduksi;
+                        $datadetail->id_produksi = $request->id;
+                        $datadetail->id_es = $id_es[$key];
+                        $datadetail->jumlah = $value;
+                        $datadetail->save();
+
+                        $dataes = IceCream::find($id_es[$key]);
+                        $dataes->stok = $dataes->stok + $value;
+                        $dataes->save();
+                    }
+                }
+            }
+
+            DetailProduksi::where('id_produksi', $request->id)->whereNotIn('id_es', $id_es)->delete();
+        }
+    }
+
+    public function edit1(Request $request)
+    {
+        $idbahanawal = explode(",", $request->idbahanawal);
+        $jumlahbahanawal = explode(",", $request->jumlahbahanawal);
+        $jumlahbahandipakai = explode(",", $request->jumlahbahandipakai);
+        $idbahandipakai = explode(",", $request->idbahandipakai);
+        foreach ($idbahanawal as $key => $value) {
+            $databahan = Bahan::find($value);
+            $databahan->stok = $databahan->stok + $jumlahbahanawal[$key];
+            $databahan->save();
+        }
+
+        foreach ($idbahandipakai as $key => $value) {
+            $databahan = Bahan::find($value);
+            $databahan->stok = $databahan->stok - $jumlahbahandipakai[$key];
+            $databahan->save();
+        }
+    }
+
     public function update(Request $request)
     {
+
+        $this->validate($request, [
+            'datepicker' => 'required',
+        ],
+        [
+        'datepicker.required' => 'Tanggal harus diisi',
+        ]
+        );
         
         $data = Produksi::find($request->id);
         $data->kode_produksi = 'PRO/' . $request->datepicker . '/' . $request->id;

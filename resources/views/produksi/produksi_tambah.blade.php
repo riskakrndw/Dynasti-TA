@@ -130,7 +130,7 @@
 
 <!-- Modal Windows -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script> -->
-  <script src="{{url('dist/js/bootstrap-modalmanager.js')}}"></script>
+  <script src="{{url('dist/js/bootstrap-modalproduksi.js')}}"></script>
   <script src="{{url('dist/js/bootstrap-modal.js')}}"></script>
 <!-- validasi keyboard numeric only -->
   <script src="{{url('dist/js/validasinumeric.js')}}"></script>
@@ -222,7 +222,6 @@
     var bahandipakai = [];
     var nomorBaris = 0;
     var no;
-    var inputLama;
 
     jQuery(document).ready(function() {
       var doc = $(document);
@@ -238,6 +237,9 @@
     });
 
     $(document).on('change','.bb',function(){
+      if($(this).val() == ''){
+        $(this).val(0);
+      }
        inputLama = $(this).data('val');
        console.log("input yg lama" + inputLama + $(this).val());
       console.log('cek takan:'+arrTakaran)
@@ -266,10 +268,13 @@
             console.log('-------------------------');
             var total = $(this).text();
 
-              if(w == 0)
+              // if(w == 0)
               
 
               bahandipakai[j] = totalTakaran.toFixed(2);
+
+
+              console.log("bahan yg dipakai : " + bahandipakai[j]);
 
               if((parseFloat(totalTakaran)) > arr2[j] || wh == true){
                 wh = true;
@@ -319,7 +324,7 @@
               idbahan.push(data.id); //ngambil id bahan
               nomorBaris++
                 $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td id="total'+nomorBaris+'" class="total">'+"0"+'</td><td>'+data.stok+'</td></tr>');            
-              console.log(data);
+              console.log("dataaaa" + data);
               arr2.push(data.stok);
               arrTakaran.push(data.takaran);
              })

@@ -67,7 +67,7 @@
                       <td>{{ $datapro->tgl }}</td>
                       <td>{{ $datapro->detail_produksi[0]->ice_cream->rasa->nama }}</td>
                       <td>
-                        <button type="button" class="btn btn-sm btn-default btnEditPro" data-toggle="modal" data-target="" data-id="{{ $datapro->id }}" data-kode="{{ $datapro->kode_produksi }}" data-tanggal="{{ $datapro->tgl }}"> <i class="fa fa-edit"></i> Ubah</button>
+                        <a href="{{ url('manager/produksi/edit/'.$datapro->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
                         <a href="{{ url('manager/produksi/lihat/'.$datapro->id.'/dataproduksi') }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                       </td>
                     </tr>
@@ -96,13 +96,20 @@
                 <input class="form-control" id="kodepro" name="kodepro" placeholder="Kode Produksi" value="" disabled>
               </div>
               <br>
-              <label>Tanggal</label>
+              <div class="form-group{{ $errors->has('datepicker') ? ' has-error' : '' }}">
+                <label>Tanggal</label>
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" id="datepicker" name="datepicker">
+                  <input type="text" class="form-control pull-right" id="datepicker" name="datepicker" data-date-end-date="0d">
                 </div>
+                @if ($errors->has('datepicker'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('datepicker') }}</strong>
+                  </span>
+                @endif
+              </div>
               <input class="form-control" type="hidden" name="id" id="idpro" value="">
             </div>
             <div class="modal-footer">
@@ -139,15 +146,16 @@
   </script>
   
   <script type="text/javascript">
-    
-      $(".btnEditPro").click(function(){
-        $('#idpro').val($(this).data('id'));
-        $('#kodepro').val($(this).data('kode'));
-        $('#datepicker').val($(this).data('tanggal'));
-        $('#editPro').modal('show');
-      });
-    
+    @if(count($errors)>0)
+      $('#editPro').modal('show');
+    @endif
 
+    $(".btnEditPro").click(function(){
+      $('#idpro').val($(this).data('id'));
+      $('#kodepro').val($(this).data('kode'));
+      $('#datepicker').val($(this).data('tanggal'));
+      $('#editPro').modal('show');
+    });
   </script>
 
 @endsection

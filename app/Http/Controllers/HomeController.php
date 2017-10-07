@@ -109,8 +109,9 @@ class HomeController extends Controller
     public function index_keuangan()
     {
         // untuk informasi beranda
-            $totalpengadaan = DB::table('pembelian')->where('status', '=', 'diterima')->sum('total');
-            $totalpenjualan = DB::table('penjualan')->sum('total');
+            $totalpengadaan = DB::table('pembelian')->where('status', '=', 'diterima')->whereMonth('tgl', '=', Carbon::now()->month)->sum('total');
+            $totalpenjualan = DB::table('penjualan')->whereMonth('tgl', '=', Carbon::now()->month)->sum('total');
+            // DB::SELECT('select sum(total) FROM penjualan group by bulan order by MONTH(tgl)')
             $jumlahpembelian = Pembelian::where('status', '=', 'disetujui')->count();
         // untuk informasi beranda 
 
@@ -121,9 +122,10 @@ class HomeController extends Controller
             $thn=\Route::current()->parameter('tahun');
             if($thn){
                 $th=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_penjualan FROM penjualan WHERE YEAR(tgl)='.$thn.' group by bulan order by MONTH(tgl)');
+                $thpengadaan=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_pengadaan FROM pembelian WHERE YEAR(tgl)='.$thn.' AND status = "diterima" group by bulan order by MONTH(tgl)');
             }else{
-
                 $th=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_penjualan FROM penjualan WHERE YEAR(tgl)=YEAR(curdate()) group by bulan order by MONTH(tgl)');
+                $thpengadaan=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_pengadaan FROM pembelian WHERE YEAR(tgl)=YEAR(curdate()) AND status = "diterima" group by bulan order by MONTH(tgl)');
             }
 
             $index = 0;
@@ -142,9 +144,32 @@ class HomeController extends Controller
                 $laporan[$i]['bulan'] = $i;
             }
 
+            $index = 0;
+            $laporanpengadaan = array();
+            for($i = 1; $i <= 12; $i++){
+                if($index < count($thpengadaan)){
+                    if($i == $thpengadaan[$index]->bulan){
+                        $laporanpengadaan[$i]['total_pengadaan']=$thpengadaan[$index]->total_pengadaan;
+                        $index++;
+                    }else{
+                        $laporanpengadaan[$i]['total_pengadaan']=0;
+                    }
+                }else{
+                    $laporanpengadaan[$i]['total_pengadaan']=0;
+                }
+                $laporanpengadaan[$i]['bulan'] = $i;
+            }
+
+            $index = 0;
+            $laporanuntungrugi = array();
+            for($i = 1; $i <= 12; $i++){
+                $laporanuntungrugi[$i]['bulan'] = $i;
+                $laporanuntungrugi[$i]['total_untungrugi'] = $laporan[$i]['total_penjualan'] - $laporanpengadaan[$i]['total_pengadaan'];
+            }
+
         // untuk informasi grafik
 
-        return view('keuangan.beranda')->with('jumlahpembelian', $jumlahpembelian)->with('totalpengadaan', $totalpengadaan)->with('totalpenjualan', $totalpenjualan)->with('data', $data)->with('tahun', $tahun)->with('laporan', $laporan);
+        return view('keuangan.beranda')->with('laporanuntungrugi', $laporanuntungrugi)->with('jumlahpembelian', $jumlahpembelian)->with('totalpengadaan', $totalpengadaan)->with('totalpenjualan', $totalpenjualan)->with('data', $data)->with('tahun', $tahun)->with('laporan', $laporan);
     }
 
     public function index_pengadaan()

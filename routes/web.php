@@ -52,6 +52,7 @@ Route::get('/forbidden', function()
 		Route::get('/api/detail-icecream/{id}', 'IceCreamApiController@showDetail')->name('apiicecreamshowdetail');
 		Route::get('/api/namaIceCream/{id}', 'IceCreamApiController@reqNamaIceCream')->name('apinamaicecream');
 		Route::get('/api/arraynamaIceCream/{id}/{jumlah}', 'IceCreamApiController@arrayNamaIceCream')->name('apiarraynamaicecream');
+		Route::get('/api/getJumlahProduksi/{id_es}/{id_produksi}', 'IceCreamApiController@getJumlahProduksi')->name('getJumlahProduksi');
 
 	//apirasa
 		Route::get('/api/rasa', 'RasaApiController@index')->name('apirasa');
@@ -61,7 +62,7 @@ Route::get('/forbidden', function()
 		Route::get('/api/detail-rasa/{id}', 'RasaApiController@showDetail')->name('apirasashowdetail');
 
 
-// UNTUK BAGIAN MAMNAGER
+// UNTUK BAGIAN MANAGER
 	Route::group(['middleware' => 'levelManager'], function(){
 
 		// BERANDA
@@ -207,7 +208,11 @@ Route::get('/forbidden', function()
 				Route::post('/manager/produksi/edit', 'ProduksiController@update');
 			/*melakukan ubah*/
 				Route::get('/manager/produksi/edit/{id}', 'ProduksiController@showEdit');
-				Route::get('/manager/produksi/ubah/{idproduksi}/{ides}/{pengguna}/{kode}/{datepicker}/{jumlah}/{idbahan}', 'ProduksiController@ubah');
+				// Route::get('/manager/produksi/ubah/{idproduksi}/{ides}/{pengguna}/{kode}/{datepicker}/{jumlah}/{idbahan}', 'ProduksiController@ubah');
+			/*melakukan ubah fix*/
+				Route::post('/manager/produksi/ubah', 'ProduksiController@edit');
+				Route::post('/manager/produksi/ubah1', 'ProduksiController@edit1');
+
 
 		//PEMESANAN
 			/*menampilkan halaman produk pesanan*/
@@ -431,5 +436,8 @@ Route::get('/forbidden', function()
 				Route::post('/produksi/produksi/edit', 'ProduksiController@update');
 			/*melakukan ubah*/
 				Route::get('/produksi/produksi/edit/{id}', 'ProduksiController@showEdit');
-				Route::get('/produksi/produksi/ubah/{idproduksi}/{ides}/{pengguna}/{kode}/{datepicker}/{jumlah}/{idbahan}', 'ProduksiController@ubah');
+				// Route::get('/manager/produksi/ubah/{idproduksi}/{ides}/{pengguna}/{kode}/{datepicker}/{jumlah}/{idbahan}', 'ProduksiController@ubah');
+			/*melakukan ubah fix*/
+				Route::post('/produksi/produksi/ubah', 'ProduksiController@edit');
+				Route::post('/produksi/produksi/ubah1', 'ProduksiController@edit1');
 	});

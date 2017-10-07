@@ -127,7 +127,15 @@
                                         {{$item['total_penjualan']}},
                                       @endforeach
                                     ]
-                          }]
+                          }, {
+                              name: 'Total Untung Rugi',
+                              data: [
+                                      @foreach($laporanuntungrugi as $item)
+                                        {{$item['total_untungrugi']}},
+                                      @endforeach
+                                    ]
+                          }
+                          ]
                       });
                     </script>
 
