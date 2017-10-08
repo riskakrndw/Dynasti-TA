@@ -315,6 +315,51 @@ class HomeController extends Controller
         return view('keuangan.beranda')->with('laporanuntungrugi', $laporanuntungrugi)->with('jumlahpembelian', $jumlahpembelian)->with('totalpengadaan', $totalpengadaan)->with('totalpenjualan', $totalpenjualan)->with('data', $data)->with('tahun', $tahun)->with('laporan', $laporan);
     }
 
+    public function grafiktransaksikeu($tahun)
+    {
+        if($tahun){
+            $th=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_penjualan FROM penjualan WHERE YEAR(tgl)='.$tahun.' group by bulan order by MONTH(tgl)');
+            $thpemesanan=DB::SELECT('select MONTH(tanggal) as bulan, sum(total) as total_pemesanan FROM pemesanan WHERE YEAR(tanggal)='.$tahun.' group by bulan order by MONTH(tanggal)');
+        }else{
+            $th=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_penjualan FROM penjualan WHERE YEAR(tgl)=YEAR(curdate()) group by bulan order by MONTH(tgl)');
+            $thpemesanan=DB::SELECT('select MONTH(tanggal) as bulan, sum(total) as total_pemesanan FROM pemesanan WHERE YEAR(tanggal)=YEAR(curdate()) group by bulan order by MONTH(tanggal)');
+        }
+
+        $index = 0;
+        $laporan = array();
+        for($i = 1; $i <= 12; $i++){
+            if($index < count($th)){
+                if($i == $th[$index]->bulan){
+                    $laporan[]=$th[$index]->total_penjualan;
+                    $index++;
+                }else{
+                    $laporan[]=0;
+                }
+            }else{
+                $laporan[]=0;
+            }
+        }
+
+        $index = 0;
+        $laporanpemesanan = array();
+        for($i = 1; $i <= 12; $i++){
+            if($index < count($thpemesanan)){
+                if($i == $thpemesanan[$index]->bulan){
+                    $laporanpemesanan[]=$thpemesanan[$index]->total_pemesanan;
+                    $index++;
+                }else{
+                    $laporanpemesanan[]=0;
+                }
+            }else{
+                $laporanpemesanan[]=0;
+            }
+        }
+    // untuk informasi grafik transaksi
+        $laporansemua[] = $laporan;
+        $laporansemua[] = $laporanpemesanan; 
+        return $laporansemua;
+    }
+
     public function index_pengadaan()
     {
         // untuk info beranda

@@ -69,10 +69,11 @@
       <!-- /Info beranda -->
 
       <div class="row">
+        <br>
         <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title"><i class="fa fa-bar-chart"></i> Grafik Penjualan</h3>
+              <h3 class="box-title"><i class="fa fa-bar-chart"></i> Grafik Transaksi</h3>
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
               </div>
@@ -83,15 +84,15 @@
                 <div class="col-md-3">
                   <select class="form-control select2" style="width: 100%;" name="tahun" id="pilihTahun1">
                     <option disabled="disabled" selected="selected" value="0">Pilih Tahun</option>
+                    <option value="2016">2016</option>
                     @foreach($tahun as $t)
-                      <option value="{{ $t->tahun }}" url="/tahun={{$t->tahun}}">{{ $t->tahun }}</option>
+                      <option value="{{ $t->tahun }}">{{ $t->tahun }}</option>
                     @endforeach
                   </select>
                 <br>
                 </div>
                 <div class="col-md-12">
-                  <script src="{{url('Highcharts/code/highcharts.js')}}"></script>
-                  <script src="{{url('Highcharts/code/modules/exporting.js')}}"></script>
+                  
                   <div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
                     
                   </div>
@@ -100,6 +101,7 @@
             </div>
           </div>
         </div>
+
       </div>
 
     </section>
@@ -108,6 +110,9 @@
 @endsection
 
 @section("morescript")
+  <script src="{{url('Highcharts/code/highcharts.js')}}"></script>
+  <script src="{{url('Highcharts/code/modules/exporting.js')}}"></script>
+
   <script type="text/javascript">
     Highcharts.chart('container1', {
         chart: {
@@ -117,7 +122,7 @@
             text: 'Grafik Transaksi'
         },
         subtitle: {
-            text: 'Tahun ......'
+            text: 'Tahun {{\Carbon\Carbon::now()->year}}'
         },
         xAxis: {
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -142,25 +147,53 @@
                       {{$item['total_penjualan']}},
                     @endforeach
                   ]
-        }, {
-            name: 'Total Laba Rugi',
-            data: [
-                    @foreach($laporanuntungrugi as $item)
-                      {{$item['total_untungrugi']}},
-                    @endforeach
-                  ]
-        }
-        ]
+        }]
     });
   </script>
 
   <script>
     $('#pilihTahun1').change(function(){
 
-      var url= "/dynasti/public/keuangan/beranda/tahun="+$(this).val();
-      console.log(url);
-      window.location = url;  
-    });
+      var tahun1 = $(this).val();
+      $.get('/dynasti/public/keuangan/beranda/tahun='+tahun1,
+        function(data){
+          console.log(data[0]);
+          Highcharts.chart('container1', {
 
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'Grafik Transaksi'
+            },
+            subtitle: {
+                text: 'Tahun ' + tahun1
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            yAxis: {
+                title: {
+                    text: 'Total'
+                }
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: false
+                }
+            },
+            series: [{
+                name: 'Total Penjualan',
+                data: JSON.parse('['+data[0]+']')
+            }
+            ]
+        });
+        }
+      )
+    });
   </script>
+
 @endsection

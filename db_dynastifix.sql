@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 07 Okt 2017 pada 17.00
+-- Generation Time: 08 Okt 2017 pada 16.55
 -- Versi Server: 10.1.19-MariaDB
 -- PHP Version: 5.6.24
 
@@ -240,7 +240,8 @@ CREATE TABLE `jenis` (
 
 INSERT INTO `jenis` (`id`, `nama`, `harga`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (15, 'stik1', 30001, '2017-09-28 01:51:06', '2017-09-28 03:52:50', NULL),
-(16, 'cup kecil', 5000, '2017-09-28 01:57:22', '2017-09-28 01:57:22', NULL);
+(16, 'cup kecil', 5000, '2017-09-28 01:57:22', '2017-09-28 01:57:22', NULL),
+(17, 'cup kecil', 111, '2017-10-08 14:32:40', '2017-10-08 14:32:46', '2017-10-08 14:32:46');
 
 -- --------------------------------------------------------
 
@@ -447,9 +448,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `level`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(5, 'maulana rizki', 'manager', 'manager', '$2y$10$yn0O9MHvhOW5TpZXJHRsoeOBAokFDuB/tYavYWS.mLjyRzTO.i4ly', 'XDsFfaXMEjtBPySclzXnBKXDqPc5OFq7hrSkUQJvwVa9milXwa1iv52mTMpo', '2017-06-20 04:21:13', '2017-06-21 22:59:23'),
+(5, 'maulana rizki', 'manager', 'manager', '$2y$10$yn0O9MHvhOW5TpZXJHRsoeOBAokFDuB/tYavYWS.mLjyRzTO.i4ly', 'Eow9hnrTWVKIEhZnJXFXZwbFwlQnLqukCbtNZRNYUvHrAAypg0QgjeqLhkEW', '2017-06-20 04:21:13', '2017-06-21 22:59:23'),
 (6, 'aaaaa', 'pengadaan', 'pengadaan', '$2y$10$IMIp3i9ZT4XFJcUaPAgCTeGdrZ4QdJ2phrGRgK0fuuHmLpIb7zA2K', 'iOm6wi3K9fTG0IzhcTHat8nZL9mOGDPf5nb4ii8tKjIhiOIbAncRtdhOj6Jc', '2017-08-30 10:03:43', '2017-08-30 10:03:43'),
-(7, 'baru', 'keuangan', 'keuangan', '$2y$10$yn0O9MHvhOW5TpZXJHRsoeOBAokFDuB/tYavYWS.mLjyRzTO.i4ly', 'ihiF4Mpr6Ta4vLBdQbsBjdiQuzliYUmCYWME3sQj1oH2kKu9FlJUdFsCRWeY', '2017-08-30 10:03:54', '2017-09-28 04:05:48'),
+(7, 'baru', 'keuangan', 'keuangan', '$2y$10$yn0O9MHvhOW5TpZXJHRsoeOBAokFDuB/tYavYWS.mLjyRzTO.i4ly', 'Oj4xi6VLhj8IGpGupxP1WHIpwz44ygfkVHMIR9fRyVNf2cGe8cYvV8WenPPB', '2017-08-30 10:03:54', '2017-09-28 04:05:48'),
 (8, 'wwww', 'produksi', 'produksi', '$2y$10$sFcpvgLAu3F07sKtr34EQ.l9fLtKLRAN7d/uHvzAy8aMiaSvNQDK.', '4hl4Fo7Iz6FGQruDUE2kcLtYCirjRepsLt11wcYPZ1Alo2riIB7tbRugHYhK', '2017-09-19 05:15:19', '2017-09-19 05:15:19');
 
 --
@@ -615,7 +616,7 @@ ALTER TABLE `ice_cream`
 -- AUTO_INCREMENT for table `jenis`
 --
 ALTER TABLE `jenis`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `migrations`
 --

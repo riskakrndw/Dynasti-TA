@@ -280,6 +280,7 @@ Route::get('/forbidden', function()
 		//BERANDA
 			Route::get('/keuangan/beranda', 'HomeController@index_keuangan')->name('berandakeu');
 			Route::get('/keuangan/beranda/tahun={tahun}', 'HomeController@index_keuangan');
+			Route::get('/keuangan/beranda/tahun={tahun}', 'HomeController@grafiktransaksikeu');
 
 		//PERMINTAAN
 			// menampilkan halaman permintaan konfirmasi
