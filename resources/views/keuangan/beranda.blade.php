@@ -93,61 +93,7 @@
                   <script src="{{url('Highcharts/code/highcharts.js')}}"></script>
                   <script src="{{url('Highcharts/code/modules/exporting.js')}}"></script>
                   <div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-                    <script type="text/javascript">
-                      Highcharts.chart('container1', {
-                          chart: {
-                              type: 'line'
-                          },
-                          title: {
-                              text: 'Grafik Transaksi'
-                          },
-                          subtitle: {
-                              text: 'Tahun ......'
-                          },
-                          xAxis: {
-                              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                          },
-                          yAxis: {
-                              title: {
-                                  text: 'Total'
-                              }
-                          },
-                          plotOptions: {
-                              line: {
-                                  dataLabels: {
-                                      enabled: true
-                                  },
-                                  enableMouseTracking: false
-                              }
-                          },
-                          series: [{
-                              name: 'Total Penjualan',
-                              data: [
-                                      @foreach($laporan as $item)
-                                        {{$item['total_penjualan']}},
-                                      @endforeach
-                                    ]
-                          }, {
-                              name: 'Total Untung Rugi',
-                              data: [
-                                      @foreach($laporanuntungrugi as $item)
-                                        {{$item['total_untungrugi']}},
-                                      @endforeach
-                                    ]
-                          }
-                          ]
-                      });
-                    </script>
-
-                    <script>
-                      $('#pilihTahun1').change(function(){
-
-                        var url= "/dynasti/public/keuangan/beranda/tahun="+$(this).val();
-                        console.log(url);
-                        window.location = url;  
-                      });
-
-                    </script>
+                    
                   </div>
                 </div>
               </div>
@@ -159,4 +105,62 @@
     </section>
     <!-- /. main content -->
   </div>
+@endsection
+
+@section("morescript")
+  <script type="text/javascript">
+    Highcharts.chart('container1', {
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Grafik Transaksi'
+        },
+        subtitle: {
+            text: 'Tahun ......'
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yAxis: {
+            title: {
+                text: 'Total'
+            }
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: false
+            }
+        },
+        series: [{
+            name: 'Total Penjualan',
+            data: [
+                    @foreach($laporan as $item)
+                      {{$item['total_penjualan']}},
+                    @endforeach
+                  ]
+        }, {
+            name: 'Total Laba Rugi',
+            data: [
+                    @foreach($laporanuntungrugi as $item)
+                      {{$item['total_untungrugi']}},
+                    @endforeach
+                  ]
+        }
+        ]
+    });
+  </script>
+
+  <script>
+    $('#pilihTahun1').change(function(){
+
+      var url= "/dynasti/public/keuangan/beranda/tahun="+$(this).val();
+      console.log(url);
+      window.location = url;  
+    });
+
+  </script>
 @endsection

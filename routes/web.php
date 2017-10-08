@@ -67,7 +67,8 @@ Route::get('/forbidden', function()
 
 		// BERANDA
 			Route::get('/manager/beranda', 'HomeController@index_manager')->name('beranda');
-			Route::get('/manager/beranda/tahun={tahun}', 'HomeController@index_manager');
+			Route::get('/manager/beranda/tahun={tahun}', 'HomeController@grafiktransaksi');
+			Route::get('/manager/beranda/{tahun1}', 'HomeController@grafikuntung');
 
 		// PROFIL
 			Route::get('/manager/profil', 'ProfilController@index')->name('profilman');
