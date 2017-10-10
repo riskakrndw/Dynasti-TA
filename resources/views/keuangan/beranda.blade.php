@@ -73,7 +73,7 @@
         <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title"><i class="fa fa-bar-chart"></i> Grafik Transaksi</h3>
+              <h3 class="box-title"><i class="fa fa-bar-chart"></i> Grafik Transaksi Penjualan</h3>
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
               </div>
@@ -84,7 +84,6 @@
                 <div class="col-md-3">
                   <select class="form-control select2" style="width: 100%;" name="tahun" id="pilihTahun1">
                     <option disabled="disabled" selected="selected" value="0">Pilih Tahun</option>
-                    <option value="2016">2016</option>
                     @foreach($tahun as $t)
                       <option value="{{ $t->tahun }}">{{ $t->tahun }}</option>
                     @endforeach
@@ -119,7 +118,7 @@
             type: 'line'
         },
         title: {
-            text: 'Grafik Transaksi'
+            text: 'Grafik Transaksi Penjualan'
         },
         subtitle: {
             text: 'Tahun {{\Carbon\Carbon::now()->year}}'
@@ -164,7 +163,7 @@
                 type: 'line'
             },
             title: {
-                text: 'Grafik Transaksi'
+                text: 'Grafik Transaksi Penjualan'
             },
             subtitle: {
                 text: 'Tahun ' + tahun1

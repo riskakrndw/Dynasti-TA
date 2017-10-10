@@ -170,7 +170,7 @@
             tanggal_error.innerHTML = "";
         }
 
-        if(hasil == true){
+        
           var cek = false;
           if(rasa.value == ""){
             rasa.style.border = "1px solid red";
@@ -191,7 +191,7 @@
             })
           }
           
-
+          if(hasil == true){
           if(cekjumlah == true){
             return true;
           }else{

@@ -291,7 +291,9 @@
   <script type="text/javascript">
 
     @if(count($errors)>0)
-      $('#editJenis').modal('show');
+      @if ($errors->has('namaUbah') || $errors->has('hargaUbah'))
+        $('#editJenis').modal('show');
+      @endif
     @endif
      
       $(".btnEditJenis").click(function(){

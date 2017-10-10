@@ -285,91 +285,14 @@
   <script src="{{url('dist/js/bootstrap-modalmanager.js')}}"></script>
   <script src="{{url('dist/js/bootstrap-modal.js')}}"></script>
   <script src="{{url('dist/js/validasinumeric.js')}}"></script>
-<!-- 
-  <script type="text/javascript">
 
-    //getting all input object
-      var nama = document.forms["vform"]["nama"];
-      var satuan = document.forms["vform"]["satuan"];
-      var harga = document.forms["vform"]["harga"];
-      var stok = document.forms["vform"]["stok"];
-      var stokmin = document.forms["vform"]["stok_min"];
-
-    //getting all error display object
-      var nama_error = document.getElementById("nama_error");
-      var satuan_error = document.getElementById("satuan_error");
-      var harga_error = document.getElementById("harga_error");
-      var stok_error = document.getElementById("stok_error");
-      var stokmin_error = document.getElementById("stokmin_error");
-
-    //setting all event listener
-      nama.addEventListener("blur", namaVerify, true);
-      satuan.addEventListener("blur", satuanVerify, true);
-      harga.addEventListener("blur", hargaVerify, true);
-      stok.addEventListener("blur", stokVerify, true);
-      stokmin.addEventListener("blur", stokminVerify, true);
-
-    //validation function
-      function Validate(){
-        var cek = false;
-        
-        if(nama.value == ""){
-          nama.style.border = "1px solid red";
-          nama_error.textContent = "Nama harus diisi";
-          nama.focus();
-          return false;
-        }else{
-          nama.style.border = "1px solid #5E6E66";
-          nama_error.textContent = "";
-        }
-
-        if(satuan.value == ""){
-          satuan.style.border = "1px solid red";
-          satuan_error.textContent = "Satuan harus diisi";
-          satuan.focus();
-          return false;
-        }else{
-          satuan.style.border = "1px solid #5E6E66";
-          satuan_error.textContent = "";
-        }
-
-        if(harga.value == ""){
-          harga.style.border = "1px solid red";
-          harga_error.textContent = "Harga harus diisi";
-          harga.focus();
-          return false;
-        }else{
-          harga.style.border = "1px solid #5E6E66";
-          harga_error.textContent = "";
-        }
-
-        if(stok.value == ""){
-          stok.style.border = "1px solid red";
-          stok_error.textContent = "Stok harus diisi";
-          stok.focus();
-          return false;
-        }else{
-          stok.style.border = "1px solid #5E6E66";
-          stok_error.textContent = "";
-        }
-
-        if(stokmin.value == ""){
-          stokmin.style.border = "1px solid red";
-          stokmin_error.textContent = "Stok Minimal harus diisi";
-          stokmin.focus();
-          return false;
-        }else{
-          stokmin.style.border = "1px solid #5E6E66";
-          stokmin_error.textContent = "";
-        }
-
-      }
-  </script>
- -->
   <script type="text/javascript">
     
     @if(count($errors)>0)
-      $('#editBahan').modal('show');
+      @if ($errors->has('namaUbah') || $errors->has('hargaUbah') || $errors->has('satuanUbah') || $errors->has('stokUbah') || $errors->has('stok_minUbah'))
+        $('#editBahan').modal('show');
+      @endif
+      
     @endif
 
       $(".btnEditBahan").click(function(){

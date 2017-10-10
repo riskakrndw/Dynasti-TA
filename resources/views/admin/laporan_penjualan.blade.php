@@ -88,6 +88,14 @@
                   </tr>
                 </thead>
                 <tbody id="penjualan">
+                  @foreach($data as $q=>$v)
+                    <tr>
+                      <td>{{ $q+1 }}</td>
+                      <td>{{ $v->kode_penjualan}}</td>
+                      <td>{{ $v->tgl }}</td>
+                      <td>{{ $v->total }}</td>
+                    </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -106,13 +114,15 @@
   <script src="{{url('dist/js/bootstrap-modal.js')}}"></script>
 <!-- validasi keyboard numeric only -->
   <script src="{{url('dist/js/validasinumeric.js')}}"></script>
-<!-- dinamically add -->
-  <script src="{{url('dist/js/jquery-1.8.2.min.js')}}" type="text/javascript" charset="utf8"></script>
-  <script src="{{url('dist/js/select2/select2.js')}}"></script>
 <!-- date -->
   <script src="{{url('dist/js/bootstrap-datepicker.js')}}"></script>
 
   <script>
+
+  $("#example1").DataTable({
+    'info':false
+  });
+
     //Date picker
       $('#datepicker').datepicker({
         autoclose: true,

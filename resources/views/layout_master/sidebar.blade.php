@@ -8,7 +8,19 @@
             <img src="{{url('dist/img/logo.jpeg')}}" class="img-circle" alt="User Image">
           </li>
         </div>
-        <li class="header">MAIN NAVIGATION</li>
+        <li class="header">
+          <center>
+            @if(Auth::user()->level == "manager")
+              MANAGER
+            @elseif(Auth::user()->level == "keuangan")
+              BAGIAN KEUANGAN
+            @elseif(Auth::user()->level == "pengadaan")
+              BAGIAN PENGADAAN
+            @elseif(Auth::user()->level == "produksi")
+              BAGIAN PRODUKSI
+            @endif
+          </center>
+        </li>
 
         @if(Auth::user()->level == "manager")
           <li class="@yield("beranda")"><a href="{{route('beranda')}}"><i class="fa fa-home"></i> <span>Beranda</span></a></li>
@@ -21,8 +33,8 @@
             </a>
             <ul class="treeview-menu">
               <li class="@yield("jenis")"><a href="{{route('jenis')}}"><i class="fa fa-list"></i> Data Jenis</a></li>
-              <li class="@yield("rasa")"><a href="{{route('rasa')}}"><i class="fa fa-list"></i> Data Rasa</a></li>
               <li class="@yield("bahan")"><a href="{{route('bahan')}}"><i class="fa fa-list"></i> Data Bahan Baku</a></li>
+              <li class="@yield("rasa")"><a href="{{route('rasa')}}"><i class="fa fa-list"></i> Data Rasa</a></li>
               <li class="@yield("es")"><a href="{{route('icecream')}}"><i class="fa fa-list"></i> Data Ice Cream</a></li>
             </ul>
           </li>

@@ -223,7 +223,8 @@
                       <br>
                       <!-- <div class="form-group{{ $errors->has('levelUbah') ? ' has-error' : '' }}"> -->
                         <label>Pilih Level</label>
-                        <input class="form-control" id="levelManager" value=old("levelUbah") name="levelUbah" disabled>
+                        <input class="form-control levelManager" value='{{old("levelUbah")}}' name="" disabled>
+                        <input class="form-control levelManager" id="levelhidden" value='{{old("levelUbah")}}' name="levelUbah" hidden>
                         <select class="form-control select2" style="width: 100%;" name="levelUbah" id="levelPengguna">
                           <option disabled="disabled" selected="selected" value="0">Pilih Level</option>
                           <option value="pengadaan" @if(old("levelUbah") == "pengadaan") selected="selected" @endif >Bagian Pengadaan</option>
@@ -329,31 +330,33 @@
 
     @if(count($errors)>0)
       @if ($errors->has('password_confirmationUbah') || $errors->has('passwordUbah'))
-      $('#editSandi').modal('show');
-      @else
+        $('#editSandi').modal('show');
+      @elseif ($errors->has('nameUbah') || $errors->has('levelUbah') || $errors->has('usernameUbah'))
         @if(old("levelUbah")=="manager")
-          $('#levelManager').show();
+          $('.levelManager').show();
+          $('#levelhidden').hide();
           $('#levelPengguna').hide();
         @else
           $('#levelPengguna').show();
-          $('#levelManager').hide();
+          $('.levelManager').hide();
         @endif
-
         $('#editPengguna').modal('show');
+        
       @endif
     @endif
     
       $(".btnEditPengguna").click(function(){
         $('#namaPengguna').val($(this).data('name'));
         if($(this).data('level')=="manager"){
-          $('#levelManager').val($(this).data('level'));
-          $('#levelManager').show();
+          $('.levelManager').val($(this).data('level'));
+          $('.levelManager').show();
+          $('#levelhidden').hide();
           $('#levelPengguna').hide();
         }
         else{
         $('#levelPengguna').val($(this).data('level'));
         $('#levelPengguna').show();
-        $('#levelManager').hide();
+        $('.levelManager').hide();
         }
         $('#usernamePengguna').val($(this).data('username'));
         $('#idPengguna').val($(this).data('id'));

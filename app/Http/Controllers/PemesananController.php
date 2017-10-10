@@ -11,6 +11,12 @@ use Auth;
 
 class PemesananController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $data = DetailPemesanan::whereIn('status', ['menunggu', 'siap'])->orderBy('id', 'desc')->get();
@@ -161,7 +167,7 @@ class PemesananController extends Controller
         } elseif (Auth::user()->level == "pengadaan"){
             return view('admin.pemesanan_detail')->with('data', $data)->with('tipe', $tipe);
         }elseif (Auth::user()->level == "produksi"){
-            return view('admin.pemesanan_detail')->with('data', $data)->with('tipe', $tipe);
+            return view('produksi.pemesanan_detail')->with('data', $data)->with('tipe', $tipe);
         }
         
         // dd($data);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Hash;
 use Validator;
+use Illuminate\validation\Rule;
 
 use Illuminate\Http\Request;
 use App\User;
@@ -11,8 +12,9 @@ use App\User;
 class PenggunaController extends Controller
 {
 
-    public function __construct(){
-        $this->middleware('levelManager');
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
 
     public function index()
@@ -38,6 +40,7 @@ class PenggunaController extends Controller
         'password.required' => 'Kata Sandi harus diisi',
         'password_confirmation.required' => 'Konfirmasi Kata Sandi harus diisi',
         'password.confirmed' => 'Kata Sandi tidak sama',
+        'username.unique' => "Username sudah ada"
         ]
         );
 
@@ -58,19 +61,21 @@ class PenggunaController extends Controller
 
     public function updateData(Request $request)
     {
+        $data = User::find($request->id);
         $this->validate($request, [
             'nameUbah' => 'required|string|max:255',
             'levelUbah' => 'required',
-            'usernameUbah' => 'required|string|max:255',
+            'usernameUbah' => 'required|string|max:255|unique:users,username,'.$data->id,
+
         ],
         [
         'nameUbah.required' => 'Nama harus diisi',
         'levelUbah.required' => 'Level harus diisi',
         'usernameUbah.required' => 'Username harus diisi',
+        'usernameUbah.unique' => "Username sudah ada",
         ]
         );
-
-        $data = User::find($request->id);
+        
         $data->name = $request->nameUbah;
         if($data->level != "manager"){
             $data->level = $request->levelUbah;    

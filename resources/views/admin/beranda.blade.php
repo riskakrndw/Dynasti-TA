@@ -129,7 +129,6 @@
                 <div class="col-md-3">
                   <select class="form-control select2" style="width: 100%;" name="tahun" id="pilihTahun1">
                     <option disabled="disabled" selected="selected" value="0">Pilih Tahun</option>
-                    <option value="2016">2016</option>
                     @foreach($tahun as $t)
                       <option value="{{ $t->tahun }}">{{ $t->tahun }}</option>
                     @endforeach
@@ -293,7 +292,7 @@
                   type: 'line'
               },
               title: {
-                  text: 'Grafik Transaksi'
+                  text: 'Grafik Untung Rugi'
               },
               subtitle: {
                   text: 'Tahun ' + tahun1
@@ -331,7 +330,7 @@
             type: 'line'
         },
         title: {
-            text: 'Grafik Transaksi'
+            text: 'Grafik Untung Rugi'
         },
         subtitle: {
             text: 'Tahun {{\Carbon\Carbon::now()->year}}'

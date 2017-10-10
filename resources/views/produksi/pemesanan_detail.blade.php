@@ -1,47 +1,8 @@
 @extends('layout_master.master')
 
-@section("title", "Detail Data Pemesanan")
+@section("title", "Bagian Produksi | Informasi Pemesanan")
 
-@if($tipe == "pemesanan")
-  @section("pemesanan", "active")
-@elseif($tipe == "produkpesanan")
-  @section("pemesanan", "active")
-@elseif($tipe == "pemesananpeng")
-  @section("pemesananpeng", "active")
-@elseif($tipe == "produkpesananpeng")
-  @section("pemesananpeng", "active")
-@elseif($tipe == "pemesananproduksi")
-  @section("berandapro", "active")
-@endif
-
-
-@if($tipe == "pemesanan")
-  @section("pesanan", "active")
-@elseif($tipe == "produkpesanan")
-  @section("produkpesanan", "active")
-@elseif($tipe == "pemesananpeng")
-  @section("pesananpeng", "active")
-@elseif($tipe == "produkpesananpeng")
-  @section("produkpesananpeng", "active")
-@elseif($tipe == "pemesananberanda")
-  @section("beranda", "active")
-@elseif($tipe == "pemesananberandapro")
-  @section("beranda", "active")
-@endif
-
-
-@section("moreasset")
-<link href="{{url('dist/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" />
-<link href="{{url('dist/css/bootstrap-modal.css')}}" rel="stylesheet" />
-<link href="{{url('dist/js/select2/select2.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{url('dist/js/select2/select2-bootstrap-dick.css')}}" rel="stylesheet" type="text/css" />
-
-<style type="text/css">
-  #garis{
-    border: 2px solid #dbdbdb;
-  }
-</style>
-@endsection
+@section("berandapro", "active")
 
 @section("content")
 
@@ -49,27 +10,9 @@
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="{{route('beranda')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-        @if($tipe == "pemesananberanda")
-          <li><a>Beranda</a></li>
-          <li><a>Informasi Pemesanan</a></li>
-          <li class="active">Lihat</li>
-        @elseif($tipe == "pemesananproduksi")
-          <li><a>Beranda</a></li>
-          <li><a>Informasi Pemesanan</a></li>
-          <li class="active">Lihat</li>
-        @else
-          <li><a>Pemesanan</a></li>
-          @if($tipe == "pemesanan")
-            <li><a href="{{route('pemesanan')}}">Data Pemesanan</a></li>
-          @elseif($tipe == "produkpesanan")
-            <li><a href="{{route('pemesanan')}}">Data Produk Pesanan</a></li>
-          @elseif($tipe == "pemesananpeng")
-            <li><a href="{{route('pemesanan')}}">Data Pemesanan</a></li>
-          @elseif($tipe == "produkpesananpeng")
-            <li><a href="{{route('pemesanan')}}">Data Produk Pesanan</a></li>
-          @endif
-          <li class="active">Lihat Detail</li>
-        @endif
+        <li><a>Beranda</a></li>
+        <li><a>Informasi Pemesanan</a></li>
+        <li class="active">Lihat</li>
       </ol>
     </section>
 
@@ -77,31 +20,9 @@
     <section class="content">
       <div class="row">
 
-        @if($tipe == "pemesanan")
-          <div class="col-md-12">
-            <a href="{{route('pemesanan')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data pemesanan </button></a>
-          </div> 
-        @elseif($tipe == "produkpesanan")
-          <div class="col-md-12">
-            <a href="{{route('produkpesanan')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data produk pesanan </button></a>
-          </div>
-        @elseif($tipe == "pemesananpeng")
-          <div class="col-md-12">
-            <a href="{{route('pemesananpeng')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data pemesanan </button></a>
-          </div>
-        @elseif($tipe == "produkpesananpeng")
-          <div class="col-md-12">
-            <a href="{{route('produkpesananpeng')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman data produk pesanan </button></a>
-          </div>
-        @elseif($tipe == "pemesananberanda")
-          <div class="col-md-12">
-            <a href="{{route('beranda')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman beranda </button></a>
-          </div>
-        @elseif($tipe == "pemesananproduksi")
-          <div class="col-md-12">
-            <a href="{{route('berandapro')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke halaman beranda </button></a>
-          </div>
-        @endif
+        <div class="col-md-12">
+          <a href="{{route('berandapro')}}"><button type="button" class="btn btn-sm btn-primary"><i class="fa  fa-angle-double-left "></i> Kembali ke beranda </button></a>
+        </div> 
           
         <!-- Tambah Es -->
           <div class="col-md-12">
@@ -215,44 +136,4 @@
     </section>
     <!-- /. main content -->
   </div>
-@endsection
-
-@section("morescript")
-
-<!-- Modal Windows -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script> -->
-  <script src="{{url('dist/js/bootstrap-modalmanager.js')}}"></script>
-  <script src="{{url('dist/js/bootstrap-modal.js')}}"></script>
-<!-- validasi keyboard numeric only -->
-  <script src="{{url('dist/js/validasinumeric.js')}}"></script>
-<!-- dinamically add -->
-  <script src="{{url('dist/js/jquery-1.8.2.min.js')}}" type="text/javascript" charset="utf8"></script>
-  <script src="{{url('dist/js/select2/select2.js')}}"></script>
-
-  <script type="text/javascript">
-
-    $('.btnStatusSiap').click(function(){
-      if(confirm('Apakah anda akan mengubah status menjadi siap?') == true){
-        var ides = $(this).attr('id-es');
-        console.log(ides);
-        var jumlahes = $(this).attr('jumlah');
-        var iddetailpemesanan = $(this).attr('id-detail');
-        var tr = $(this);
-        $.ajax({
-          type: "GET",
-          url: "/dynasti/public/manager/pemesanan/detail/siap/"+ides+"/"+jumlahes+"/"+iddetailpemesanan,
-          success: function(result) {
-            if(result == "tidak cukup"){
-              alert("Stok tidak mencukupi");
-            }else{
-              toastr.success("Status berhasil diubah menjadi siap");
-              tr.attr('disabled',true);
-            }
-          }
-        })
-      }
-      
-    });
-  </script>
-
 @endsection

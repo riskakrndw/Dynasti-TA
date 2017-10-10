@@ -61,5 +61,6 @@ class Kernel extends HttpKernel
         'levelProduksi'=> \App\Http\Middleware\LevelProduksi::class,
         'levelKeuangan'=> \App\Http\Middleware\LevelKeuangan::class,
         'levelPengadaan'=> \App\Http\Middleware\LevelPengadaan::class,
+        'prevent-back-history' => \App\Http\Middleware\PreventBackHistory::class,
     ];
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Penjualan;
 use App\Pembelian;
@@ -13,9 +13,16 @@ use App\Bahan;
 
 class LaporanController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function laporanPembelian()
     {
-        return view('admin.laporan_pembelian')->with('eror','null');
+        $data = Pembelian::whereMonth('tgl', Carbon::now()->month)->get();
+        return view('admin.laporan_pembelian')->with('eror','null')->with('data', $data);
     }
 
     public function lappengadaan(Request $request){
@@ -31,7 +38,8 @@ class LaporanController extends Controller
 
     public function laporanPenjualan()
     {
-        return view('admin.laporan_penjualan')->with('eror','null');
+        $data = Penjualan::whereMonth('tgl', Carbon::now()->month)->get();
+        return view('admin.laporan_penjualan')->with('eror','null')->with('data', $data);
     }
 
     public function lappenjualan(Request $request){
@@ -47,7 +55,8 @@ class LaporanController extends Controller
     
     public function laporanPemesanan()
     {
-        return view('admin.laporan_pemesanan')->with('eror','null');
+        $data = Pemesanan::whereMonth('tanggal', Carbon::now()->month)->get();
+        return view('admin.laporan_pemesanan')->with('eror','null')->with('data', $data);
     }
 
     public function lappemesanan(Request $request){
@@ -63,7 +72,8 @@ class LaporanController extends Controller
 
     public function laporanProduksi()
     {
-        return view('admin.laporan_produksi')->with('eror','null');
+        $data = Produksi::whereMonth('tgl', Carbon::now()->month)->get();
+        return view('admin.laporan_produksi')->with('eror','null')->with('data', $data);
     }
 
     public function lapproduksi(Request $request){

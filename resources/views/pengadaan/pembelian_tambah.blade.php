@@ -166,7 +166,6 @@
       var jumlahbahan_error = document.getElementById("jumlahbahan_error");
 
     //setting all event listener
-      tanggal.addEventListener("blur", tanggalVerify, true);
 
     //validation function
       function Validate(){

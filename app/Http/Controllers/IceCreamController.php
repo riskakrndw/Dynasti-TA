@@ -13,9 +13,14 @@ use App\Bahan;
 class IceCreamController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        $data = IceCream::all();
+        $data = IceCream::orderBy('nama', 'asc')->get();
         $dataJenis = Jenis::get();
         $dataRasa = Rasa::get();
         /*dd($data);*/

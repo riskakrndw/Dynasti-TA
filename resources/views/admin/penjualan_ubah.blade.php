@@ -88,6 +88,7 @@
                   <span class="help-block val_error" id="namaes_error" style="color:red;"></span>
                 </div>
                 <input class="form-control" type="hidden" name="idEs" id="idEs" value="">
+                <input class="form-control" type="hidden" name="stokEs" id="stokEs" value="">
                 <div class="col-xs-3">
                   <input type="text" class="form-control" id="hargaEs" placeholder="Harga" disabled>
                 </div>

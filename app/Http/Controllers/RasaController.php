@@ -13,10 +13,11 @@ use App\DetailEs;
 class RasaController extends Controller
 {
 
-    public function __construct(){
-        $this->middleware('levelManager');
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +25,7 @@ class RasaController extends Controller
      */
     public function index()
     {
-        $data = Rasa::all();
+        $data = Rasa::orderBy('nama', 'asc')->get();
         return view('admin.rasa', ['data'=>$data]);
     }
 

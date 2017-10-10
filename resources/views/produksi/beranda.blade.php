@@ -103,7 +103,7 @@
                             <td>{{ $v->kode_pemesanan }}</td>
                             <td>{{ $v->tanggal }}</td>
                             <td>
-                              <a href="{{ url('manager/pemesanan/lihat/'.$v->id.'/pemesananberanda') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
+                              <a href="{{ url('produksi/pemesanan/lihat/'.$v->id.'/pemesananproduksi') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                             </td>
                           </tr>
                           @endforeach

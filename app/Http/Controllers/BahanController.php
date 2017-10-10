@@ -12,6 +12,11 @@ use App\DetailPembelian;
 class BahanController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     // public function __construct(){
     //     $this->middleware('levelManager');
     // }
@@ -23,7 +28,7 @@ class BahanController extends Controller
      */
     public function index()
     {
-        $data = Bahan::all();
+        $data = Bahan::orderBy('nama', 'asc')->get();
         if(Auth::user()->level == "manager"){
             return view('admin.bahan', ['data'=>$data]);
         } elseif (Auth::user()->level == "pengadaan"){
@@ -54,7 +59,7 @@ class BahanController extends Controller
         'nama.required' => 'Nama harus diisi',
         'harga.required' => 'Harga harus diisi',
         'stok.required' => 'Stok harus diisi',
-        'stok_min.required' => 'Harga harus diisi',
+        'stok_min.required' => 'Stok minimal harus diisi',
         'satuan.required' => 'Satuan harus diisi',
         ]
         );

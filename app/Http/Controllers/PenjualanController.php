@@ -12,7 +12,11 @@ use App\User;
 
 class PenjualanController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         if(Auth::user()->level == "manager"){

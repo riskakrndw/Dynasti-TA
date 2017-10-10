@@ -106,13 +106,15 @@
   <script src="{{url('dist/js/bootstrap-modal.js')}}"></script>
 <!-- validasi keyboard numeric only -->
   <script src="{{url('dist/js/validasinumeric.js')}}"></script>
-<!-- dinamically add -->
-  <script src="{{url('dist/js/jquery-1.8.2.min.js')}}" type="text/javascript" charset="utf8"></script>
-  <script src="{{url('dist/js/select2/select2.js')}}"></script>
 <!-- date -->
   <script src="{{url('dist/js/bootstrap-datepicker.js')}}"></script>
 
   <script>
+
+  $("#example1").DataTable({
+    'info':false
+  });
+
     $("#cetak").attr("href", "{{url('manager/laporan/printbahan')}}").attr('target','_blank');;
   </script>
 

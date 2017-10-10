@@ -10,8 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['middleware' => 'prevent-back-history'],function(){
 
-Route::get('/', function () {
+	Route::get('/', function () {
 	if(auth() -> user()){
 	    if(auth()->user()->level=="manager"){
 	        return redirect("/manager/beranda");
@@ -63,7 +64,7 @@ Route::get('/forbidden', function()
 
 
 // UNTUK BAGIAN MANAGER
-	Route::group(['middleware' => 'levelManager'], function(){
+	Route::group(['middleware' => 'levelManager', 'auth'], function(){
 
 		// BERANDA
 			Route::get('/manager/beranda', 'HomeController@index_manager')->name('beranda');
@@ -417,6 +418,9 @@ Route::get('/forbidden', function()
 
 		//BERANDA
 			Route::get('/produksi/beranda', 'HomeController@index_produksi')->name('berandapro');
+
+			/*melakukan lihat detail*/
+				Route::get('/produksi/pemesanan/lihat/{id}/{tipe}', 'PemesananController@show');
 		
 		/*melakukan lihat detail pemesanan*/
 			Route::get('/produksi/pemesanan/lihat/{id}/{tipe}', 'PemesananController@show');
@@ -443,3 +447,5 @@ Route::get('/forbidden', function()
 				Route::post('/produksi/produksi/ubah', 'ProduksiController@edit');
 				Route::post('/produksi/produksi/ubah1', 'ProduksiController@edit1');
 	});
+});
+
