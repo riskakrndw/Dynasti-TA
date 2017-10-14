@@ -113,7 +113,7 @@
                 </div>
                 <input class="form-control" type="hidden" name="idBahan" id="idBahan" value="">
                 <div class="col-xs-3">
-                  <input type="text" class="form-control" id="jumlahBahan" name="jumlahbahan" placeholder="Jumlah yang Dibutuhkan" onKeyPress="return goodchars(event,'0123456789',this)">
+                  <input type="text" class="form-control" id="jumlahBahan" name="jumlahbahan" placeholder="Jumlah yang Dibutuhkan" onKeyPress="return goodchars(event,'.0123456789',this)">
                   <span class="help-block val_error" id="jumlahbahan_error" style="color:red;"></span>
                 </div>
                 <div class="col-xs-2">
@@ -127,7 +127,7 @@
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width:50px">No</th>
+                        <th style="width:50px; display:none">No</th>
                         <th style="width: 325px">Nama Bahan</th>
                         <th style="width: 200px">Satuan</th>
                         <th style="width: 175px">Jumlah</th>
@@ -294,7 +294,7 @@
                 }
                 else{
                   nomorBaris = nomorBaris + 1;
-                  $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="col-md-3 control-label"><a class="remove-type" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                  $('#type_container').append('<tr id="'+type_div+'"><td style="display:none">'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="col-md-3 control-label"><a class="remove-type" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
                 }
                 $('#namaBahan').val('');
                 $('#jumlahBahan').val('');

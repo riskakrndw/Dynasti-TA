@@ -70,7 +70,7 @@
                           <td>{{ $data->status }}</td>
                           <td>{{ $data->nama }}</td>
                           <td>{{ $data->alamat }}</td>
-                          <td>{{ $data->total }}</td>
+                          <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
                            <a href="{{ url('manager/pemesanan/lihat/'.$data->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                            <a href="{{ url('manager/pemesanan/edit/'.$data->id) }}" class="btn btn-sm btn-default btnEditEs"><i class="fa fa-edit"></i> Ubah</a>
@@ -105,7 +105,7 @@
                           <td>{{ $data->tanggal }}</td>
                           <td>{{ $data->nama }}</td>
                           <td>{{ $data->alamat }}</td>
-                          <td>{{ $data->total }}</td>
+                          <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
                            <a href="{{ url('manager/pemesanan/lihat/'.$data->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                            <button class="btn btn-sm btn-danger btnStatusBatal" id-pemesanan="{{ $data->id }}"><i class="fa fa-close"></i> Batal</button>
@@ -140,7 +140,7 @@
                           <td>{{ $data->tanggal }}</td>
                           <td>{{ $data->nama }}</td>
                           <td>{{ $data->alamat }}</td>
-                          <td>{{ $data->total }}</td>
+                          <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
                            <a href="{{ url('manager/pemesanan/lihat/'.$data->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                            <button class="btn btn-sm btn-default btnStatusSelesai" id-pemesanan="{{ $data->id }}"><i class="fa fa-edit"></i> Selesai</button>
@@ -175,7 +175,7 @@
                           <td>{{ $data->tanggal }}</td>
                           <td>{{ $data->nama }}</td>
                           <td>{{ $data->alamat }}</td>
-                          <td>{{ $data->total }}</td>
+                          <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
                            <a href="{{ url('manager/pemesanan/lihat/'.$data->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>
@@ -208,7 +208,7 @@
                           <td>{{ $datas->tanggal }}</td>
                           <td>{{ $datas->nama }}</td>
                           <td>{{ $datas->alamat }}</td>
-                          <td>{{ $datas->total }}</td>
+                          <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
                            <a href="{{ url('manager/pemesanan/lihat/'.$datas->id.'/pemesanan') }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i> Lihat Detail</a>
                          </td>

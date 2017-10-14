@@ -19,7 +19,7 @@ class PemesananController extends Controller
     
     public function index()
     {
-        $data = DetailPemesanan::whereIn('status', ['menunggu', 'siap'])->orderBy('id', 'desc')->get();
+        $data = DetailPemesanan::whereIn('status', ['menunggu', 'siap'])->orderBy('updated_at', 'desc')->get();
         $datamenunggu = DetailPemesanan::where('status', '=', 'menunggu')->orderBy('updated_at', 'asc')->get();
         $datasiap = DetailPemesanan::where('status', '=', 'siap')->orderBy('updated_at', 'desc')->get();
 
@@ -37,8 +37,8 @@ class PemesananController extends Controller
     public function index1()
     {
     	$data = Pemesanan::orderBy('updated_at', 'desc')->get();
-        $datamenunggu = Pemesanan::where('status', '=', 'menunggu')->orderBy('tanggal', 'asc')->get();
-        $datasiap = Pemesanan::where('status', '=', 'siap')->orderBy('tanggal', 'asc')->get();
+        $datamenunggu = Pemesanan::where('status', '=', 'menunggu')->orderBy('updated_at', 'asc')->get();
+        $datasiap = Pemesanan::where('status', '=', 'siap')->orderBy('updated_at', 'asc')->get();
         $dataselesai = Pemesanan::where('status', '=', 'selesai')->orderBy('updated_at', 'desc')->get();
         $databatal = Pemesanan::where('status', '=', 'batal')->orderBy('updated_at', 'desc')->get();
         // dd($databatal);

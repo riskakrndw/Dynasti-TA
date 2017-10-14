@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-
+use Carbon\Carbon;
 use App\Produksi;
 use App\IceCream;
 use App\User;
@@ -25,11 +25,11 @@ class ProduksiController extends Controller
     {
         
         if(Auth::user()->level == "manager"){
-            $data = Produksi::orderBy('updated_at', 'asc')->get();
+            $data = Produksi::orderBy('updated_at', 'desc')->get();
             // dd($data->ice_cream);
             return view('admin.produksi')->with('data', $data);
         } elseif (Auth::user()->level == "produksi"){
-            $data = Produksi::orderBy('updated_at', 'asc')->get();
+            $data = Produksi::orderBy('updated_at', 'desc')->get();
             return view('produksi.produksi')->with('data', $data);
         }
     	
@@ -39,11 +39,11 @@ class ProduksiController extends Controller
     {
        
         if(Auth::user()->level == "manager"){
-            $data = DetailProduksi::orderBy('updated_at', 'asc')->get();
+            $data = DetailProduksi::orderBy('updated_at', 'desc')->get();
             // dd($data);
             return view('admin.produksi_barang')->with('data', $data);
         } elseif (Auth::user()->level == "produksi"){
-            $data = DetailProduksi::orderBy('updated_at', 'asc')->get();
+            $data = DetailProduksi::orderBy('updated_at', 'desc')->get();
             // dd($data);
             return view('produksi.produksi_barang')->with('data', $data);
         }
@@ -61,11 +61,12 @@ class ProduksiController extends Controller
     	
     }
 
-    public function store($pengguna, $datepicker)
+    public function store($pengguna)
     {
 
         // dd($idbahan);
         $data = new Produksi;
+        $datepicker = Carbon::now()->format('Y-m-d');
         $data->id_users = $pengguna;
         $data->kode_produksi = 'PRO/' . $datepicker . '/';
         $data->tgl = $datepicker;

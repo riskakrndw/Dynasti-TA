@@ -21,17 +21,17 @@ class LaporanController extends Controller
     
     public function laporanPembelian()
     {
-        $data = Pembelian::whereMonth('tgl', Carbon::now()->month)->get();
+        $data = Pembelian::whereMonth('tgl', Carbon::now()->month)->whereIn('status', ['diterima', 'dibeli'])->get();
         return view('admin.laporan_pembelian')->with('eror','null')->with('data', $data);
     }
 
     public function lappengadaan(Request $request){
-        $data=Pembelian::whereBetween('tgl',[$request->tgl_a,$request->tgl_b])->orderBy('tgl', 'asc')->get();
+        $data=Pembelian::whereBetween('tgl',[$request->tgl_a,$request->tgl_b])->orderBy('tgl', 'asc')->whereIn('status', ['diterima', 'dibeli'])->get();
         return $data;
     }
 
     public function cetakpengadaan($tgl_a,$tgl_b){
-        $data=Pembelian::whereBetween('tgl',[$tgl_a,$tgl_b])->orderBy('tgl', 'asc')->get();
+        $data=Pembelian::whereBetween('tgl',[$tgl_a,$tgl_b])->orderBy('tgl', 'asc')->whereIn('status', ['diterima', 'dibeli'])->get();
         $totalpengadaan = DB::table('pembelian')->sum('total');
         return view('admin.print_pengadaan')->with('data',$data)->with('tgl_a',$tgl_a)->with('tgl_b',$tgl_b)->with('totalpengadaan', $totalpengadaan);
     }
@@ -55,17 +55,17 @@ class LaporanController extends Controller
     
     public function laporanPemesanan()
     {
-        $data = Pemesanan::whereMonth('tanggal', Carbon::now()->month)->get();
+        $data = Pemesanan::whereMonth('tanggal', Carbon::now()->month)->where('status', 'selesai')->get();
         return view('admin.laporan_pemesanan')->with('eror','null')->with('data', $data);
     }
 
     public function lappemesanan(Request $request){
-        $data=Pemesanan::whereBetween('tanggal',[$request->tgl_a,$request->tgl_b])->orderBy('tanggal', 'asc')->get();
+        $data=Pemesanan::whereBetween('tanggal',[$request->tgl_a,$request->tgl_b])->orderBy('tanggal', 'asc')->where('status', 'selesai')->get();
         return $data;
     }
 
     public function cetakpemesanan($tgl_a,$tgl_b){
-        $data=Pemesanan::whereBetween('tanggal',[$tgl_a,$tgl_b])->orderBy('tanggal', 'asc')->get();
+        $data=Pemesanan::whereBetween('tanggal',[$tgl_a,$tgl_b])->orderBy('tanggal', 'asc')->where('status', 'selesai')->get();
         $totalpemesanan = DB::table('pemesanan')->sum('total');
         return view('admin.print_pemesanan')->with('data',$data)->with('tgl_a',$tgl_a)->with('tgl_b',$tgl_b)->with('totalpemesanan', $totalpemesanan);
     }

@@ -70,7 +70,7 @@
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           @if($data->status == "menunggu")
                             <td>Menunggu persetujuan Manager</td>
-                          @elseif($data->status == "disetujui"){
+                          @elseif($data->status == "disetujui")
                             <td>Permintaan pengadaan disetujui</td>
                           @elseif($data->status == "ditolak")
                             <td>Permintaan pengadaan ditolak</td>

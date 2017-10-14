@@ -128,8 +128,7 @@
           <div class="col-xs-12">
             <div class="box">
 
-              <!-- header -->
-                <div class="box-header">
+              <div class="box-header">
                   <ul class="nav nav-tabs-custom">
                     <li class="pull-left box-header"><h3 class="box-title">Daftar Pengguna</h3></li>
                   </ul>
@@ -141,11 +140,11 @@
                   <table id="example1" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Username</th>
-                        <th>Level</th>
-                        <th>Aksi</th>
+                        <th style="width: 30px">No</th>
+                        <th style="width: 250px">Nama</th>
+                        <th style="width: 150px">Username</th>
+                        <th style="width: 300px">Level</th>
+                        <th style="width: 400px">Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -165,7 +164,6 @@
                           <td>Bagian Pengadaan</td>
                         @endif
 
-                        
                           @if( $data->level == 'manager')
                             <td>
                             <div class="input-group-btn">
@@ -279,15 +277,15 @@
                         @endif
                       </div>
                       <br>
-                      <div class="form-group{{ $errors->has('password_confirmationUbah') ? ' has-error' : '' }}">
+                      <div class="form-group{{ $errors->has('passwordUbah_confirmation') ? ' has-error' : '' }}">
                         <label>Ulangi Kata Sandi Baru</label>
                         <div class="input-group">
                           <span class="input-group-addon">@</span>
-                          <input class="form-control" type="password" id="password_confirmation" placeholder="Konfirmasi Password" name="password_confirmationUbah">
+                          <input class="form-control" type="password" id="password_confirmation" placeholder="Konfirmasi Password" name="passwordUbah_confirmation">
                         </div>
-                        @if ($errors->has('password_confirmationUbah'))
+                        @if ($errors->has('passwordUbah_confirmation'))
                           <span class="help-block">
-                              <strong>{{ $errors->first('password_confirmationUbah') }}</strong>
+                              <strong>{{ $errors->first('passwordUbah_confirmation') }}</strong>
                           </span>
                         @endif
                       </div>
@@ -329,7 +327,7 @@
     @endif
 
     @if(count($errors)>0)
-      @if ($errors->has('password_confirmationUbah') || $errors->has('passwordUbah'))
+      @if ($errors->has('passwordUbah_confirmation') || $errors->has('passwordUbah'))
         $('#editSandi').modal('show');
       @elseif ($errors->has('nameUbah') || $errors->has('levelUbah') || $errors->has('usernameUbah'))
         @if(old("levelUbah")=="manager")

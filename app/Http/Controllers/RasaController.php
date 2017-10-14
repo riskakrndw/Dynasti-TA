@@ -25,7 +25,7 @@ class RasaController extends Controller
      */
     public function index()
     {
-        $data = Rasa::orderBy('nama', 'asc')->get();
+        $data = Rasa::orderBy('updated_at', 'asc')->get();
         return view('admin.rasa', ['data'=>$data]);
     }
 

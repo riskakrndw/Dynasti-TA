@@ -52,26 +52,9 @@
                   {{csrf_field()}}
                   <div class="box-body">
                     <input class="form-control" type="hidden" name="idPengguna" id="idPengguna" value="{{Auth::User()->id}}">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>Tanggal</label>
-                        <div class="input-group date">
-                          <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                          </div>
-                          <input type="text" class="form-control pull-right" id="datepicker" placeholder="Tanggal Penjualan" name="tanggal" data-date-end-date="0d">
-                        </div>
-                        <span class="help-block val_error" id="tanggal_error" style="color:red;"></span>
-                      </div>
-                    </div>
                   </div>
                 
               <!-- /Form tambah penjualan -->
-
-              <hr id="garis">
-              <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Daftar Ice Cream</h3></li>
-              </ul>
 
               <!-- Data bahan -->
                 <div class="col-xs-3">
@@ -98,7 +81,7 @@
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width:50px">No</th>
+                        <th style="width:50px; display:none">No</th>
                         <th style="width: 200px">Nama Ice Cream</th>
                         <th style="width: 175px">Harga</th>
                         <th style="width: 100px">Jumlah</th>
@@ -149,34 +132,15 @@
 
   <script type="text/javascript">
 
-    //getting all input object
-      var tanggal = document.forms["vform"]["tanggal"];
-
     //getting all error display object
-      var tanggal_error = document.getElementById("tanggal_error");
       var namaEs = document.getElementById("namaEs");
       var namaes_error = document.getElementById("namaes_error");
       var jumlahEs = document.getElementById("jumlahEs");
       var jumlahes_error = document.getElementById("jumlahes_error");
 
-    //setting all event listener
-      tanggal.addEventListener("blur", tanggalVerify, true);
-
     //validation function
       function Validate(){
-        var cek = false;
         
-        if(tanggal.value == ""){
-          tanggal.style.border = "1px solid red";
-          tanggal_error.textContent = "Tanggal harus diisi";
-          tanggal.focus();
-          cek = true;
-        }else{
-          tanggal.style.border = "1px solid #5E6E66";
-          tanggal_error.innerHTML = "";
-        }
-
-        if(cek == false){
           if($('#type_container').children().length == 0){
 
             alert('Ice Cream harus diisi');
@@ -184,9 +148,6 @@
           }else{
             return true;
           }
-        }else{
-          return false;
-        }
 
         return true;
 
@@ -221,13 +182,6 @@
 
   <!-- script tambah bahan baku -->
   <script>
-    //Date picker
-      $('#datepicker').datepicker({
-        autoclose: true,
-        format: "yyyy-mm-dd",
-        todayBtn:"linked",
-        language:"id",
-      });
 
     var nomorBaris = 0;
     jQuery(document).ready(function() {
@@ -262,7 +216,7 @@
                   }
                   else{
                     nomorBaris = nomorBaris + 1;
-                  $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                  $('#type_container').append('<tr id="'+type_div+'"><td style="display:none">'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
                   }
                   $('#namaEs').val('');
                   $('#hargaEs').val('');
@@ -323,10 +277,6 @@
         if(Validate()){
           var kode = $('#kode').val();
           var pengguna = $('#idPengguna').val();
-          var datepicker = $('#datepicker').val();
-          var bulan = new Date(datepicker).getMonth()+1;
-          var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
-          console.log(bulan);
           var total = $('#totalHarga').val();
 
           var arrData=[];
@@ -368,7 +318,7 @@
 
           $.ajax({
               type: "GET",
-              url: "/dynasti/public/keuangan/penjualan/simpan/"+pengguna+"/"+datepicker+"/"+total,
+              url: "/dynasti/public/keuangan/penjualan/simpan/"+pengguna+"/"+total,
               success: function(result) {
                 idjual = result;
                 /*console.log(idjual)*/

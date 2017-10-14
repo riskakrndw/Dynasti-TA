@@ -138,7 +138,7 @@
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width:50px">No</th>
+                        <th style="width:50px; display:none">No</th>
                         <th style="width: 200px">Nama Ice Cream</th>
                         <th style="width: 175px">Harga</th>
                         <th style="width: 100px">Status</th>
@@ -158,7 +158,7 @@
                           $nama = str_replace(' ', '', $detail_pemesanan->ice_cream->nama);
                         ?>
                         <tr id="tr{{$no}}">
-                          <td>{{ $no }}</td>
+                          <td style="width:50px; display:none">{{ $no }}</td>
                           <td>{{ $detail_pemesanan->ice_cream->nama }}</td>
                           <td>{{ $detail_pemesanan->ice_cream->jenis->harga }}</td>
                           <td id="{{$nama}}status{{$detail_pemesanan->status}}">{{ $detail_pemesanan->status }}</td>
@@ -371,7 +371,7 @@
                 }
                 else{
                   nomorBaris = nomorBaris + 1;
-                  $('#type_container').append('<tr id="tr'+nomorBaris+'" no="'+nomorBaris+'"><td id="no'+nomorBaris+'">'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'statusmenunggu'+'>'+status+'</td><td id='+nama.replace(/\s/g,'')+'menunggu'+'><input type="number" class="nunggupemesanan" nama="'+nama.replace(/\s/g,'')+'" harga="'+harga+'" value="'+jumlah+'" min="1" style="width: 50px;"></td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotalmenunggu'+'>'+Subtotal+'</td><td style="display:none">'+ides+'</td><td style="display:none">'+0+'</td><td class="col-md-3 control-label"> '+
+                  $('#type_container').append('<tr id="tr'+nomorBaris+'" no="'+nomorBaris+'"><td style="display:none" id="no'+nomorBaris+'">'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'statusmenunggu'+'>'+status+'</td><td id='+nama.replace(/\s/g,'')+'menunggu'+'><input type="number" class="nunggupemesanan" nama="'+nama.replace(/\s/g,'')+'" harga="'+harga+'" value="'+jumlah+'" min="1" style="width: 50px;"></td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotalmenunggu'+'>'+Subtotal+'</td><td style="display:none">'+ides+'</td><td style="display:none">'+0+'</td><td class="col-md-3 control-label"> '+
                          '     <a class="remove-type btn btn-sm btn-default" targetDiv="" data-id="tr'+nomorBaris+'" href="javascript: void(0)" ><i class="glyphicon glyphicon-trash"></i></a></td></tr>');
                 }
                 $('#namaEs').val('');
@@ -547,10 +547,10 @@
               }
           });
 
-          // $(document).ajaxStop(function(){
-          //   window.location="{{URL::to('manager/pemesanan')}}";
-          //   toastr.info("Data berhasil diubah");
-          // });
+          $(document).ajaxStop(function(){
+            window.location="{{URL::to('manager/pemesanan')}}";
+            toastr.info("Data berhasil diubah");
+          });
         }
       });
     });

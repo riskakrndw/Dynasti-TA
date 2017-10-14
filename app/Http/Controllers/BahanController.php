@@ -28,7 +28,7 @@ class BahanController extends Controller
      */
     public function index()
     {
-        $data = Bahan::orderBy('nama', 'asc')->get();
+        $data = Bahan::orderBy('updated_at', 'asc')->get();
         if(Auth::user()->level == "manager"){
             return view('admin.bahan', ['data'=>$data]);
         } elseif (Auth::user()->level == "pengadaan"){
@@ -49,7 +49,7 @@ class BahanController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nama' => 'required|min:2|max:50',
+            'nama' => 'required|min:1|max:50',
             'harga' => 'required|max:10',
             'stok' => 'required',
             'stok_min' => 'required',
@@ -91,7 +91,7 @@ class BahanController extends Controller
             'namaUbah' => 'required|min:2|max:50',
             'hargaUbah' => 'required|min:2|max:10',
             'stokUbah' => 'required|min:2|max:50',
-            'satuanUbah' => 'required|min:2|max:10',
+            'satuanUbah' => 'required|min:1|max:10',
             'stok_minUbah' => 'required|min:2|max:50',
         ],
         [

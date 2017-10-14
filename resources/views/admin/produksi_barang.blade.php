@@ -64,7 +64,6 @@
                           <td>{{ $data->ice_cream->nama }}</td>
                           <td>{{ $data->jumlah }}</td>
                           <td>
-                            <button type="button" class="btn btn-sm btn-default btnEditPro" data-toggle="modal" data-target="" data-id="{{ $data->id }}" data-jumlah="{{ $data->jumlah }}"> <i class="fa fa-edit"></i> Ubah</button>
                             <a href="{{ url('manager/produksi/lihat/'.$data->produksi->id.'/produkproduksi') }}" class="btn btn-sm btn-default btnLihatBahan"><i class="fa fa-eye"></i> Lihat Detail</a>
                           </td>
                         </tr>

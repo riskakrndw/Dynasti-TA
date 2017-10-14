@@ -107,7 +107,7 @@
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width:50px">No</th>
+                        <th style="width:50px; display:none">No</th>
                         <th style="width: 200px">Nama Ice Cream</th>
                         <th style="width: 175px">Harga</th>
                         <th style="width: 100px">Jumlah</th>
@@ -123,7 +123,7 @@
                           $nama = str_replace(' ', '', $detail_jual->ice_cream->nama);
                         ?>
                         <tr id="tr{{$id}}">
-                          <td>{{ $no++ }}</td>
+                          <td style="width:50px; display:none">{{ $no++ }}</td>
                           <td>{{ $detail_jual->ice_cream->nama }}</td>
                           <td>{{ $detail_jual->ice_cream->jenis->harga }}</td>
                           <!-- <td>{{ $detail_jual->ice_cream->rasa->nama }}</td>
@@ -287,7 +287,7 @@
                   }
                   else{
                     nomorBaris = nomorBaris + 1;
-                    $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                    $('#type_container').append('<tr id="'+type_div+'"><td style="display:none">'+nomorBaris+'</td><td>'+nama+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type pull-right" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
                   }
                   $('#namaEs').val('');
                   $('#hargaEs').val('');

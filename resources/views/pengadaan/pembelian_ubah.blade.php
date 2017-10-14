@@ -110,7 +110,7 @@
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width:50px">No</th>
+                        <th style="width:50px; display:none">No</th>
                         <th style="width: 325px">Nama Bahan</th>
                         <th style="width: 200px">Satuan</th>
                         <th style="width: 200px">Harga</th>
@@ -127,7 +127,7 @@
                           $nama = str_replace(' ', '', $detail_beli->bahan->nama);
                         ?>
                         <tr id="tr{{$id}}" no="{{$no}}">
-                          <td>{{ $no++ }}</td>
+                          <td style="width:50px; display:none">{{ $no++ }}</td>
                           <td>{{ $detail_beli->bahan->nama }}</td>
                           <td>{{ $detail_beli->bahan->satuan }}</td>
                           <td>{{ $detail_beli->bahan->harga }}</td>
@@ -287,7 +287,7 @@
                 }
                 else{
                   nomorBaris = nomorBaris + 1;
-                  $('#type_container').append('<tr id="'+type_div+'" no="'+nomorBaris+'"><td id="no'+nomorBaris+'">'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type" targetDiv="" data-nama="'+nama.replace(/\s/g,'')+'" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                  $('#type_container').append('<tr id="'+type_div+'" no="'+nomorBaris+'"><td style="display:none" id="no'+nomorBaris+'">'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type" targetDiv="" data-nama="'+nama.replace(/\s/g,'')+'" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
                 }
                 $('#namaBahan').val('');
                 $('#hargaBahan').val('');

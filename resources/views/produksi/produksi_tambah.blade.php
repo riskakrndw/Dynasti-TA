@@ -51,18 +51,6 @@
                   {{csrf_field()}}
                   <div class="box-body">
                     <input type="hidden" name="idPengguna" id="idPengguna" value="{{ Auth::User()->id }}">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>Tanggal</label>
-                        <div class="input-group date">
-                          <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                          </div>
-                          <input type="text" class="form-control pull-right" id="datepicker" name="datepicker" placeholder="Tanggal Produksi" data-date-end-date="0d">
-                        </div>
-                        <span class="help-block val_error" id="tanggal_error" style="color:red;"></span>
-                      </div>
-                    </div>
                     <input type="hidden" name="ides" id="ides">
                     <div class="col-md-12">
                       <div class="form-group">
@@ -144,32 +132,13 @@
   <script type="text/javascript">
 
     //getting all input object
-      var tanggal = document.forms["vform"]["datepicker"];
       var rasa = document.forms["vform"]["rasa"];
 
     //getting all error display object
-      var tanggal_error = document.getElementById("tanggal_error");
       var rasa_error = document.getElementById("rasa_error");
-
-    //setting all event listener
-      tanggal.addEventListener("blur", tanggalVerify, true);
 
     //validation function
       function Validate(){
-        var hasil = true;
-
-        console.log(tanggal.value);
-        
-        if(tanggal.value == ""){
-          tanggal.style.border = "1px solid red";
-          tanggal_error.textContent = "Tanggal harus diisi";
-          tanggal.focus();
-          hasil = false;
-        }else{
-            tanggal.style.border = "1px solid #5E6E66";
-            tanggal_error.innerHTML = "";
-        }
-
         
           var cek = false;
           if(rasa.value == ""){
@@ -191,16 +160,12 @@
             })
           }
           
-          if(hasil == true){
           if(cekjumlah == true){
             return true;
           }else{
             alert("Minimal jumlah produksi harap diisi");
             return false;
           }
-        }else{
-          return false;
-        }
 
       }
   </script>
@@ -208,13 +173,6 @@
 
   <!-- script tambah bahan baku -->
   <script>
-    //Date picker
-      $('#datepicker').datepicker({
-        autoclose: true,
-        format: "yyyy-mm-dd",
-        todayBtn:"linked",
-        language:"id",
-      });
     var w = 0;
     var arr  = [];
     var arr2 = [];
@@ -360,17 +318,13 @@
           var kode = $('#kode').val();
           var pengguna = $('#idPengguna').val();
           var ides = $('#ides').val();
-          var datepicker = $('#datepicker').val();
-          var bulan = new Date(datepicker).getMonth()+1;
-          var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
-          // console.log(bulan);
           var rasa = $('#rasa').val();
           var jumlah = $('#jumlah').val();
           console.log(idbahan)
 
           $.ajax({
               type: "GET",
-              url: "/dynasti/public/produksi/produksi/simpan/"+pengguna+"/"+datepicker,
+              url: "/dynasti/public/produksi/produksi/simpan/"+pengguna,
               success: function(result) {
                 console.log(result)
                $('.bb').each(function(){ 

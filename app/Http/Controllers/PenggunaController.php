@@ -19,7 +19,7 @@ class PenggunaController extends Controller
 
     public function index()
     {
-        $data = User::all();
+        $data = User::orderBy('updated_at', 'asc')->get();
         return view('admin.pengguna', ['data'=>$data]);
     }
 
@@ -105,7 +105,6 @@ class PenggunaController extends Controller
 
         $this->validate($request,[                      // --> validasi input
             'passwordUbah' => 'required|min:6|confirmed',
-            'password_confirmationUbah' => 'confirmed',
             
         ]);
 

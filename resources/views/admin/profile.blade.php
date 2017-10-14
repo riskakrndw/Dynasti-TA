@@ -97,23 +97,31 @@
                       @endif
                     method="POST">
                       {{csrf_field()}}
-                      <label>Nama</label>
-                      <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                        <input class="form-control" id="namaPengguna" placeholder="Nama" name="name">
+                      <div class="form-group{{ $errors->has('nameUbah') ? ' has-error' : '' }}">
+                        <label>Nama</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <input class="form-control" id="namaPengguna" placeholder="Nama" name="nameUbah" value="{{ old('nameUbah') }}">
+                        </div>
+                        @if ($errors->has('nameUbah'))
+                          <span class="help-block">
+                              <strong>{{ $errors->first('nameUbah') }}</strong>
+                          </span>
+                        @endif
                       </div>
-                      @if($errors->has('name'))
-                        <span class="help-block">Nama jenis minimal 2 karakter</span>
-                      @endif
                       <br>
-                      <label>Username</label>
-                      <div class="input-group">
-                        <span class="input-group-addon">@</span>
-                        <input class="form-control" id="usernamePengguna" placeholder="Username" name="username">
+                      <div class="form-group{{ $errors->has('usernameUbah') ? ' has-error' : '' }}">
+                        <label>Username</label>
+                        <div class="input-group">
+                          <span class="input-group-addon">@</span>
+                          <input class="form-control" id="usernamePengguna" placeholder="Username" name="usernameUbah" value="{{ old('usernameUbah') }}">
+                        </div>
+                        @if ($errors->has('usernameUbah'))
+                          <span class="help-block">
+                              <strong>{{ $errors->first('usernameUbah') }}</strong>
+                          </span>
+                        @endif
                       </div>
-                      @if($errors->has('username'))
-                        <span class="help-block">Nama jenis minimal 2 karakter</span>
-                      @endif
                       <input class="form-control" type="hidden" name="id" id="idPengguna" value="">
                     </div>
                     <div class="modal-footer">
@@ -144,32 +152,44 @@
                       @endif
                     method="POST">
                       {{csrf_field()}}
-                      <label>Kata Sandi Lama</label>
-                      <div class="input-group">
-                        <span class="input-group-addon">@</span>
-                        <input class="form-control" id="passwordold" type="password" placeholder="Kata Sandi Lama" name="passwordold">
+                      <div class="form-group{{ $errors->has('passwordold') ? ' has-error' : '' }}">
+                        <label>Kata Sandi Lama</label>
+                        <div class="input-group">
+                          <span class="input-group-addon">@</span>
+                          <input class="form-control" id="passwordold" type="password" placeholder="Kata Sandi Lama" name="passwordold">
+                        </div>
+                        @if ($errors->has('passwordold'))
+                          <span class="help-block">
+                              <strong>{{ $errors->first('passwordold') }}</strong>
+                          </span>
+                        @endif
                       </div>
-                      @if($errors->has('username'))
-                        <span class="help-block">Nama jenis minimal 2 karakter</span>
-                      @endif
                       <br>
-                      <label>Kata Sandi Baru</label>
-                      <div class="input-group">
-                        <span class="input-group-addon">@</span>
-                        <input class="form-control" id="password" type="password" placeholder="Kata Sandi Baru" name="password">
+                      <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                        <label>Kata Sandi Baru</label>
+                        <div class="input-group">
+                          <span class="input-group-addon">@</span>
+                          <input class="form-control" id="password" type="password" placeholder="Kata Sandi Baru" name="password">
+                        </div>
+                        @if ($errors->has('password'))
+                          <span class="help-block">
+                              <strong>{{ $errors->first('password') }}</strong>
+                          </span>
+                        @endif
                       </div>
-                      @if($errors->has('username'))
-                        <span class="help-block">Nama jenis minimal 2 karakter</span>
-                      @endif
                       <br>
-                      <label>Ulangi Kata Sandi Baru</label>
-                      <div class="input-group">
-                        <span class="input-group-addon">@</span>
-                        <input class="form-control" type="password" id="password_confirmation" placeholder="Ulangi Kata Sandi Baru" name="password_confirmation">
+                      <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                        <label>Ulangi Kata Sandi Baru</label>
+                        <div class="input-group">
+                          <span class="input-group-addon">@</span>
+                          <input class="form-control" type="password" id="password_confirmation" placeholder="Ulangi Kata Sandi Baru" name="password_confirmation">
+                        </div>
+                        @if ($errors->has('password_confirmation'))
+                          <span class="help-block">
+                              <strong>{{ $errors->first('password_confirmation') }}</strong>
+                          </span>
+                        @endif
                       </div>
-                      @if($errors->has('username'))
-                        <span class="help-block">Nama jenis minimal 2 karakter</span>
-                      @endif
                       <!-- <input class="form-control" type="hidden" name="id" id="idPengguna1" value=""> -->
                     </div>
                     <div class="modal-footer">
@@ -200,6 +220,15 @@
   <script src="{{url('dist/js/bootstrap-modal.js')}}"></script>
 
   <script type="text/javascript">
+
+    @if(count($errors)>0)
+      @if ($errors->has('passwordold') || $errors->has('password')) 
+        $('#editSandi').modal('show');
+      @elseif ($errors->has('nameUbah') || $errors->has('usernameUbah'))
+        $('#editPengguna').modal('show'); 
+      @endif
+    @endif
+
     $(document).ready(function(){
       $(".btnEditPengguna").click(function(){
         $('#namaPengguna').val($(this).data('name'));

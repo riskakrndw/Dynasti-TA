@@ -170,8 +170,8 @@
                       <td>{{ $data->nama }}</td>
                       <td>{{ $data->satuan }}</td>
                       <td>Rp {{ number_format($data->harga,2,",","." ) }}</td>
-                      <td>{{ $data->stok }}</td>
-                      <td>{{ $data->stok_min }}</td>
+                      <td>{{ number_format($data->stok,0,",","." ) }}</td>
+                      <td>{{ number_format($data->stok_min,0,",","." ) }}</td>
                       <td>
                         <button type="button" class="btn btn-sm btn-default btnEditBahan" data-toggle="modal" data-target="" data-id="{{$data->id}}" data-nama="{{$data->nama}}" data-satuan="{{$data->satuan}}" data-harga="{{$data->harga}}" data-stok="{{$data->stok}}" data-stokmin="{{$data->stok_min}}"><i class="fa fa-edit"></i> Ubah</button>
                         <a type="button" href="{{route('hapusBahan', ['id'=>$data->id])}}" class="btn btn-sm btn-danger btn-delete" onclick="return confirm('Apakah anda yakin akan menghapus?')"><i class="fa fa-trash-o"></i> Hapus</button>

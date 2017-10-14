@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-
+use Carbon\Carbon;
 use App\Penjualan;
 use App\DetailPenjualan;
 use App\IceCream;
@@ -20,10 +20,10 @@ class PenjualanController extends Controller
     public function index()
     {
         if(Auth::user()->level == "manager"){
-            $data = Penjualan::all();
+            $data = Penjualan::orderBy('updated_at', 'desc')->get();
             return view('admin.penjualan')->with('data', $data);
         } elseif (Auth::user()->level == "keuangan"){
-            $data = Penjualan::all();
+            $data = Penjualan::orderBy('updated_at', 'desc')->get();
             return view('keuangan.penjualan')->with('data', $data);
         }
     }
@@ -40,9 +40,10 @@ class PenjualanController extends Controller
     	
     }
 
-    public function store($pengguna, $datepicker, $total)
+    public function store($pengguna, $total)
     {
         $data = new Penjualan;
+        $datepicker = Carbon::now()->format('Y-m-d');
         $data->kode_penjualan = 'JL/' . $datepicker . '/';
         $data->id_users = $pengguna;
         $data->tgl = $datepicker;

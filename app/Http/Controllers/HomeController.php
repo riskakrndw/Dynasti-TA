@@ -34,13 +34,13 @@ class HomeController extends Controller
             $thn=\Route::current()->parameter('tahun');
             if($thn){
                 $th=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_penjualan FROM penjualan WHERE YEAR(tgl)='.$thn.' group by bulan order by MONTH(tgl)');
-                $thpemesanan=DB::SELECT('select MONTH(tanggal) as bulan, sum(total) as total_pemesanan FROM pemesanan WHERE YEAR(tanggal)='.$thn.' group by bulan order by MONTH(tanggal)');
-                $thpengadaan=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_pengadaan FROM pembelian WHERE YEAR(tgl)='.$thn.' AND status = "diterima" group by bulan order by MONTH(tgl)');
+                $thpemesanan=DB::SELECT('select MONTH(tanggal) as bulan, sum(total) as total_pemesanan FROM pemesanan WHERE YEAR(tanggal)='.$thn.' AND status = "selesai" group by bulan order by MONTH(tanggal)');
+                $thpengadaan=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_pengadaan FROM pembelian WHERE YEAR(tgl)='.$thn.' AND status in ("dibeli", "diterima") group by bulan order by MONTH(tgl)');
             }else{
 
                 $th=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_penjualan FROM penjualan WHERE YEAR(tgl)=YEAR(curdate()) group by bulan order by MONTH(tgl)');
-                $thpemesanan=DB::SELECT('select MONTH(tanggal) as bulan, sum(total) as total_pemesanan FROM pemesanan WHERE YEAR(tanggal)=YEAR(curdate()) group by bulan order by MONTH(tanggal)');
-                $thpengadaan=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_pengadaan FROM pembelian WHERE YEAR(tgl)=YEAR(curdate()) AND status = "diterima" group by bulan order by MONTH(tgl)');
+                $thpemesanan=DB::SELECT('select MONTH(tanggal) as bulan, sum(total) as total_pemesanan FROM pemesanan WHERE YEAR(tanggal)=YEAR(curdate()) AND status = "selesai" group by bulan order by MONTH(tanggal)');
+                $thpengadaan=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_pengadaan FROM pembelian WHERE YEAR(tgl)=YEAR(curdate()) AND status in ("dibeli", "diterima") group by bulan order by MONTH(tgl)');
             }
 
             $index = 0;
@@ -106,20 +106,28 @@ class HomeController extends Controller
             $totalstokes = count(DB::select("select * from ice_cream where stok < stok_min"));
         // untuk info beranda
 
-        return view('admin.beranda')->with('laporanuntungrugi', $laporanuntungrugi)->with('jumlahpermintaan', $jumlahpermintaan)->with('totalstokbahan', $totalstokbahan)->with('totalstokes', $totalstokes)->with('data', $data)->with('tahun', $tahun)->with('pemesanan', $pemesanan)->with('laporan', $laporan)->with('laporanpemesanan', $laporanpemesanan);
+
+        // info grafik es
+            $laporanterlaris = DB::SELECT("select ice_cream.nama as nama, sum(jumlah) as Jumlah, month(penjualan.tgl) as bulan FROM ice_cream join detail_penjualan on detail_penjualan.id_es = ice_cream.id 
+                join penjualan on penjualan.id = detail_penjualan.id_penjualan where month(penjualan.tgl)=".Carbon::now()->month." and year(penjualan.tgl) = ".Carbon::now()->year."
+                GROUP BY nama, month(penjualan.tgl), year(penjualan.tgl) ORDER BY Jumlah desc LIMIT 10");
+
+        // info grafik es
+
+        return view('admin.beranda')->with('laporanuntungrugi', $laporanuntungrugi)->with('laporanterlaris', $laporanterlaris)->with('jumlahpermintaan', $jumlahpermintaan)->with('totalstokbahan', $totalstokbahan)->with('totalstokes', $totalstokes)->with('data', $data)->with('tahun', $tahun)->with('pemesanan', $pemesanan)->with('laporan', $laporan)->with('laporanpemesanan', $laporanpemesanan);
     }
 
     public function grafikuntung($tahun1)
     {
         if($tahun1){
             $th=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_penjualan FROM penjualan WHERE YEAR(tgl)='.$tahun1.' group by bulan order by MONTH(tgl)');
-            $thpemesanan=DB::SELECT('select MONTH(tanggal) as bulan, sum(total) as total_pemesanan FROM pemesanan WHERE YEAR(tanggal)='.$tahun1.' group by bulan order by MONTH(tanggal)');
-            $thpengadaan=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_pengadaan FROM pembelian WHERE YEAR(tgl)='.$tahun1.' AND status = "diterima" group by bulan order by MONTH(tgl)');
+            $thpemesanan=DB::SELECT('select MONTH(tanggal) as bulan, sum(total) as total_pemesanan FROM pemesanan WHERE YEAR(tanggal)='.$tahun1.' AND status = "selesai" group by bulan order by MONTH(tanggal)');
+            $thpengadaan=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_pengadaan FROM pembelian WHERE YEAR(tgl)='.$tahun1.' AND status in ("dibeli", "diterima") group by bulan order by MONTH(tgl)');
         }else{
 
             $th=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_penjualan FROM penjualan WHERE YEAR(tgl)=YEAR(curdate()) group by bulan order by MONTH(tgl)');
-            $thpemesanan=DB::SELECT('select MONTH(tanggal) as bulan, sum(total) as total_pemesanan FROM pemesanan WHERE YEAR(tanggal)=YEAR(curdate()) group by bulan order by MONTH(tanggal)');
-            $thpengadaan=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_pengadaan FROM pembelian WHERE YEAR(tgl)=YEAR(curdate()) AND status = "diterima" group by bulan order by MONTH(tgl)');
+            $thpemesanan=DB::SELECT('select MONTH(tanggal) as bulan, sum(total) as total_pemesanan FROM pemesanan WHERE YEAR(tanggal)=YEAR(curdate()) AND status = "selesai" group by bulan order by MONTH(tanggal)');
+            $thpengadaan=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_pengadaan FROM pembelian WHERE YEAR(tgl)=YEAR(curdate()) AND status in ("dibeli", "diterima") group by bulan order by MONTH(tgl)');
         }
 
         
@@ -185,10 +193,10 @@ class HomeController extends Controller
     {
         if($tahun){
             $th=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_penjualan FROM penjualan WHERE YEAR(tgl)='.$tahun.' group by bulan order by MONTH(tgl)');
-            $thpemesanan=DB::SELECT('select MONTH(tanggal) as bulan, sum(total) as total_pemesanan FROM pemesanan WHERE YEAR(tanggal)='.$tahun.' group by bulan order by MONTH(tanggal)');
+            $thpemesanan=DB::SELECT('select MONTH(tanggal) as bulan, sum(total) as total_pemesanan FROM pemesanan WHERE YEAR(tanggal)='.$tahun.' AND status = "selesai"  group by bulan order by MONTH(tanggal)');
         }else{
             $th=DB::SELECT('select MONTH(tgl) as bulan, sum(total) as total_penjualan FROM penjualan WHERE YEAR(tgl)=YEAR(curdate()) group by bulan order by MONTH(tgl)');
-            $thpemesanan=DB::SELECT('select MONTH(tanggal) as bulan, sum(total) as total_pemesanan FROM pemesanan WHERE YEAR(tanggal)=YEAR(curdate()) group by bulan order by MONTH(tanggal)');
+            $thpemesanan=DB::SELECT('select MONTH(tanggal) as bulan, sum(total) as total_pemesanan FROM pemesanan WHERE YEAR(tanggal)=YEAR(curdate()) AND status = "selesai" group by bulan order by MONTH(tanggal)');
         }
 
         $index = 0;
@@ -380,5 +388,12 @@ class HomeController extends Controller
         // untuk informasi pemesanan
 
         return view('produksi.beranda')->with('data', $data)->with('pemesanan', $pemesanan);
+    }
+
+    public function pilihTerlaris($tahun, $bulan){
+        $laporanterlaris = DB::SELECT("select ice_cream.nama as nama, sum(jumlah) as Jumlah, month(penjualan.tgl) as bulan FROM ice_cream join detail_penjualan on detail_penjualan.id_es = ice_cream.id 
+                join penjualan on penjualan.id = detail_penjualan.id_penjualan where month(penjualan.tgl)=".$bulan." and year(penjualan.tgl) = ".$tahun."
+                GROUP BY nama, month(penjualan.tgl), year(penjualan.tgl) ORDER BY Jumlah desc LIMIT 10");
+        return $laporanterlaris;
     }
 }

@@ -20,7 +20,7 @@ class IceCreamController extends Controller
 
     public function index()
     {
-        $data = IceCream::orderBy('nama', 'asc')->get();
+        $data = IceCream::orderBy('updated_at', 'dsc')->get();
         $dataJenis = Jenis::get();
         $dataRasa = Rasa::get();
         /*dd($data);*/

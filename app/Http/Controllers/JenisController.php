@@ -14,7 +14,7 @@ class JenisController extends Controller
     
     public function index()
     {
-        $data = Jenis::orderBy('nama', 'asc')->get();
+        $data = Jenis::orderBy('updated_at', 'asc')->get();
         return view('admin.jenis', ['data'=>$data]);
     }
 

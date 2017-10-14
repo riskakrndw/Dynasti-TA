@@ -53,26 +53,9 @@
                   <div class="box-body">
                     <input class="form-control" type="hidden" name="idPengguna" id="idPengguna" value="{{Auth::User()->id}}">
                     <input class="form-control" type="hidden" name="status" id="status" value="">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>Tanggal</label>
-                        <div class="input-group date">
-                          <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                          </div>
-                          <input type="text" class="form-control pull-right" id="datepicker" placeholder="Tanggal Pengadaan" name="tanggal" data-date-end-date="0d">
-                        </div>
-                        <span class="help-block val_error" id="tanggal_error" style="color:red;"></span>
-                      </div>
-                    </div>
                   </div>
                 
               <!-- /Form tambah pembelian -->
-
-              <hr id="garis">
-              <ul class="nav nav-tabs-custom">
-                <li class="pull-left box-header"><h3 class="box-title">Daftar Bahan Baku</h3></li>
-              </ul>
 
               <div>
               <!-- Data bahan -->
@@ -103,7 +86,7 @@
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th style="width:50px">No</th>
+                        <th style="width:50px; display:none">No</th>
                         <th style="width: 325px">Nama Bahan</th>
                         <th style="width: 200px">Satuan</th>
                         <th style="width: 200px">Harga</th>
@@ -149,17 +132,10 @@
 <!-- dinamically add -->
   <script src="{{url('dist/js/jquery-1.8.2.min.js')}}" type="text/javascript" charset="utf8"></script>
   <script src="{{url('dist/js/select2/select2.js')}}"></script>
-<!-- date -->
-  <script src="{{url('dist/js/bootstrap-datepicker.js')}}"></script>
-  <script src="{{url('plugins/datepicker/locales/bootstrap-datepicker.id.js')}}"></script>
 
   <script type="text/javascript">
 
-    //getting all input object
-      var tanggal = document.forms["vform"]["tanggal"];
-
     //getting all error display object
-      var tanggal_error = document.getElementById("tanggal_error");
       var namaBahan = document.getElementById("namaBahan");
       var namabahan_error = document.getElementById("namabahan_error");
       var jumlahBahan = document.getElementById("jumlahBahan");
@@ -169,19 +145,7 @@
 
     //validation function
       function Validate(){
-        var cek = false;
 
-        if(tanggal.value == ""){
-          tanggal.style.border = "1px solid red";
-          tanggal_error.textContent = "Tanggal harus diisi";
-          tanggal.focus();
-          cek = true;
-        }else{
-          tanggal.style.border = "1px solid #5E6E66";
-          tanggal_error.innerHTML = "";
-        }
-
-        if(cek == false){
           if($('#type_container').children().length == 0){
 
             alert('Bahan baku harus diisi');
@@ -189,9 +153,6 @@
           }else{
             return true;
           }
-        }else{
-          return false;
-        }
 
         return true;
 
@@ -227,14 +188,6 @@
 
   <!-- script tambah bahan baku -->
   <script>
-    //Date picker
-      $('#datepicker').datepicker({
-        autoclose: true,
-        format: "yyyy-mm-dd",
-        todayBtn:"linked",
-        language:"id",
-      });
-
     var nomorBaris = 0;
     jQuery(document).ready(function() {
       var doc = $(document);
@@ -266,7 +219,7 @@
                 }
                 else{
                   nomorBaris = nomorBaris + 1;
-                  $('#type_container').append('<tr id="'+type_div+'"><td>'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
+                  $('#type_container').append('<tr id="'+type_div+'"><td style="display:none">'+nomorBaris+'</td><td>'+nama+'</td><td>'+satuan+'</td><td>'+harga+'</td><td id='+nama.replace(/\s/g,'')+'>'+jumlah+'</td><td class="subTotal" id='+nama.replace(/\s/g,'')+'subTotal'+'>'+Subtotal+'</td><td class="col-md-3 control-label"><a class="remove-type" targetDiv="" data-id="'+type_div+'" href="javascript: void(0)"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');            
                 }
                 $('#namaBahan').val('');
                 $('#hargaBahan').val('');
@@ -320,10 +273,6 @@
         if(Validate()){
           var kode = $('#kode').val();
           var pengguna = $('#idPengguna').val();
-          var datepicker = $('#datepicker').val();
-          var bulan = new Date(datepicker).getMonth()+1;
-          var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
-          console.log(bulan);
           var total = $('#totalHarga').val();
 
           var arrData=[];
@@ -368,7 +317,7 @@
 
           $.ajax({
               type: "GET",
-              url: "/dynasti/public/pengadaan/pembelian/simpan/"+pengguna+"/"+datepicker+"/"+total,
+              url: "/dynasti/public/pengadaan/pembelian/simpan/"+pengguna+"/"+total,
               success: function(result) {
                 idbeli = result;
                 console.log(idbeli)

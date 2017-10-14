@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-
+use Carbon\Carbon;
 use App\Pembelian;
 use App\DetailPembelian;
 use App\Bahan;
@@ -21,31 +21,31 @@ class PembelianController extends Controller
     public function index()
     {
         if(Auth::user()->level == "manager"){
-            $data = Pembelian::all();
-            $datamenunggu = Pembelian::where('status', '=', 'menunggu')->get();
-            $datadisetujui = Pembelian::where('status', '=', 'disetujui')->get();
-            $dataditolak = Pembelian::where('status', '=', 'ditolak')->get();
-            $datadibeli = Pembelian::where('status', '=', 'dibeli')->get();
-            $dataditerima = Pembelian::where('status', '=', 'diterima')->get();
-            $datagagal = Pembelian::where('status', '=', 'gagal')->get();
+            $data = Pembelian::orderBy('id', 'desc')->get();
+            $datamenunggu = Pembelian::where('status', '=', 'menunggu')->orderBy('updated_at', 'desc')->get();
+            $datadisetujui = Pembelian::where('status', '=', 'disetujui')->orderBy('updated_at', 'desc')->get();
+            $dataditolak = Pembelian::where('status', '=', 'ditolak')->orderBy('updated_at', 'desc')->get();
+            $datadibeli = Pembelian::where('status', '=', 'dibeli')->orderBy('updated_at', 'desc')->get();
+            $dataditerima = Pembelian::where('status', '=', 'diterima')->orderBy('updated_at', 'desc')->get();
+            $datagagal = Pembelian::where('status', '=', 'gagal')->orderBy('updated_at', 'desc')->get();
             return view('admin.pembelian')->with('data', $data)->with('datamenunggu', $datamenunggu)->with('datadisetujui', $datadisetujui)->with('dataditolak', $dataditolak)->with('datadibeli', $datadibeli)->with('dataditerima', $dataditerima)->with('datagagal', $datagagal);
         } elseif (Auth::user()->level == "keuangan"){
-            $data = Pembelian::all();
-            $datamenunggu = Pembelian::where('status', '=', 'menunggu')->get();
-            $datadisetujui = Pembelian::where('status', '=', 'disetujui')->get();
-            $dataditolak = Pembelian::where('status', '=', 'ditolak')->get();
-            $datadibeli = Pembelian::where('status', '=', 'dibeli')->get();
-            $dataditerima = Pembelian::where('status', '=', 'diterima')->get();
-            $datagagal = Pembelian::where('status', '=', 'gagal')->get();
+            $data = Pembelian::orderBy('id', 'desc')->get();
+            $datamenunggu = Pembelian::where('status', '=', 'menunggu')->orderBy('updated_at', 'desc')->get();
+            $datadisetujui = Pembelian::where('status', '=', 'disetujui')->orderBy('updated_at', 'desc')->get();
+            $dataditolak = Pembelian::where('status', '=', 'ditolak')->orderBy('updated_at', 'desc')->get();
+            $datadibeli = Pembelian::where('status', '=', 'dibeli')->orderBy('updated_at', 'desc')->get();
+            $dataditerima = Pembelian::where('status', '=', 'diterima')->orderBy('updated_at', 'desc')->get();
+            $datagagal = Pembelian::where('status', '=', 'gagal')->orderBy('updated_at', 'desc')->get();
             return view('keuangan.pembelian')->with('data', $data)->with('datamenunggu', $datamenunggu)->with('datadisetujui', $datadisetujui)->with('dataditolak', $dataditolak)->with('datadibeli', $datadibeli)->with('dataditerima', $dataditerima)->with('datagagal', $datagagal);
         } elseif (Auth::user()->level == "pengadaan"){
-            $data = Pembelian::all();
-            $datamenunggu = Pembelian::where('status', '=', 'menunggu')->get();
-            $datadisetujui = Pembelian::where('status', '=', 'disetujui')->get();
-            $dataditolak = Pembelian::where('status', '=', 'ditolak')->get();
-            $datadibeli = Pembelian::where('status', '=', 'dibeli')->get();
-            $dataditerima = Pembelian::where('status', '=', 'diterima')->get();
-            $datagagal = Pembelian::where('status', '=', 'gagal')->get();
+            $data = Pembelian::orderBy('id', 'desc')->get();
+            $datamenunggu = Pembelian::where('status', '=', 'menunggu')->orderBy('updated_at', 'desc')->get();
+            $datadisetujui = Pembelian::where('status', '=', 'disetujui')->orderBy('updated_at', 'desc')->get();
+            $dataditolak = Pembelian::where('status', '=', 'ditolak')->orderBy('updated_at', 'desc')->get();
+            $datadibeli = Pembelian::where('status', '=', 'dibeli')->orderBy('updated_at', 'desc')->get();
+            $dataditerima = Pembelian::where('status', '=', 'diterima')->orderBy('updated_at', 'desc')->get();
+            $datagagal = Pembelian::where('status', '=', 'gagal')->orderBy('updated_at', 'desc')->get();
             return view('pengadaan.pembelian')->with('data', $data)->with('datamenunggu', $datamenunggu)->with('datadisetujui', $datadisetujui)->with('dataditolak', $dataditolak)->with('datadibeli', $datadibeli)->with('dataditerima', $dataditerima)->with('datagagal', $datagagal);
         }
         
@@ -66,9 +66,10 @@ class PembelianController extends Controller
         
     }
 
-    public function store($pengguna, $datepicker, $total)
+    public function store($pengguna, $total)
     {
         $data = new Pembelian;
+        $datepicker = Carbon::now()->format('Y-m-d');
         $data->kode_pembelian = 'BL/' . $datepicker . '/';
         $data->id_users = $pengguna;
         $data->tgl = $datepicker;
@@ -76,7 +77,7 @@ class PembelianController extends Controller
         if(Auth::user()->level == "manager"){
             $data->status = "diterima";
         } elseif (Auth::user()->level == "keuangan"){
-            $data->status = "diterima";
+            $data->status = "dibeli";
         } elseif (Auth::user()->level == "pengadaan"){
             $data->status = "menunggu";
         }

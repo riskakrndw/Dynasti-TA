@@ -34,9 +34,22 @@ class ProfilController extends Controller
 
     public function updateData(Request $request)
     {
+        $data = User::find($request->id);
+        $this->validate($request, [
+            'nameUbah' => 'required|string|max:255',
+            'usernameUbah' => 'required|string|max:255|unique:users,username,'.$data->id,
+
+        ],
+        [
+        'nameUbah.required' => 'Nama harus diisi',
+        'usernameUbah.required' => 'Username harus diisi',
+        'usernameUbah.unique' => "Username sudah ada",
+        ]
+        );
+
     	$data = User::find($request->id);
-    	$data->name = $request->name;
-    	$data->username = $request->username;
+    	$data->name = $request->nameUbah;
+    	$data->username = $request->usernameUbah;
     	$data->save();
 
     	$notification = array(
@@ -51,6 +64,7 @@ class ProfilController extends Controller
         $this->validate($request,[                      // --> validasi input
             'passwordold' => 'required|min:6',
             'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6',
         ]);
 
         $User = User::find(Auth::user()->id);

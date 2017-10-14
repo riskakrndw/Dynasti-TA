@@ -354,7 +354,7 @@
              $.each(data, function(index, data){
               idbahan.push(data.id); //ngambil id bahan
               nomorBaris++
-                $('#type_container').append('<tr id="'+data.id+'"><td>'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td id="total'+nomorBaris+'" class="total">'+"0"+'</td><td class="stok"  id="stok'+data.id+'">'+data.stok+'</td></tr>');            
+                $('#type_container').append('<tr id="'+data.id+'"><td style="display:none">'+nomorBaris+'</td><td>'+data.nama+'</td><td>'+data.satuan+'</td><td id="total'+nomorBaris+'" class="total">'+"0"+'</td><td class="stok"  id="stok'+data.id+'">'+data.stok+'</td></tr>');            
                 
               arr2.push(data.stok);
               arrstok.push(data.stok);
