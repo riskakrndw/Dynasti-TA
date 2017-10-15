@@ -68,13 +68,8 @@ class ProduksiController extends Controller
         $data = new Produksi;
         $datepicker = Carbon::now()->format('Y-m-d');
         $data->id_users = $pengguna;
-        $data->kode_produksi = 'PRO/' . $datepicker . '/';
         $data->tgl = $datepicker;
         $data->save();
-        
-        $data->kode_produksi = $data->kode_produksi . $data->id;
-        $data->save();
-
         return $data->id;
     }
 
@@ -141,7 +136,6 @@ class ProduksiController extends Controller
         // return $request->jumlahes;
         $data = Produksi::find($request->id);
         $data->tgl = $request->datepicker;
-        $data->kode_produksi = 'PRO/' . $request->datepicker . '/' . $request->id;
         $data->id_users = auth()->user()->id;
         $data->save();
 

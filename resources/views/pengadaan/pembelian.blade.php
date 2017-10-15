@@ -65,7 +65,7 @@
                       @foreach($data as $data)
                         <tr>
                           <td>{{ $no++ }}</td>
-                          <td>{{ $data->kode_pembelian }}</td>
+                          <td>BL| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}</td>
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           @if($data->status == "menunggu")
@@ -110,7 +110,7 @@
                       @foreach($datamenunggu as $data)
                         <tr>
                           <td>{{ $no++ }}</td>
-                          <td>{{ $data->kode_pembelian }}</td>
+                          <td>BL| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}</td>
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
@@ -140,7 +140,7 @@
                       @foreach($datadisetujui as $data)
                         <tr>
                           <td>{{ $no++ }}</td>
-                          <td>{{ $data->kode_pembelian }}</td>
+                          <td>BL| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}</td>
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
@@ -170,7 +170,7 @@
                       @foreach($dataditolak as $data)
                         <tr>
                           <td>{{ $no++ }}</td>
-                          <td>{{ $data->kode_pembelian }}</td>
+                          <td>BL| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}</td>
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
@@ -199,7 +199,7 @@
                       @foreach($datadibeli as $data)
                         <tr>
                           <td>{{ $no++ }}</td>
-                          <td>{{ $data->kode_pembelian }}</td>
+                          <td>BL| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}</td>
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
@@ -235,7 +235,7 @@
                       @foreach($dataditerima as $data)
                         <tr>
                           <td>{{ $no++ }}</td>
-                          <td>{{ $data->kode_pembelian }}</td>
+                          <td>BL| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}</td>
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>
@@ -264,7 +264,7 @@
                       @foreach($datagagal as $data)
                         <tr>
                           <td>{{ $no++ }}</td>
-                          <td>{{ $data->kode_pembelian }}</td>
+                          <td>BL| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}</td>
                           <td>{{ $data->tgl }}</td>
                           <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                           <td>

@@ -11,6 +11,8 @@
 <link href="{{url('dist/css/bootstrap-modal.css')}}" rel="stylesheet" />
 <link href="{{url('dist/js/select2/select2.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{url('dist/js/select2/select2-bootstrap-dick.css')}}" rel="stylesheet" type="text/css" />
+  <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="{{url('plugins/timepicker/bootstrap-timepicker.min.css')}}">
 
 <style type="text/css">
   #garis{
@@ -53,23 +55,35 @@
                   <div class="box-body">
                     <input class="form-control" type="hidden" name="idPengguna" id="idPengguna" value="{{Auth::User()->id}}">
                     <input class="form-control" type="hidden" name="status" id="status" value="">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <div class="form-group">
                         <label>Kode Pengadaan</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Pembelian" name="kode" id="kode" value="{{ $data->kode_pembelian }}" disabled>
+                          <input class="form-control" placeholder="Kode Pembelian" name="kode" id="kode" value="BL| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}" disabled>
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <div class="form-group">
                         <label>Tanggal</label>
                         <div class="input-group date">
                           <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" class="form-control pull-right" id="datepicker" value="{{ $data->tgl }}" name="tanggal" data-date-end-date="0d">
+                          <input type="text" class="form-control pull-right" id="datepicker" value="{{Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}" name="tanggal" data-date-end-date="0d">
+                        </div>
+                        <span class="help-block val_error" id="tanggal_error" style="color:red;"></span>
+                      </div>
+                    </div>
+                    <div class="col-md-4 bootstrap-timepicker">
+                      <div class="form-group">
+                        <label>Waktu</label>
+                        <div class="input-group">
+                          <input type="text" class="form-control timepicker" name="waktu" value="{{Carbon\Carbon::parse($data->tgl)->format('H:i')}}">
+                          <div class="input-group-addon">
+                            <i class="fa fa-clock-o"></i>
+                          </div>
                         </div>
                         <span class="help-block val_error" id="tanggal_error" style="color:red;"></span>
                       </div>
@@ -174,6 +188,8 @@
 <!-- date -->
   <script src="{{url('dist/js/bootstrap-datepicker.js')}}"></script>
   <script src="{{url('plugins/datepicker/locales/bootstrap-datepicker.id.js')}}"></script>
+<!-- bootstrap time picker -->
+<script src="{{url('plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
 
   <script type="text/javascript">
 
@@ -256,6 +272,12 @@
         todayBtn:"linked",
         language:"id",
       });
+
+      //Timepicker
+    $(".timepicker").timepicker({
+      showInputs: false,
+      showMeridian: false
+    });
 
     var nomorBaris = {{$no - 1}};
     jQuery(document).ready(function() {
@@ -349,6 +371,7 @@
           var kode = $('#kode').val();
           var pengguna = $('#idPengguna').val();
           var datepicker = $('#datepicker').val();
+          var waktu = $('.timepicker').val();
           var bulan = new Date(datepicker).getMonth()+1;
           var datepicker = new Date(datepicker).getFullYear() + '-' + bulan + '-' + new Date(datepicker).getDate();
           console.log(bulan);
@@ -397,7 +420,7 @@
           
             $.ajax({
                 type: "GET",
-                url: "/dynasti/public/keuangan/pembelian/ubah/"+idbeli+"/"+pengguna+"/"+datepicker+"/"+total+"/"+status,
+                url: "/dynasti/public/keuangan/pembelian/ubah/"+idbeli+"/"+pengguna+"/"+datepicker+"/"+waktu+"/"+total+"/"+status,
                 success: function(result) {
 
                 }

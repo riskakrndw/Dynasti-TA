@@ -63,7 +63,7 @@
                     @foreach($data as $datapro)
                     <tr>
                       <td>{{ $no++ }}</td>
-                      <td>{{ $datapro->kode_produksi }}</td>
+                      <td>PRO| {{\Carbon\Carbon::parse($datapro->tgl)->format('Y-m-d')}}| {{$datapro->id}}</td>
                       <td>{{ $datapro->tgl }}</td>
                       <td>{{ $datapro->detail_produksi[0]->ice_cream->rasa->nama }}</td>
                       <td>
@@ -80,40 +80,6 @@
           </div>
         </div>
         <!-- /Data produksi -->
-
-        <!-- Modal edit jenis -->
-          <div id="editPro" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title">Ubah Data Produksi</h4>
-            </div>
-            <div class="modal-body modal-primary">
-              <form role="form" action="{{url('produksi/produksi/edit')}}" method="POST">
-              {{csrf_field()}}
-              <label>Kode Produksi</label>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
-                <input class="form-control" id="kodepro" name="kodepro" placeholder="Kode Produksi" value="" disabled>
-              </div>
-              <br>
-              <label>Tanggal</label>
-                <div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control pull-right" id="datepicker" name="datepicker">
-                </div>
-              <input class="form-control" type="hidden" name="id" id="idpro" value="">
-            </div>
-            <div class="modal-footer">
-              <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
-              <button type="submit" class="btn btn-primary">Simpan</button>
-
-            </div>
-          </form>
-          </div>
-        <!-- /Modal edit jenis -->
-
       </div>
     </section>
     <!-- /. main content -->

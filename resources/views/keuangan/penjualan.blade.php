@@ -64,7 +64,7 @@
                     @foreach($data as $data)
                     <tr>
                       <td>{{ $no++ }}</td>
-                      <td>{{ $data->kode_penjualan }}</td>
+                      <td>PNJ| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}</td>
                       <td>{{ $data->tgl }}</td>
                       <td>Rp {{ number_format($data->total,2,",","." ) }}</td>
                       <td>

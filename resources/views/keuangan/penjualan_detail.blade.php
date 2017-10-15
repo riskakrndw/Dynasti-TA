@@ -56,7 +56,7 @@
                         <label>Kode Penjualan</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Penjualan" name="kode" id="kode" value="{{ $data->kode_penjualan }}" disabled>
+                          <input class="form-control" placeholder="Kode Penjualan" name="kode" id="kode" value="PNJ| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}" disabled>
                         </div>
                       </div>
                     </div>

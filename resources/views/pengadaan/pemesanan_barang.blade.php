@@ -57,7 +57,7 @@
                       @foreach($data as $data)
                         <tr>
                           <td>{{ $no++ }}</td>
-                          <td>{{ $data->pemesanan->kode_pemesanan }}</td>
+                          <td>PMS| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}</td>
                           <td>{{ $data->pemesanan->tanggal }}</td>
                           <td>{{ $data->status }}</td>
                           <td>{{ $data->ice_cream->nama }}</td>
@@ -89,7 +89,7 @@
                       @foreach($datamenunggu as $data)
                         <tr>
                           <td class="number">{{ $no++ }}</td>
-                          <td>{{ $data->pemesanan->kode_pemesanan }}</td>
+                          <td>PMS| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}</td>
                           <td>{{ $data->pemesanan->tanggal }}</td>
                           <td>{{ $data->ice_cream->nama }}</td>
                           <td>{{ $data->jumlah }}</td>
@@ -122,7 +122,7 @@
                       @foreach($datasiap as $data)
                         <tr>
                           <td>{{ $no++ }}</td>
-                          <td>{{ $data->pemesanan->kode_pemesanan }}</td>
+                          <td>PMS| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}</td>
                           <td>{{ $data->pemesanan->tanggal }}</td>
                           <td>{{ $data->ice_cream->nama }}</td>
                           <td>{{ $data->jumlah }}</td>

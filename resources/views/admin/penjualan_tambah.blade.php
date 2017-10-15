@@ -323,10 +323,10 @@
               }
           }).done(a);
 
-          $(document).ajaxStop(function(){
-            window.location="{{URL::to('manager/penjualan')}}";
-            toastr.success("Data berhasil ditambah");
-          });
+          // $(document).ajaxStop(function(){
+          //   window.location="{{URL::to('manager/penjualan')}}";
+          //   toastr.success("Data berhasil ditambah");
+          // });
         }
       });
     });

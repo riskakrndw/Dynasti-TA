@@ -65,7 +65,7 @@
                       @foreach($data as $data)
                         <tr>
                           <td>{{ $no++ }}</td>
-                          <td>{{ $data->kode_pemesanan }}</td>
+                          <td>PMS| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}</td>
                           <td>{{ $data->tanggal }}</td>
                           <td>{{ $data->status }}</td>
                           <td>{{ $data->nama }}</td>
@@ -101,7 +101,7 @@
                       @foreach($datamenunggu as $data)
                         <tr>
                           <td>{{ $no++ }}</td>
-                          <td>{{ $data->kode_pemesanan }}</td>
+                          <td>PMS| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}</td>
                           <td>{{ $data->tanggal }}</td>
                           <td>{{ $data->nama }}</td>
                           <td>{{ $data->alamat }}</td>
@@ -136,7 +136,7 @@
                       @foreach($datasiap as $data)
                         <tr>
                           <td>{{ $no++ }}</td>
-                          <td>{{ $data->kode_pemesanan }}</td>
+                          <td>PMS| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}</td>
                           <td>{{ $data->tanggal }}</td>
                           <td>{{ $data->nama }}</td>
                           <td>{{ $data->alamat }}</td>
@@ -171,7 +171,7 @@
                       @foreach($dataselesai as $data)
                         <tr>
                           <td>{{ $no++ }}</td>
-                          <td>{{ $data->kode_pemesanan }}</td>
+                          <td>PMS| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}</td>
                           <td>{{ $data->tanggal }}</td>
                           <td>{{ $data->nama }}</td>
                           <td>{{ $data->alamat }}</td>
@@ -204,7 +204,7 @@
                       @foreach($databatal as $datas)
                         <tr>
                           <td>{{ $no++ }}</td>
-                          <td>{{ $datas->kode_pemesanan }}</td>
+                          <td>PMS| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}</td>
                           <td>{{ $datas->tanggal }}</td>
                           <td>{{ $datas->nama }}</td>
                           <td>{{ $datas->alamat }}</td>

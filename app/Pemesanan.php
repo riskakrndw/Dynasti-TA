@@ -13,7 +13,7 @@ class Pemesanan extends Model
     protected $table = "pemesanan";
 
     protected $fillable = [
-    	'id', 'kode_pemesanan', 'nama', 'alamat', 'telepon', 'tanggal', 'total', 'status'
+    	'id', 'nama', 'alamat', 'telepon', 'tanggal', 'total', 'status'
     ];
 
     public function detail_pemesanan(){

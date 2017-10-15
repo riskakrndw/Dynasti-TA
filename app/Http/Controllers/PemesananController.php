@@ -62,15 +62,11 @@ class PemesananController extends Controller
     {
         $data = new Pemesanan;
         $data->id_users = $pengguna;
-        $data->kode_pemesanan = 'PSN/' . $datepicker . '/';
         $data->nama = $nama;
         $data->alamat = $alamat;
         $data->telepon = $telepon;
         $data->tanggal = $datepicker;
         $data->total = $total;
-        $data->save();
-        
-        $data->kode_pemesanan = $data->kode_pemesanan . $data->id;
         $data->save();
 
         return $data->id;
@@ -178,7 +174,6 @@ class PemesananController extends Controller
     {
         $data = Pemesanan::find($id_pesan);
         $data->id_users = $pengguna;
-        $data->kode_pemesanan = 'PSN/' . $datepicker . '/' . $data->id;
         $data->nama = $nama;
         $data->alamat = $alamat;
         $data->telepon = $telepon;

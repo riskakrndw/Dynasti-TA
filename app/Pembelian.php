@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Pembelian extends Model
 {
     protected $table = "pembelian";
-
+    
     protected $fillable = [
-    	'id', 'kode_pembelian', 'total', 'tgl', 'status'
+    	'id', 'total', 'tgl', 'status'
     ];
 
     public function detail_beli(){

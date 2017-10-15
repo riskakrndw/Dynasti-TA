@@ -59,7 +59,7 @@
                       @if($data->jumlah > 0)
                         <tr>
                           <td>{{ $no++ }}</td>
-                          <td>{{ $data->produksi->kode_produksi }}</td>
+                          <td>PRO| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}</td>
                           <td>{{ $data->produksi->tgl }}</td>
                           <td>{{ $data->ice_cream->nama }}</td>
                           <td>{{ $data->jumlah }}</td>

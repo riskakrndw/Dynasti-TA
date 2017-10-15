@@ -51,16 +51,16 @@
                 <form role="form" action="" method="">
                   {{csrf_field()}}
                   <div class="box-body">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <div class="form-group">
-                        <label>Kode Pembelian</label>
+                        <label>Kode Pengadaan</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                          <input class="form-control" placeholder="Kode Pembelian" name="kode" id="kode" value="{{ $data->kode_pembelian }}" disabled>
+                          <input class="form-control" placeholder="Kode Pengadaan" name="kode" id="kode" value="BL| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}" disabled>
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <div class="form-group">
                         <label>Tanggal</label>
                         <div class="input-group date">
@@ -68,6 +68,42 @@
                             <i class="fa fa-calendar"></i>
                           </div>
                           <input type="text" class="form-control pull-right" id="datepicker" value="{{ $data->tgl }}" disabled>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Status</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <input class="form-control" value="{{ $data->status }}" disabled>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Tanggal Konfirmasi Permintaan</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <input class="form-control" value="@if($data->tgl_permintaan == NULL) Pembelian belum dikonfirmasi @else {{ $data->tgl_permintaan }} @endif" disabled>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Tanggal Konfirmasi Pembelian</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <input class="form-control" value="@if($data->tgl_pembelian == NULL) Pembelian belum dikonfirmasi @else {{ $data->tgl_pembelian }} @endif" disabled>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Tanggal Konfirmasi Penerimaan</label>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                          <input class="form-control" value="@if($data->tgl_penerimaan == NULL) Penerimaan belum dikonfirmasi @else {{ $data->tgl_penerimaan }} @endif" disabled>
                         </div>
                       </div>
                     </div>

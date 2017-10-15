@@ -44,15 +44,10 @@ class PenjualanController extends Controller
     {
         $data = new Penjualan;
         $datepicker = Carbon::now()->format('Y-m-d');
-        $data->kode_penjualan = 'JL/' . $datepicker . '/';
         $data->id_users = $pengguna;
         $data->tgl = $datepicker;
         $data->total = $total;
         $data->save();
-        
-        $data->kode_penjualan = $data->kode_penjualan . $data->id;
-        $data->save();
-
         return $data->id;
     }
 
@@ -75,7 +70,6 @@ class PenjualanController extends Controller
     public function ubah($id_jual, $pengguna, $datepicker, $total)
     {
     	$data = Penjualan::find($id_jual);
-        $data->kode_penjualan = 'JL/' . $datepicker . '/' . $data->id;
         $data->id_users = $pengguna;
     	$data->tgl = $datepicker;
     	$data->total = $total;

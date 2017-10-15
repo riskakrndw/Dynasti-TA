@@ -322,10 +322,10 @@
               }
           }).done(a);
 
-          $(document).ajaxStop(function(){
-            window.location="{{URL::to('manager/pembelian')}}";
-            toastr.success("Data berhasil ditambah");
-          });
+          // $(document).ajaxStop(function(){
+          //   window.location="{{URL::to('manager/pembelian')}}";
+          //   toastr.success("Data berhasil ditambah");
+          // });
         }
         
       });

@@ -57,7 +57,7 @@
                         <label>Kode Pemesanan</label>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
-                          <input class="form-control" placeholder="Kode Penjualan" name="kode" id="kode" value="{{ $data->kode_pemesanan }}" disabled>
+                          <input class="form-control" placeholder="Kode Penjualan" name="kode" id="kode" value="PMS| {{\Carbon\Carbon::parse($data->tgl)->format('Y-m-d')}}| {{$data->id}}" disabled>
                         </div>
                       </div>
                     </div>

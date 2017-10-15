@@ -69,23 +69,23 @@ class PembelianController extends Controller
     public function store($pengguna, $total)
     {
         $data = new Pembelian;
-        $datepicker = Carbon::now()->format('Y-m-d');
-        $data->kode_pembelian = 'BL/' . $datepicker . '/';
+        $datepicker = Carbon::now()->format('Y-m-d H:i:s');
         $data->id_users = $pengguna;
         $data->tgl = $datepicker;
         $data->total = $total;
         if(Auth::user()->level == "manager"){
             $data->status = "diterima";
+            $data->tgl_permintaan = $datepicker;
+            $data->tgl_pembelian = $datepicker;
+            $data->tgl_penerimaan = $datepicker;
         } elseif (Auth::user()->level == "keuangan"){
+            $data->$tgl_permintaan = $datepicker;
+            $data->tgl_pembelian = $datepicker;
             $data->status = "dibeli";
         } elseif (Auth::user()->level == "pengadaan"){
             $data->status = "menunggu";
         }
         $data->save();
-
-        $data->kode_pembelian = $data->kode_pembelian . $data->id;
-        $data->save();
-
         return $data->id;
     }
 
@@ -106,12 +106,11 @@ class PembelianController extends Controller
 
     }
 
-    public function ubah($id_beli, $pengguna, $datepicker, $total)
+    public function ubah($id_beli, $pengguna, $datepicker, $waktu, $total)
     {
         $data = Pembelian::find($id_beli);
-        $data->kode_pembelian = 'BL/' . $datepicker . '/' . $data->id;
         $data->id_users = $pengguna;
-        $data->tgl = $datepicker;
+        $data->tgl = $datepicker . ' ' . $waktu;
         $data->total = $total;
         $data->save();
 
@@ -214,7 +213,7 @@ class PembelianController extends Controller
     public function pembelianDisetujui(Request $request)
     {
         $data = Pembelian::where('id', $request->id)->first();
-
+        $data->tgl_permintaan = Carbon::now()->format('Y-m-d H:i:s');
         $data->status = $request->status;
         $data->save();
         
@@ -228,7 +227,7 @@ class PembelianController extends Controller
     public function pembelianDitolak(Request $request)
     {
         $data = Pembelian::where('id', $request->id)->first();
-
+        $data->tgl_permintaan = Carbon::now()->format('Y-m-d H:i:s');
         $data->status = $request->status;
         $data->save();
         
@@ -242,7 +241,7 @@ class PembelianController extends Controller
     public function pembelianDibeli(Request $request)
     {
         $data = Pembelian::where('id', $request->id)->first();
-
+        $data->tgl_pembelian = Carbon::now()->format('Y-m-d H:i:s');
         $data->status = $request->status;
         $data->save();
         
@@ -256,7 +255,7 @@ class PembelianController extends Controller
     public function pembelianGagal(Request $request)
     {
         $data = Pembelian::where('id', $request->id)->first();
-
+        $data->tgl_pembelian = Carbon::now()->format('Y-m-d H:i:s');
         $data->status = $request->status;
         $data->save();
 
@@ -270,7 +269,7 @@ class PembelianController extends Controller
     public function pembelianDiterima(Request $request)
     {
         $data = Pembelian::where('id', $request->id)->first();
-
+        $data->tgl_penerimaan = Carbon::now()->format('Y-m-d H:i:s');
         $data->status = $request->status;
         $data->save();
 

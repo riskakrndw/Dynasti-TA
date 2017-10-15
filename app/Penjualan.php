@@ -10,7 +10,7 @@ class Penjualan extends Model
     protected $table = "penjualan";
 
     protected $fillable = [
-    	'id', 'kode_penjualan', 'total', 'tgl'
+    	'id', 'total', 'tgl'
 	];
 
 	public function detail_jual(){

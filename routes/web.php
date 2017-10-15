@@ -156,7 +156,7 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
 				/*melakukan ubah*/
 					Route::get('/manager/pembelian/hapusDetailPembelian/{id}', 'PembelianController@hapusDetailPembelian')->name('hapusDetailPembelian');
 					Route::get('/manager/pembelian/edit/{id}', 'PembelianController@showEdit');
-					Route::get('/manager/pembelian/ubah/{id_beli}/{pengguna}/{datepicker}/{total}', 'PembelianController@ubah');
+					Route::get('/manager/pembelian/ubah/{id_beli}/{pengguna}/{datepicker}/{waktu}/{total}', 'PembelianController@ubah');
 				// ubah status pembelian
 					Route::post('/manager/pembelian/disetujui', 'PembelianController@pembelianDisetujui');
 					Route::post('/manager/pembelian/ditolak', 'PembelianController@pembelianDitolak');
@@ -306,7 +306,7 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
 				/*melakukan ubah*/
 					Route::get('/keuangan/pembelian/hapusDetailPembelian/{id}', 'PembelianController@hapusDetailPembelian')->name('hapusDetailPembelianKeu');
 					Route::get('/keuangan/pembelian/edit/{id}', 'PembelianController@showEdit');
-					Route::get('/keuangan/pembelian/ubah/{id_beli}/{pengguna}/{datepicker}/{total}/{status}', 'PembelianController@ubah');
+					Route::get('/keuangan/pembelian/ubah/{id_beli}/{pengguna}/{datepicker}/{waktu}/{total}/{status}', 'PembelianController@ubah');
 				// ubah status
 					Route::post('/keuangan/pembelian/dibeli', 'PembelianController@pembelianDibeli');
 					Route::post('/keuangan/pembelian/gagal', 'PembelianController@pembelianGagal');
@@ -356,7 +356,7 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
 				/*melakukan ubah*/
 					Route::get('/pengadaan/pembelian/hapusDetailPembelian/{id}', 'PembelianController@hapusDetailPembelian')->name('hapusDetailPembelianPeng');
 					Route::get('/pengadaan/pembelian/edit/{id}', 'PembelianController@showEdit');
-					Route::get('/pengadaan/pembelian/ubah/{id_beli}/{pengguna}/{datepicker}/{total}/{status}', 'PembelianController@ubah');
+					Route::get('/pengadaan/pembelian/ubah/{id_beli}/{pengguna}/{datepicker}/{waktu}/{total}/{status}', 'PembelianController@ubah');
 
 				// melakukan konfirmasi penerimaan
 					Route::post('/pengadaan/pembelian/diterima', 'PembelianController@pembelianDiterima');
